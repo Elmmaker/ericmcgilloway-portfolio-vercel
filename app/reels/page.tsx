@@ -8,20 +8,18 @@ const REELS = [
   {
     label: "Primary Reel",
     title: "Motion Design Reel 2026",
-    desc: "The full picture. Broadcast graphics, title sequences, documentary maps, entertainment marketing campaigns, and everything in between.",
+    desc: "Broadcast graphics, title sequences, documentary maps, entertainment marketing campaigns, and everything in between.",
     embedUrl: "https://framerate.tv/watch/e6afa38e-3145-439f-ae2f-dde6fe8c27a1",
-    duration: "2:30",
+    duration: "1:48",
     updated: "2026",
-    quality: "HD / 4K",
   },
   {
     label: "Opening Titles",
     title: "After Midnight — CBS",
     desc: "Opening title sequence for CBS's After Midnight with Taylor Tomlinson. Broadcast design, animation, and finishing.",
     embedUrl: "https://framerate.tv/watch/659a3cdd-bee0-4230-a232-1c26b1a81a2e",
-    duration: "1:45",
+    duration: "0:31",
     updated: "2025",
-    quality: "HD / 4K",
   },
 ];
 
@@ -38,7 +36,7 @@ export default function ReelsPage() {
       >
         <FadeUp>
           <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold" style={{ marginBottom: "12px" }}>
-            01 / Reels
+            01
           </div>
         </FadeUp>
         <FadeUp delay={0.1}>
@@ -52,7 +50,7 @@ export default function ReelsPage() {
 
         {REELS.map((reel, i) => (
           <FadeUp key={reel.title} delay={i * 0.15}>
-            <div className={i < REELS.length - 1 ? "mb-25" : "mb-10"}>
+            <div style={{ marginBottom: i < REELS.length - 1 ? "40px" : "40px", marginTop: i > 0 ? "100px" : undefined }}>
               <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
                 {reel.label}
               </div>
@@ -62,7 +60,7 @@ export default function ReelsPage() {
               >
                 {reel.title}
               </div>
-              <div className="text-base max-w-[600px] mb-8" style={{ color: "#8A8579", lineHeight: 1.7 }}>
+              <div className="text-base max-w-[600px]" style={{ color: "#8A8579", lineHeight: 1.7, marginBottom: "40px" }}>
                 {reel.desc}
               </div>
 
@@ -80,7 +78,6 @@ export default function ReelsPage() {
               <div className="flex gap-8 mt-5 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
                 <span>Duration: {reel.duration}</span>
                 <span>Updated: {reel.updated}</span>
-                <span>{reel.quality}</span>
               </div>
             </div>
           </FadeUp>

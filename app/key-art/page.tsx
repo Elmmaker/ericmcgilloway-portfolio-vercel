@@ -8,43 +8,43 @@ import Footer from "../components/Footer";
 import PageTransition from "../components/PageTransition";
 
 const KEY_ART = [
-  { id: 0, filename: "absolut-vodka-creativity-v4.jpg", title: "Absolut Vodka", desc: "Creativity campaign v4", cat: "Advertising / Brand" },
-  { id: 1, filename: "bd-keyart-01.jpg", title: "BD", desc: "Key art 01", cat: "Entertainment Marketing" },
-  { id: 2, filename: "bert-kreischer-cruise.jpg", title: "Bert Kreischer", desc: "Cruise key art", cat: "Comedy / Touring" },
-  { id: 3, filename: "bert-kreischer-fl-tour-v1.jpg", title: "Bert Kreischer", desc: "Fully Loaded tour key art v1", cat: "Comedy / Touring" },
-  { id: 4, filename: "bert-kreischer-fully-loaded-great-dane-roadside.png", title: "Bert Kreischer", desc: "Great Dane trailer roadside billboard", cat: "Comedy / Touring" },
-  { id: 5, filename: "bert-kreischer-truck-wrap.png", title: "Bert Kreischer", desc: "Truck wrap design", cat: "Comedy / Touring" },
-  { id: 6, filename: "charlie-berens-grid-01.png", title: "Charlie Berens", desc: "Social media grid layout 01", cat: "Comedy / Touring" },
-  { id: 7, filename: "charlie-berens-grid-02.png", title: "Charlie Berens", desc: "Social media grid layout 02", cat: "Comedy / Touring" },
-  { id: 8, filename: "charlie-berens-moodboards-2025.png", title: "Charlie Berens", desc: "Moodboards 2025", cat: "Comedy / Touring" },
-  { id: 9, filename: "charlie-berens-out-there-tour-01.png", title: "Charlie Berens", desc: "Out There Tour key art 01", cat: "Comedy / Touring" },
-  { id: 10, filename: "charlie-berens-out-there-tour-02.png", title: "Charlie Berens", desc: "Out There Tour key art 02", cat: "Comedy / Touring" },
-  { id: 11, filename: "charlie-berens-out-there-tour-04.png", title: "Charlie Berens", desc: "Out There Tour key art 04", cat: "Comedy / Touring" },
-  { id: 12, filename: "charlie-berens-poster-bluebrick-16x9.png", title: "Charlie Berens", desc: "Blue Brick poster 16:9", cat: "Comedy / Touring" },
-  { id: 13, filename: "charlie-berens-poster-bluebrick-1x1.png", title: "Charlie Berens", desc: "Blue Brick poster 1:1", cat: "Comedy / Touring" },
-  { id: 14, filename: "charlie-berens-poster-bluebrick-9x16.png", title: "Charlie Berens", desc: "Blue Brick poster 9:16", cat: "Comedy / Touring" },
-  { id: 15, filename: "con-air-keyart-01.jpg", title: "Con Air", desc: "Key art 01", cat: "Entertainment Marketing" },
-  { id: 16, filename: "conan-in-cuba-keyart.png", title: "Conan in Cuba", desc: "Cuba special key art", cat: "Entertainment Marketing" },
-  { id: 17, filename: "conan-obrien-keyart-01-horz.png", title: "Conan O'Brien", desc: "Key art 01 horizontal", cat: "Entertainment Marketing" },
-  { id: 18, filename: "conan-obrien-keyart-01-vert.png", title: "Conan O'Brien", desc: "Key art 01 vertical", cat: "Entertainment Marketing" },
-  { id: 19, filename: "conan-obrien-keyart-01alt-horz.png", title: "Conan O'Brien", desc: "Key art 01 alt horizontal", cat: "Entertainment Marketing" },
-  { id: 20, filename: "conan-obrien-keyart-01alt-vert.png", title: "Conan O'Brien", desc: "Key art 01 alt vertical", cat: "Entertainment Marketing" },
-  { id: 21, filename: "conan-obrien-keyart-02-horz.png", title: "Conan O'Brien", desc: "Key art 02 horizontal", cat: "Entertainment Marketing" },
-  { id: 22, filename: "conan-obrien-keyart-02-vert.png", title: "Conan O'Brien", desc: "Key art 02 vertical", cat: "Entertainment Marketing" },
-  { id: 23, filename: "conan-obrien-keyart-02alt-horz.png", title: "Conan O'Brien", desc: "Key art 02 alt horizontal", cat: "Entertainment Marketing" },
-  { id: 24, filename: "conan-obrien-keyart-02alt-vert.png", title: "Conan O'Brien", desc: "Key art 02 alt vertical", cat: "Entertainment Marketing" },
-  { id: 25, filename: "conan-obrien-keyart-03-horz.png", title: "Conan O'Brien", desc: "Key art 03 horizontal", cat: "Entertainment Marketing" },
-  { id: 26, filename: "conan-obrien-keyart-03-vert.png", title: "Conan O'Brien", desc: "Key art 03 vertical", cat: "Entertainment Marketing" },
-  { id: 27, filename: "fully-loaded-2023-keyart-01.jpg", title: "Fully Loaded Festival", desc: "2023 festival key art 01", cat: "Live Events" },
-  { id: 28, filename: "fully-loaded-2023-keyart-02.jpg", title: "Fully Loaded Festival", desc: "2023 festival key art 02", cat: "Live Events" },
-  { id: 29, filename: "fully-loaded-2023-keyart-03.jpg", title: "Fully Loaded Festival", desc: "2023 festival key art 03", cat: "Live Events" },
-  { id: 30, filename: "fully-loaded-cup-web.jpg", title: "Fully Loaded Festival", desc: "Cup web graphic", cat: "Live Events" },
-  { id: 31, filename: "fully-loaded-family-1x1.jpg", title: "Fully Loaded Festival", desc: "Family key art 1:1", cat: "Live Events" },
-  { id: 32, filename: "fully-loaded-keyart-01-v3.jpg", title: "Fully Loaded Festival", desc: "Key art 01 v3", cat: "Live Events" },
-  { id: 33, filename: "fyse-in-conversation-julia-garner.jpg", title: "FYSE In Conversation", desc: "Julia Garner In Conversation", cat: "Entertainment Marketing" },
-  { id: 34, filename: "fyse-storytellers-keyart.png", title: "FYSE Storytellers", desc: "Storytellers key art v2", cat: "Entertainment Marketing" },
-  { id: 35, filename: "music-milestones-v5.jpg", title: "Music Milestones", desc: "Music Milestones email key art v5", cat: "Entertainment Marketing" },
-  { id: 36, filename: "music-of-netflix-fyse-v1.jpg", title: "Music of Netflix", desc: "FYSE campaign key art", cat: "Entertainment Marketing" },
+  { id: 0, filename: "absolut-vodka-creativity-v4.jpg", title: "Absolut Vodka", desc: "Creativity campaign v4", cat: "Advertising / Brand", w: 2400, h: 3133 },
+  { id: 1, filename: "bd-keyart-01.jpg", title: "BD", desc: "Key art 01", cat: "Entertainment Marketing", w: 1000, h: 1500 },
+  { id: 2, filename: "bert-kreischer-cruise.jpg", title: "Bert Kreischer", desc: "Cruise key art", cat: "Comedy / Touring", w: 2000, h: 907 },
+  { id: 3, filename: "bert-kreischer-fl-tour-v1.jpg", title: "Bert Kreischer", desc: "Fully Loaded tour key art v1", cat: "Comedy / Touring", w: 2310, h: 3094 },
+  { id: 4, filename: "bert-kreischer-fully-loaded-great-dane-roadside.png", title: "Bert Kreischer", desc: "Great Dane trailer roadside billboard", cat: "Comedy / Touring", w: 6142, h: 1000 },
+  { id: 5, filename: "bert-kreischer-truck-wrap.png", title: "Bert Kreischer", desc: "Truck wrap design", cat: "Comedy / Touring", w: 2500, h: 1337 },
+  { id: 6, filename: "charlie-berens-grid-01.png", title: "Charlie Berens", desc: "Social media grid layout 01", cat: "Comedy / Touring", w: 1711, h: 2056 },
+  { id: 7, filename: "charlie-berens-grid-02.png", title: "Charlie Berens", desc: "Social media grid layout 02", cat: "Comedy / Touring", w: 1711, h: 2056 },
+  { id: 8, filename: "charlie-berens-moodboards-2025.png", title: "Charlie Berens", desc: "Moodboards 2025", cat: "Comedy / Touring", w: 1500, h: 3805 },
+  { id: 9, filename: "charlie-berens-out-there-tour-01.png", title: "Charlie Berens", desc: "Out There Tour key art 01", cat: "Comedy / Touring", w: 1650, h: 2550 },
+  { id: 10, filename: "charlie-berens-out-there-tour-02.png", title: "Charlie Berens", desc: "Out There Tour key art 02", cat: "Comedy / Touring", w: 1650, h: 2550 },
+  { id: 11, filename: "charlie-berens-out-there-tour-04.png", title: "Charlie Berens", desc: "Out There Tour key art 04", cat: "Comedy / Touring", w: 1650, h: 2550 },
+  { id: 12, filename: "charlie-berens-poster-bluebrick-16x9.png", title: "Charlie Berens", desc: "Blue Brick poster 16:9", cat: "Comedy / Touring", w: 1920, h: 1080 },
+  { id: 13, filename: "charlie-berens-poster-bluebrick-1x1.png", title: "Charlie Berens", desc: "Blue Brick poster 1:1", cat: "Comedy / Touring", w: 1080, h: 1080 },
+  { id: 14, filename: "charlie-berens-poster-bluebrick-9x16.png", title: "Charlie Berens", desc: "Blue Brick poster 9:16", cat: "Comedy / Touring", w: 1080, h: 1920 },
+  { id: 15, filename: "con-air-keyart-01.jpg", title: "Con Air", desc: "Key art 01", cat: "Entertainment Marketing", w: 1726, h: 2318 },
+  { id: 16, filename: "conan-in-cuba-keyart.png", title: "Conan in Cuba", desc: "Cuba special key art", cat: "Entertainment Marketing", w: 2084, h: 2234 },
+  { id: 17, filename: "conan-obrien-keyart-01-horz.png", title: "Conan O'Brien", desc: "Key art 01 horizontal", cat: "Entertainment Marketing", w: 3840, h: 2160 },
+  { id: 18, filename: "conan-obrien-keyart-01-vert.png", title: "Conan O'Brien", desc: "Key art 01 vertical", cat: "Entertainment Marketing", w: 2000, h: 3000 },
+  { id: 19, filename: "conan-obrien-keyart-01alt-horz.png", title: "Conan O'Brien", desc: "Key art 01 alt horizontal", cat: "Entertainment Marketing", w: 3840, h: 2160 },
+  { id: 20, filename: "conan-obrien-keyart-01alt-vert.png", title: "Conan O'Brien", desc: "Key art 01 alt vertical", cat: "Entertainment Marketing", w: 2000, h: 3000 },
+  { id: 21, filename: "conan-obrien-keyart-02-horz.png", title: "Conan O'Brien", desc: "Key art 02 horizontal", cat: "Entertainment Marketing", w: 3840, h: 2160 },
+  { id: 22, filename: "conan-obrien-keyart-02-vert.png", title: "Conan O'Brien", desc: "Key art 02 vertical", cat: "Entertainment Marketing", w: 2000, h: 3000 },
+  { id: 23, filename: "conan-obrien-keyart-02alt-horz.png", title: "Conan O'Brien", desc: "Key art 02 alt horizontal", cat: "Entertainment Marketing", w: 3840, h: 2160 },
+  { id: 24, filename: "conan-obrien-keyart-02alt-vert.png", title: "Conan O'Brien", desc: "Key art 02 alt vertical", cat: "Entertainment Marketing", w: 2000, h: 3000 },
+  { id: 25, filename: "conan-obrien-keyart-03-horz.png", title: "Conan O'Brien", desc: "Key art 03 horizontal", cat: "Entertainment Marketing", w: 3840, h: 2160 },
+  { id: 26, filename: "conan-obrien-keyart-03-vert.png", title: "Conan O'Brien", desc: "Key art 03 vertical", cat: "Entertainment Marketing", w: 2000, h: 3000 },
+  { id: 27, filename: "fully-loaded-2023-keyart-01.jpg", title: "Fully Loaded Festival", desc: "2023 festival key art 01", cat: "Live Events", w: 1500, h: 1974 },
+  { id: 28, filename: "fully-loaded-2023-keyart-02.jpg", title: "Fully Loaded Festival", desc: "2023 festival key art 02", cat: "Live Events", w: 1500, h: 2000 },
+  { id: 29, filename: "fully-loaded-2023-keyart-03.jpg", title: "Fully Loaded Festival", desc: "2023 festival key art 03", cat: "Live Events", w: 1500, h: 2000 },
+  { id: 30, filename: "fully-loaded-cup-web.jpg", title: "Fully Loaded Festival", desc: "Cup web graphic", cat: "Live Events", w: 2000, h: 907 },
+  { id: 31, filename: "fully-loaded-family-1x1.jpg", title: "Fully Loaded Festival", desc: "Family key art 1:1", cat: "Live Events", w: 1000, h: 1000 },
+  { id: 32, filename: "fully-loaded-keyart-01-v3.jpg", title: "Fully Loaded Festival", desc: "Key art 01 v3", cat: "Live Events", w: 1500, h: 1974 },
+  { id: 33, filename: "fyse-in-conversation-julia-garner.jpg", title: "FYSE In Conversation", desc: "Julia Garner In Conversation", cat: "Entertainment Marketing", w: 3840, h: 2160 },
+  { id: 34, filename: "fyse-storytellers-keyart.png", title: "FYSE Storytellers", desc: "Storytellers key art v2", cat: "Entertainment Marketing", w: 3840, h: 2160 },
+  { id: 35, filename: "music-milestones-v5.jpg", title: "Music Milestones", desc: "Music Milestones email key art v5", cat: "Entertainment Marketing", w: 6659, h: 2685 },
+  { id: 36, filename: "music-of-netflix-fyse-v1.jpg", title: "Music of Netflix", desc: "FYSE campaign key art", cat: "Entertainment Marketing", w: 2660, h: 1492 },
 ];
 
 const KA_FILTERS = [
@@ -143,12 +143,19 @@ export default function KeyArtPage() {
           ))}
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4" style={{ marginTop: "48px" }}>
+        {/* Masonry Grid */}
+        <div
+          style={{
+            marginTop: "48px",
+            columns: "280px",
+            columnGap: "16px",
+          }}
+        >
           {filtered.map((item, i) => (
             <motion.div
               key={`${item.id}-${kaFilter}`}
               className="relative overflow-hidden rounded-[4px] border border-rule cursor-pointer group"
+              style={{ breakInside: "avoid", marginBottom: "16px" }}
               initial={{ opacity: 0, y: 30, scale: 0.97 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.1 }}
@@ -159,12 +166,15 @@ export default function KeyArtPage() {
               }}
               onClick={() => openLightbox(i)}
             >
-              <div className="w-full aspect-[3/4] relative group-hover:scale-105 transition-transform duration-500 bg-[#1A1917]">
+              <div
+                className="w-full relative group-hover:scale-105 transition-transform duration-500 bg-[#1A1917]"
+                style={{ aspectRatio: `${item.w} / ${item.h}` }}
+              >
                 <Image
                   src={`/key-art/${item.filename}`}
                   alt={`${item.title} — ${item.desc}`}
                   fill
-                  sizes="(max-width: 768px) 50vw, 260px"
+                  sizes="(max-width: 768px) 50vw, 280px"
                   className="object-cover"
                 />
               </div>
