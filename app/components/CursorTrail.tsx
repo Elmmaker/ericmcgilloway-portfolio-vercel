@@ -24,7 +24,7 @@ export default function CursorTrail() {
       rawMouseY = -100;
     let smoothX = -100,
       smoothY = -100;
-    const SMOOTHING = 0.12;
+    const SMOOTHING = 0.06;
     let animId: number;
 
     function resize() {
@@ -62,7 +62,7 @@ export default function CursorTrail() {
       }
 
       const now = performance.now();
-      const LIFE = 2200;
+      const LIFE = 1100;
 
       while (trail.length > 0 && now - trail[trail.length - 1].birth > LIFE)
         trail.pop();
@@ -89,11 +89,11 @@ export default function CursorTrail() {
         const lineW = Math.max(0.3, t * 3.5);
         const alpha = t * t;
 
-        // Core blue line
+        // Core purple line
         ctx!.beginPath();
         ctx!.moveTo(mx1, my1);
         ctx!.quadraticCurveTo(p1.x, p1.y, mx2, my2);
-        ctx!.strokeStyle = `rgba(85, 118, 197, ${alpha * 0.9})`;
+        ctx!.strokeStyle = `rgba(139, 92, 246, ${alpha * 0.9})`;
         ctx!.lineWidth = lineW;
         ctx!.lineCap = "round";
         ctx!.lineJoin = "round";
@@ -104,7 +104,7 @@ export default function CursorTrail() {
           ctx!.beginPath();
           ctx!.moveTo(mx1, my1);
           ctx!.quadraticCurveTo(p1.x, p1.y, mx2, my2);
-          ctx!.strokeStyle = `rgba(100, 140, 235, ${alpha * 0.22})`;
+          ctx!.strokeStyle = `rgba(167, 120, 255, ${alpha * 0.25})`;
           ctx!.lineWidth = lineW * 4;
           ctx!.lineCap = "round";
           ctx!.lineJoin = "round";
@@ -116,7 +116,7 @@ export default function CursorTrail() {
           ctx!.beginPath();
           ctx!.moveTo(mx1, my1);
           ctx!.quadraticCurveTo(p1.x, p1.y, mx2, my2);
-          ctx!.strokeStyle = `rgba(200, 215, 255, ${alpha * 0.55})`;
+          ctx!.strokeStyle = `rgba(220, 200, 255, ${alpha * 0.55})`;
           ctx!.lineWidth = lineW * 0.4;
           ctx!.lineCap = "round";
           ctx!.lineJoin = "round";
@@ -133,15 +133,15 @@ export default function CursorTrail() {
             smoothX, smoothY, 0,
             smoothX, smoothY, 20
           );
-          grd.addColorStop(0, "rgba(100, 150, 255, 0.3)");
-          grd.addColorStop(0.5, "rgba(85, 118, 197, 0.08)");
-          grd.addColorStop(1, "rgba(85, 118, 197, 0)");
+          grd.addColorStop(0, "rgba(139, 92, 246, 0.35)");
+          grd.addColorStop(0.5, "rgba(139, 92, 246, 0.1)");
+          grd.addColorStop(1, "rgba(139, 92, 246, 0)");
           ctx!.fillStyle = grd;
           ctx!.beginPath();
           ctx!.arc(smoothX, smoothY, 20, 0, Math.PI * 2);
           ctx!.fill();
 
-          ctx!.fillStyle = "rgba(200, 220, 255, 0.45)";
+          ctx!.fillStyle = "rgba(220, 200, 255, 0.5)";
           ctx!.beginPath();
           ctx!.arc(smoothX, smoothY, 2, 0, Math.PI * 2);
           ctx!.fill();

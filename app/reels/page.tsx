@@ -15,7 +15,7 @@ const REELS = [
   },
   {
     label: "Opening Titles",
-    title: "After Midnight — CBS",
+    title: "After Midnight with Taylor Tomlinson — CBS",
     desc: "Opening title sequence for CBS's After Midnight with Taylor Tomlinson. Broadcast design, animation, and finishing.",
     embedUrl: "https://framerate.tv/watch/659a3cdd-bee0-4230-a232-1c26b1a81a2e",
     duration: "0:31",
@@ -28,10 +28,10 @@ export default function ReelsPage() {
     <PageTransition>
       <section
         style={{
-          paddingTop: "160px",
-          paddingBottom: "80px",
-          paddingLeft: "clamp(24px, 6vw, 80px)",
-          paddingRight: "clamp(24px, 6vw, 80px)",
+          paddingTop: "clamp(120px, 15vw, 160px)",
+          paddingBottom: "clamp(40px, 8vw, 80px)",
+          paddingLeft: "clamp(20px, 6vw, 80px)",
+          paddingRight: "clamp(20px, 6vw, 80px)",
         }}
       >
         <FadeUp>
@@ -42,7 +42,7 @@ export default function ReelsPage() {
         <FadeUp delay={0.1}>
           <h2
             className="font-serif font-bold text-cream"
-            style={{ fontSize: "clamp(32px, 5vw, 56px)", marginBottom: "60px" }}
+            style={{ fontSize: "clamp(28px, 5vw, 56px)", marginBottom: "clamp(32px, 6vw, 60px)" }}
           >
             The Reels
           </h2>
@@ -50,17 +50,17 @@ export default function ReelsPage() {
 
         {REELS.map((reel, i) => (
           <FadeUp key={reel.title} delay={i * 0.15}>
-            <div style={{ marginBottom: i < REELS.length - 1 ? "40px" : "40px", marginTop: i > 0 ? "100px" : undefined }}>
+            <div style={{ marginBottom: i < REELS.length - 1 ? "40px" : "40px", marginTop: i > 0 ? "clamp(60px, 10vw, 100px)" : undefined }}>
               <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
                 {reel.label}
               </div>
               <div
                 className="font-serif font-bold text-cream mb-3"
-                style={{ fontSize: "clamp(28px, 4vw, 48px)" }}
+                style={{ fontSize: "clamp(22px, 4vw, 48px)" }}
               >
                 {reel.title}
               </div>
-              <div className="text-base max-w-[600px]" style={{ color: "#8A8579", lineHeight: 1.7, marginBottom: "40px" }}>
+              <div className="text-sm sm:text-base max-w-[600px]" style={{ color: "#8A8579", lineHeight: 1.7, marginBottom: "clamp(24px, 4vw, 40px)" }}>
                 {reel.desc}
               </div>
 
@@ -69,7 +69,7 @@ export default function ReelsPage() {
                 <iframe
                   src={reel.embedUrl.replace("/watch/", "/embed/")}
                   className="w-full"
-                  style={{ border: "none", height: "auto", aspectRatio: "auto", minHeight: "400px" }}
+                  style={{ border: "none", height: "auto", aspectRatio: "16/9", minHeight: "clamp(220px, 50vw, 400px)" }}
                   allow="autoplay; fullscreen; picture-in-picture"
                   allowFullScreen
                 />

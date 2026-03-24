@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
+import ClientShell from "./components/ClientShell";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -27,6 +27,12 @@ export const metadata: Metadata = {
     "Senior Motion Graphics Designer — 15+ years shaping the visual language of broadcast television.",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -39,8 +45,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen antialiased">
         <div className="grain" />
-        <Navbar />
-        <main className="relative z-2">{children}</main>
+        <ClientShell>{children}</ClientShell>
       </body>
     </html>
   );

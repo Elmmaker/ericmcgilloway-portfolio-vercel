@@ -12,17 +12,17 @@ const PROJECTS = [
   {
     id: 1,
     title: "Modern Marvels",
-    subtitle: "WW2 Chapter",
-    role: "Lead Map Designer",
+    subtitle: "History Channel/Hearst Media",
+    role: "Sr. 3D and Map Animation Designer",
     type: "Documentary",
-    year: "2024–25",
+    year: "2026",
     color: "#C5A455",
   },
   {
     id: 2,
     title: "Conan",
-    subtitle: "11 Seasons",
-    role: "Sr. Motion Designer",
+    subtitle: "TBS/11 Seasons",
+    role: "Lead Motion Graphics Designer",
     type: "Late Night",
     year: "2010–21",
     color: "#E05A3A",
@@ -30,28 +30,30 @@ const PROJECTS = [
   {
     id: 3,
     title: "Superman",
-    subtitle: "Campaign",
-    role: "Motion Designer",
+    subtitle: "Fracture Creative Social Media Advertising",
+    role: "Sr. Motion Designer",
     type: "Entertainment Marketing",
     year: "2025",
     color: "#3A7BE0",
+    projects: ["Five Nights At Freddy's", "Jurassic World", "How To Train Your Dragon"],
   },
   {
     id: 4,
     title: "After Midnight",
-    subtitle: "CBS/Paramount",
-    role: "Motion Designer",
+    titleExtra: "with Taylor Tomlinson",
+    subtitle: "CBS/Paramount Studios",
+    role: "Lead Motion Graphics Designer",
     type: "Broadcast",
-    year: "2023",
+    year: "2024–2025",
     color: "#8B5CF6",
   },
   {
     id: 5,
     title: "Entertainment Tonight",
-    subtitle: "Season Package",
+    subtitle: "CBS",
     role: "Sr. Motion Designer",
     type: "Broadcast",
-    year: "2022",
+    year: "2023–2024",
     color: "#EC4899",
   },
 ];
@@ -94,27 +96,12 @@ export default function Home() {
       <section
         className="flex flex-col justify-center relative"
         style={{
-          minHeight: "100vh",
-          paddingLeft: "clamp(24px, 6vw, 80px)",
-          paddingRight: "clamp(24px, 6vw, 80px)",
+          paddingTop: "clamp(100px, 15vw, 140px)",
+          paddingBottom: "clamp(60px, 10vw, 100px)",
+          paddingLeft: "clamp(20px, 6vw, 80px)",
+          paddingRight: "clamp(20px, 6vw, 80px)",
         }}
       >
-        {/* Vertical accent line */}
-        <motion.div
-          className="absolute top-0 right-[15%] w-px"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent, #C5A455 40%, #C5A455 60%, transparent)",
-          }}
-          initial={{ height: 0 }}
-          animate={{ height: "100%" }}
-          transition={{
-            duration: 1.8,
-            ease: [0.22, 1, 0.36, 1],
-            delay: 0.5,
-          }}
-        />
-
         <div className="relative z-1">
           {/* Eyebrow */}
           <motion.div
@@ -134,7 +121,7 @@ export default function Home() {
           {/* Name */}
           <h1
             className="font-serif font-bold leading-[0.92]"
-            style={{ fontSize: "clamp(48px, 9vw, 120px)", marginBottom: "20px" }}
+            style={{ fontSize: "clamp(36px, 9vw, 120px)", marginBottom: "20px" }}
           >
             {name.split("").map((char, i) => (
               <motion.span
@@ -154,7 +141,7 @@ export default function Home() {
           {/* Tagline */}
           <motion.p
             className="text-muted max-w-[520px] leading-relaxed"
-            style={{ fontSize: "clamp(16px, 2.2vw, 22px)" }}
+            style={{ fontSize: "clamp(15px, 2.2vw, 22px)" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -169,8 +156,8 @@ export default function Home() {
 
           {/* CTA */}
           <motion.div
-            className="flex flex-wrap"
-            style={{ gap: "20px", marginTop: "48px" }}
+            className="flex flex-col sm:flex-row flex-wrap"
+            style={{ gap: "16px", marginTop: "clamp(32px, 5vw, 48px)" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -181,8 +168,8 @@ export default function Home() {
           >
             <a
               href="/reels"
-              className="font-mono text-xs tracking-[2px] uppercase bg-gold text-dark border-none cursor-pointer hover:bg-gold-hover hover:-translate-y-0.5 transition-all duration-300"
-              style={{ padding: "16px 32px" }}
+              className="font-mono text-xs tracking-[2px] uppercase bg-gold text-dark border-none cursor-pointer hover:bg-gold-hover hover:-translate-y-0.5 transition-all duration-300 text-center"
+              style={{ padding: "16px 32px", minHeight: "48px" }}
             >
               Watch Reel
             </a>
@@ -192,42 +179,27 @@ export default function Home() {
                   .getElementById("work")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="font-mono text-xs tracking-[2px] uppercase bg-transparent text-muted border border-surface cursor-pointer hover:border-gold hover:text-gold transition-all duration-300"
-              style={{ padding: "16px 32px" }}
+              className="font-mono text-xs tracking-[2px] uppercase bg-transparent text-muted border border-surface cursor-pointer hover:border-gold hover:text-gold transition-all duration-300 text-center"
+              style={{ padding: "16px 32px", minHeight: "48px" }}
             >
               Selected Work &darr;
             </button>
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.4 }}
-          transition={{ duration: 1, delay: 2 }}
-        >
-          <div
-            className="w-px h-10"
-            style={{
-              background: "linear-gradient(to bottom, #C5A455, transparent)",
-              animation: "scrollPulse 2s ease-in-out infinite",
-            }}
-          />
-        </motion.div>
       </section>
 
       {/* ── SELECTED WORK ── */}
       <section
         id="work"
         style={{
-          paddingTop: "120px",
-          paddingBottom: "80px",
-          paddingLeft: "clamp(24px, 6vw, 80px)",
-          paddingRight: "clamp(24px, 6vw, 80px)",
+          paddingTop: "clamp(60px, 12vw, 120px)",
+          paddingBottom: "clamp(40px, 8vw, 80px)",
+          paddingLeft: "clamp(20px, 6vw, 80px)",
+          paddingRight: "clamp(20px, 6vw, 80px)",
         }}
       >
-        <div className="flex justify-between items-end flex-wrap gap-6" style={{ marginBottom: "60px" }}>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end flex-wrap gap-6" style={{ marginBottom: "clamp(32px, 6vw, 60px)" }}>
           <div>
             <FadeUp>
               <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold" style={{ marginBottom: "12px" }}>
@@ -237,9 +209,9 @@ export default function Home() {
             <FadeUp delay={0.1}>
               <h2
                 className="font-serif font-bold text-cream"
-                style={{ fontSize: "clamp(32px, 5vw, 56px)" }}
+                style={{ fontSize: "clamp(28px, 5vw, 56px)" }}
               >
-                The Work
+                Recent Work
               </h2>
             </FadeUp>
           </div>
@@ -253,7 +225,7 @@ export default function Home() {
                     ? "border-gold bg-gold/10 text-gold"
                     : "border-rule bg-transparent text-dim hover:border-gold hover:bg-gold/10 hover:text-gold"
                 }`}
-                style={{ padding: "8px 16px" }}
+                style={{ padding: "8px 16px", minHeight: "44px" }}
               >
                 {f}
               </button>
@@ -265,7 +237,7 @@ export default function Home() {
           {filteredProjects.map((p, i) => (
             <motion.div
               key={p.id}
-              className="grid grid-cols-1 md:grid-cols-[1fr_1fr] border-t border-rule cursor-pointer relative group"
+              className="grid grid-cols-1 md:grid-cols-[1fr_1fr] cursor-pointer relative group"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
@@ -275,9 +247,17 @@ export default function Home() {
                 delay: i * 0.1,
               }}
               style={
-                { "--card-color": p.color, padding: "48px 0 48px 40px" } as React.CSSProperties
+                { "--card-color": p.color, padding: "clamp(24px, 4vw, 48px) 0 clamp(24px, 4vw, 48px) clamp(20px, 4vw, 40px)" } as React.CSSProperties
               }
             >
+              {/* Sheen divider */}
+              <div className="absolute top-0 left-0 right-0 h-px bg-rule overflow-hidden">
+                <div
+                  className="work-sheen"
+                  style={{ animationDelay: `${i * 0.7}s` }}
+                />
+              </div>
+
               {/* Accent bar */}
               <div
                 className="absolute left-0 top-0 bottom-0 w-[3px] origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-400"
@@ -290,16 +270,26 @@ export default function Home() {
               <div>
                 <div
                   className="font-serif font-bold text-cream leading-tight group-hover:!text-[var(--card-color)] transition-colors duration-400"
-                  style={{ fontSize: "clamp(28px, 4vw, 44px)" }}
+                  style={{ fontSize: "clamp(22px, 4vw, 44px)" }}
                 >
                   {p.title}
                 </div>
-                <span className="font-sans text-base text-gold block" style={{ marginTop: "6px" }}>
+                {"titleExtra" in p && p.titleExtra && (
+                  <div className="font-serif text-cream" style={{ fontSize: "clamp(13px, 1.8vw, 18px)", marginTop: "4px" }}>
+                    {p.titleExtra as string}
+                  </div>
+                )}
+                {"projects" in p && p.projects && (
+                  <div className="font-serif text-cream" style={{ fontSize: "clamp(13px, 1.5vw, 16px)", marginTop: "6px" }}>
+                    {(p.projects as string[]).join(", ")}
+                  </div>
+                )}
+                <span className="font-sans text-sm sm:text-base text-gold block" style={{ marginTop: "6px" }}>
                   {p.subtitle}
                 </span>
               </div>
 
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-start mt-4 md:mt-0">
                 <div>
                   <div className="font-mono text-[11px] tracking-[2px] uppercase text-gold" style={{ marginBottom: "4px" }}>
                     {p.type}
@@ -311,103 +301,133 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* View arrow */}
-              <div
-                className="absolute right-0 top-1/2 font-sans text-sm flex items-center gap-2 opacity-0 -translate-x-2.5 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
-                style={{ color: p.color, transform: "translateY(-50%)" }}
-              >
-                View &rarr;
-              </div>
             </motion.div>
           ))}
         </div>
-        <div className="border-t border-rule" />
+        <div className="relative h-px bg-rule overflow-hidden">
+          <div
+            className="work-sheen"
+            style={{ animationDelay: `${filteredProjects.length * 0.7}s` }}
+          />
+        </div>
       </section>
 
       {/* ── ABOUT ── */}
       <section
         id="about"
-        className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] items-start"
         style={{
-          paddingTop: "120px",
-          paddingBottom: "120px",
-          paddingLeft: "clamp(24px, 6vw, 80px)",
-          paddingRight: "clamp(24px, 6vw, 80px)",
-          gap: "80px",
+          paddingTop: "clamp(60px, 12vw, 120px)",
+          paddingBottom: "clamp(60px, 12vw, 120px)",
+          paddingLeft: "clamp(20px, 6vw, 80px)",
+          paddingRight: "clamp(20px, 6vw, 80px)",
         }}
       >
-        <div className="flex flex-col" style={{ gap: "32px" }}>
+        <div className="sm:pl-10">
+          {/* Name lockup */}
           <FadeUp>
-            <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold" style={{ marginBottom: "12px" }}>
-              03 / About
+            <div className="flex flex-col sm:flex-row items-center sm:items-center w-full" style={{ gap: "clamp(20px, 4vw, 40px)", marginBottom: "40px" }}>
+              <div className="overflow-hidden relative flex-shrink-0 w-[100px] h-[100px] sm:w-[180px] sm:h-[180px]" style={{ borderRadius: "50%", border: "2px solid #C5A455" }}>
+                <Image
+                  src="/images/eric-mcgilloway-profile.png"
+                  alt="Eric McGilloway"
+                  fill
+                  sizes="(max-width: 640px) 100px, 180px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex-1 text-center sm:text-left">
+                <div className="font-serif font-bold text-cream" style={{ fontSize: "clamp(28px, 5vw, 44px)" }}>
+                  Eric McGilloway
+                </div>
+                <div className="font-mono uppercase" style={{ fontSize: "clamp(11px, 1.5vw, 14px)", letterSpacing: "2.4px", color: "#C5A455", marginTop: "8px" }}>
+                  Senior Motion Graphics Designer
+                </div>
+              </div>
             </div>
           </FadeUp>
+
+          {/* Heading */}
           <FadeUp delay={0.1}>
-            <div className="overflow-hidden border border-rule relative" style={{ width: "100%", maxWidth: "220px", aspectRatio: "1", borderRadius: "4px" }}>
-              <Image
-                src="/images/eric-mcgilloway-profile.png"
-                alt="Eric McGilloway"
-                fill
-                sizes="220px"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 border border-gold/[0.08]" />
+            <p
+              className="font-serif text-cream text-center sm:text-left"
+              style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1.4, marginBottom: "28px" }}
+            >
+              I make things move for a living.
+            </p>
+          </FadeUp>
+
+          {/* Body */}
+          <FadeUp delay={0.15}>
+            <p className="font-sans text-center sm:text-left" style={{ fontSize: "clamp(15px, 1.8vw, 18px)", color: "#8A8579", lineHeight: 1.8, marginBottom: "56px", maxWidth: "680px" }}>
+              15+ years designing for broadcast, social, and every screen in
+              between. From 11 seasons on Conan to documentary work on Modern
+              Marvels to entertainment marketing campaigns for major studio
+              releases. Late night, documentary, episodic TV -- I love the
+              work and I&apos;m lucky to do it. I&apos;m easy to work with,
+              organized, and self-motivated. Let&apos;s build something
+              together.
+            </p>
+          </FadeUp>
+
+          {/* Stats */}
+          <FadeUp delay={0.2}>
+            <div className="flex flex-wrap justify-center sm:justify-start" style={{ gap: "clamp(32px, 5vw, 56px)", borderTop: "1px solid #1E1D1A", paddingTop: "32px" }}>
+              {[
+                { num: "15+", label: "Years" },
+                { num: "200+", label: "Episodes" },
+                { num: "Local 800", label: "Union" },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center sm:text-left">
+                  <div
+                    className="font-serif font-bold text-gold"
+                    style={{ fontSize: "clamp(28px, 3.5vw, 48px)" }}
+                  >
+                    {stat.num}
+                  </div>
+                  <div className="font-mono text-[10px] tracking-[2px] uppercase text-dim mt-1">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </FadeUp>
         </div>
-
-        <FadeUp>
-          <p
-            className="font-serif text-cream"
-            style={{ fontSize: "clamp(22px, 3vw, 32px)", lineHeight: 1.5, marginBottom: "32px" }}
-          >
-            I make things move for a living. For over fifteen years, I&apos;ve
-            designed motion graphics for the biggest names in broadcast
-            television.
-          </p>
-          <p className="text-base text-muted max-w-[560px]" style={{ lineHeight: 1.8, marginBottom: "40px" }}>
-            From 11 seasons on Conan to documentary work on Modern Marvels to
-            entertainment marketing campaigns for major studio releases. After
-            Effects, Cinema 4D, Redshift &mdash; whatever the tool, the goal is
-            the same: make it impossible to look away.
-          </p>
-          <div className="grid grid-cols-3 border-t border-rule" style={{ gap: "32px", paddingTop: "32px" }}>
-            {[
-              { num: "15+", label: "Years" },
-              { num: "200+", label: "Episodes" },
-              { num: "Local 800", label: "Union" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <div
-                  className="font-serif font-bold text-gold"
-                  style={{ fontSize: "clamp(28px, 3vw, 40px)" }}
-                >
-                  {stat.num}
-                </div>
-                <div className="font-mono text-[10px] tracking-[2px] uppercase text-dim mt-1">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </FadeUp>
       </section>
 
       <Footer />
 
       <style jsx global>{`
-        @keyframes scrollPulse {
-          0%,
-          100% {
-            opacity: 0.4;
-            transform: scaleY(1);
+        .work-sheen {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            transparent 30%,
+            rgba(197, 164, 85, 0.8) 50%,
+            transparent 70%,
+            transparent 100%
+          );
+          animation: workSheenSweep 14s ease-in-out infinite;
+        }
+        @keyframes workSheenSweep {
+          0% {
+            transform: translateX(-100%);
+            opacity: 0;
           }
-          50% {
+          10% {
             opacity: 1;
-            transform: scaleY(1.3);
+          }
+          90% {
+            opacity: 1;
+          }
+          100% {
+            transform: translateX(100%);
+            opacity: 0;
           }
         }
       `}</style>
+
     </PageTransition>
   );
 }

@@ -1,59 +1,143 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { useContact } from "./ContactContext";
 
 const links = [
   { href: "/reels", label: "Reels" },
   { href: "/key-art", label: "Key Art" },
   { href: "/#about", label: "About" },
-  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { setOpen } = useContact();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-100 flex justify-between items-center"
-      style={{
-        padding: "24px clamp(24px, 6vw, 80px)",
-        background:
-          "linear-gradient(to bottom, rgba(13,12,10,0.95) 0%, rgba(13,12,10,0.7) 70%, transparent 100%)",
-        backdropFilter: "blur(8px)",
-        WebkitBackdropFilter: "blur(8px)",
-      }}
-    >
-      <Link
-        href="/"
-        className="font-serif text-lg font-bold text-cream hover:text-gold transition-colors duration-300"
+    <>
+      <nav
+        className="fixed top-0 left-0 right-0 z-100 flex justify-between items-center"
+        style={{
+          padding: "24px clamp(24px, 6vw, 80px)",
+          background:
+            "linear-gradient(to bottom, rgba(13,12,10,0.95) 0%, rgba(13,12,10,0.7) 70%, transparent 100%)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+        }}
       >
-        Eric McGilloway
-      </Link>
-      <div className="flex items-center gap-4 sm:gap-8">
-        {links.map((link) => {
-          const isActive =
-            link.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(link.href.split("#")[0]) &&
-                link.href.split("#")[0] !== "/";
+        <Link
+          href="/"
+          className="font-serif text-lg font-bold text-cream hover:text-gold transition-colors duration-300 relative z-[200]"
+        >
+          Eric McGilloway
+        </Link>
 
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`font-mono text-[11px] tracking-[2px] uppercase transition-colors duration-300 relative ${
-                isActive ? "text-gold" : "text-muted hover:text-gold"
-              }`}
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-8">
+          {links.map((link) => {
+            const isActive =
+              link.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(link.href.split("#")[0]) &&
+                  link.href.split("#")[0] !== "/";
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`font-mono text-[11px] tracking-[2px] uppercase transition-colors duration-300 relative ${
+                  isActive ? "text-gold" : "text-muted hover:text-gold"
+                }`}
+              >
+                {link.label}
+                {isActive && (
+                  <span className="absolute -bottom-1.5 left-0 right-0 h-px bg-gold" />
+                )}
+              </Link>
+            );
+          })}
+          <button
+            onClick={() => setOpen(true)}
+            className="font-mono text-[11px] tracking-[2px] uppercase text-muted hover:text-gold transition-colors duration-300 bg-transparent border-none cursor-pointer"
+          >
+            Contact
+          </button>
+        </div>
+
+        {/* Hamburger button */}
+        <button
+          className="md:hidden flex flex-col justify-center items-center w-11 h-11 bg-transparent border-none cursor-pointer gap-[5px] relative z-[200]"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <motion.span
+            className="block w-5 h-[1.5px] bg-cream"
+            animate={menuOpen ? { rotate: 45, y: 6.5 } : { rotate: 0, y: 0 }}
+            transition={{ duration: 0.25 }}
+          />
+          <motion.span
+            className="block w-5 h-[1.5px] bg-cream"
+            animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+            transition={{ duration: 0.15 }}
+          />
+          <motion.span
+            className="block w-5 h-[1.5px] bg-cream"
+            animate={menuOpen ? { rotate: -45, y: -6.5 } : { rotate: 0, y: 0 }}
+            transition={{ duration: 0.25 }}
+          />
+        </button>
+      </nav>
+
+      {/* Mobile menu overlay — rendered outside nav for proper z-stacking */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="fixed inset-0 z-[150] flex flex-col items-center justify-center gap-8 md:hidden"
+            style={{
+              background: "#0D0C0A",
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            {links.map((link, i) => (
+              <motion.div
+                key={link.href}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05 + 0.1 }}
+              >
+                <Link
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="font-mono text-sm tracking-[3px] uppercase text-cream hover:text-gold transition-colors duration-300 block"
+                  style={{ padding: "12px 24px" }}
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: links.length * 0.05 + 0.1 }}
             >
-              {link.label}
-              {isActive && (
-                <span className="absolute -bottom-1.5 left-0 right-0 h-px bg-gold" />
-              )}
-            </Link>
-          );
-        })}
-      </div>
-    </nav>
+              <button
+                onClick={() => { setMenuOpen(false); setOpen(true); }}
+                className="font-mono text-sm tracking-[3px] uppercase text-cream hover:text-gold transition-colors duration-300 bg-transparent border-none cursor-pointer"
+                style={{ padding: "12px 24px" }}
+              >
+                Contact
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
