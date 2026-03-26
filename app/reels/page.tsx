@@ -13,13 +13,18 @@ const REELS = [
     duration: "1:48",
     updated: "2026",
   },
+];
+
+const AFTER_MIDNIGHT_VIDEOS = [
   {
-    label: "Opening Titles",
-    title: "After Midnight with Taylor Tomlinson — CBS",
-    desc: "Opening title sequence for CBS's After Midnight with Taylor Tomlinson. Broadcast design, animation, and finishing.",
+    sublabel: "Opening Title Sequence",
     embedUrl: "https://framerate.tv/watch/659a3cdd-bee0-4230-a232-1c26b1a81a2e",
     duration: "0:31",
-    updated: "2025",
+  },
+  {
+    sublabel: "Gameplay Stage Graphics",
+    src: "/clips/after-midnight-gfx-grid.mp4",
+    duration: "0:13",
   },
 ];
 
@@ -48,9 +53,10 @@ export default function ReelsPage() {
           </h2>
         </FadeUp>
 
+        {/* Primary Reel */}
         {REELS.map((reel, i) => (
           <FadeUp key={reel.title} delay={i * 0.15}>
-            <div style={{ marginBottom: i < REELS.length - 1 ? "40px" : "40px", marginTop: i > 0 ? "clamp(60px, 10vw, 100px)" : undefined }}>
+            <div style={{ marginBottom: "40px" }}>
               <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
                 {reel.label}
               </div>
@@ -64,7 +70,6 @@ export default function ReelsPage() {
                 {reel.desc}
               </div>
 
-              {/* Video embed — native aspect ratio */}
               <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
                 <iframe
                   src={reel.embedUrl.replace("/watch/", "/embed/")}
@@ -82,6 +87,61 @@ export default function ReelsPage() {
             </div>
           </FadeUp>
         ))}
+
+        {/* After Midnight — two videos side by side */}
+        <FadeUp delay={0.15}>
+          <div style={{ marginTop: "clamp(60px, 10vw, 100px)" }}>
+            <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
+              After Midnight
+            </div>
+            <div
+              className="font-serif font-bold text-cream mb-3"
+              style={{ fontSize: "clamp(22px, 4vw, 48px)" }}
+            >
+              After Midnight with Taylor Tomlinson — CBS
+            </div>
+            <div className="text-sm sm:text-base max-w-[600px]" style={{ color: "#8A8579", lineHeight: 1.7, marginBottom: "clamp(24px, 4vw, 40px)" }}>
+              Opening title sequence and gameplay stage graphics for CBS&apos;s After Midnight with Taylor Tomlinson. Broadcast design, animation, and finishing.
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {AFTER_MIDNIGHT_VIDEOS.map((vid) => (
+                <div key={vid.sublabel}>
+                  <div className="font-mono text-[10px] tracking-[3px] uppercase mb-3" style={{ color: "#C5A455" }}>
+                    {vid.sublabel}
+                  </div>
+                  <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
+                    {vid.embedUrl ? (
+                      <iframe
+                        src={vid.embedUrl.replace("/watch/", "/embed/")}
+                        className="w-full"
+                        style={{ border: "none", height: "auto", aspectRatio: "16/9" }}
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <video
+                        src={vid.src}
+                        className="w-full"
+                        style={{ aspectRatio: "16/9", objectFit: "cover" }}
+                        controls
+                        playsInline
+                        preload="metadata"
+                      />
+                    )}
+                  </div>
+                  <div className="mt-3 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
+                    Duration: {vid.duration}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-5 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
+              Updated: 2025
+            </div>
+          </div>
+        </FadeUp>
       </section>
 
       <Footer />
