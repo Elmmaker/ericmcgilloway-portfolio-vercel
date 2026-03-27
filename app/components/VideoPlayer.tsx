@@ -81,7 +81,7 @@ function PlayButton() {
         style={{
           width: 48,
           height: 48,
-          backgroundColor: "rgba(197, 164, 85, 0.75)",
+          backgroundColor: "rgba(197, 164, 85, 1)",
           backdropFilter: "blur(4px)",
         }}
       >
