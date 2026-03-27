@@ -67,7 +67,7 @@ export default function VideoPlayer({ src, embedUrl, aspectRatio = "16/9" }: Vid
             />
             {/* Center cover to hide framerate's native play button */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div style={{ width: 80, height: 80, borderRadius: "50%", backgroundColor: "#111" }} />
+              <div style={{ width: 100, height: 100, borderRadius: "50%", backgroundColor: "#111", boxShadow: "0 0 20px 20px #111" }} />
             </div>
             <PlayButton />
           </div>
