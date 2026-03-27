@@ -259,7 +259,7 @@ export default function KeyArtPage() {
       <AnimatePresence>
         {lightbox !== null && currentItem && (
           <motion.div
-            className="fixed inset-0 z-200 flex items-center justify-center p-4 sm:p-10 cursor-zoom-out"
+            className="fixed inset-0 z-200 flex items-center justify-center px-10 py-16 sm:p-10 cursor-zoom-out"
             style={{
               background: "rgba(0,0,0,0.92)",
               backdropFilter: "blur(12px)",
@@ -276,7 +276,7 @@ export default function KeyArtPage() {
               CLOSE &#10005;
             </button>
             <button
-              className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 border border-surface rounded-full bg-dark/80 text-muted text-xl cursor-pointer hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center"
+              className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 border border-surface rounded-full bg-dark/80 text-muted text-xl cursor-pointer hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center"
               onClick={(e) => {
                 e.stopPropagation();
                 navLightbox(-1);
@@ -285,7 +285,7 @@ export default function KeyArtPage() {
               &#8249;
             </button>
             <button
-              className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 border border-surface rounded-full bg-dark/80 text-muted text-xl cursor-pointer hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center"
+              className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 border border-surface rounded-full bg-dark/80 text-muted text-xl cursor-pointer hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center"
               onClick={(e) => {
                 e.stopPropagation();
                 navLightbox(1);

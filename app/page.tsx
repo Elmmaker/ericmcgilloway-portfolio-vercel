@@ -294,7 +294,7 @@ export default function Home() {
                 </span>
               </div>
 
-              <div className="flex justify-between items-start mt-4 md:mt-0">
+              <div className="flex flex-col-reverse md:flex-row justify-between items-start mt-4 md:mt-0 gap-4">
                 <div>
                   <div className="font-mono text-[11px] tracking-[2px] uppercase text-gold" style={{ marginBottom: "4px" }}>
                     {p.type}
@@ -304,13 +304,13 @@ export default function Home() {
                     {p.year}
                   </div>
                 </div>
-                <div className="relative overflow-hidden rounded-[4px] flex-shrink-0" style={{ width: "clamp(100px, 14vw, 200px)" }}>
+                <div className="relative overflow-hidden rounded-[4px] flex-shrink-0 w-full md:w-auto" style={{ maxWidth: "clamp(100px, 14vw, 200px)" }}>
                   <Image
                     src={p.image}
                     alt={p.title}
                     width={400}
                     height={300}
-                    sizes="200px"
+                    sizes="(max-width: 768px) 40vw, 200px"
                     className="w-full h-auto"
                     style={{ display: "block" }}
                   />
