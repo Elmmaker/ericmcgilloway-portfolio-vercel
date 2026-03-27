@@ -268,30 +268,37 @@ export default function Home() {
                 />
               </div>
 
-              {/* LEFT — Video or Still Image */}
-              <div className="w-full md:w-[clamp(160px,18vw,260px)] flex-shrink-0 overflow-hidden rounded-[4px]">
-                {p.video ? (
-                  <video
-                    src={p.video}
-                    className="w-full h-auto block"
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
-                    onMouseLeave={(e) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
-                  />
-                ) : (
-                  <div className="relative">
-                    <Image
-                      src={p.image}
-                      alt={p.title}
-                      width={520}
-                      height={292}
+              {/* LEFT — Vertical accent line + Video or Still Image */}
+              <div className="flex items-stretch gap-3 w-full md:w-[clamp(160px,18vw,260px)] flex-shrink-0">
+                {/* Vertical color line */}
+                <div
+                  className="w-[3px] flex-shrink-0 rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-400"
+                  style={{ backgroundColor: p.color }}
+                />
+                <div className="flex-1 overflow-hidden rounded-[4px]">
+                  {p.video ? (
+                    <video
+                      src={p.video}
                       className="w-full h-auto block"
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
+                      onMouseLeave={(e) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
                     />
-                  </div>
-                )}
+                  ) : (
+                    <div className="relative">
+                      <Image
+                        src={p.image}
+                        alt={p.title}
+                        width={520}
+                        height={292}
+                        className="w-full h-auto block"
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* CENTER — Headings */}
