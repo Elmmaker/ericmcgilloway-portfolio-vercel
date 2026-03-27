@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import CursorTrail from "./components/CursorTrail";
 import FadeUp from "./components/FadeUp";
@@ -84,6 +84,55 @@ const letterVariants = {
     },
   }),
 };
+
+function SpinImage({ src, alt, color, delay }: { src: string; alt: string; color: string; delay: number }) {
+  const controls = useAnimation();
+  const cooldownRef = useRef(false);
+  const hasEnteredRef = useRef(false);
+
+  const handleHover = useCallback(() => {
+    if (cooldownRef.current || !hasEnteredRef.current) return;
+    cooldownRef.current = true;
+    controls.start({
+      rotateY: [0, 360],
+      transition: { duration: 1.2, ease: "easeInOut" },
+    }).then(() => {
+      setTimeout(() => { cooldownRef.current = false; }, 3000);
+    });
+  }, [controls]);
+
+  return (
+    <div
+      className="relative flex-shrink-0 w-full md:w-auto"
+      style={{ maxWidth: "clamp(100px, 14vw, 200px)", perspective: 600 }}
+    >
+      <motion.div
+        className="overflow-hidden rounded-[4px] border border-gold/50"
+        initial={{ opacity: 0, rotateY: 90 }}
+        whileInView={{ opacity: 1, rotateY: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{
+          duration: 1.2,
+          ease: [0.22, 1, 0.36, 1],
+          delay,
+        }}
+        animate={controls}
+        onAnimationComplete={() => { hasEnteredRef.current = true; }}
+        onMouseEnter={handleHover}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          width={400}
+          height={300}
+          sizes="(max-width: 768px) 40vw, 200px"
+          className="w-full h-auto"
+          style={{ display: "block" }}
+        />
+      </motion.div>
+    </div>
+  );
+}
 
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -304,44 +353,7 @@ export default function Home() {
                     {p.year}
                   </div>
                 </div>
-                <div
-                  className="relative flex-shrink-0 w-full md:w-auto"
-                  style={{ maxWidth: "clamp(100px, 14vw, 200px)", perspective: 600 }}
-                >
-                  <motion.div
-                    className="overflow-hidden rounded-[4px] border border-gold/50"
-                    initial="hidden"
-                    whileInView="visible"
-                    whileHover="hover"
-                    viewport={{ once: true, amount: 0.3 }}
-                    variants={{
-                      hidden: { opacity: 0, rotateY: 90 },
-                      visible: {
-                        opacity: 1,
-                        rotateY: 0,
-                        transition: {
-                          duration: 1.2,
-                          ease: [0.22, 1, 0.36, 1],
-                          delay: 0.2 + i * 0.1,
-                        },
-                      },
-                      hover: {
-                        rotateY: [0, 360],
-                        transition: { duration: 1.2, ease: "easeInOut" },
-                      },
-                    }}
-                  >
-                    <Image
-                      src={p.image}
-                      alt={p.title}
-                      width={400}
-                      height={300}
-                      sizes="(max-width: 768px) 40vw, 200px"
-                      className="w-full h-auto"
-                      style={{ display: "block" }}
-                    />
-                  </motion.div>
-                </div>
+                <SpinImage src={p.image} alt={p.title} color={p.color} delay={0.2 + i * 0.1} />
               </div>
 
             </motion.div>
