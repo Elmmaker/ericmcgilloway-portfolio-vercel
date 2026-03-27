@@ -56,19 +56,9 @@ export default function VideoPlayer({ src, embedUrl, aspectRatio = "16/9" }: Vid
         ) : (
           <div
             className="absolute inset-0 cursor-pointer"
-            style={{ backgroundColor: "#111" }}
+            style={{ backgroundColor: "#1a1614" }}
             onClick={() => setActivated(true)}
           >
-            {/* Load iframe as background preview */}
-            <iframe
-              src={iframeSrc}
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              style={{ border: "none", opacity: 0.5 }}
-            />
-            {/* Center cover to hide framerate's native play button */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div style={{ width: 120, height: 120, borderRadius: "50%", backgroundColor: "#111" }} />
-            </div>
             <PlayButton />
           </div>
         )}
