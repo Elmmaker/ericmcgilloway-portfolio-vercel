@@ -56,9 +56,13 @@ export default function VideoPlayer({ src, embedUrl, aspectRatio = "16/9" }: Vid
         ) : (
           <div
             className="absolute inset-0 cursor-pointer"
-            style={{ backgroundColor: "#1a1614" }}
             onClick={() => setActivated(true)}
           >
+            <iframe
+              src={iframeSrc}
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              style={{ border: "none" }}
+            />
             <PlayButton />
           </div>
         )}
