@@ -304,60 +304,46 @@ export default function Home() {
                     {p.year}
                   </div>
                 </div>
-                <motion.div
-                  className="relative rounded-[4px] flex-shrink-0 w-full md:w-auto"
+                <div
+                  className="relative flex-shrink-0 w-full md:w-auto"
                   style={{ maxWidth: "clamp(100px, 14vw, 200px)", perspective: 600 }}
-                  initial="hidden"
-                  whileInView="visible"
-                  whileHover="hover"
-                  viewport={{ once: true, amount: 0.3 }}
                 >
-                  {/* Glow burst */}
-                  <motion.div
-                    className="absolute inset-0 rounded-[4px] pointer-events-none"
-                    style={{
-                      boxShadow: `0 0 0px ${p.color}00`,
-                    }}
-                    variants={{
-                      hidden: { opacity: 0 },
-                      visible: {
-                        opacity: [0, 0, 1, 0],
-                        boxShadow: [
-                          `0 0 0px ${p.color}00`,
-                          `0 0 0px ${p.color}00`,
-                          `0 0 28px ${p.color}CC, 0 0 56px ${p.color}66`,
-                          `0 0 0px ${p.color}00`,
-                        ],
-                        transition: { duration: 1.2, delay: 0.2 + i * 0.1, times: [0, 0.5, 0.75, 1], ease: "easeOut" },
-                      },
-                      hover: {
-                        opacity: [0, 0, 1, 0],
-                        boxShadow: [
-                          `0 0 0px ${p.color}00`,
-                          `0 0 0px ${p.color}00`,
-                          `0 0 28px ${p.color}CC, 0 0 56px ${p.color}66`,
-                          `0 0 0px ${p.color}00`,
-                        ],
-                        transition: { duration: 1.4, times: [0, 0.5, 0.85, 1], ease: "easeOut" },
-                      },
-                    }}
-                  />
                   <motion.div
                     className="overflow-hidden rounded-[4px]"
+                    initial="hidden"
+                    whileInView="visible"
+                    whileHover="hover"
+                    viewport={{ once: true, amount: 0.3 }}
                     variants={{
-                      hidden: { opacity: 0, rotateY: 90 },
+                      hidden: { opacity: 0, rotateY: 90, boxShadow: `0 0 0px ${p.color}00` },
                       visible: {
                         opacity: 1,
                         rotateY: 0,
+                        boxShadow: [
+                          `0 0 0px ${p.color}00`,
+                          `0 0 0px ${p.color}00`,
+                          `0 0 28px ${p.color}CC, 0 0 56px ${p.color}66`,
+                          `0 0 0px ${p.color}00`,
+                        ],
                         transition: {
-                          duration: 0.8,
+                          duration: 1.2,
                           ease: [0.22, 1, 0.36, 1],
                           delay: 0.2 + i * 0.1,
+                          boxShadow: { duration: 1.2, delay: 0.2 + i * 0.1, times: [0, 0.5, 0.75, 1], ease: "easeOut" },
                         },
                       },
                       hover: {
                         rotateY: [0, 360],
-                        transition: { duration: 1.2, ease: "easeInOut" },
+                        boxShadow: [
+                          `0 0 0px ${p.color}00`,
+                          `0 0 0px ${p.color}00`,
+                          `0 0 28px ${p.color}CC, 0 0 56px ${p.color}66`,
+                          `0 0 0px ${p.color}00`,
+                        ],
+                        transition: {
+                          rotateY: { duration: 1.2, ease: "easeInOut" },
+                          boxShadow: { duration: 1.4, times: [0, 0.5, 0.85, 1], ease: "easeOut" },
+                        },
                       },
                     }}
                   >
@@ -371,7 +357,7 @@ export default function Home() {
                       style={{ display: "block" }}
                     />
                   </motion.div>
-                </motion.div>
+                </div>
               </div>
 
             </motion.div>
