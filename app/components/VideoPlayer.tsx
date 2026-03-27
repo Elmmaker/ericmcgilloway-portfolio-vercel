@@ -54,13 +54,20 @@ export default function VideoPlayer({ src, embedUrl, aspectRatio = "16/9" }: Vid
             allowFullScreen
           />
         ) : (
-          <div
-            className="absolute inset-0 cursor-pointer"
-            style={{ backgroundColor: "#111" }}
-            onClick={() => setActivated(true)}
-          >
-            <PlayButton />
-          </div>
+          <>
+            <iframe
+              src={iframeSrc}
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              style={{ border: "none" }}
+            />
+            <div
+              className="absolute inset-0 cursor-pointer"
+              style={{ backgroundColor: "rgba(0, 0, 0, 0.45)" }}
+              onClick={() => setActivated(true)}
+            >
+              <PlayButton />
+            </div>
+          </>
         )}
       </div>
     );
