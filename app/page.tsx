@@ -304,17 +304,58 @@ export default function Home() {
                     {p.year}
                   </div>
                 </div>
-                <div className="relative overflow-hidden rounded-[4px] flex-shrink-0 w-full md:w-auto" style={{ maxWidth: "clamp(100px, 14vw, 200px)" }}>
-                  <Image
-                    src={p.image}
-                    alt={p.title}
-                    width={400}
-                    height={300}
-                    sizes="(max-width: 768px) 40vw, 200px"
-                    className="w-full h-auto"
-                    style={{ display: "block" }}
+                <motion.div
+                  className="relative rounded-[4px] flex-shrink-0 w-full md:w-auto"
+                  style={{ maxWidth: "clamp(100px, 14vw, 200px)", perspective: 600 }}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                >
+                  {/* Gold glow burst */}
+                  <motion.div
+                    className="absolute inset-0 rounded-[4px] pointer-events-none"
+                    style={{
+                      boxShadow: `0 0 0px ${p.color}00`,
+                    }}
+                    variants={{
+                      hidden: { opacity: 0 },
+                      visible: {
+                        opacity: [0, 1, 0],
+                        boxShadow: [
+                          `0 0 0px ${p.color}00`,
+                          `0 0 24px ${p.color}CC, 0 0 48px ${p.color}66`,
+                          `0 0 0px ${p.color}00`,
+                        ],
+                        transition: { duration: 0.7, delay: 0.6 + i * 0.1, ease: "easeOut" },
+                      },
+                    }}
                   />
-                </div>
+                  <motion.div
+                    className="overflow-hidden rounded-[4px]"
+                    variants={{
+                      hidden: { opacity: 0, rotateY: 90 },
+                      visible: {
+                        opacity: 1,
+                        rotateY: 0,
+                        transition: {
+                          duration: 0.8,
+                          ease: [0.22, 1, 0.36, 1],
+                          delay: 0.2 + i * 0.1,
+                        },
+                      },
+                    }}
+                  >
+                    <Image
+                      src={p.image}
+                      alt={p.title}
+                      width={400}
+                      height={300}
+                      sizes="(max-width: 768px) 40vw, 200px"
+                      className="w-full h-auto"
+                      style={{ display: "block" }}
+                    />
+                  </motion.div>
+                </motion.div>
               </div>
 
             </motion.div>
