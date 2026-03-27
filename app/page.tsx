@@ -18,7 +18,7 @@ const PROJECTS = [
     year: "2026",
     color: "#C5A455",
     image: "/images/work/modern_marvels1.jpg",
-    video: "/clips/modern-marvels.mp4",
+    video: null,
   },
   {
     id: 2,
@@ -268,24 +268,36 @@ export default function Home() {
                 />
               </div>
 
-              {/* LEFT — Video */}
+              {/* LEFT — Video or Still Image */}
               <div className="w-full md:w-[clamp(160px,18vw,260px)] flex-shrink-0 overflow-hidden rounded-[4px]">
-                <video
-                  src={p.video}
-                  className="w-full h-auto block"
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
-                  onMouseLeave={(e) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
-                />
+                {p.video ? (
+                  <video
+                    src={p.video}
+                    className="w-full h-auto block"
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
+                    onMouseLeave={(e) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
+                  />
+                ) : (
+                  <div className="relative">
+                    <Image
+                      src={p.image}
+                      alt={p.title}
+                      width={520}
+                      height={292}
+                      className="w-full h-auto block"
+                    />
+                  </div>
+                )}
               </div>
 
               {/* CENTER — Headings */}
               <div className="flex-1 min-w-0">
                 <div
-                  className="font-serif font-bold text-cream leading-tight group-hover:!text-[var(--card-color)] transition-colors duration-400"
+                  className="font-serif font-bold text-cream leading-tight group-hover:!text-[var(--card-color)] transition-all duration-400 work-title-glow"
                   style={{ fontSize: "clamp(22px, 3.5vw, 40px)" }}
                 >
                   {p.title}
@@ -412,6 +424,16 @@ export default function Home() {
       <Footer />
 
       <style jsx global>{`
+        .group:hover .work-title-glow {
+          text-shadow:
+            0 0 8px var(--card-color),
+            0 0 20px var(--card-color),
+            0 0 40px color-mix(in srgb, var(--card-color) 50%, transparent);
+        }
+        .work-title-glow {
+          text-shadow: none;
+          transition: text-shadow 0.4s ease, color 0.4s ease;
+        }
         .work-sheen {
           position: absolute;
           inset: 0;
