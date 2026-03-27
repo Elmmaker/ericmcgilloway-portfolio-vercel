@@ -33,8 +33,8 @@ const PROJECTS = [
   },
   {
     id: 3,
-    title: "Superman",
-    subtitle: "Fracture Creative Social Media Advertising",
+    title: "Social Media Admats: Superman",
+    subtitle: "Fracture Creative",
     role: "Sr. Motion Designer",
     type: "Entertainment Marketing",
     year: "2025",
