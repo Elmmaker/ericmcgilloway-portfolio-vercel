@@ -64,6 +64,7 @@ const KEY_ART: KeyArtItem[] = [
   { id: 34, filename: "fyse-storytellers-keyart.png", title: "FYSE Storytellers", desc: "Storytellers key art v2", cat: "Entertainment Marketing", w: 3840, h: 2160, group: "More Work" },
   { id: 35, filename: "music-milestones-v5.jpg", title: "Music Milestones", desc: "Music Milestones email key art v5", cat: "Entertainment Marketing", w: 6659, h: 2685, group: "More Work" },
   { id: 36, filename: "music-of-netflix-fyse-v1.jpg", title: "Music of Netflix", desc: "FYSE campaign key art", cat: "Entertainment Marketing", w: 2660, h: 1492, group: "More Work" },
+  { id: 39, filename: "FYSE_CraftsDay_v1_em.jpg", title: "FYSE Crafts Day", desc: "Crafts Day key art", cat: "Entertainment Marketing", w: 3840, h: 2160, group: "More Work" },
 ];
 
 const GROUP_ORDER = ["Conan", "Charlie Berens", "Bert Kreischer", "More Work"];
