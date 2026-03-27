@@ -225,9 +225,8 @@ export default function KeyArtPage() {
                     }}
                     onClick={() => openLightbox(item)}
                   >
-                    {/* Gold frame on hover with sheen */}
+                    {/* Gold frame on hover */}
                     <div className="absolute inset-0 rounded-[3px] border-2 border-transparent group-hover:border-gold/70 transition-colors duration-300 z-10 pointer-events-none" />
-                    <div className="ka-frame-sheen-wrap opacity-0 group-hover:opacity-100 z-10 pointer-events-none" />
                     <div
                       className="w-full relative bg-[#1A1917]"
                       style={{ aspectRatio: `${item.w} / ${item.h}` }}
@@ -341,47 +340,6 @@ export default function KeyArtPage() {
           .ka-masonry {
             columns: 1;
           }
-        }
-        .ka-frame-sheen-wrap {
-          position: absolute;
-          inset: 0;
-          border-radius: 3px;
-          overflow: hidden;
-          transition: opacity 0.3s;
-          -webkit-mask-image: linear-gradient(#fff, #fff);
-          mask-image: linear-gradient(#fff, #fff);
-          -webkit-mask-composite: exclude;
-          mask-composite: exclude;
-          /* Hollow out the center — only border ring is visible */
-          -webkit-mask:
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-          mask:
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          padding: 2px;
-        }
-        .ka-frame-sheen-wrap::before {
-          content: '';
-          position: absolute;
-          inset: -2px;
-          background: linear-gradient(
-            105deg,
-            transparent 0%,
-            transparent 35%,
-            rgba(255, 255, 255, 0.5) 45%,
-            rgba(197, 164, 85, 0.7) 50%,
-            rgba(255, 255, 255, 0.5) 55%,
-            transparent 65%,
-            transparent 100%
-          );
-          animation: frameSheenSweep 2.5s ease-in-out infinite;
-        }
-        @keyframes frameSheenSweep {
-          0% { transform: translateX(-120%); }
-          100% { transform: translateX(120%); }
         }
         .glow-sheen {
           position: absolute;

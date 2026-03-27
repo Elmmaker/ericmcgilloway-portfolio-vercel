@@ -309,41 +309,25 @@ export default function Home() {
                   style={{ maxWidth: "clamp(100px, 14vw, 200px)", perspective: 600 }}
                 >
                   <motion.div
-                    className="overflow-hidden rounded-[4px]"
+                    className="overflow-hidden rounded-[4px] border border-gold/50"
                     initial="hidden"
                     whileInView="visible"
                     whileHover="hover"
                     viewport={{ once: true, amount: 0.3 }}
                     variants={{
-                      hidden: { opacity: 0, rotateY: 90, boxShadow: `0 0 0px ${p.color}00` },
+                      hidden: { opacity: 0, rotateY: 90 },
                       visible: {
                         opacity: 1,
                         rotateY: 0,
-                        boxShadow: [
-                          `0 0 0px ${p.color}00`,
-                          `0 0 0px ${p.color}00`,
-                          `0 0 28px ${p.color}CC, 0 0 56px ${p.color}66`,
-                          `0 0 0px ${p.color}00`,
-                        ],
                         transition: {
                           duration: 1.2,
                           ease: [0.22, 1, 0.36, 1],
                           delay: 0.2 + i * 0.1,
-                          boxShadow: { duration: 1.2, delay: 0.2 + i * 0.1, times: [0, 0.5, 0.75, 1], ease: "easeOut" },
                         },
                       },
                       hover: {
                         rotateY: [0, 360],
-                        boxShadow: [
-                          `0 0 0px ${p.color}00`,
-                          `0 0 0px ${p.color}00`,
-                          `0 0 28px ${p.color}CC, 0 0 56px ${p.color}66`,
-                          `0 0 0px ${p.color}00`,
-                        ],
-                        transition: {
-                          rotateY: { duration: 1.2, ease: "easeInOut" },
-                          boxShadow: { duration: 1.4, times: [0, 0.5, 0.85, 1], ease: "easeOut" },
-                        },
+                        transition: { duration: 1.2, ease: "easeInOut" },
                       },
                     }}
                   >
