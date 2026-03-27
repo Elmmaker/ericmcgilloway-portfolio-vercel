@@ -213,7 +213,7 @@ export default function KeyArtPage() {
                 {group.items.map((item, i) => (
                   <motion.div
                     key={`${item.id}-${kaFilter}`}
-                    className="relative overflow-hidden rounded-[4px] border border-rule cursor-pointer group"
+                    className="relative overflow-hidden rounded-[4px] border border-rule group-hover:border-gold/60 cursor-pointer group transition-colors duration-300"
                     style={{ breakInside: "avoid", marginBottom: "16px" }}
                     initial={{ opacity: 0, y: 30, scale: 0.97 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -225,8 +225,10 @@ export default function KeyArtPage() {
                     }}
                     onClick={() => openLightbox(item)}
                   >
+                    {/* Gold frame on hover */}
+                    <div className="absolute inset-0 rounded-[3px] border border-transparent group-hover:border-gold/70 transition-colors duration-300 z-10 pointer-events-none" />
                     <div
-                      className="w-full relative group-hover:scale-105 transition-transform duration-500 bg-[#1A1917]"
+                      className="w-full relative bg-[#1A1917]"
                       style={{ aspectRatio: `${item.w} / ${item.h}` }}
                     >
                       <Image
@@ -237,12 +239,15 @@ export default function KeyArtPage() {
                         className="object-cover"
                       />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark/95 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col justify-end p-5">
-                      <div className="font-serif text-lg font-bold text-cream mb-1">
-                        {item.title}
-                      </div>
-                      <div className="font-mono text-[10px] tracking-[1px] text-gold uppercase">
-                        {item.desc}
+                    {/* Text info — dark bg only behind text at bottom */}
+                    <div className="absolute bottom-0 left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                      <div style={{ background: "linear-gradient(to top, rgba(13,12,10,0.92) 0%, rgba(13,12,10,0.7) 70%, transparent 100%)", padding: "32px 16px 14px" }}>
+                        <div className="font-serif text-lg font-bold text-cream mb-1">
+                          {item.title}
+                        </div>
+                        <div className="font-mono text-[10px] tracking-[1px] text-gold uppercase">
+                          {item.desc}
+                        </div>
                       </div>
                     </div>
                   </motion.div>
