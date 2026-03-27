@@ -72,13 +72,7 @@ export default function ReelsPage() {
               </div>
 
               <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
-                <iframe
-                  src={reel.embedUrl.replace("/watch/", "/embed/")}
-                  className="w-full"
-                  style={{ border: "none", height: "auto", aspectRatio: "16/9", minHeight: "clamp(220px, 50vw, 400px)" }}
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowFullScreen
-                />
+                <VideoPlayer embedUrl={reel.embedUrl} />
               </div>
 
               <div className="flex gap-8 mt-5 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
