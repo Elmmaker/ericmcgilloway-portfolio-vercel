@@ -321,22 +321,24 @@ export default function Home() {
                     variants={{
                       hidden: { opacity: 0 },
                       visible: {
-                        opacity: [0, 1, 0],
+                        opacity: [0, 0, 1, 0],
                         boxShadow: [
                           `0 0 0px ${p.color}00`,
-                          `0 0 24px ${p.color}CC, 0 0 48px ${p.color}66`,
+                          `0 0 0px ${p.color}00`,
+                          `0 0 28px ${p.color}CC, 0 0 56px ${p.color}66`,
                           `0 0 0px ${p.color}00`,
                         ],
-                        transition: { duration: 0.7, delay: 0.6 + i * 0.1, ease: "easeOut" },
+                        transition: { duration: 1.2, delay: 0.2 + i * 0.1, times: [0, 0.5, 0.75, 1], ease: "easeOut" },
                       },
                       hover: {
-                        opacity: [0, 1, 0],
+                        opacity: [0, 0, 1, 0],
                         boxShadow: [
                           `0 0 0px ${p.color}00`,
-                          `0 0 24px ${p.color}CC, 0 0 48px ${p.color}66`,
+                          `0 0 0px ${p.color}00`,
+                          `0 0 28px ${p.color}CC, 0 0 56px ${p.color}66`,
                           `0 0 0px ${p.color}00`,
                         ],
-                        transition: { duration: 0.5, ease: "easeOut" },
+                        transition: { duration: 0.9, times: [0, 0.45, 0.7, 1], ease: "easeOut" },
                       },
                     }}
                   />
