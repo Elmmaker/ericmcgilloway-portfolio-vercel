@@ -17,6 +17,7 @@ const PROJECTS = [
     type: "Documentary",
     year: "2026",
     color: "#C5A455",
+    image: "/images/work/modern_marvels1.jpg",
   },
   {
     id: 2,
@@ -26,6 +27,7 @@ const PROJECTS = [
     type: "Late Night",
     year: "2010–21",
     color: "#E05A3A",
+    image: "/images/work/conan.png",
   },
   {
     id: 3,
@@ -36,6 +38,7 @@ const PROJECTS = [
     year: "2025",
     color: "#3A7BE0",
     projects: ["Five Nights At Freddy's", "Jurassic World", "How To Train Your Dragon"],
+    image: "/images/work/superman.jpg",
   },
   {
     id: 4,
@@ -46,6 +49,7 @@ const PROJECTS = [
     type: "Broadcast",
     year: "2024–2025",
     color: "#8B5CF6",
+    image: "/images/work/am1.jpg",
   },
   {
     id: 5,
@@ -55,6 +59,7 @@ const PROJECTS = [
     type: "Broadcast",
     year: "2023–2024",
     color: "#EC4899",
+    image: "/images/work/et.jpg",
   },
 ];
 
@@ -295,9 +300,18 @@ export default function Home() {
                     {p.type}
                   </div>
                   <div className="font-sans text-sm text-muted">{p.role}</div>
+                  <div className="font-mono text-[13px] text-ghost" style={{ marginTop: "6px" }}>
+                    {p.year}
+                  </div>
                 </div>
-                <div className="font-mono text-[13px] text-ghost">
-                  {p.year}
+                <div className="relative overflow-hidden rounded-[4px]" style={{ width: "clamp(80px, 10vw, 140px)", height: "clamp(50px, 6vw, 80px)" }}>
+                  <Image
+                    src={p.image}
+                    alt={p.title}
+                    fill
+                    sizes="140px"
+                    className="object-cover"
+                  />
                 </div>
               </div>
 
