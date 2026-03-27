@@ -137,9 +137,6 @@ export default function ReelsPage() {
               ))}
             </div>
 
-            <div className="mt-5 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
-              Updated: 2025
-            </div>
           </div>
         </FadeUp>
       </section>
