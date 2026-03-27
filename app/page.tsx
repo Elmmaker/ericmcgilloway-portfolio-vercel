@@ -309,9 +309,10 @@ export default function Home() {
                   style={{ maxWidth: "clamp(100px, 14vw, 200px)", perspective: 600 }}
                   initial="hidden"
                   whileInView="visible"
+                  whileHover="hover"
                   viewport={{ once: true, amount: 0.3 }}
                 >
-                  {/* Gold glow burst */}
+                  {/* Glow burst */}
                   <motion.div
                     className="absolute inset-0 rounded-[4px] pointer-events-none"
                     style={{
@@ -328,6 +329,15 @@ export default function Home() {
                         ],
                         transition: { duration: 0.7, delay: 0.6 + i * 0.1, ease: "easeOut" },
                       },
+                      hover: {
+                        opacity: [0, 1, 0],
+                        boxShadow: [
+                          `0 0 0px ${p.color}00`,
+                          `0 0 24px ${p.color}CC, 0 0 48px ${p.color}66`,
+                          `0 0 0px ${p.color}00`,
+                        ],
+                        transition: { duration: 0.5, ease: "easeOut" },
+                      },
                     }}
                   />
                   <motion.div
@@ -342,6 +352,10 @@ export default function Home() {
                           ease: [0.22, 1, 0.36, 1],
                           delay: 0.2 + i * 0.1,
                         },
+                      },
+                      hover: {
+                        rotateY: [0, 180, 360],
+                        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
                       },
                     }}
                   >
