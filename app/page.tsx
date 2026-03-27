@@ -16,7 +16,7 @@ const PROJECTS = [
     role: "Sr. 3D and Map Animation Designer",
     type: "Documentary",
     year: "2026",
-    color: "#C5A455",
+    color: "#11C2D7",
     image: "/images/work/modern_marvels1.jpg",
     video: null,
   },
