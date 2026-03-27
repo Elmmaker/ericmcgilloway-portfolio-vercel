@@ -429,7 +429,7 @@ export default function Home() {
             <div className="flex flex-wrap justify-center sm:justify-start" style={{ gap: "clamp(32px, 5vw, 56px)", borderTop: "1px solid #1E1D1A", paddingTop: "32px" }}>
               {[
                 { num: "15+", label: "Years" },
-                { num: "200+", label: "Episodes" },
+                { num: "2,000+", label: "Episodes" },
                 { num: "Local 800", label: "Union" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center sm:text-left">
