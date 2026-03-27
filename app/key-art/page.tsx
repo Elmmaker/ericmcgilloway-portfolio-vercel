@@ -239,17 +239,6 @@ export default function KeyArtPage() {
                         className="object-cover"
                       />
                     </div>
-                    {/* Text info — dark bg only behind text at bottom */}
-                    <div className="absolute bottom-0 left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                      <div style={{ background: "linear-gradient(to top, rgba(13,12,10,0.92) 0%, rgba(13,12,10,0.7) 70%, transparent 100%)", padding: "32px 16px 14px" }}>
-                        <div className="font-serif text-lg font-bold text-cream mb-1">
-                          {item.title}
-                        </div>
-                        <div className="font-mono text-[10px] tracking-[1px] text-gold uppercase">
-                          {item.desc}
-                        </div>
-                      </div>
-                    </div>
                   </motion.div>
                 ))}
               </div>
