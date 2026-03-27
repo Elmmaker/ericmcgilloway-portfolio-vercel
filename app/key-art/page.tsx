@@ -213,8 +213,8 @@ export default function KeyArtPage() {
                 {group.items.map((item, i) => (
                   <motion.div
                     key={`${item.id}-${kaFilter}`}
-                    className="relative overflow-hidden rounded-[4px] border border-rule group-hover:border-gold/60 cursor-pointer group transition-colors duration-300"
-                    style={{ breakInside: "avoid", marginBottom: "16px" }}
+                    className="relative overflow-visible rounded-[4px] border border-rule group-hover:border-gold/60 cursor-pointer group transition-all duration-300 hover:scale-[1.03]"
+                    style={{ breakInside: "avoid", marginBottom: "16px", transformOrigin: "center center" }}
                     initial={{ opacity: 0, y: 30, scale: 0.97 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true, amount: 0.1 }}
