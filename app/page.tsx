@@ -338,7 +338,7 @@ export default function Home() {
                           `0 0 28px ${p.color}CC, 0 0 56px ${p.color}66`,
                           `0 0 0px ${p.color}00`,
                         ],
-                        transition: { duration: 0.9, times: [0, 0.45, 0.7, 1], ease: "easeOut" },
+                        transition: { duration: 1.4, times: [0, 0.5, 0.85, 1], ease: "easeOut" },
                       },
                     }}
                   />
@@ -356,8 +356,8 @@ export default function Home() {
                         },
                       },
                       hover: {
-                        rotateY: [0, 180, 360],
-                        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+                        rotateY: [0, 360],
+                        transition: { duration: 1.2, ease: "easeInOut" },
                       },
                     }}
                   >
