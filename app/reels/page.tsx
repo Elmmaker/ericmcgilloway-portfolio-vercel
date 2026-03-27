@@ -3,6 +3,7 @@
 import FadeUp from "../components/FadeUp";
 import Footer from "../components/Footer";
 import PageTransition from "../components/PageTransition";
+import VideoPlayer from "../components/VideoPlayer";
 
 const REELS = [
   {
@@ -111,24 +112,10 @@ export default function ReelsPage() {
                     {vid.sublabel}
                   </div>
                   <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
-                    {vid.embedUrl ? (
-                      <iframe
-                        src={vid.embedUrl.replace("/watch/", "/embed/")}
-                        className="w-full"
-                        style={{ border: "none", height: "auto", aspectRatio: "16/9" }}
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowFullScreen
-                      />
-                    ) : (
-                      <video
-                        src={vid.src}
-                        className="w-full"
-                        style={{ aspectRatio: "16/9", objectFit: "cover" }}
-                        controls
-                        playsInline
-                        preload="metadata"
-                      />
-                    )}
+                    <VideoPlayer
+                      src={vid.src}
+                      embedUrl={vid.embedUrl}
+                    />
                   </div>
                   <div className="mt-3 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
                     Duration: {vid.duration}
