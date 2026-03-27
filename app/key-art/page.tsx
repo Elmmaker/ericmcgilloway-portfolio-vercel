@@ -31,6 +31,8 @@ const KEY_ART: KeyArtItem[] = [
   { id: 25, filename: "conan-obrien-keyart-03-horz.png", title: "Conan O'Brien", desc: "Key art 03 horizontal", cat: "Entertainment Marketing", w: 3840, h: 2160, group: "Conan" },
   { id: 26, filename: "conan-obrien-keyart-03-vert.png", title: "Conan O'Brien", desc: "Key art 03 vertical", cat: "Entertainment Marketing", w: 2000, h: 3000, group: "Conan" },
   { id: 16, filename: "conan-in-cuba-keyart.png", title: "Conan in Cuba", desc: "Cuba special key art", cat: "Entertainment Marketing", w: 2084, h: 2234, group: "Conan" },
+  { id: 37, filename: "BCB_v6_email.jpeg", title: "Conan", desc: "BCB v6 email key art", cat: "Entertainment Marketing", w: 1334, h: 1950, group: "Conan" },
+  { id: 38, filename: "VIVINO_TourSmall.jpeg", title: "Conan", desc: "Vivino tour key art", cat: "Entertainment Marketing", w: 1500, h: 2118, group: "Conan" },
 
   // Group 2: Charlie Berens
   { id: 6, filename: "charlie-berens-grid-01.png", title: "Charlie Berens", desc: "Social media grid layout 01", cat: "Comedy / Touring", w: 1711, h: 2056, group: "Charlie Berens" },
