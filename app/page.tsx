@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
-import { useState, useRef, useCallback } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import Image from "next/image";
 import CursorTrail from "./components/CursorTrail";
 import FadeUp from "./components/FadeUp";
@@ -18,6 +18,7 @@ const PROJECTS = [
     year: "2026",
     color: "#C5A455",
     image: "/images/work/modern_marvels1.jpg",
+    video: "/clips/modern-marvels.mp4",
   },
   {
     id: 2,
@@ -28,6 +29,7 @@ const PROJECTS = [
     year: "2010–21",
     color: "#E05A3A",
     image: "/images/work/conan.jpg",
+    video: "/clips/conan.mp4",
   },
   {
     id: 3,
@@ -39,6 +41,7 @@ const PROJECTS = [
     color: "#3A7BE0",
     projects: ["Five Nights At Freddy's", "Jurassic World", "How To Train Your Dragon"],
     image: "/images/work/superman-wide.jpg",
+    video: "/clips/superman.mp4",
   },
   {
     id: 4,
@@ -50,6 +53,7 @@ const PROJECTS = [
     year: "2024–2025",
     color: "#8B5CF6",
     image: "/images/work/am1.jpg",
+    video: "/clips/after-midnight.mp4",
   },
   {
     id: 5,
@@ -60,6 +64,7 @@ const PROJECTS = [
     year: "2023–2024",
     color: "#EC4899",
     image: "/images/work/et.jpg",
+    video: "/clips/entertainment-tonight.mp4",
   },
 ];
 
@@ -84,55 +89,6 @@ const letterVariants = {
     },
   }),
 };
-
-function SpinImage({ src, alt, color, delay }: { src: string; alt: string; color: string; delay: number }) {
-  const controls = useAnimation();
-  const cooldownRef = useRef(false);
-  const hasEnteredRef = useRef(false);
-
-  const handleHover = useCallback(() => {
-    if (cooldownRef.current || !hasEnteredRef.current) return;
-    cooldownRef.current = true;
-    controls.start({
-      rotateY: [0, 360],
-      transition: { duration: 1.2, ease: "easeInOut" },
-    }).then(() => {
-      setTimeout(() => { cooldownRef.current = false; }, 3000);
-    });
-  }, [controls]);
-
-  return (
-    <div
-      className="relative flex-shrink-0 w-[40%] md:w-auto"
-      style={{ maxWidth: 200, perspective: 600 }}
-    >
-      <motion.div
-        className="overflow-hidden rounded-[4px] border border-gold/50"
-        initial={{ opacity: 0, rotateY: 90 }}
-        whileInView={{ opacity: 1, rotateY: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{
-          duration: 1.2,
-          ease: [0.22, 1, 0.36, 1],
-          delay,
-        }}
-        animate={controls}
-        onAnimationComplete={() => { hasEnteredRef.current = true; }}
-        onMouseEnter={handleHover}
-      >
-        <Image
-          src={src}
-          alt={alt}
-          width={400}
-          height={300}
-          sizes="(max-width: 768px) 40vw, 200px"
-          className="w-full h-auto"
-          style={{ display: "block" }}
-        />
-      </motion.div>
-    </div>
-  );
-}
 
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -291,7 +247,7 @@ export default function Home() {
           {filteredProjects.map((p, i) => (
             <motion.div
               key={p.id}
-              className="grid grid-cols-1 md:grid-cols-[1fr_1fr] cursor-pointer relative group"
+              className="grid grid-cols-1 md:grid-cols-[auto_1fr_auto] items-center cursor-pointer relative group"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
@@ -301,7 +257,7 @@ export default function Home() {
                 delay: i * 0.1,
               }}
               style={
-                { "--card-color": p.color, padding: "clamp(24px, 4vw, 48px) 0 clamp(24px, 4vw, 48px) clamp(20px, 4vw, 40px)" } as React.CSSProperties
+                { "--card-color": p.color, padding: "clamp(16px, 3vw, 32px) 0", gap: "clamp(16px, 3vw, 32px)" } as React.CSSProperties
               }
             >
               {/* Sheen divider */}
@@ -312,19 +268,25 @@ export default function Home() {
                 />
               </div>
 
-              {/* Accent bar */}
-              <div
-                className="absolute left-0 top-0 bottom-0 w-[3px] origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-400"
-                style={{
-                  background: p.color,
-                  transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
-                }}
-              />
+              {/* LEFT — Video */}
+              <div className="w-full md:w-[clamp(160px,18vw,260px)] flex-shrink-0 overflow-hidden rounded-[4px]">
+                <video
+                  src={p.video}
+                  className="w-full h-auto block"
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
+                  onMouseLeave={(e) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
+                />
+              </div>
 
-              <div>
+              {/* CENTER — Headings */}
+              <div className="flex-1 min-w-0">
                 <div
                   className="font-serif font-bold text-cream leading-tight group-hover:!text-[var(--card-color)] transition-colors duration-400"
-                  style={{ fontSize: "clamp(22px, 4vw, 44px)" }}
+                  style={{ fontSize: "clamp(22px, 3.5vw, 40px)" }}
                 >
                   {p.title}
                 </div>
@@ -343,17 +305,15 @@ export default function Home() {
                 </span>
               </div>
 
-              <div className="flex flex-col-reverse md:flex-row justify-between items-start mt-4 md:mt-0 gap-4">
-                <div>
-                  <div className="font-mono text-[11px] tracking-[2px] uppercase text-gold" style={{ marginBottom: "4px" }}>
-                    {p.type}
-                  </div>
-                  <div className="font-sans text-sm text-muted">{p.role}</div>
-                  <div className="font-mono text-[13px] text-ghost" style={{ marginTop: "6px" }}>
-                    {p.year}
-                  </div>
+              {/* RIGHT — Subheadings / metadata */}
+              <div className="text-left md:text-right flex-shrink-0">
+                <div className="font-mono text-[11px] tracking-[2px] uppercase text-gold" style={{ marginBottom: "4px" }}>
+                  {p.type}
                 </div>
-                <SpinImage src={p.image} alt={p.title} color={p.color} delay={0.2 + i * 0.1} />
+                <div className="font-sans text-sm text-muted">{p.role}</div>
+                <div className="font-mono text-[13px] text-ghost" style={{ marginTop: "6px" }}>
+                  {p.year}
+                </div>
               </div>
 
             </motion.div>
