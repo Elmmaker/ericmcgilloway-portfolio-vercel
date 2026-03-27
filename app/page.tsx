@@ -103,8 +103,8 @@ function SpinImage({ src, alt, color, delay }: { src: string; alt: string; color
 
   return (
     <div
-      className="relative flex-shrink-0 w-full md:w-auto"
-      style={{ maxWidth: "clamp(100px, 14vw, 200px)", perspective: 600 }}
+      className="relative flex-shrink-0 w-[40%] md:w-auto"
+      style={{ maxWidth: 200, perspective: 600 }}
     >
       <motion.div
         className="overflow-hidden rounded-[4px] border border-gold/50"
