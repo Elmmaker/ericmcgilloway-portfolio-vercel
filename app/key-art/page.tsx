@@ -225,8 +225,10 @@ export default function KeyArtPage() {
                     }}
                     onClick={() => openLightbox(item)}
                   >
-                    {/* Gold frame on hover */}
-                    <div className="absolute inset-0 rounded-[3px] border border-transparent group-hover:border-gold/70 transition-colors duration-300 z-10 pointer-events-none" />
+                    {/* Gold frame on hover with sheen */}
+                    <div className="absolute inset-0 rounded-[3px] border-2 border-transparent group-hover:border-gold/70 transition-colors duration-300 z-10 pointer-events-none overflow-hidden">
+                      <div className="ka-frame-sheen opacity-0 group-hover:opacity-100" />
+                    </div>
                     <div
                       className="w-full relative bg-[#1A1917]"
                       style={{ aspectRatio: `${item.w} / ${item.h}` }}
@@ -340,6 +342,26 @@ export default function KeyArtPage() {
           .ka-masonry {
             columns: 1;
           }
+        }
+        .ka-frame-sheen {
+          position: absolute;
+          inset: -2px;
+          background: linear-gradient(
+            105deg,
+            transparent 0%,
+            transparent 35%,
+            rgba(255, 255, 255, 0.35) 45%,
+            rgba(197, 164, 85, 0.5) 50%,
+            rgba(255, 255, 255, 0.35) 55%,
+            transparent 65%,
+            transparent 100%
+          );
+          animation: frameSheenSweep 2.5s ease-in-out infinite;
+          transition: opacity 0.3s;
+        }
+        @keyframes frameSheenSweep {
+          0% { transform: translateX(-120%); }
+          100% { transform: translateX(120%); }
         }
         .glow-sheen {
           position: absolute;
