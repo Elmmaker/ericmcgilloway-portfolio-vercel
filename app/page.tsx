@@ -272,8 +272,8 @@ export default function Home() {
               <div className="flex items-stretch gap-3 w-full md:w-[clamp(160px,18vw,260px)] flex-shrink-0">
                 {/* Vertical color line */}
                 <div
-                  className="w-[3px] flex-shrink-0 rounded-full transition-opacity duration-400"
-                  style={{ backgroundColor: p.color }}
+                  className="w-[3px] flex-shrink-0 rounded-full transition-all duration-400 work-accent-bar"
+                  style={{ backgroundColor: "#C5A455" }}
                 />
                 <div className="flex-1 overflow-hidden rounded-[4px]">
                   {p.video ? (
@@ -431,6 +431,9 @@ export default function Home() {
       <Footer />
 
       <style jsx global>{`
+        .group:hover .work-accent-bar {
+          background-color: var(--card-color) !important;
+        }
         .group:hover .work-title-glow {
           text-shadow:
             0 0 8px var(--card-color),
