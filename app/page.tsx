@@ -272,7 +272,7 @@ export default function Home() {
               <div className="flex items-stretch gap-3 w-full md:w-[clamp(160px,18vw,260px)] flex-shrink-0">
                 {/* Vertical color line */}
                 <div
-                  className="w-[3px] flex-shrink-0 rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-400"
+                  className="w-[3px] flex-shrink-0 rounded-full transition-opacity duration-400"
                   style={{ backgroundColor: p.color }}
                 />
                 <div className="flex-1 overflow-hidden rounded-[4px]">
