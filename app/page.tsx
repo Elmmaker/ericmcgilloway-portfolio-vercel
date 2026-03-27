@@ -27,7 +27,7 @@ const PROJECTS = [
     type: "Late Night",
     year: "2010–21",
     color: "#E05A3A",
-    image: "/images/work/conan.png",
+    image: "/images/work/conan.jpg",
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ const PROJECTS = [
     year: "2025",
     color: "#3A7BE0",
     projects: ["Five Nights At Freddy's", "Jurassic World", "How To Train Your Dragon"],
-    image: "/images/work/superman.jpg",
+    image: "/images/work/superman-wide.jpg",
   },
   {
     id: 4,
@@ -304,13 +304,15 @@ export default function Home() {
                     {p.year}
                   </div>
                 </div>
-                <div className="relative overflow-hidden rounded-[4px]" style={{ width: "clamp(80px, 10vw, 140px)", height: "clamp(50px, 6vw, 80px)" }}>
+                <div className="relative overflow-hidden rounded-[4px] flex-shrink-0" style={{ width: "clamp(100px, 14vw, 200px)" }}>
                   <Image
                     src={p.image}
                     alt={p.title}
-                    fill
-                    sizes="140px"
-                    className="object-cover"
+                    width={400}
+                    height={300}
+                    sizes="200px"
+                    className="w-full h-auto"
+                    style={{ display: "block" }}
                   />
                 </div>
               </div>
