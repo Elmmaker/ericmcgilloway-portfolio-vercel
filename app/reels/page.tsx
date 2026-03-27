@@ -134,11 +134,20 @@ export default function ReelsPage() {
               Ammo Creative
             </div>
 
-            <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
-              <VideoPlayer src="/clips/entertainment-ads-reel.mp4" />
-            </div>
-            <div className="mt-3 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
-              Duration: 0:24
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
+                  <VideoPlayer src="/clips/entertainment-ads-reel.mp4" />
+                </div>
+                <div className="mt-3 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
+                  Duration: 0:24
+                </div>
+              </div>
+              <div>
+                <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
+                  <VideoPlayer src="/clips/fyse-music-of-netflix-clip.mp4" />
+                </div>
+              </div>
             </div>
           </div>
         </FadeUp>
