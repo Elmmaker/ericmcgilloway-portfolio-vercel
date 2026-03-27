@@ -93,7 +93,7 @@ export default function CursorTrail() {
         ctx!.beginPath();
         ctx!.moveTo(mx1, my1);
         ctx!.quadraticCurveTo(p1.x, p1.y, mx2, my2);
-        ctx!.strokeStyle = `rgba(139, 92, 246, ${alpha * 0.9})`;
+        ctx!.strokeStyle = `rgba(236, 72, 153, ${alpha * 0.9})`;
         ctx!.lineWidth = lineW;
         ctx!.lineCap = "round";
         ctx!.lineJoin = "round";
@@ -104,7 +104,7 @@ export default function CursorTrail() {
           ctx!.beginPath();
           ctx!.moveTo(mx1, my1);
           ctx!.quadraticCurveTo(p1.x, p1.y, mx2, my2);
-          ctx!.strokeStyle = `rgba(167, 120, 255, ${alpha * 0.25})`;
+          ctx!.strokeStyle = `rgba(244, 114, 182, ${alpha * 0.25})`;
           ctx!.lineWidth = lineW * 4;
           ctx!.lineCap = "round";
           ctx!.lineJoin = "round";
@@ -116,7 +116,7 @@ export default function CursorTrail() {
           ctx!.beginPath();
           ctx!.moveTo(mx1, my1);
           ctx!.quadraticCurveTo(p1.x, p1.y, mx2, my2);
-          ctx!.strokeStyle = `rgba(220, 200, 255, ${alpha * 0.55})`;
+          ctx!.strokeStyle = `rgba(255, 200, 220, ${alpha * 0.55})`;
           ctx!.lineWidth = lineW * 0.4;
           ctx!.lineCap = "round";
           ctx!.lineJoin = "round";
@@ -133,15 +133,15 @@ export default function CursorTrail() {
             smoothX, smoothY, 0,
             smoothX, smoothY, 20
           );
-          grd.addColorStop(0, "rgba(139, 92, 246, 0.35)");
-          grd.addColorStop(0.5, "rgba(139, 92, 246, 0.1)");
-          grd.addColorStop(1, "rgba(139, 92, 246, 0)");
+          grd.addColorStop(0, "rgba(236, 72, 153, 0.35)");
+          grd.addColorStop(0.5, "rgba(236, 72, 153, 0.1)");
+          grd.addColorStop(1, "rgba(236, 72, 153, 0)");
           ctx!.fillStyle = grd;
           ctx!.beginPath();
           ctx!.arc(smoothX, smoothY, 20, 0, Math.PI * 2);
           ctx!.fill();
 
-          ctx!.fillStyle = "rgba(220, 200, 255, 0.5)";
+          ctx!.fillStyle = "rgba(255, 200, 220, 0.5)";
           ctx!.beginPath();
           ctx!.arc(smoothX, smoothY, 2, 0, Math.PI * 2);
           ctx!.fill();

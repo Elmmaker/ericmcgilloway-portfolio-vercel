@@ -120,6 +120,28 @@ export default function ReelsPage() {
 
           </div>
         </FadeUp>
+
+        {/* Entertainment Social Media Advertising */}
+        <FadeUp delay={0.15}>
+          <div style={{ marginTop: "clamp(60px, 10vw, 100px)" }}>
+            <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
+              Entertainment Social Media Advertising
+            </div>
+            <div
+              className="font-serif font-bold text-cream mb-3"
+              style={{ fontSize: "clamp(22px, 4vw, 48px)" }}
+            >
+              Ammo Creative
+            </div>
+
+            <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
+              <VideoPlayer src="/clips/entertainment-ads-reel.mp4" />
+            </div>
+            <div className="mt-3 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
+              Duration: 0:24
+            </div>
+          </div>
+        </FadeUp>
       </section>
 
       <Footer />
