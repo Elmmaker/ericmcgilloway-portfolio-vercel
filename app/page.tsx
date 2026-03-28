@@ -160,8 +160,7 @@ export default function Home() {
               delay: 1.0,
             }}
           >
-            15+ years shaping the visual language of broadcast television. From
-            late night to documentary. From network to streaming.
+            15+ years in broadcast television. Late night, documentary, streaming -- I've been lucky to work on some great shows with some great people.
           </motion.p>
 
           {/* CTA */}
