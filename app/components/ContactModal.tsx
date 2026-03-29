@@ -8,7 +8,7 @@ export default function ContactModal() {
   const { open, setOpen } = useContact();
   const [copied, setCopied] = useState(false);
   const [formState, setFormState] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const EMAIL = "elmmaker@gmail.com";
 
@@ -18,11 +18,27 @@ export default function ContactModal() {
     setTimeout(() => setCopied(false), 2000);
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 3000);
-    setFormState({ name: "", email: "", message: "" });
+    setStatus("sending");
+    try {
+      const res = await fetch("https://formspree.io/f/xqegpypb", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(formState),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        setFormState({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus("idle"), 4000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 5000);
+      }
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
+    }
   }
 
   return (
@@ -129,11 +145,17 @@ export default function ContactModal() {
 
               <button
                 type="submit"
-                className="font-mono text-xs tracking-[2px] uppercase bg-gold text-dark border-none cursor-pointer hover:bg-gold-hover hover:-translate-y-0.5 transition-all duration-300 w-full"
+                disabled={status === "sending"}
+                className="font-mono text-xs tracking-[2px] uppercase bg-gold text-dark border-none cursor-pointer hover:bg-gold-hover hover:-translate-y-0.5 transition-all duration-300 w-full disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 style={{ padding: "16px 32px", minHeight: "48px" }}
               >
-                {sent ? "Sent!" : "Send Message"}
+                {status === "sending" ? "Sending..." : status === "sent" ? "Message sent!" : status === "error" ? "Try again" : "Send Message"}
               </button>
+              {status === "error" && (
+                <p className="font-mono text-[11px] text-red-400" style={{ marginTop: "8px" }}>
+                  Something went wrong. Try again or copy the email above.
+                </p>
+              )}
             </form>
 
             <p className="font-mono text-[11px] text-dim" style={{ marginTop: "16px", lineHeight: 1.5 }}>
