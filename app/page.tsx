@@ -277,12 +277,13 @@ export default function Home() {
                 <div className="flex-1 overflow-hidden rounded-[4px]">
                   {p.video ? (
                     <video
-                      src={p.video}
+                      src={`${p.video}#t=0.1`}
                       className="w-full h-auto block"
                       muted
                       loop
                       playsInline
                       preload="metadata"
+                      poster={p.title === "After Midnight" ? "/images/work/am1.jpg" : undefined}
                       onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
                       onMouseLeave={(e) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
                     />
