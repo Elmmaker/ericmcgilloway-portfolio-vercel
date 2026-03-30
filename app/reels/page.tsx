@@ -42,7 +42,7 @@ export default function ReelsPage() {
       >
         <FadeUp>
           <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold" style={{ marginBottom: "12px" }}>
-            01
+            02 / Motion Graphics
           </div>
         </FadeUp>
         <FadeUp delay={0.1}>

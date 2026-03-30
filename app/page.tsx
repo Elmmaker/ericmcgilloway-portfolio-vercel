@@ -212,7 +212,7 @@ export default function Home() {
           <div>
             <FadeUp>
               <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold" style={{ marginBottom: "12px" }}>
-                02 / Selected Work
+                01 / Resume
               </div>
             </FadeUp>
             <FadeUp delay={0.1}>
@@ -276,17 +276,20 @@ export default function Home() {
                 />
                 <div className="flex-1 overflow-hidden rounded-[4px]">
                   {p.video ? (
-                    <video
-                      src={`${p.video}#t=0.1`}
-                      className="w-full h-auto block"
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      poster={p.title === "After Midnight" ? "/images/work/am1.jpg" : undefined}
-                      onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
-                      onMouseLeave={(e) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
-                    />
+                    <>
+                      <video
+                        src={`${p.video}#t=0.1`}
+                        className="w-full h-auto block"
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        poster={p.title === "After Midnight" ? "/images/work/am1.jpg" : undefined}
+                        onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
+                        onMouseLeave={(e) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
+                      />
+                      <div className="font-mono text-[9px] tracking-[2px] uppercase text-dim/50 mt-1">Tap</div>
+                    </>
                   ) : (
                     <div className="relative">
                       <Image
