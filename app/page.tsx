@@ -276,7 +276,7 @@ export default function Home() {
                 />
                 <div className="flex-1 overflow-hidden rounded-[4px]">
                   {p.video ? (
-                    <>
+                    <div className="relative">
                       <video
                         src={`${p.video}#t=0.1`}
                         className="w-full h-auto block"
@@ -288,8 +288,10 @@ export default function Home() {
                         onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
                         onMouseLeave={(e) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
                       />
-                      <div className="font-mono text-[9px] tracking-[2px] uppercase text-dim/50 mt-1">Tap</div>
-                    </>
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="font-mono text-[9px] tracking-[2px] uppercase" style={{ color: "rgba(200, 200, 200, 0.65)" }}>Tap</span>
+                      </div>
+                    </div>
                   ) : (
                     <div className="relative">
                       <Image
