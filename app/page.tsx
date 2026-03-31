@@ -288,8 +288,8 @@ export default function Home() {
                         onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
                         onMouseLeave={(e) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
                       />
-                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <span className="font-mono text-[9px] tracking-[2px] uppercase" style={{ color: "rgba(200, 200, 200, 0.65)" }}>Tap</span>
+                      <div className="absolute bottom-0 left-0 p-2 pointer-events-none">
+                        <span className="font-mono text-[9px] tracking-[2px] uppercase font-bold" style={{ color: "rgba(220, 220, 220, 0.8)" }}>Tap</span>
                       </div>
                     </div>
                   ) : (
