@@ -276,7 +276,28 @@ export default function Home() {
                 />
                 <div className="flex-1 overflow-hidden rounded-[4px]">
                   {p.video ? (
-                    <div className="relative">
+                    <div className="relative"
+                      onMouseEnter={(e) => {
+                        const v = e.currentTarget.querySelector("video");
+                        const tap = e.currentTarget.querySelector(".tap-label") as HTMLElement;
+                        if (v) v.play();
+                        if (tap) tap.style.opacity = "0";
+                      }}
+                      onMouseLeave={(e) => {
+                        const v = e.currentTarget.querySelector("video");
+                        const tap = e.currentTarget.querySelector(".tap-label") as HTMLElement;
+                        if (v) { v.pause(); v.currentTime = 0; }
+                        if (tap) tap.style.opacity = "1";
+                      }}
+                      onClick={(e) => {
+                        const v = e.currentTarget.querySelector("video");
+                        const tap = e.currentTarget.querySelector(".tap-label") as HTMLElement;
+                        if (v) {
+                          if (v.paused) { v.play(); if (tap) tap.style.opacity = "0"; }
+                          else { v.pause(); v.currentTime = 0; if (tap) tap.style.opacity = "1"; }
+                        }
+                      }}
+                    >
                       <video
                         src={`${p.video}#t=0.1`}
                         className="w-full h-auto block"
@@ -285,10 +306,8 @@ export default function Home() {
                         playsInline
                         preload="metadata"
                         poster={p.title === "After Midnight" ? "/images/work/am1.jpg" : undefined}
-                        onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
-                        onMouseLeave={(e) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
                       />
-                      <div className="absolute bottom-0 left-0 pointer-events-none" style={{ padding: "6px 6px" }}>
+                      <div className="tap-label absolute bottom-0 left-0 pointer-events-none transition-opacity duration-300" style={{ padding: "6px 6px", opacity: 1 }}>
                         <span className="font-mono text-[9px] tracking-[0.5px] uppercase font-bold" style={{ color: "rgba(220, 220, 220, 0.8)" }}>Tap</span>
                       </div>
                     </div>
