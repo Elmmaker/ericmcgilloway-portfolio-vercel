@@ -278,12 +278,14 @@ export default function Home() {
                   {p.video ? (
                     <div className="relative"
                       onMouseEnter={(e) => {
+                        if (window.matchMedia("(hover: none)").matches) return;
                         const v = e.currentTarget.querySelector("video");
                         const tap = e.currentTarget.querySelector(".tap-label") as HTMLElement;
                         if (v) v.play();
                         if (tap) tap.style.opacity = "0";
                       }}
                       onMouseLeave={(e) => {
+                        if (window.matchMedia("(hover: none)").matches) return;
                         const v = e.currentTarget.querySelector("video");
                         const tap = e.currentTarget.querySelector(".tap-label") as HTMLElement;
                         if (v) { v.pause(); v.currentTime = 0; }
