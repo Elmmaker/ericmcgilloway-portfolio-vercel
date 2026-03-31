@@ -25,6 +25,20 @@ export const metadata: Metadata = {
   title: "Eric McGilloway",
   description:
     "Senior Motion Graphics Designer — 15+ years shaping the visual language of broadcast television.",
+  openGraph: {
+    title: "Eric McGilloway",
+    description:
+      "Senior Motion Graphics Designer — 15+ years shaping the visual language of broadcast television.",
+    url: "https://ericmcgilloway.com",
+    siteName: "Eric McGilloway",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Eric McGilloway",
+    description:
+      "Senior Motion Graphics Designer — 15+ years shaping the visual language of broadcast television.",
+  },
 };
 
 export const viewport: Viewport = {
