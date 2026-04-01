@@ -412,7 +412,7 @@ export default function Home() {
               className="font-serif text-cream text-center sm:text-left"
               style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1.4, marginBottom: "28px" }}
             >
-              I make things move for a living.
+              I make graphics move for a living.
             </p>
           </FadeUp>
 
