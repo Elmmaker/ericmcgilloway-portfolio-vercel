@@ -422,7 +422,7 @@ export default function Home() {
               15+ years designing for broadcast, social, and every screen in
               between. From 11 seasons on Conan to documentary work on Modern
               Marvels to entertainment marketing campaigns for major studio
-              releases. Late night, documentary, episodic TV -- I love the
+              releases. I love the
               work and I&apos;m lucky to do it. I&apos;m easy to work with,
               organized, and self-motivated. Let&apos;s build something
               together.
