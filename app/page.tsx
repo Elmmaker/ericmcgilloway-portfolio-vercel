@@ -418,7 +418,7 @@ export default function Home() {
 
           {/* Body */}
           <FadeUp delay={0.15}>
-            <p className="font-sans text-center sm:text-left" style={{ fontSize: "clamp(15px, 1.8vw, 18px)", color: "#8A8579", lineHeight: 1.8, marginBottom: "56px", maxWidth: "680px" }}>
+            <p className="font-sans text-left" style={{ fontSize: "clamp(15px, 1.8vw, 18px)", color: "#8A8579", lineHeight: 1.8, marginBottom: "56px", maxWidth: "680px" }}>
               15+ years designing for broadcast, social, and every screen in
               between. From 11 seasons on Conan to documentary work on Modern
               Marvels to entertainment marketing campaigns for major studio
