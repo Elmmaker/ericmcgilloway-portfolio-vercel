@@ -25,6 +25,7 @@ const AFTER_MIDNIGHT_VIDEOS = [
   {
     sublabel: "Gameplay Stage Graphics",
     src: "/clips/after-midnight-gfx-grid.mp4",
+    poster: "/thumbnails/after-midnight-gfx-grid.png",
     duration: "0:13",
   },
 ];
@@ -109,6 +110,7 @@ export default function ReelsPage() {
                     <VideoPlayer
                       src={vid.src}
                       embedUrl={vid.embedUrl}
+                      poster={vid.poster}
                     />
                   </div>
                   <div className="mt-3 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
@@ -137,7 +139,7 @@ export default function ReelsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
                 <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
-                  <VideoPlayer src="/clips/entertainment-ads-reel.mp4" />
+                  <VideoPlayer src="/clips/entertainment-ads-reel.mp4" poster="/thumbnails/entertainment-ads-reel.png" />
                 </div>
                 <div className="mt-3 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
                   Duration: 0:24
@@ -145,7 +147,7 @@ export default function ReelsPage() {
               </div>
               <div>
                 <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
-                  <VideoPlayer src="/clips/fyse-music-of-netflix-clip.mp4" />
+                  <VideoPlayer src="/clips/fyse-music-of-netflix-clip.mp4" poster="/thumbnails/fyse-music-of-netflix-clip.png" />
                 </div>
               </div>
             </div>

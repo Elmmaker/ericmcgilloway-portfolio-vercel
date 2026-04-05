@@ -5,10 +5,11 @@ import { useRef, useState } from "react";
 interface VideoPlayerProps {
   src?: string;
   embedUrl?: string;
+  poster?: string;
   aspectRatio?: string;
 }
 
-export default function VideoPlayer({ src, embedUrl, aspectRatio = "16/9" }: VideoPlayerProps) {
+export default function VideoPlayer({ src, embedUrl, poster, aspectRatio = "16/9" }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const [activated, setActivated] = useState(false);
@@ -30,6 +31,7 @@ export default function VideoPlayer({ src, embedUrl, aspectRatio = "16/9" }: Vid
         <video
           ref={videoRef}
           src={src}
+          poster={poster}
           className="w-full h-full object-cover"
           playsInline
           preload="metadata"
