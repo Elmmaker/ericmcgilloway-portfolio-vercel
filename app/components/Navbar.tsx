@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,6 +16,43 @@ export default function Navbar() {
   const pathname = usePathname();
   const { setOpen } = useContact();
   const [menuOpen, setMenuOpen] = useState(false);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Move focus into menu on open; return focus to hamburger on close
+  useEffect(() => {
+    if (menuOpen) {
+      requestAnimationFrame(() => {
+        const first = menuRef.current?.querySelector<HTMLElement>("a, button");
+        first?.focus();
+      });
+    } else {
+      hamburgerRef.current?.focus();
+    }
+  }, [menuOpen]);
+
+  // Focus trap inside mobile menu
+  function handleMenuKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key === "Escape") {
+      setMenuOpen(false);
+      return;
+    }
+    if (e.key !== "Tab") return;
+    const menu = menuRef.current;
+    if (!menu) return;
+    const focusable = Array.from(
+      menu.querySelectorAll<HTMLElement>("a, button:not([disabled])")
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
 
   return (
     <>
@@ -31,7 +68,7 @@ export default function Navbar() {
       >
         <Link
           href="/"
-          className="font-serif text-lg font-bold text-cream hover:text-gold transition-colors duration-300 relative z-[200]"
+          className="font-serif text-lg font-bold text-cream hover:text-gold transition-colors duration-300 relative z-[202]"
         >
           Eric McGilloway
         </Link>
@@ -70,9 +107,12 @@ export default function Navbar() {
 
         {/* Hamburger button */}
         <button
-          className="md:hidden flex flex-col justify-center items-center w-11 h-11 bg-transparent border-none cursor-pointer gap-[5px] relative z-[200]"
+          ref={hamburgerRef}
+          className="md:hidden flex flex-col justify-center items-center w-11 h-11 bg-transparent border-none cursor-pointer gap-[5px] relative z-[201]"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
         >
           <motion.span
             className="block w-5 h-[1.5px] bg-cream"
@@ -96,7 +136,12 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-0 z-[150] flex flex-col items-center justify-center gap-8 md:hidden"
+            id="mobile-menu"
+            ref={menuRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+            className="fixed inset-0 z-[200] flex flex-col items-center justify-center gap-8 md:hidden"
             style={{
               background: "#0D0C0A",
             }}
@@ -104,6 +149,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
+            onKeyDown={handleMenuKeyDown}
           >
             {links.map((link, i) => (
               <motion.div

@@ -46,12 +46,12 @@ export default function ReelsPage() {
           </div>
         </FadeUp>
         <FadeUp delay={0.1}>
-          <h2
+          <h1
             className="font-serif font-bold text-cream"
             style={{ fontSize: "clamp(28px, 5vw, 56px)", marginBottom: "clamp(32px, 6vw, 60px)" }}
           >
             The Reels
-          </h2>
+          </h1>
         </FadeUp>
 
         {/* Primary Reel */}

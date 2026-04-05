@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback, useEffect, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import FadeUp from "../components/FadeUp";
 import Footer from "../components/Footer";
@@ -89,6 +89,9 @@ function GlowDivider() {
 export default function KeyArtPage() {
   const [kaFilter, setKaFilter] = useState("All");
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const lightboxRef = useRef<HTMLDivElement>(null);
+  const lightboxTriggerRef = useRef<HTMLElement | null>(null);
 
   const filtered = useMemo(() =>
     kaFilter === "All" ? KEY_ART : KEY_ART.filter((k) => k.cat === kaFilter),
@@ -109,8 +112,9 @@ export default function KeyArtPage() {
 
   const flatFiltered = useMemo(() => groups.flatMap((g) => g.items), [groups]);
 
-  const openLightbox = useCallback((item: KeyArtItem) => {
+  const openLightbox = useCallback((item: KeyArtItem, trigger: HTMLElement) => {
     const idx = flatFiltered.findIndex((f) => f.id === item.id);
+    lightboxTriggerRef.current = trigger;
     setLightbox(idx);
     document.body.style.overflow = "hidden";
   }, [flatFiltered]);
@@ -130,6 +134,17 @@ export default function KeyArtPage() {
     [lightbox, flatFiltered.length]
   );
 
+  // Move focus into lightbox on open; return focus on close
+  useEffect(() => {
+    if (lightbox !== null) {
+      requestAnimationFrame(() => {
+        lightboxRef.current?.focus();
+      });
+    } else {
+      lightboxTriggerRef.current?.focus();
+    }
+  }, [lightbox !== null]); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (lightbox === null) return;
@@ -140,6 +155,25 @@ export default function KeyArtPage() {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [lightbox, closeLightbox, navLightbox]);
+
+  // Lightbox focus trap
+  function handleLightboxKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key !== "Tab") return;
+    const dialog = lightboxRef.current;
+    if (!dialog) return;
+    const focusable = Array.from(
+      dialog.querySelectorAll<HTMLElement>("button:not([disabled])")
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
 
   const currentItem = lightbox !== null ? flatFiltered[lightbox] : null;
 
@@ -159,12 +193,12 @@ export default function KeyArtPage() {
           </div>
         </FadeUp>
         <FadeUp delay={0.1}>
-          <h2
+          <h1
             className="font-serif font-bold text-cream"
             style={{ fontSize: "clamp(32px, 5vw, 56px)" }}
           >
             Key Art &amp; Stills
-          </h2>
+          </h1>
         </FadeUp>
         <FadeUp delay={0.15}>
           <p className="text-base text-muted max-w-[560px]" style={{ marginTop: "12px", lineHeight: 1.7 }}>
@@ -179,6 +213,7 @@ export default function KeyArtPage() {
             <button
               key={f}
               onClick={() => setKaFilter(f)}
+              aria-pressed={f === kaFilter}
               className={`font-mono text-[10px] tracking-[1.5px] uppercase border cursor-pointer transition-all duration-300 ${
                 f === kaFilter
                   ? "border-gold bg-gold/10 text-gold"
@@ -215,15 +250,24 @@ export default function KeyArtPage() {
                     key={`${item.id}-${kaFilter}`}
                     className="relative overflow-visible rounded-[4px] border border-rule group-hover:border-gold/60 cursor-pointer group transition-all duration-300 hover:scale-[1.03]"
                     style={{ breakInside: "avoid", marginBottom: "16px", transformOrigin: "center center" }}
-                    initial={{ opacity: 0, y: 30, scale: 0.97 }}
+                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30, scale: shouldReduceMotion ? 1 : 0.97 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true, amount: 0.1 }}
                     transition={{
-                      duration: 0.6,
+                      duration: shouldReduceMotion ? 0.15 : 0.6,
                       ease: [0.22, 1, 0.36, 1],
-                      delay: Math.min(i * 0.04, 0.4),
+                      delay: shouldReduceMotion ? 0 : Math.min(i * 0.04, 0.4),
                     }}
-                    onClick={() => openLightbox(item)}
+                    onClick={(e) => openLightbox(item, e.currentTarget as HTMLElement)}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`${item.title} — ${item.desc}. Open lightbox.`}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        openLightbox(item, e.currentTarget as HTMLElement);
+                      }
+                    }}
                   >
                     {/* Gold frame on hover */}
                     <div className="absolute inset-0 rounded-[3px] border-2 border-transparent group-hover:border-gold/70 transition-colors duration-300 z-10 pointer-events-none" />
@@ -253,7 +297,12 @@ export default function KeyArtPage() {
       <AnimatePresence>
         {lightbox !== null && currentItem && (
           <motion.div
-            className="fixed inset-0 z-200 flex items-center justify-center px-10 py-16 sm:p-10 cursor-zoom-out"
+            ref={lightboxRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="lightbox-title"
+            tabIndex={-1}
+            className="fixed inset-0 z-200 flex items-center justify-center px-4 sm:px-10 py-16 sm:p-10 cursor-zoom-out focus:outline-none"
             style={{
               background: "rgba(0,0,0,0.92)",
               backdropFilter: "blur(12px)",
@@ -262,30 +311,34 @@ export default function KeyArtPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeLightbox}
+            onKeyDown={handleLightboxKeyDown}
           >
             <button
               className="absolute top-6 right-8 font-mono text-[13px] text-dim hover:text-gold cursor-pointer bg-transparent border-none tracking-[2px] transition-colors duration-300"
               onClick={closeLightbox}
+              aria-label="Close lightbox"
             >
-              CLOSE &#10005;
+              CLOSE <span aria-hidden="true">&#10005;</span>
             </button>
             <button
               className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 border border-surface rounded-full bg-dark/80 text-muted text-xl cursor-pointer hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center"
+              aria-label="Previous image"
               onClick={(e) => {
                 e.stopPropagation();
                 navLightbox(-1);
               }}
             >
-              &#8249;
+              <span aria-hidden="true">&#8249;</span>
             </button>
             <button
               className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 border border-surface rounded-full bg-dark/80 text-muted text-xl cursor-pointer hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center"
+              aria-label="Next image"
               onClick={(e) => {
                 e.stopPropagation();
                 navLightbox(1);
               }}
             >
-              &#8250;
+              <span aria-hidden="true">&#8250;</span>
             </button>
 
             <div
@@ -303,7 +356,7 @@ export default function KeyArtPage() {
                 />
               </div>
               <div className="text-center">
-                <div className="font-serif text-2xl font-bold text-cream mb-1">
+                <div id="lightbox-title" className="font-serif text-2xl font-bold text-cream mb-1">
                   {currentItem.title}
                 </div>
                 <div className="font-mono text-[11px] text-gold tracking-[2px] uppercase">
@@ -341,7 +394,11 @@ export default function KeyArtPage() {
             transparent 70%,
             transparent 100%
           );
-          animation: sheenSweep 3.5s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          .glow-sheen {
+            animation: sheenSweep 3.5s ease-in-out infinite;
+          }
         }
         @keyframes sheenSweep {
           0% {

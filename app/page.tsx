@@ -229,6 +229,7 @@ export default function Home() {
               <button
                 key={f}
                 onClick={() => setActiveFilter(f)}
+                aria-pressed={f === activeFilter}
                 className={`font-mono text-[10px] tracking-[1.5px] uppercase border cursor-pointer transition-all duration-300 ${
                   f === activeFilter
                     ? "border-gold bg-gold/10 text-gold"
@@ -246,7 +247,7 @@ export default function Home() {
           {filteredProjects.map((p, i) => (
             <motion.div
               key={p.id}
-              className="grid grid-cols-1 md:grid-cols-[auto_1fr_auto] items-center cursor-pointer relative group"
+              className="grid grid-cols-1 md:grid-cols-[auto_1fr_auto] items-center relative group"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
@@ -386,12 +387,12 @@ export default function Home() {
           {/* Name lockup */}
           <FadeUp>
             <div className="flex flex-col sm:flex-row items-center sm:items-center w-full" style={{ gap: "clamp(20px, 4vw, 40px)", marginBottom: "40px" }}>
-              <div className="overflow-hidden relative flex-shrink-0 w-[100px] h-[100px] sm:w-[180px] sm:h-[180px]" style={{ borderRadius: "50%", border: "2px solid #C5A455" }}>
+              <div className="overflow-hidden relative flex-shrink-0" style={{ width: "clamp(100px, 18vw, 180px)", height: "clamp(100px, 18vw, 180px)", borderRadius: "50%", border: "2px solid #C5A455" }}>
                 <Image
                   src="/images/eric-mcgilloway-profile.png"
                   alt="Eric McGilloway"
                   fill
-                  sizes="(max-width: 640px) 100px, 180px"
+                  sizes="(max-width: 640px) 100px, 18vw"
                   className="object-cover"
                 />
               </div>
@@ -481,7 +482,11 @@ export default function Home() {
             transparent 70%,
             transparent 100%
           );
-          animation: workSheenSweep 14s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          .work-sheen {
+            animation: workSheenSweep 14s ease-in-out infinite;
+          }
         }
         @keyframes workSheenSweep {
           0% {
