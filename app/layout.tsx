@@ -24,11 +24,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Eric McGilloway",
   description:
-    "Senior Motion Graphics Designer — 15+ years shaping the visual language of broadcast television.",
+    "Senior Motion Graphic Designer — 15+ years shaping the visual language of broadcast television.",
   openGraph: {
     title: "Eric McGilloway",
     description:
-      "Senior Motion Graphics Designer — 15+ years shaping the visual language of broadcast television.",
+      "Senior Motion Graphic Designer — 15+ years shaping the visual language of broadcast television.",
     url: "https://ericmcgilloway.com",
     siteName: "Eric McGilloway",
     type: "website",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Eric McGilloway",
     description:
-      "Senior Motion Graphics Designer — 15+ years shaping the visual language of broadcast television.",
+      "Senior Motion Graphic Designer — 15+ years shaping the visual language of broadcast television.",
   },
 };
 

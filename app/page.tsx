@@ -137,7 +137,7 @@ export default function Home() {
               delay: 0.3,
             }}
           >
-            Senior Motion Graphics Designer
+            Senior Motion Graphic Designer
           </motion.div>
 
           {/* Name */}
@@ -160,6 +160,21 @@ export default function Home() {
             ))}
           </h1>
 
+          {/* Motto */}
+          <motion.div
+            className="font-mono text-[11px] tracking-[4px] uppercase text-gold"
+            style={{ marginBottom: "24px" }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.8,
+              ease: [0.22, 1, 0.36, 1],
+              delay: 0.9,
+            }}
+          >
+            Envision. Design. Deliver.
+          </motion.div>
+
           {/* Tagline */}
           <motion.p
             className="text-muted max-w-[520px] leading-relaxed"
@@ -169,10 +184,10 @@ export default function Home() {
             transition={{
               duration: 0.8,
               ease: [0.22, 1, 0.36, 1],
-              delay: 1.0,
+              delay: 1.1,
             }}
           >
-            15+ years in broadcast television. Late night, documentary, streaming -- I've been lucky to work on some great shows with some great people.
+            Seasoned broadcast designer across late night, documentary, and streaming. I&apos;ve been lucky to work on some great shows with some great people.
           </motion.p>
 
           {/* CTA */}
@@ -442,7 +457,7 @@ export default function Home() {
                   Eric McGilloway
                 </div>
                 <div className="font-mono uppercase" style={{ fontSize: "clamp(11px, 1.5vw, 14px)", letterSpacing: "2.4px", color: "#C5A455", marginTop: "8px" }}>
-                  Senior Motion Graphics Designer
+                  Senior Motion Graphic Designer
                 </div>
               </div>
             </div>
