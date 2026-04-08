@@ -290,77 +290,58 @@ export default function Home() {
                 <div className="flex-1 overflow-hidden rounded-[4px]">
                   {p.video ? (
                     <div className="relative"
-                      onMouseEnter={(e) => {
-                        if (window.matchMedia("(hover: none)").matches) return;
-                        // Stop all other videos first
-                        document.querySelectorAll("#work video").forEach((el) => {
-                          const other = el as HTMLVideoElement;
-                          if (other !== e.currentTarget.querySelector("video")) {
-                            other.pause();
-                            other.currentTime = 0;
-                            other.muted = true;
-                            const otherTap = other.closest(".relative")?.querySelector(".tap-label") as HTMLElement;
-                            if (otherTap) otherTap.style.opacity = "1";
-                          }
-                        });
-                        const v = e.currentTarget.querySelector("video");
-                        const tap = e.currentTarget.querySelector(".tap-label") as HTMLElement;
-                        if (v) {
-                          // Hover: start muted (browser allows this), then unmute
-                          v.muted = true;
-                          v.play().then(() => { v.muted = false; }).catch(() => {});
-                        }
-                        if (tap) tap.style.opacity = "0";
-                      }}
-                      onMouseLeave={(e) => {
-                        if (window.matchMedia("(hover: none)").matches) return;
-                        const v = e.currentTarget.querySelector("video");
-                        const tap = e.currentTarget.querySelector(".tap-label") as HTMLElement;
-                        if (v) { v.pause(); v.currentTime = 0; v.muted = true; }
-                        if (tap) tap.style.opacity = "1";
-                      }}
                       onClick={(e) => {
-                        // Stop all other videos first
-                        document.querySelectorAll("#work video").forEach((el) => {
-                          const other = el as HTMLVideoElement;
-                          if (other !== e.currentTarget.querySelector("video")) {
-                            other.pause();
-                            other.currentTime = 0;
-                            other.muted = true;
-                            const otherTap = other.closest(".relative")?.querySelector(".tap-label") as HTMLElement;
-                            if (otherTap) otherTap.style.opacity = "1";
-                          }
-                        });
                         const v = e.currentTarget.querySelector("video");
                         const tap = e.currentTarget.querySelector(".tap-label") as HTMLElement;
-                        if (v) {
-                          if (v.paused) {
-                            // Click is a user gesture — can play with audio directly
-                            v.muted = false;
-                            v.play().catch(() => {});
-                            if (tap) tap.style.opacity = "0";
-                          } else {
-                            v.pause(); v.currentTime = 0; v.muted = true;
-                            if (tap) tap.style.opacity = "1";
-                          }
+                        if (!v) return;
+
+                        if (v.paused) {
+                          // Stop all other videos and reset to poster
+                          document.querySelectorAll("#work video").forEach((el) => {
+                            const other = el as HTMLVideoElement;
+                            if (other !== v) {
+                              other.pause();
+                              const src = other.getAttribute("data-src") || "";
+                              other.removeAttribute("src");
+                              other.load();
+                              other.setAttribute("src", src);
+                              other.muted = true;
+                              const otherTap = other.closest(".relative")?.querySelector(".tap-label") as HTMLElement;
+                              if (otherTap) otherTap.style.opacity = "1";
+                            }
+                          });
+                          // Play this one with audio
+                          v.muted = false;
+                          v.play().catch(() => {});
+                          if (tap) tap.style.opacity = "0";
+                        } else {
+                          // Stop and reset to poster
+                          const src = v.getAttribute("data-src") || "";
+                          v.pause();
+                          v.removeAttribute("src");
+                          v.load();
+                          v.setAttribute("src", src);
+                          v.muted = true;
+                          if (tap) tap.style.opacity = "1";
                         }
                       }}
                     >
                       <video
+                        data-src={p.video}
                         src={p.video}
                         className="w-full h-auto block"
                         muted
                         playsInline
-                        preload="metadata"
+                        preload="none"
                         poster={p.image}
                         onEnded={(e) => {
                           const v = e.currentTarget;
                           const tap = v.closest(".relative")?.querySelector(".tap-label") as HTMLElement;
-                          // Reset and force poster to show by reloading source
+                          const src = v.getAttribute("data-src") || "";
                           v.pause();
                           v.removeAttribute("src");
                           v.load();
-                          v.src = p.video!;
+                          v.setAttribute("src", src);
                           v.muted = true;
                           if (tap) tap.style.opacity = "1";
                         }}

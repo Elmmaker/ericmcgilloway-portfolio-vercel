@@ -44,12 +44,13 @@ export default function VideoPlayer({ src, embedUrl, poster, aspectRatio = "16/9
 
   // For iframe embeds — show play button overlay, reveal iframe on click
   if (embedUrl) {
-    const iframeSrc = embedUrl.replace("/watch/", "/embed/");
+    const iframeSrc = embedUrl.includes("/embed/") ? embedUrl : embedUrl.replace("/watch/", "/embed/");
+    const autoplaySrc = iframeSrc.includes("?") ? `${iframeSrc}&autoplay=1` : `${iframeSrc}?autoplay=1`;
     return (
       <div className="relative w-full" style={{ aspectRatio }}>
         {activated ? (
           <iframe
-            src={`${iframeSrc}?autoplay=1`}
+            src={autoplaySrc}
             className="absolute inset-0 w-full h-full"
             style={{ border: "none" }}
             allow="autoplay; fullscreen; picture-in-picture"

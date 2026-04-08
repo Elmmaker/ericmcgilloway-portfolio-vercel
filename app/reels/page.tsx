@@ -101,7 +101,11 @@ export default function ReelsPage() {
             </div>
 
             <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
-              <VideoPlayer embedUrl="https://framerate.tv/watch/3b2743c4-f70d-4499-bb45-6d1122cb6693" />
+              <VideoPlayer embedUrl="https://framerate.tv/embed/3b2743c4-f70d-4499-bb45-6d1122cb6693?primary_color=%2523ffffff&track_color=%2523ffffff&theme=minimal" />
+            </div>
+
+            <div className="mt-5 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
+              Duration: 1:16
             </div>
           </div>
         </FadeUp>
