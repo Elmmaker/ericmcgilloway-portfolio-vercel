@@ -187,7 +187,7 @@ export default function Home() {
               delay: 1.1,
             }}
           >
-            Seasoned broadcast designer across late night, documentary, and streaming. I&apos;ve been lucky to work on some great shows with some great people.
+            Seasoned broadcast designer across comedy, documentary filmmaking, and social media advertising just to name a few. I&apos;ve been lucky to work on some great shows with some great people.
           </motion.p>
 
           {/* CTA */}
