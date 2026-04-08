@@ -19,6 +19,18 @@ const PROJECTS = [
     color: "#11C2D7",
     image: "/images/work/modern_marvels1.jpg",
     video: null,
+    badge: "AIRS JULY 2026",
+  },
+  {
+    id: 6,
+    title: "Hearts of Heroes",
+    subtitle: "ABC/Hearst Media",
+    role: "Sr. Motion and VFX Designer",
+    type: "Documentary",
+    year: "7 Seasons",
+    color: "#E03A3A",
+    image: "/images/work/hearts-of-heroes.jpg",
+    video: "/clips/HeartsOfHeroes_Montage.mp4",
   },
   {
     id: 2,
@@ -302,13 +314,13 @@ export default function Home() {
                       }}
                     >
                       <video
-                        src={`${p.video}#t=0.1`}
+                        src={p.video}
                         className="w-full h-auto block"
                         muted
                         loop
                         playsInline
                         preload="metadata"
-                        poster={p.title === "After Midnight" ? "/images/work/am1.jpg" : undefined}
+                        poster={p.image}
                       />
                       <div className="tap-label absolute bottom-0 left-0 pointer-events-none transition-opacity duration-300" style={{ padding: "6px 6px", opacity: 1 }}>
                         <span className="font-mono text-[9px] tracking-[0.5px] uppercase font-bold" style={{ color: "rgba(220, 220, 220, 0.8)" }}>Tap</span>
@@ -323,6 +335,11 @@ export default function Home() {
                         height={292}
                         className="w-full h-auto block"
                       />
+                      {"badge" in p && p.badge && (
+                        <div className="absolute top-0 right-0 font-mono text-[9px] tracking-[1.5px] uppercase font-bold text-dark bg-gold" style={{ padding: "4px 8px" }}>
+                          {p.badge as string}
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
