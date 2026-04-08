@@ -41,9 +41,6 @@ const KEY_ART: KeyArtItem[] = [
   { id: 9, filename: "charlie-berens-out-there-tour-01.png", title: "Charlie Berens", desc: "Out There Tour key art 01", cat: "Comedy / Touring", w: 1650, h: 2550, group: "Charlie Berens" },
   { id: 10, filename: "charlie-berens-out-there-tour-02.png", title: "Charlie Berens", desc: "Out There Tour key art 02", cat: "Comedy / Touring", w: 1650, h: 2550, group: "Charlie Berens" },
   { id: 11, filename: "charlie-berens-out-there-tour-04.png", title: "Charlie Berens", desc: "Out There Tour key art 04", cat: "Comedy / Touring", w: 1650, h: 2550, group: "Charlie Berens" },
-  { id: 12, filename: "charlie-berens-poster-bluebrick-16x9.png", title: "Charlie Berens", desc: "Blue Brick poster 16:9", cat: "Comedy / Touring", w: 1920, h: 1080, group: "Charlie Berens" },
-  { id: 13, filename: "charlie-berens-poster-bluebrick-1x1.png", title: "Charlie Berens", desc: "Blue Brick poster 1:1", cat: "Comedy / Touring", w: 1080, h: 1080, group: "Charlie Berens" },
-  { id: 14, filename: "charlie-berens-poster-bluebrick-9x16.png", title: "Charlie Berens", desc: "Blue Brick poster 9:16", cat: "Comedy / Touring", w: 1080, h: 1920, group: "Charlie Berens" },
 
   // Group 3: Bert Kreischer
   { id: 2, filename: "bert-kreischer-cruise.jpg", title: "Bert Kreischer", desc: "Cruise key art", cat: "Comedy / Touring", w: 2000, h: 907, group: "Bert Kreischer" },
