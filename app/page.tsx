@@ -292,6 +292,16 @@ export default function Home() {
                     <div className="relative"
                       onMouseEnter={(e) => {
                         if (window.matchMedia("(hover: none)").matches) return;
+                        // Stop all other videos first
+                        document.querySelectorAll("#work video").forEach((el) => {
+                          const other = el as HTMLVideoElement;
+                          if (other !== e.currentTarget.querySelector("video")) {
+                            other.pause();
+                            other.currentTime = 0;
+                            const otherTap = other.closest(".relative")?.querySelector(".tap-label") as HTMLElement;
+                            if (otherTap) otherTap.style.opacity = "1";
+                          }
+                        });
                         const v = e.currentTarget.querySelector("video");
                         const tap = e.currentTarget.querySelector(".tap-label") as HTMLElement;
                         if (v) v.play();
@@ -305,6 +315,16 @@ export default function Home() {
                         if (tap) tap.style.opacity = "1";
                       }}
                       onClick={(e) => {
+                        // Stop all other videos first
+                        document.querySelectorAll("#work video").forEach((el) => {
+                          const other = el as HTMLVideoElement;
+                          if (other !== e.currentTarget.querySelector("video")) {
+                            other.pause();
+                            other.currentTime = 0;
+                            const otherTap = other.closest(".relative")?.querySelector(".tap-label") as HTMLElement;
+                            if (otherTap) otherTap.style.opacity = "1";
+                          }
+                        });
                         const v = e.currentTarget.querySelector("video");
                         const tap = e.currentTarget.querySelector(".tap-label") as HTMLElement;
                         if (v) {
@@ -316,7 +336,6 @@ export default function Home() {
                       <video
                         src={p.video}
                         className="w-full h-auto block"
-                        muted
                         loop
                         playsInline
                         preload="metadata"
