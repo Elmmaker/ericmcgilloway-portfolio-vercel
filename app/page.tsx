@@ -177,8 +177,8 @@ export default function Home() {
 
           {/* Tagline */}
           <motion.p
-            className="text-muted max-w-[520px] leading-relaxed"
-            style={{ fontSize: "clamp(15px, 2.2vw, 22px)" }}
+            className="text-muted max-w-[600px] leading-relaxed"
+            style={{ fontSize: "clamp(14px, 1.8vw, 18px)" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -187,7 +187,7 @@ export default function Home() {
               delay: 1.1,
             }}
           >
-            Seasoned broadcast designer across comedy, documentary filmmaking, and social media advertising just to name a few. I&apos;ve been lucky to work on some great shows with some great people.
+            Seasoned visual designer across comedy, documentary filmmaking, and social media advertising &mdash; to name a few. I&apos;ve been lucky to work on some great shows with some great people.
           </motion.p>
 
           {/* CTA */}
