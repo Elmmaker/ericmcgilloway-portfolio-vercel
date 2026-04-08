@@ -186,7 +186,7 @@ export default function KeyArtPage() {
       >
         <FadeUp>
           <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold" style={{ marginBottom: "12px" }}>
-            03 / Key Art
+            03 / Still Work
           </div>
         </FadeUp>
         <FadeUp delay={0.1}>

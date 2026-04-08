@@ -37,7 +37,7 @@ export default function AfterHoursPage() {
       >
         <FadeUp>
           <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold" style={{ marginBottom: "12px" }}>
-            04 / After Hours
+            04 / Experiments
           </div>
         </FadeUp>
         <FadeUp delay={0.1}>
