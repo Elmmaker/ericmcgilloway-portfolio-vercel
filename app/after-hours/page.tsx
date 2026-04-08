@@ -22,6 +22,7 @@ const VIDEOS: AfterHoursItem[] = [
   { title: "WakeSleep", duration: "0:20", embedUrl: "https://framerate.tv/watch/59b19238-4e3d-46f0-80fe-0cd9af575a9a" },
   { title: "Imagine", duration: "0:13", embedUrl: "https://framerate.tv/watch/601d6be3-3fbb-42c6-b525-24e37d22a681" },
   { title: "Yellow Chair", duration: "0:15", embedUrl: "https://framerate.tv/watch/2f4ce8dc-8380-4487-bcb2-bd5642bc1c77" },
+  { title: "\"AI or Real\" Game", duration: "0:40", embedUrl: "https://framerate.tv/watch/c5988a3c-2c9f-45af-b317-eea1bf413a58" },
 ];
 
 export default function AfterHoursPage() {
