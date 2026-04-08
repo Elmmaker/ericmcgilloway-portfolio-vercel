@@ -84,6 +84,28 @@ export default function ReelsPage() {
           </FadeUp>
         ))}
 
+        {/* Hearts of Heroes */}
+        <FadeUp delay={0.15}>
+          <div style={{ marginTop: "clamp(60px, 10vw, 100px)" }}>
+            <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
+              Hearts of Heroes
+            </div>
+            <div
+              className="font-serif font-bold text-cream mb-3"
+              style={{ fontSize: "clamp(22px, 4vw, 48px)" }}
+            >
+              Hearts of Heroes — ABC / Hearst Media
+            </div>
+            <div className="text-sm sm:text-base max-w-[600px]" style={{ color: "#8A8579", lineHeight: 1.7, marginBottom: "clamp(24px, 4vw, 40px)" }}>
+              7 seasons of motion graphics and VFX for ABC/Hearst Media&apos;s Hearts of Heroes documentary series.
+            </div>
+
+            <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
+              <VideoPlayer embedUrl="https://framerate.tv/watch/3b2743c4-f70d-4499-bb45-6d1122cb6693" />
+            </div>
+          </div>
+        </FadeUp>
+
         {/* After Midnight — two videos side by side */}
         <FadeUp delay={0.15}>
           <div style={{ marginTop: "clamp(60px, 10vw, 100px)" }}>

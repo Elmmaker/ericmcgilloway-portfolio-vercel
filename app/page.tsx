@@ -298,20 +298,25 @@ export default function Home() {
                           if (other !== e.currentTarget.querySelector("video")) {
                             other.pause();
                             other.currentTime = 0;
+                            other.muted = true;
                             const otherTap = other.closest(".relative")?.querySelector(".tap-label") as HTMLElement;
                             if (otherTap) otherTap.style.opacity = "1";
                           }
                         });
                         const v = e.currentTarget.querySelector("video");
                         const tap = e.currentTarget.querySelector(".tap-label") as HTMLElement;
-                        if (v) v.play();
+                        if (v) {
+                          // Hover: start muted (browser allows this), then unmute
+                          v.muted = true;
+                          v.play().then(() => { v.muted = false; }).catch(() => {});
+                        }
                         if (tap) tap.style.opacity = "0";
                       }}
                       onMouseLeave={(e) => {
                         if (window.matchMedia("(hover: none)").matches) return;
                         const v = e.currentTarget.querySelector("video");
                         const tap = e.currentTarget.querySelector(".tap-label") as HTMLElement;
-                        if (v) { v.pause(); v.currentTime = 0; }
+                        if (v) { v.pause(); v.currentTime = 0; v.muted = true; }
                         if (tap) tap.style.opacity = "1";
                       }}
                       onClick={(e) => {
@@ -321,6 +326,7 @@ export default function Home() {
                           if (other !== e.currentTarget.querySelector("video")) {
                             other.pause();
                             other.currentTime = 0;
+                            other.muted = true;
                             const otherTap = other.closest(".relative")?.querySelector(".tap-label") as HTMLElement;
                             if (otherTap) otherTap.style.opacity = "1";
                           }
@@ -328,14 +334,22 @@ export default function Home() {
                         const v = e.currentTarget.querySelector("video");
                         const tap = e.currentTarget.querySelector(".tap-label") as HTMLElement;
                         if (v) {
-                          if (v.paused) { v.play(); if (tap) tap.style.opacity = "0"; }
-                          else { v.pause(); v.currentTime = 0; if (tap) tap.style.opacity = "1"; }
+                          if (v.paused) {
+                            // Click is a user gesture — can play with audio directly
+                            v.muted = false;
+                            v.play().catch(() => {});
+                            if (tap) tap.style.opacity = "0";
+                          } else {
+                            v.pause(); v.currentTime = 0; v.muted = true;
+                            if (tap) tap.style.opacity = "1";
+                          }
                         }
                       }}
                     >
                       <video
                         src={p.video}
                         className="w-full h-auto block"
+                        muted
                         loop
                         playsInline
                         preload="metadata"
