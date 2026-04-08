@@ -17,11 +17,11 @@ const HERO: AfterHoursItem = {
 };
 
 const VIDEOS: AfterHoursItem[] = [
+  { title: "Voxel Lounge", duration: "0:09", embedUrl: "https://framerate.tv/watch/6489af4c-40ea-4390-9124-a5e2bfcd6f40" },
   { title: "In Waves", duration: "2:45", embedUrl: "https://framerate.tv/watch/c5296204-76eb-428c-a565-099239ec3e62" },
-  { title: "DubJump", duration: "0:13", embedUrl: "https://framerate.tv/watch/d57a8ce7-24cc-495a-adc3-1d588ccf6c21" },
   { title: "Hotel Lobby Abstraction", duration: "0:30", embedUrl: "https://framerate.tv/watch/4d69bbbd-b3b4-4eca-8ded-802dc57cbaf2" },
   { title: "AbstraHud", duration: "0:20", embedUrl: "https://framerate.tv/watch/aa2c4eb3-bb58-4e16-952d-6c7cf050e72b" },
-  { title: "Voxel Lounge", duration: "0:09", embedUrl: "https://framerate.tv/watch/6489af4c-40ea-4390-9124-a5e2bfcd6f40" },
+  { title: "DubJump", duration: "0:13", embedUrl: "https://framerate.tv/watch/d57a8ce7-24cc-495a-adc3-1d588ccf6c21" },
   { title: "WakeSleep", duration: "0:20", embedUrl: "https://framerate.tv/watch/59b19238-4e3d-46f0-80fe-0cd9af575a9a" },
   { title: "Imagine", duration: "0:13", embedUrl: "https://framerate.tv/watch/601d6be3-3fbb-42c6-b525-24e37d22a681" },
   { title: "Yellow Chair", duration: "0:15", embedUrl: "https://framerate.tv/watch/2f4ce8dc-8380-4487-bcb2-bd5642bc1c77" },
