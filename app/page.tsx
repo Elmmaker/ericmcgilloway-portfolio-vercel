@@ -424,10 +424,10 @@ export default function Home() {
           paddingRight: "clamp(20px, 6vw, 80px)",
         }}
       >
-        <div className="sm:pl-10">
+        <div className="flex flex-col items-center">
           {/* Name lockup */}
           <FadeUp>
-            <div className="flex flex-col sm:flex-row items-center sm:items-center w-full" style={{ gap: "clamp(20px, 4vw, 40px)", marginBottom: "40px" }}>
+            <div className="flex flex-col items-center w-full" style={{ gap: "clamp(16px, 3vw, 24px)", marginBottom: "40px" }}>
               <div className="overflow-hidden relative flex-shrink-0" style={{ width: "clamp(100px, 18vw, 180px)", height: "clamp(100px, 18vw, 180px)", borderRadius: "50%", border: "2px solid #C5A455" }}>
                 <Image
                   src="/images/eric-mcgilloway-profile.png"
@@ -437,7 +437,7 @@ export default function Home() {
                   className="object-cover"
                 />
               </div>
-              <div className="flex-1 text-center sm:text-left">
+              <div className="text-center">
                 <div className="font-serif font-bold text-cream" style={{ fontSize: "clamp(28px, 5vw, 44px)" }}>
                   Eric McGilloway
                 </div>
@@ -451,7 +451,7 @@ export default function Home() {
           {/* Heading */}
           <FadeUp delay={0.1}>
             <p
-              className="font-serif text-cream text-center sm:text-left"
+              className="font-serif text-cream text-center"
               style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1.4, marginBottom: "28px" }}
             >
               I make graphics move for a living.
@@ -460,7 +460,7 @@ export default function Home() {
 
           {/* Body */}
           <FadeUp delay={0.15}>
-            <p className="font-sans text-left" style={{ fontSize: "clamp(15px, 1.8vw, 18px)", color: "#8A8579", lineHeight: 1.8, marginBottom: "56px", maxWidth: "680px" }}>
+            <p className="font-sans text-left mx-auto" style={{ fontSize: "clamp(15px, 1.8vw, 18px)", color: "#8A8579", lineHeight: 1.8, marginBottom: "56px", maxWidth: "680px" }}>
               15+ years designing for broadcast, social, and every screen in
               between. From 11 seasons on Conan to documentary work on Modern
               Marvels to entertainment marketing campaigns for major studio
@@ -473,13 +473,13 @@ export default function Home() {
 
           {/* Stats */}
           <FadeUp delay={0.2}>
-            <div className="flex flex-wrap justify-center sm:justify-start" style={{ gap: "clamp(32px, 5vw, 56px)", borderTop: "1px solid #1E1D1A", paddingTop: "32px" }}>
+            <div className="flex flex-wrap justify-center" style={{ gap: "clamp(32px, 5vw, 56px)", borderTop: "1px solid #1E1D1A", paddingTop: "32px" }}>
               {[
                 { num: "15+", label: "Years" },
                 { num: "2,000+", label: "Episodes" },
                 { num: "Local 800", label: "Union" },
               ].map((stat) => (
-                <div key={stat.label} className="text-center sm:text-left">
+                <div key={stat.label} className="text-center">
                   <div
                     className="font-serif font-bold text-gold"
                     style={{ fontSize: "clamp(28px, 3.5vw, 48px)" }}
