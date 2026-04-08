@@ -350,10 +350,20 @@ export default function Home() {
                         src={p.video}
                         className="w-full h-auto block"
                         muted
-                        loop
                         playsInline
                         preload="metadata"
                         poster={p.image}
+                        onEnded={(e) => {
+                          const v = e.currentTarget;
+                          const tap = v.closest(".relative")?.querySelector(".tap-label") as HTMLElement;
+                          // Reset and force poster to show by reloading source
+                          v.pause();
+                          v.removeAttribute("src");
+                          v.load();
+                          v.src = p.video!;
+                          v.muted = true;
+                          if (tap) tap.style.opacity = "1";
+                        }}
                       />
                       <div className="tap-label absolute bottom-0 left-0 pointer-events-none transition-opacity duration-300" style={{ padding: "6px 6px", opacity: 1 }}>
                         <span className="font-mono text-[9px] tracking-[0.5px] uppercase font-bold" style={{ color: "rgba(220, 220, 220, 0.8)" }}>Tap</span>
