@@ -12,12 +12,15 @@ type AfterHoursItem = {
   embedUrl: string;
 };
 
+const HERO: AfterHoursItem = {
+  title: "Stream of Consciousness", duration: "0:58", embedUrl: "https://framerate.tv/watch/ea9ed290-f3b0-459d-8042-72fdbe3bc03f",
+};
+
 const VIDEOS: AfterHoursItem[] = [
   { title: "In Waves", duration: "2:45", embedUrl: "https://framerate.tv/watch/c5296204-76eb-428c-a565-099239ec3e62" },
   { title: "DubJump", duration: "0:13", embedUrl: "https://framerate.tv/watch/d57a8ce7-24cc-495a-adc3-1d588ccf6c21" },
   { title: "Hotel Lobby Abstraction", duration: "0:30", embedUrl: "https://framerate.tv/watch/4d69bbbd-b3b4-4eca-8ded-802dc57cbaf2" },
   { title: "AbstraHud", duration: "0:20", embedUrl: "https://framerate.tv/watch/aa2c4eb3-bb58-4e16-952d-6c7cf050e72b" },
-  { title: "Stream of Consciousness", duration: "0:58", embedUrl: "https://framerate.tv/watch/ea9ed290-f3b0-459d-8042-72fdbe3bc03f" },
   { title: "Voxel Lounge", duration: "0:09", embedUrl: "https://framerate.tv/watch/6489af4c-40ea-4390-9124-a5e2bfcd6f40" },
   { title: "WakeSleep", duration: "0:20", embedUrl: "https://framerate.tv/watch/59b19238-4e3d-46f0-80fe-0cd9af575a9a" },
   { title: "Imagine", duration: "0:13", embedUrl: "https://framerate.tv/watch/601d6be3-3fbb-42c6-b525-24e37d22a681" },
@@ -53,6 +56,23 @@ export default function AfterHoursPage() {
           <p className="text-sm sm:text-base max-w-[560px]" style={{ color: "#8A8579", lineHeight: 1.7, marginBottom: "clamp(48px, 8vw, 80px)" }}>
             The stuff I make when nobody&apos;s watching. Personal projects, experiments, and the work that keeps the creative engine running after the day job wraps.
           </p>
+        </FadeUp>
+
+        {/* Hero video */}
+        <FadeUp delay={0.2}>
+          <div style={{ marginBottom: "clamp(48px, 8vw, 80px)" }}>
+            <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
+              <VideoPlayer embedUrl={HERO.embedUrl} />
+            </div>
+            <div style={{ marginTop: "20px" }}>
+              <div className="font-serif font-bold text-cream" style={{ fontSize: "clamp(22px, 3.5vw, 40px)" }}>
+                {HERO.title}
+              </div>
+              <div className="font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579", marginTop: "8px" }}>
+                Duration: {HERO.duration}
+              </div>
+            </div>
+          </div>
         </FadeUp>
 
         {VIDEOS.length === 0 ? (
