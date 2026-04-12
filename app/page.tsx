@@ -6,7 +6,6 @@ import Image from "next/image";
 import CursorTrail from "./components/CursorTrail";
 import FadeUp from "./components/FadeUp";
 import Footer from "./components/Footer";
-import ModelViewer from "./components/ModelViewer";
 import PageTransition from "./components/PageTransition";
 
 const PROJECTS = [
@@ -228,48 +227,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ── 3D SATELLITE — fixed layer above body bg, below content ── */}
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-      >
-        <div style={{ width: "100%", height: "100%", pointerEvents: "auto" }}>
-          <ModelViewer />
-        </div>
-      </div>
-
-      {/* Spacer — reserves 550px of scroll space where satellite is fully visible */}
-      <div
-        style={{
-          position: "relative",
-          height: "550px",
-          width: "100%",
-          zIndex: 0,
-          background: "transparent",
-          pointerEvents: "none",
-        }}
-      >
-        <p
-          className="font-mono text-[10px] tracking-[2px] uppercase text-dim text-center"
-          style={{
-            position: "absolute",
-            bottom: "16px",
-            left: 0,
-            right: 0,
-          }}
-        >
-          NASA Gateway Lunar Space Station
-        </p>
-      </div>
-
-      {/* ── SELECTED WORK ── floats on top of satellite overflow */}
+      {/* ── SELECTED WORK ── */}
       <section
         id="work"
         style={{
