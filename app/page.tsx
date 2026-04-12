@@ -6,6 +6,7 @@ import Image from "next/image";
 import CursorTrail from "./components/CursorTrail";
 import FadeUp from "./components/FadeUp";
 import Footer from "./components/Footer";
+import ModelViewer from "./components/ModelViewer";
 import PageTransition from "./components/PageTransition";
 
 const PROJECTS = [
@@ -114,121 +115,168 @@ export default function Home() {
   return (
     <PageTransition>
       <CursorTrail />
+
       {/* ── HERO ── */}
       <section
-        className="flex flex-col justify-center relative"
+        className="flex flex-col justify-center"
         style={{
+          position: "relative",
+          zIndex: 2,
+          background: "rgba(13, 12, 10, 0.90)",
+          backdropFilter: "blur(4px)",
           paddingTop: "clamp(100px, 15vw, 140px)",
           paddingBottom: "clamp(60px, 10vw, 100px)",
           paddingLeft: "clamp(20px, 6vw, 80px)",
           paddingRight: "clamp(20px, 6vw, 80px)",
         }}
       >
-        <div className="relative z-1">
-          {/* Eyebrow */}
-          <motion.div
-            className="font-mono text-[11px] tracking-[4px] uppercase text-gold"
-            style={{ marginBottom: "24px" }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
-              delay: 0.3,
-            }}
-          >
-            Senior Motion Graphic Designer
-          </motion.div>
+        {/* Eyebrow */}
+        <motion.div
+          className="font-mono text-[11px] tracking-[4px] uppercase text-gold"
+          style={{ marginBottom: "24px" }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+            delay: 0.3,
+          }}
+        >
+          Senior Motion Graphic Designer
+        </motion.div>
 
-          {/* Name */}
-          <h1
-            className="font-serif font-bold leading-[0.92]"
-            style={{ fontSize: "clamp(36px, 9vw, 120px)", marginBottom: "20px" }}
-          >
-            {name.split("").map((char, i) => (
-              <motion.span
-                key={i}
-                className="inline-block"
-                style={char === " " ? { width: "0.3em" } : undefined}
-                custom={i}
-                variants={letterVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                {char === " " ? "\u00A0" : char}
-              </motion.span>
-            ))}
-          </h1>
-
-          {/* Motto */}
-          <motion.div
-            className="font-mono text-[11px] tracking-[4px] uppercase text-gold"
-            style={{ marginBottom: "24px" }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
-              delay: 0.9,
-            }}
-          >
-            Envision. Design. Deliver.
-          </motion.div>
-
-          {/* Tagline */}
-          <motion.p
-            className="text-muted max-w-[600px] leading-relaxed"
-            style={{ fontSize: "clamp(14px, 1.8vw, 18px)" }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
-              delay: 1.1,
-            }}
-          >
-            Seasoned visual designer across comedy, documentary filmmaking, and social media advertising &mdash; to name a few. I&apos;ve been lucky to work on some great shows with some great people.
-          </motion.p>
-
-          {/* CTA */}
-          <motion.div
-            className="flex flex-col sm:flex-row flex-wrap"
-            style={{ gap: "16px", marginTop: "clamp(32px, 5vw, 48px)" }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
-              delay: 1.3,
-            }}
-          >
-            <a
-              href="/reels"
-              className="font-mono text-xs tracking-[2px] uppercase bg-gold text-dark border-none cursor-pointer hover:bg-gold-hover hover:-translate-y-0.5 transition-all duration-300 text-center"
-              style={{ padding: "16px 32px", minHeight: "48px" }}
+        {/* Name */}
+        <h1
+          className="font-serif font-bold leading-[0.92]"
+          style={{ fontSize: "clamp(36px, 9vw, 120px)", marginBottom: "20px" }}
+        >
+          {name.split("").map((char, i) => (
+            <motion.span
+              key={i}
+              className="inline-block"
+              style={char === " " ? { width: "0.3em" } : undefined}
+              custom={i}
+              variants={letterVariants}
+              initial="hidden"
+              animate="visible"
             >
-              Watch Reel
-            </a>
-            <button
-              onClick={() =>
-                document
-                  .getElementById("work")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-              className="font-mono text-xs tracking-[2px] uppercase bg-transparent text-muted border border-surface cursor-pointer hover:border-gold hover:text-gold transition-all duration-300 text-center"
-              style={{ padding: "16px 32px", minHeight: "48px" }}
-            >
-              Selected Work &darr;
-            </button>
-          </motion.div>
-        </div>
+              {char === " " ? "\u00A0" : char}
+            </motion.span>
+          ))}
+        </h1>
 
+        {/* Motto */}
+        <motion.div
+          className="font-mono text-[11px] tracking-[4px] uppercase text-gold"
+          style={{ marginBottom: "24px" }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+            delay: 0.9,
+          }}
+        >
+          Envision. Design. Deliver.
+        </motion.div>
+
+        {/* Tagline */}
+        <motion.p
+          className="text-muted max-w-[600px] leading-relaxed"
+          style={{ fontSize: "clamp(14px, 1.8vw, 18px)" }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+            delay: 1.1,
+          }}
+        >
+          Seasoned visual designer across comedy, documentary filmmaking, and social media advertising &mdash; to name a few. I&apos;ve been lucky to work on some great shows with some great people.
+        </motion.p>
+
+        {/* CTA */}
+        <motion.div
+          className="flex flex-col sm:flex-row flex-wrap"
+          style={{ gap: "16px", marginTop: "clamp(32px, 5vw, 48px)" }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+            delay: 1.3,
+          }}
+        >
+          <a
+            href="/reels"
+            className="font-mono text-xs tracking-[2px] uppercase bg-gold text-dark border-none cursor-pointer hover:bg-gold-hover hover:-translate-y-0.5 transition-all duration-300 text-center"
+            style={{ padding: "16px 32px", minHeight: "48px" }}
+          >
+            Watch Reel
+          </a>
+          <button
+            onClick={() =>
+              document
+                .getElementById("work")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="font-mono text-xs tracking-[2px] uppercase bg-transparent text-muted border border-surface cursor-pointer hover:border-gold hover:text-gold transition-all duration-300 text-center"
+            style={{ padding: "16px 32px", minHeight: "48px" }}
+          >
+            Selected Work &darr;
+          </button>
+        </motion.div>
       </section>
 
-      {/* ── SELECTED WORK ── */}
+      {/* ── 3D SATELLITE — fixed layer above body bg, below content ── */}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+      >
+        <div style={{ width: "100%", height: "100%", pointerEvents: "auto" }}>
+          <ModelViewer />
+        </div>
+      </div>
+
+      {/* Spacer — reserves 550px of scroll space where satellite is fully visible */}
+      <div
+        style={{
+          position: "relative",
+          height: "550px",
+          width: "100%",
+          zIndex: 0,
+          background: "transparent",
+          pointerEvents: "none",
+        }}
+      >
+        <p
+          className="font-mono text-[10px] tracking-[2px] uppercase text-dim text-center"
+          style={{
+            position: "absolute",
+            bottom: "16px",
+            left: 0,
+            right: 0,
+          }}
+        >
+          NASA Gateway Lunar Space Station
+        </p>
+      </div>
+
+      {/* ── SELECTED WORK ── floats on top of satellite overflow */}
       <section
         id="work"
         style={{
+          position: "relative",
+          zIndex: 3,
+          background: "rgba(13, 12, 10, 0.90)",
+          backdropFilter: "blur(4px)",
           paddingTop: "clamp(60px, 12vw, 120px)",
           paddingBottom: "clamp(40px, 8vw, 80px)",
           paddingLeft: "clamp(20px, 6vw, 80px)",
@@ -433,6 +481,10 @@ export default function Home() {
       <section
         id="about"
         style={{
+          position: "relative",
+          zIndex: 3,
+          background: "rgba(13, 12, 10, 0.90)",
+          backdropFilter: "blur(6px)",
           paddingTop: "clamp(60px, 12vw, 120px)",
           paddingBottom: "clamp(60px, 12vw, 120px)",
           paddingLeft: "clamp(20px, 6vw, 80px)",
@@ -511,7 +563,9 @@ export default function Home() {
         </div>
       </section>
 
-      <Footer />
+      <div style={{ position: "relative", zIndex: 3, background: "rgba(13, 12, 10, 0.90)", backdropFilter: "blur(6px)" }}>
+        <Footer />
+      </div>
 
       <style jsx global>{`
         .group:hover .work-accent-bar {
