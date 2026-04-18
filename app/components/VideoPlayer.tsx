@@ -42,7 +42,7 @@ export default function VideoPlayer({ src, embedUrl, poster, aspectRatio = "16/9
     );
   }
 
-  // For iframe embeds — show play button overlay, reveal iframe on click
+  // For iframe embeds — show placeholder until clicked, then load iframe
   if (embedUrl) {
     const iframeSrc = embedUrl.includes("/embed/") ? embedUrl : embedUrl.replace("/watch/", "/embed/");
     const autoplaySrc = iframeSrc.includes("?") ? `${iframeSrc}&autoplay=1` : `${iframeSrc}?autoplay=1`;
@@ -58,14 +58,10 @@ export default function VideoPlayer({ src, embedUrl, poster, aspectRatio = "16/9
           />
         ) : (
           <div
-            className="absolute inset-0 cursor-pointer"
+            className="absolute inset-0 cursor-pointer flex items-center justify-center"
+            style={{ background: "#111" }}
             onClick={() => setActivated(true)}
           >
-            <iframe
-              src={iframeSrc}
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              style={{ border: "none" }}
-            />
             <PlayButton />
           </div>
         )}
