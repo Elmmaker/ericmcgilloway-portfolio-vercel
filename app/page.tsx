@@ -476,7 +476,7 @@ export default function Home() {
           {/* Heading */}
           <FadeUp delay={0.1}>
             <p
-              className="font-serif text-cream text-center"
+              className="font-serif text-cream text-center signature-tagline"
               style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1.4, marginBottom: "28px" }}
             >
               I make graphics move for a living.
@@ -526,6 +526,12 @@ export default function Home() {
       </div>
 
       <style jsx global>{`
+        @media (max-width: 480px) {
+          .signature-tagline {
+            font-size: 5.5vw !important;
+            white-space: nowrap;
+          }
+        }
         .group:hover .work-accent-bar {
           background-color: var(--card-color) !important;
         }
