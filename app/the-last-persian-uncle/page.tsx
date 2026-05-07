@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useRef, useState, FormEvent } from "react";
 import Image from "next/image";
 
 const PASSWORD = "dreamroom";
@@ -155,6 +155,23 @@ function ReviewBoard() {
   const [savingRow, setSavingRow] = useState<RowKey | null>(null);
   const [savedRow, setSavedRow] = useState<RowKey | null>(null);
   const [zoomed, setZoomed] = useState(false);
+  const heroWrapRef = useRef<HTMLDivElement>(null);
+  const lightboxImgWrapRef = useRef<HTMLDivElement>(null);
+
+  function goFullscreen(target: HTMLElement | null) {
+    if (!target) return;
+    const el = target as HTMLElement & {
+      webkitRequestFullscreen?: () => Promise<void>;
+    };
+    if (el.requestFullscreen) {
+      el.requestFullscreen().catch(() => setZoomed(true));
+    } else if (el.webkitRequestFullscreen) {
+      el.webkitRequestFullscreen();
+    } else {
+      // iOS Safari can't fullscreen non-video elements — fall back to lightbox
+      setZoomed(true);
+    }
+  }
 
   useEffect(() => {
     fetch("/api/persian-uncle")
@@ -256,37 +273,74 @@ function ReviewBoard() {
         </div>
       </div>
 
-      {/* Hero key art — click to enlarge */}
+      {/* Hero key art — click to enlarge, fullscreen icon for true fullscreen */}
       <div style={{ maxWidth: "1200px", margin: "0 auto", marginBottom: "40px" }}>
-        <button
-          type="button"
-          onClick={() => setZoomed(true)}
-          aria-label="Enlarge key art"
+        <div
+          ref={heroWrapRef}
           style={{
-            display: "block",
-            width: "100%",
-            padding: 0,
-            background: "transparent",
-            border: "none",
-            cursor: "zoom-in",
+            position: "relative",
+            border: "1px solid #C5A455",
+            borderRadius: "2px",
+            overflow: "hidden",
+            background: "#0D0C0A",
           }}
         >
-          <Image
-            src="/persian-uncle/TLPU_keyart_01_v1_em.png"
-            alt="The Last Persian Uncle key art"
-            width={2752}
-            height={1536}
-            priority
-            sizes="(max-width: 1200px) 100vw, 1200px"
+          <button
+            type="button"
+            onClick={() => setZoomed(true)}
+            aria-label="Enlarge key art"
             style={{
-              width: "100%",
-              height: "auto",
               display: "block",
+              width: "100%",
+              padding: 0,
+              background: "transparent",
+              border: "none",
+              cursor: "zoom-in",
+            }}
+          >
+            <Image
+              src="/persian-uncle/TLPU_keyart_01_v1_em.png"
+              alt="The Last Persian Uncle key art"
+              width={2752}
+              height={1536}
+              priority
+              sizes="(max-width: 1200px) 100vw, 1200px"
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+              }}
+            />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              goFullscreen(heroWrapRef.current);
+            }}
+            aria-label="View fullscreen"
+            style={{
+              position: "absolute",
+              bottom: "12px",
+              right: "12px",
+              width: "40px",
+              height: "40px",
+              padding: 0,
+              background: "rgba(13, 12, 10, 0.7)",
               border: "1px solid #C5A455",
               borderRadius: "2px",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backdropFilter: "blur(4px)",
             }}
-          />
-        </button>
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C5A455" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 8V3h5M21 8V3h-5M3 16v5h5M21 16v5h-5" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Lightbox overlay */}
