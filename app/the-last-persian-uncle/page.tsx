@@ -247,17 +247,25 @@ function ReviewBoard() {
         </div>
         <div style={{ textAlign: "center" }}>
           <h1
-            className="font-serif"
             style={{
-              fontSize: "clamp(20px, 6.2vw, 64px)",
-              fontWeight: 700,
-              color: "#F0EDE6",
-              lineHeight: 1.1,
-              marginBottom: "16px",
-              whiteSpace: "nowrap",
+              margin: "0 auto 16px",
+              width: "clamp(260px, 65vw, 560px)",
+              lineHeight: 0,
             }}
           >
-            THE LAST PERSIAN UNCLE
+            <Image
+              src="/persian-uncle/persian-uncle-logo.png"
+              alt="The Last Persian Uncle"
+              width={1085}
+              height={234}
+              priority
+              sizes="(max-width: 600px) 65vw, 560px"
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+              }}
+            />
           </h1>
           <div
             className="font-mono"
