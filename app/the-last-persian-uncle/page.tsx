@@ -154,6 +154,7 @@ function ReviewBoard() {
   const [loaded, setLoaded] = useState(false);
   const [savingRow, setSavingRow] = useState<RowKey | null>(null);
   const [savedRow, setSavedRow] = useState<RowKey | null>(null);
+  const [zoomed, setZoomed] = useState(false);
 
   useEffect(() => {
     fetch("/api/persian-uncle")
@@ -164,6 +165,16 @@ function ReviewBoard() {
       })
       .catch(() => setLoaded(true));
   }, []);
+
+  // Close lightbox on Escape
+  useEffect(() => {
+    if (!zoomed) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setZoomed(false);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [zoomed]);
 
   function updateRow(row: RowKey, patch: Partial<RowData>) {
     setReviews((prev) => ({ ...prev, [row]: { ...prev[row], ...patch } }));
@@ -244,24 +255,99 @@ function ReviewBoard() {
         </div>
       </div>
 
-      {/* Hero key art */}
+      {/* Hero key art — click to enlarge */}
       <div style={{ maxWidth: "1200px", margin: "0 auto", marginBottom: "40px" }}>
-        <Image
-          src="/persian-uncle/TLPU_keyart_01_v1_em.png"
-          alt="The Last Persian Uncle key art"
-          width={2752}
-          height={1536}
-          priority
-          sizes="(max-width: 1200px) 100vw, 1200px"
+        <button
+          type="button"
+          onClick={() => setZoomed(true)}
+          aria-label="Enlarge key art"
           style={{
-            width: "100%",
-            height: "auto",
             display: "block",
-            border: "1px solid #C5A455",
-            borderRadius: "2px",
+            width: "100%",
+            padding: 0,
+            background: "transparent",
+            border: "none",
+            cursor: "zoom-in",
           }}
-        />
+        >
+          <Image
+            src="/persian-uncle/TLPU_keyart_01_v1_em.png"
+            alt="The Last Persian Uncle key art"
+            width={2752}
+            height={1536}
+            priority
+            sizes="(max-width: 1200px) 100vw, 1200px"
+            style={{
+              width: "100%",
+              height: "auto",
+              display: "block",
+              border: "1px solid #C5A455",
+              borderRadius: "2px",
+            }}
+          />
+        </button>
       </div>
+
+      {/* Lightbox overlay */}
+      {zoomed && (
+        <div
+          onClick={() => setZoomed(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Key art enlarged"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 1000,
+            background: "rgba(0, 0, 0, 0.95)",
+            backdropFilter: "blur(8px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
+            cursor: "zoom-out",
+            overflow: "auto",
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => setZoomed(false)}
+            aria-label="Close"
+            className="font-mono"
+            style={{
+              position: "fixed",
+              top: "20px",
+              right: "20px",
+              padding: "10px 16px",
+              background: "transparent",
+              color: "#C5A455",
+              border: "1px solid #C5A455",
+              fontSize: "11px",
+              letterSpacing: "2px",
+              textTransform: "uppercase",
+              cursor: "pointer",
+              borderRadius: "2px",
+              zIndex: 1001,
+            }}
+          >
+            Close ✕
+          </button>
+          <Image
+            src="/persian-uncle/TLPU_keyart_01_v1_em.png"
+            alt="The Last Persian Uncle key art enlarged"
+            width={2752}
+            height={1536}
+            sizes="100vw"
+            style={{
+              width: "100%",
+              height: "auto",
+              maxWidth: "2752px",
+              display: "block",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
 
       {/* Logo rows */}
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
