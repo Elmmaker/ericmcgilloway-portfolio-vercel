@@ -299,7 +299,7 @@ function ReviewBoard() {
             }}
           >
             <Image
-              src="/persian-uncle/TLPU_keyart_01_v1_em.png"
+              src="/persian-uncle/TLPU_keyart_01_v2_em.png"
               alt="The Last Persian Uncle key art"
               width={2752}
               height={1536}
@@ -322,7 +322,7 @@ function ReviewBoard() {
             }}
           >
             <a
-              href="/persian-uncle/TLPU_keyart_01_v1_em.png"
+              href="/persian-uncle/TLPU_keyart_01_v2_em.png"
               download="TLPU_keyart_01.png"
               onClick={(e) => e.stopPropagation()}
               aria-label="Download key art"
@@ -418,7 +418,7 @@ function ReviewBoard() {
             Close ✕
           </button>
           <Image
-            src="/persian-uncle/TLPU_keyart_01_v1_em.png"
+            src="/persian-uncle/TLPU_keyart_01_v2_em.png"
             alt="The Last Persian Uncle key art enlarged"
             width={2752}
             height={1536}
