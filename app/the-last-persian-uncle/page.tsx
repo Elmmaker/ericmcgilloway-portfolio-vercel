@@ -312,34 +312,64 @@ function ReviewBoard() {
               }}
             />
           </button>
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              goFullscreen(heroWrapRef.current);
-            }}
-            aria-label="View fullscreen"
+          <div
             style={{
               position: "absolute",
               bottom: "12px",
               right: "12px",
-              width: "40px",
-              height: "40px",
-              padding: 0,
-              background: "rgba(13, 12, 10, 0.7)",
-              border: "1px solid #C5A455",
-              borderRadius: "2px",
-              cursor: "pointer",
               display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backdropFilter: "blur(4px)",
+              gap: "8px",
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C5A455" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 8V3h5M21 8V3h-5M3 16v5h5M21 16v5h-5" />
-            </svg>
-          </button>
+            <a
+              href="/persian-uncle/TLPU_keyart_01_v1_em.png"
+              download="TLPU_keyart_01.png"
+              onClick={(e) => e.stopPropagation()}
+              aria-label="Download key art"
+              style={{
+                width: "40px",
+                height: "40px",
+                background: "rgba(13, 12, 10, 0.7)",
+                border: "1px solid #C5A455",
+                borderRadius: "2px",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backdropFilter: "blur(4px)",
+                textDecoration: "none",
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C5A455" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+              </svg>
+            </a>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                goFullscreen(heroWrapRef.current);
+              }}
+              aria-label="View fullscreen"
+              style={{
+                width: "40px",
+                height: "40px",
+                padding: 0,
+                background: "rgba(13, 12, 10, 0.7)",
+                border: "1px solid #C5A455",
+                borderRadius: "2px",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backdropFilter: "blur(4px)",
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C5A455" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 8V3h5M21 8V3h-5M3 16v5h5M21 16v5h-5" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 
