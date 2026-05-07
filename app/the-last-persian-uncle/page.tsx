@@ -273,6 +273,18 @@ function ReviewBoard() {
       {/* Hero key art — click to enlarge, fullscreen icon for true fullscreen */}
       <div style={{ maxWidth: "1200px", margin: "0 auto", marginBottom: "40px" }}>
         <div
+          className="font-mono"
+          style={{
+            fontSize: "11px",
+            letterSpacing: "3px",
+            textTransform: "uppercase",
+            color: "#C5A455",
+            marginBottom: "20px",
+          }}
+        >
+          Key Art 01
+        </div>
+        <div
           ref={heroWrapRef}
           style={{
             position: "relative",
@@ -296,7 +308,7 @@ function ReviewBoard() {
             }}
           >
             <Image
-              src="/persian-uncle/TLPU_keyart_01_v2_em.png"
+              src="/persian-uncle/TLPU_keyart_01_v3_em.png"
               alt="The Last Persian Uncle key art"
               width={2752}
               height={1536}
@@ -319,7 +331,7 @@ function ReviewBoard() {
             }}
           >
             <a
-              href="/persian-uncle/TLPU_keyart_01_v2_em.png"
+              href="/persian-uncle/TLPU_keyart_01_v3_em.png"
               download="TLPU_keyart_01.png"
               onClick={(e) => e.stopPropagation()}
               aria-label="Download key art"
@@ -415,7 +427,7 @@ function ReviewBoard() {
             Close ✕
           </button>
           <Image
-            src="/persian-uncle/TLPU_keyart_01_v2_em.png"
+            src="/persian-uncle/TLPU_keyart_01_v3_em.png"
             alt="The Last Persian Uncle key art enlarged"
             width={2752}
             height={1536}
