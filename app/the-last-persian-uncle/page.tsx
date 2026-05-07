@@ -267,17 +267,6 @@ function ReviewBoard() {
               }}
             />
           </h1>
-          <div
-            className="font-mono"
-            style={{
-              fontSize: "11px",
-              letterSpacing: "4px",
-              textTransform: "uppercase",
-              color: "#C5A455",
-            }}
-          >
-            A Kessler Podcast
-          </div>
         </div>
       </div>
 
