@@ -244,6 +244,25 @@ function ReviewBoard() {
         </div>
       </div>
 
+      {/* Hero key art */}
+      <div style={{ maxWidth: "1200px", margin: "0 auto", marginBottom: "40px" }}>
+        <Image
+          src="/persian-uncle/TLPU_keyart_01_v1_em.png"
+          alt="The Last Persian Uncle key art"
+          width={2752}
+          height={1536}
+          priority
+          sizes="(max-width: 1200px) 100vw, 1200px"
+          style={{
+            width: "100%",
+            height: "auto",
+            display: "block",
+            border: "1px solid #C5A455",
+            borderRadius: "2px",
+          }}
+        />
+      </div>
+
       {/* Logo rows */}
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         {ROWS.map((row, idx) => (
