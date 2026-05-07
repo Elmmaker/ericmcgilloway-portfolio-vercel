@@ -232,11 +232,12 @@ function ReviewBoard() {
           <h1
             className="font-serif"
             style={{
-              fontSize: "clamp(32px, 6vw, 64px)",
+              fontSize: "clamp(20px, 6.2vw, 64px)",
               fontWeight: 700,
               color: "#F0EDE6",
               lineHeight: 1.1,
               marginBottom: "16px",
+              whiteSpace: "nowrap",
             }}
           >
             THE LAST PERSIAN UNCLE
