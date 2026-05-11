@@ -42,6 +42,12 @@ export default function GreatAmericanStoryPage() {
           onSubmit={handleSubmit}
           style={{ width: "100%", maxWidth: "320px", textAlign: "center" }}
         >
+          {/* Subtle red/white/blue accent — USA special */}
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: "18px" }}>
+            <div style={{ width: "14px", height: "3px", background: "#B23A48" }} />
+            <div style={{ width: "14px", height: "3px", background: "#F0EDE6" }} />
+            <div style={{ width: "14px", height: "3px", background: "#3A6BA5" }} />
+          </div>
           <div
             className="font-mono"
             style={{
@@ -122,10 +128,18 @@ export default function GreatAmericanStoryPage() {
         background: "#000000",
         color: "#F0EDE6",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        gap: "16px",
       }}
     >
+      {/* Subtle red/white/blue accent */}
+      <div style={{ display: "flex" }}>
+        <div style={{ width: "14px", height: "3px", background: "#B23A48" }} />
+        <div style={{ width: "14px", height: "3px", background: "#F0EDE6" }} />
+        <div style={{ width: "14px", height: "3px", background: "#3A6BA5" }} />
+      </div>
       <div
         className="font-mono"
         style={{
