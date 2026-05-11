@@ -1,7 +1,24 @@
 "use client";
 
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useRef, useState, FormEvent } from "react";
 import Image from "next/image";
+
+function goFullscreen(target: HTMLElement | null, fallbackUrl?: string) {
+  if (!target) return;
+  const el = target as HTMLElement & {
+    webkitRequestFullscreen?: () => Promise<void>;
+  };
+  if (el.requestFullscreen) {
+    el.requestFullscreen().catch(() => {
+      if (fallbackUrl) window.open(fallbackUrl, "_blank");
+    });
+  } else if (el.webkitRequestFullscreen) {
+    el.webkitRequestFullscreen();
+  } else if (fallbackUrl) {
+    // iOS Safari can't fullscreen arbitrary elements — open in a new tab
+    window.open(fallbackUrl, "_blank");
+  }
+}
 
 const PASSWORD = "patriotic";
 const STORAGE_KEY = "great-american-story-auth";
@@ -12,15 +29,15 @@ type SlotKey =
 type SlotData = { rating: number; notes: string };
 type Reviews = Record<SlotKey, SlotData>;
 
-const SLOTS: { id: SlotKey; label: string; image: string }[] = [
-  { id: "slot1", label: "TGAS 250 - 01",  image: "/great-american-story/TGAS_250_01.png"  },
-  { id: "slot2", label: "Logo 01a",       image: "/great-american-story/TGAS_Logo_01a.png" },
-  { id: "slot3", label: "Logo 01b",       image: "/great-american-story/TGAS_Logo_01b.png" },
-  { id: "slot4", label: "Logo 01c",       image: "/great-american-story/TGAS_Logo_01c.png" },
-  { id: "slot5", label: "Logo 02",        image: "/great-american-story/TGAS_Logo_02.png"  },
-  { id: "slot6", label: "Logo 02b",       image: "/great-american-story/TGAS_Logo_02b.png" },
-  { id: "slot7", label: "Logo 03",        image: "/great-american-story/TGAS_Logo_03.png"  },
-  { id: "slot8", label: "Logo 05",        image: "/great-american-story/TGAS_Logo_05.png"  },
+const SLOTS: { id: SlotKey; label: string; image: string; downloadName: string }[] = [
+  { id: "slot1", label: "Logo 01a",      image: "/great-american-story/TGAS_Logo_01a.png", downloadName: "TGAS_Logo_01a.png" },
+  { id: "slot2", label: "Logo 01b",      image: "/great-american-story/TGAS_Logo_01b.png", downloadName: "TGAS_Logo_01b.png" },
+  { id: "slot3", label: "Logo 01c",      image: "/great-american-story/TGAS_Logo_01c.png", downloadName: "TGAS_Logo_01c.png" },
+  { id: "slot4", label: "Logo 02",       image: "/great-american-story/TGAS_Logo_02.png",  downloadName: "TGAS_Logo_02.png"  },
+  { id: "slot5", label: "Logo 02b",      image: "/great-american-story/TGAS_Logo_02b.png", downloadName: "TGAS_Logo_02b.png" },
+  { id: "slot6", label: "Logo 03",       image: "/great-american-story/TGAS_Logo_03.png",  downloadName: "TGAS_Logo_03.png"  },
+  { id: "slot7", label: "Logo 05",       image: "/great-american-story/TGAS_Logo_05.png",  downloadName: "TGAS_Logo_05.png"  },
+  { id: "slot8", label: "TGAS 250 - 01", image: "/great-american-story/TGAS_250_01.png",   downloadName: "TGAS_250_01.png"   },
 ];
 
 const EMPTY_REVIEWS: Reviews = SLOTS.reduce((acc, s) => {
@@ -262,7 +279,7 @@ function SlotCard({
   saved,
   loaded,
 }: {
-  slot: { id: SlotKey; label: string; image: string };
+  slot: { id: SlotKey; label: string; image: string; downloadName: string };
   data: SlotData;
   onChange: (patch: Partial<SlotData>) => void;
   onSave: () => void;
@@ -270,6 +287,8 @@ function SlotCard({
   saved: boolean;
   loaded: boolean;
 }) {
+  const imgWrapRef = useRef<HTMLDivElement>(null);
+
   return (
     <div>
       {/* Slot label */}
@@ -286,8 +305,9 @@ function SlotCard({
         {slot.label}
       </div>
 
-      {/* Logo image */}
+      {/* Logo image — relative wrapper for absolute-positioned icon buttons */}
       <div
+        ref={imgWrapRef}
         style={{
           position: "relative",
           aspectRatio: "16 / 9",
@@ -305,6 +325,66 @@ function SlotCard({
           sizes="(max-width: 700px) 100vw, 50vw"
           style={{ objectFit: "contain" }}
         />
+
+        {/* Bottom-right action buttons */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "10px",
+            right: "10px",
+            display: "flex",
+            gap: "8px",
+          }}
+        >
+          <a
+            href={slot.image}
+            download={slot.downloadName}
+            onClick={(e) => e.stopPropagation()}
+            aria-label={`Download ${slot.label}`}
+            style={{
+              width: "36px",
+              height: "36px",
+              background: "rgba(13, 12, 10, 0.7)",
+              border: "1px solid #C5A455",
+              borderRadius: "2px",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backdropFilter: "blur(4px)",
+              textDecoration: "none",
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C5A455" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+            </svg>
+          </a>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              goFullscreen(imgWrapRef.current, slot.image);
+            }}
+            aria-label={`View ${slot.label} fullscreen`}
+            style={{
+              width: "36px",
+              height: "36px",
+              padding: 0,
+              background: "rgba(13, 12, 10, 0.7)",
+              border: "1px solid #C5A455",
+              borderRadius: "2px",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backdropFilter: "blur(4px)",
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C5A455" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 8V3h5M21 8V3h-5M3 16v5h5M21 16v5h-5" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Stars */}
