@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState, FormEvent } from "react";
+import VideoPlayer from "../components/VideoPlayer";
 
 const PASSWORD = "dreamers";
 const STORAGE_KEY = "lm-auth";
 
-// Asset paths — placeholders until files are added
-const VIDEO_SRC = "/lm/video.mp4";
+const VIDEO_EMBED_URL = "https://framerate.tv/watch/44c2d0df-e4b4-4862-853f-8dfd02880f3f";
 const MODEL_SRC = "/models/lockheed-martin.glb"; // GLB drop-in later
 
 export default function LMPage() {
@@ -150,8 +150,6 @@ export default function LMPage() {
         <SectionLabel>Video</SectionLabel>
         <div
           style={{
-            position: "relative",
-            aspectRatio: "16 / 9",
             background: "#000",
             border: "1px solid #2A251F",
             borderRadius: "2px",
@@ -159,20 +157,7 @@ export default function LMPage() {
             marginBottom: "clamp(40px, 6vw, 64px)",
           }}
         >
-          <video
-            controls
-            playsInline
-            preload="metadata"
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "block",
-              background: "#000",
-            }}
-          >
-            <source src={VIDEO_SRC} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          <VideoPlayer embedUrl={VIDEO_EMBED_URL} />
         </div>
 
         {/* 3D model block */}
