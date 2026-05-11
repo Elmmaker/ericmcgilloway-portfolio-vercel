@@ -120,37 +120,91 @@ export default function GreatAmericanStoryPage() {
     );
   }
 
-  // Placeholder until assets arrive
+  // Layout: heading + 2x4 grid of slots (waiting on assets)
+  const slots = [1, 2, 3, 4, 5, 6, 7, 8];
+
   return (
     <div
       style={{
         minHeight: "100vh",
-        background: "#000000",
+        background: "#0D0C0A",
         color: "#F0EDE6",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "16px",
+        padding:
+          "clamp(60px, 8vw, 100px) clamp(24px, 6vw, 80px) clamp(60px, 8vw, 100px)",
       }}
     >
-      {/* Subtle red/white/blue accent */}
-      <div style={{ display: "flex" }}>
-        <div style={{ width: "14px", height: "3px", background: "#B23A48" }} />
-        <div style={{ width: "14px", height: "3px", background: "#F0EDE6" }} />
-        <div style={{ width: "14px", height: "3px", background: "#3A6BA5" }} />
+      {/* Header */}
+      <div style={{ textAlign: "center", marginBottom: "clamp(48px, 8vw, 80px)" }}>
+        {/* Subtle tricolor accent */}
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}>
+          <div style={{ width: "16px", height: "3px", background: "#B23A48" }} />
+          <div style={{ width: "16px", height: "3px", background: "#F0EDE6" }} />
+          <div style={{ width: "16px", height: "3px", background: "#3A6BA5" }} />
+        </div>
+
+        <h1
+          className="font-serif"
+          style={{
+            fontSize: "clamp(28px, 5.5vw, 64px)",
+            fontWeight: 700,
+            color: "#F0EDE6",
+            lineHeight: 1.05,
+            letterSpacing: "0.02em",
+            margin: 0,
+          }}
+        >
+          THE GREAT AMERICAN STORY
+        </h1>
       </div>
-      <div
-        className="font-mono"
-        style={{
-          fontSize: "14px",
-          letterSpacing: "4px",
-          textTransform: "uppercase",
-          color: "#666",
-        }}
-      >
-        temp
+
+      {/* 2 rows of 4 slots */}
+      <div className="gas-grid" style={{ maxWidth: "1400px", margin: "0 auto" }}>
+        {slots.map((n) => (
+          <div
+            key={n}
+            className="gas-slot"
+            style={{
+              position: "relative",
+              aspectRatio: "3 / 2",
+              background: "#15130F",
+              border: "1px solid #2A251F",
+              borderRadius: "2px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <span
+              className="font-mono"
+              style={{
+                fontSize: "11px",
+                letterSpacing: "3px",
+                color: "#5A554A",
+              }}
+            >
+              {String(n).padStart(2, "0")}
+            </span>
+          </div>
+        ))}
       </div>
+
+      <style jsx>{`
+        .gas-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: clamp(16px, 2vw, 28px);
+        }
+        @media (max-width: 900px) {
+          .gas-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+        @media (max-width: 480px) {
+          .gas-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </div>
   );
 }
