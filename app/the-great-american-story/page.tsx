@@ -1,24 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, FormEvent } from "react";
+import { useEffect, useState, FormEvent } from "react";
 import Image from "next/image";
-
-function goFullscreen(target: HTMLElement | null, fallbackUrl?: string) {
-  if (!target) return;
-  const el = target as HTMLElement & {
-    webkitRequestFullscreen?: () => Promise<void>;
-  };
-  if (el.requestFullscreen) {
-    el.requestFullscreen().catch(() => {
-      if (fallbackUrl) window.open(fallbackUrl, "_blank");
-    });
-  } else if (el.webkitRequestFullscreen) {
-    el.webkitRequestFullscreen();
-  } else if (fallbackUrl) {
-    // iOS Safari can't fullscreen arbitrary elements — open in a new tab
-    window.open(fallbackUrl, "_blank");
-  }
-}
 
 const PASSWORD = "patriotic";
 const STORAGE_KEY = "great-american-story-auth";
@@ -167,6 +150,7 @@ function ReviewBoard() {
   const [loaded, setLoaded] = useState(false);
   const [savingSlot, setSavingSlot] = useState<SlotKey | null>(null);
   const [savedSlot, setSavedSlot] = useState<SlotKey | null>(null);
+  const [zoomedSlot, setZoomedSlot] = useState<SlotKey | null>(null);
 
   useEffect(() => {
     fetch("/api/great-american-story")
@@ -177,6 +161,18 @@ function ReviewBoard() {
       })
       .catch(() => setLoaded(true));
   }, []);
+
+  // Close lightbox on Escape
+  useEffect(() => {
+    if (!zoomedSlot) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setZoomedSlot(null);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [zoomedSlot]);
+
+  const zoomedSlotData = zoomedSlot ? SLOTS.find((s) => s.id === zoomedSlot) : null;
 
   function updateSlot(slot: SlotKey, patch: Partial<SlotData>) {
     setReviews((prev) => ({ ...prev, [slot]: { ...prev[slot], ...patch } }));
@@ -226,12 +222,13 @@ function ReviewBoard() {
         <h1
           className="font-serif"
           style={{
-            fontSize: "clamp(28px, 5.5vw, 64px)",
+            fontSize: "clamp(18px, 5.5vw, 64px)",
             fontWeight: 700,
             color: "#F0EDE6",
             lineHeight: 1.05,
             letterSpacing: "0.02em",
             margin: 0,
+            whiteSpace: "nowrap",
           }}
         >
           THE GREAT AMERICAN STORY
@@ -247,12 +244,58 @@ function ReviewBoard() {
             data={reviews[slot.id]}
             onChange={(patch) => updateSlot(slot.id, patch)}
             onSave={() => save(slot.id)}
+            onZoom={() => setZoomedSlot(slot.id)}
             saving={savingSlot === slot.id}
             saved={savedSlot === slot.id}
             loaded={loaded}
           />
         ))}
       </div>
+
+      {/* Lightbox: black background, centered image, rotates on portrait phones */}
+      {zoomedSlotData && (
+        <div
+          onClick={() => setZoomedSlot(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${zoomedSlotData.label} enlarged`}
+          className="gas-lightbox"
+        >
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setZoomedSlot(null);
+            }}
+            aria-label="Close"
+            className="font-mono"
+            style={{
+              position: "fixed",
+              top: "16px",
+              right: "16px",
+              padding: "10px 14px",
+              background: "transparent",
+              color: "#C5A455",
+              border: "1px solid #C5A455",
+              fontSize: "11px",
+              letterSpacing: "2px",
+              textTransform: "uppercase",
+              cursor: "pointer",
+              borderRadius: "2px",
+              zIndex: 1001,
+            }}
+          >
+            Close ✕
+          </button>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={zoomedSlotData.image}
+            alt={zoomedSlotData.label}
+            className="gas-lightbox-img"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
 
       <style jsx>{`
         .gas-grid {
@@ -265,6 +308,39 @@ function ReviewBoard() {
             grid-template-columns: 1fr;
           }
         }
+        .gas-lightbox {
+          position: fixed;
+          inset: 0;
+          z-index: 1000;
+          background: #000;
+          cursor: zoom-out;
+          overflow: hidden;
+        }
+        .gas-lightbox-img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          max-width: 95vw;
+          max-height: 95vh;
+          width: auto;
+          height: auto;
+          display: block;
+          object-fit: contain;
+          transform: translate(-50%, -50%);
+        }
+        @media (orientation: portrait) and (max-width: 800px) {
+          /* Rotate the 16:9 image 90° so it fills portrait phones horizontally.
+             Pre-rotation CSS dimensions swap to post-rotation visual dimensions:
+               visual width  = CSS height = 95vw
+               visual height = CSS width  = 95vw × 16/9 */
+          .gas-lightbox-img {
+            max-width: none;
+            max-height: none;
+            width: calc(95vw * 16 / 9);
+            height: 95vw;
+            transform: translate(-50%, -50%) rotate(90deg);
+          }
+        }
       `}</style>
     </div>
   );
@@ -275,6 +351,7 @@ function SlotCard({
   data,
   onChange,
   onSave,
+  onZoom,
   saving,
   saved,
   loaded,
@@ -283,11 +360,11 @@ function SlotCard({
   data: SlotData;
   onChange: (patch: Partial<SlotData>) => void;
   onSave: () => void;
+  onZoom: () => void;
   saving: boolean;
   saved: boolean;
   loaded: boolean;
 }) {
-  const imgWrapRef = useRef<HTMLDivElement>(null);
 
   return (
     <div>
@@ -307,7 +384,6 @@ function SlotCard({
 
       {/* Logo image — relative wrapper for absolute-positioned icon buttons */}
       <div
-        ref={imgWrapRef}
         style={{
           position: "relative",
           aspectRatio: "16 / 9",
@@ -363,7 +439,7 @@ function SlotCard({
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              goFullscreen(imgWrapRef.current, slot.image);
+              onZoom();
             }}
             aria-label={`View ${slot.label} fullscreen`}
             style={{
