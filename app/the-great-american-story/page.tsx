@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, FormEvent } from "react";
+import Image from "next/image";
 
 const PASSWORD = "patriotic";
 const STORAGE_KEY = "great-american-story-auth";
@@ -11,15 +12,15 @@ type SlotKey =
 type SlotData = { rating: number; notes: string };
 type Reviews = Record<SlotKey, SlotData>;
 
-const SLOTS: { id: SlotKey; label: string }[] = [
-  { id: "slot1", label: "Title 01" },
-  { id: "slot2", label: "Title 02" },
-  { id: "slot3", label: "Title 03" },
-  { id: "slot4", label: "Title 04" },
-  { id: "slot5", label: "Title 05" },
-  { id: "slot6", label: "Title 06" },
-  { id: "slot7", label: "Title 07" },
-  { id: "slot8", label: "Title 08" },
+const SLOTS: { id: SlotKey; label: string; image: string }[] = [
+  { id: "slot1", label: "TGAS 250 - 01",  image: "/great-american-story/TGAS_250_01.png"  },
+  { id: "slot2", label: "Logo 01a",       image: "/great-american-story/TGAS_Logo_01a.png" },
+  { id: "slot3", label: "Logo 01b",       image: "/great-american-story/TGAS_Logo_01b.png" },
+  { id: "slot4", label: "Logo 01c",       image: "/great-american-story/TGAS_Logo_01c.png" },
+  { id: "slot5", label: "Logo 02",        image: "/great-american-story/TGAS_Logo_02.png"  },
+  { id: "slot6", label: "Logo 02b",       image: "/great-american-story/TGAS_Logo_02b.png" },
+  { id: "slot7", label: "Logo 03",        image: "/great-american-story/TGAS_Logo_03.png"  },
+  { id: "slot8", label: "Logo 05",        image: "/great-american-story/TGAS_Logo_05.png"  },
 ];
 
 const EMPTY_REVIEWS: Reviews = SLOTS.reduce((acc, s) => {
@@ -261,7 +262,7 @@ function SlotCard({
   saved,
   loaded,
 }: {
-  slot: { id: SlotKey; label: string };
+  slot: { id: SlotKey; label: string; image: string };
   data: SlotData;
   onChange: (patch: Partial<SlotData>) => void;
   onSave: () => void;
@@ -285,30 +286,25 @@ function SlotCard({
         {slot.label}
       </div>
 
-      {/* Image placeholder (waiting on assets) */}
+      {/* Logo image */}
       <div
         style={{
           position: "relative",
-          aspectRatio: "3 / 2",
-          background: "#15130F",
+          aspectRatio: "16 / 9",
+          background: "#0D0C0A",
           border: "1px solid #2A251F",
           borderRadius: "2px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          overflow: "hidden",
           marginBottom: "20px",
         }}
       >
-        <span
-          className="font-mono"
-          style={{
-            fontSize: "11px",
-            letterSpacing: "3px",
-            color: "#5A554A",
-          }}
-        >
-          {slot.label.replace("Title ", "")}
-        </span>
+        <Image
+          src={slot.image}
+          alt={slot.label}
+          fill
+          sizes="(max-width: 700px) 100vw, 50vw"
+          style={{ objectFit: "contain" }}
+        />
       </div>
 
       {/* Stars */}
