@@ -143,11 +143,14 @@ function IframePlayer({
         </div>
       )}
 
-      {/* Fullscreen icon — bottom-right, always visible */}
+      {/* Fullscreen icon — hidden on mobile (iOS blocks iframe fullscreen
+          anyway, and the icon would cover Framerate's audio/fullscreen
+          controls). Framerate's own player UI handles fullscreen on mobile. */}
       <button
         type="button"
         onClick={goFullscreen}
         aria-label="View video fullscreen"
+        className="vp-fullscreen-btn"
         style={{
           position: "absolute",
           bottom: "10px",
@@ -179,6 +182,13 @@ function IframePlayer({
           <path d="M3 8V3h5M21 8V3h-5M3 16v5h5M21 16v5h-5" />
         </svg>
       </button>
+      <style jsx global>{`
+        @media (max-width: 768px) {
+          .vp-fullscreen-btn {
+            display: none !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
