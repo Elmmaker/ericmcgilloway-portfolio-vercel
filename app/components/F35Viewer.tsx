@@ -621,9 +621,8 @@ export default function F35Viewer() {
         position: "relative",
         width: "100%",
         aspectRatio: "16 / 9",
-        // Custom JPG background if present, falls back to a CSS gradient
         background:
-          'url("/lm/background.jpg") center/cover no-repeat, radial-gradient(ellipse at 50% 42%, #1A2D52 0%, #0C1A33 45%, #050810 100%)',
+          "radial-gradient(ellipse at 50% 42%, #1A2D52 0%, #0C1A33 45%, #050810 100%)",
         border: "1px solid #2A251F",
         borderRadius: 2,
         overflow: "hidden",
