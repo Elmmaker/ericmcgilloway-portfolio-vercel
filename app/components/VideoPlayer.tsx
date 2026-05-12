@@ -60,27 +60,36 @@ function IframePlayer({
   aspectRatio: string;
 }) {
   const [activated, setActivated] = useState(false);
-  // Mute the autoplay only on touch devices (iOS Safari blocks autoplay with
-  // sound — the player just sits paused on a black frame). Desktop browsers
-  // allow autoplay with sound after a user gesture (the placeholder click).
-  // Initialize to true so the SSR/first-paint URL is safe, then loosen on
-  // the client once we detect a hover-capable, fine-pointer device.
-  const [muteAutoplay, setMuteAutoplay] = useState(true);
+  // Two playback strategies, picked at mount per device:
+  //   • Desktop: keep my placeholder. Click → autoplay iframe with sound.
+  //   • Touch (mobile/tablet): skip my placeholder entirely. Render the
+  //     iframe immediately with NO autoplay so visitors tap Framerate's own
+  //     play button. This is the only thing that reliably starts video on
+  //     iOS Safari, regardless of muted/playsinline flags Framerate may or
+  //     may not honor.
+  const [isTouch, setIsTouch] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)")
-      .matches;
-    setMuteAutoplay(!isDesktop);
+    setIsTouch(
+      !window.matchMedia("(hover: hover) and (pointer: fine)").matches,
+    );
   }, []);
 
   const iframeSrc = embedUrl.includes("/embed/")
     ? embedUrl
     : embedUrl.replace("/watch/", "/embed/");
-  const params = `autoplay=1${muteAutoplay ? "&muted=1" : ""}`;
+
+  // Desktop iframe URL: autoplay with sound after the placeholder click
   const autoplaySrc = iframeSrc.includes("?")
-    ? `${iframeSrc}&${params}`
-    : `${iframeSrc}?${params}`;
+    ? `${iframeSrc}&autoplay=1`
+    : `${iframeSrc}?autoplay=1`;
+
+  // The src that's actually loaded: on touch devices we mount the iframe
+  // immediately at the plain embed URL (no autoplay); on desktop we mount it
+  // with autoplay=1 once the placeholder is clicked.
+  const liveSrc = isTouch ? iframeSrc : autoplaySrc;
+  const showIframe = isTouch || activated;
 
   async function goFullscreen(e: React.MouseEvent) {
     e.stopPropagation();
@@ -132,9 +141,9 @@ function IframePlayer({
 
   return (
     <div ref={wrapRef} className="relative w-full" style={{ aspectRatio, background: "#000" }}>
-      {activated ? (
+      {showIframe ? (
         <iframe
-          src={autoplaySrc}
+          src={liveSrc}
           className="absolute inset-0 w-full h-full"
           style={{ border: "none" }}
           allow="autoplay; fullscreen; picture-in-picture"
