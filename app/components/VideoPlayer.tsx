@@ -71,16 +71,51 @@ function IframePlayer({
     ? `${iframeSrc}&autoplay=1&muted=1`
     : `${iframeSrc}?autoplay=1&muted=1`;
 
-  function goFullscreen(e: React.MouseEvent) {
+  async function goFullscreen(e: React.MouseEvent) {
     e.stopPropagation();
-    const el = wrapRef.current as
-      | (HTMLElement & { webkitRequestFullscreen?: () => Promise<void> })
-      | null;
-    if (!el) return;
-    if (el.requestFullscreen) {
-      el.requestFullscreen().catch(() => {});
-    } else if (el.webkitRequestFullscreen) {
-      el.webkitRequestFullscreen();
+
+    // If we're already fullscreen, exit
+    const fsDoc = document as Document & { webkitFullscreenElement?: Element };
+    if (document.fullscreenElement || fsDoc.webkitFullscreenElement) {
+      if (document.exitFullscreen) await document.exitFullscreen().catch(() => {});
+      else
+        (document as Document & {
+          webkitExitFullscreen?: () => void;
+        }).webkitExitFullscreen?.();
+      return;
+    }
+
+    // Activate the player if it isn't already so the iframe exists
+    if (!activated) setActivated(true);
+
+    type FSEl = HTMLElement & {
+      webkitRequestFullscreen?: () => Promise<void>;
+      webkitEnterFullscreen?: () => void;
+    };
+
+    const tryFs = async (el: FSEl | null) => {
+      if (!el) throw new Error("no element");
+      if (el.requestFullscreen) return el.requestFullscreen();
+      if (el.webkitRequestFullscreen) return el.webkitRequestFullscreen();
+      if (el.webkitEnterFullscreen) return el.webkitEnterFullscreen();
+      throw new Error("fullscreen unsupported");
+    };
+
+    // Wait a tick so a newly-activated iframe is in the DOM
+    await new Promise((r) => setTimeout(r, 50));
+
+    const iframe = wrapRef.current?.querySelector("iframe") as FSEl | null;
+    try {
+      await tryFs(iframe);
+      return;
+    } catch (err) {
+      console.warn("[VideoPlayer] iframe fullscreen failed:", err);
+    }
+
+    try {
+      await tryFs(wrapRef.current as FSEl | null);
+    } catch (err) {
+      console.warn("[VideoPlayer] wrapper fullscreen failed:", err);
     }
   }
 

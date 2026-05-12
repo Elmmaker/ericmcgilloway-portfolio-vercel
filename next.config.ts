@@ -19,7 +19,8 @@ const securityHeaders = [
   // Disable browser features this site doesn't use
   {
     key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+    value:
+      "camera=(), microphone=(), geolocation=(), payment=(), usb=(), fullscreen=(self \"https://framerate.tv\")",
   },
   // Content Security Policy
   // - script-src: Next.js requires unsafe-inline for hydration scripts
