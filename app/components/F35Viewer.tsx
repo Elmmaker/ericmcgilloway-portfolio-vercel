@@ -87,16 +87,23 @@ const CALLOUTS: Callout[] = [
   },
 ];
 
-// Find a node whose name starts with the given prefix. Accepts either an
-// exact match or "<prefix><space>..." — covers em-dash/suffix variants like
-// "Cockpit — Director of Photography / Visual Storyteller" without being
-// fooled by sibling parts that share a stem (e.g. "Wing_Left_Cap").
+// Forgiving lookup: case-insensitive contains, ignoring underscores, em-dashes,
+// and other punctuation. We log all candidates plus the chosen one so any
+// remaining mismatch is easy to diagnose.
+function normalizeNameForMatch(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/[_\s\-—–.:/[\]]+/g, "");
+}
+
 function findNodeByPrefix(scene: THREE.Object3D, prefix: string): THREE.Object3D | null {
+  const target = normalizeNameForMatch(prefix);
   let found: THREE.Object3D | null = null;
   scene.traverse((node) => {
     if (found) return;
     const name = node.name ?? "";
-    if (name === prefix || name.startsWith(prefix + " ")) {
+    if (!name) return;
+    if (normalizeNameForMatch(name).startsWith(target)) {
       found = node;
     }
   });
