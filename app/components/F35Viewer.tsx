@@ -615,6 +615,7 @@ export default function F35Viewer() {
   const handleUserInteract = () => setLastInteract(Date.now());
 
   return (
+    <>
     <div
       className="f35-wrap"
       style={{
@@ -669,12 +670,16 @@ export default function F35Viewer() {
           makeDefault
         />
       </Canvas>
+    </div>
 
-      {/* Slide-in info panel */}
+    {/* Info panel — lives BELOW the canvas so it never covers the jet */}
+    <div
+      className={`f35-panel-wrap ${focusedCallout ? "f35-panel-wrap--open" : ""}`}
+      aria-hidden={!focusedCallout}
+    >
       <div
-        className={`f35-panel ${focusedCallout ? "f35-panel--open" : ""}`}
+        className="f35-panel"
         role="dialog"
-        aria-hidden={!focusedCallout}
         aria-label={focusedCallout?.heading ?? ""}
       >
         <button
@@ -695,8 +700,9 @@ export default function F35Viewer() {
           </>
         )}
       </div>
+    </div>
 
-      <style jsx global>{`
+    <style jsx global>{`
         /* Callout marker on the model */
         .f35-callout {
           position: relative;
@@ -760,26 +766,29 @@ export default function F35Viewer() {
           color: ${GOLD};
         }
 
-        /* Slide-in info panel */
-        .f35-panel {
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          width: min(420px, 88%);
-          background: rgba(13, 12, 10, 0.94);
-          backdrop-filter: blur(10px);
-          border-left: 1px solid ${GOLD};
-          padding: clamp(36px, 5vw, 56px) clamp(24px, 4vw, 40px);
-          color: #f0ede6;
-          transform: translateX(100%);
-          transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-          z-index: 20;
-          overflow-y: auto;
-          box-shadow: -12px 0 36px rgba(0, 0, 0, 0.55);
+        /* Reveal-from-zero info panel — sits BELOW the canvas */
+        .f35-panel-wrap {
+          display: grid;
+          grid-template-rows: 0fr;
+          opacity: 0;
+          transition:
+            grid-template-rows 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+            opacity 0.3s ease;
+          margin-top: 16px;
         }
-        .f35-panel--open {
-          transform: translateX(0);
+        .f35-panel-wrap--open {
+          grid-template-rows: 1fr;
+          opacity: 1;
+          margin-top: 20px;
+        }
+        .f35-panel {
+          position: relative;
+          overflow: hidden;
+          background: rgba(13, 12, 10, 0.94);
+          border: 1px solid ${GOLD};
+          border-radius: 2px;
+          padding: clamp(28px, 4vw, 40px) clamp(24px, 4vw, 40px);
+          color: #f0ede6;
         }
         .f35-panel-close {
           position: absolute;
@@ -831,7 +840,7 @@ export default function F35Viewer() {
             margin: 0 4px;
           }
         }
-      `}</style>
-    </div>
+    `}</style>
+    </>
   );
 }
