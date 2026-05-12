@@ -26,7 +26,11 @@ type CalloutKey =
 
 type Callout = {
   key: CalloutKey;
-  partName: string;
+  // Exact name of the named node in the GLB (used for lookup)
+  nodeName: string;
+  // Short label shown on the model
+  label: string;
+  // Panel heading shown after clicking
   heading: string;
   description: string;
 };
@@ -34,42 +38,48 @@ type Callout = {
 const CALLOUTS: Callout[] = [
   {
     key: "cockpit",
-    partName: "Cockpit",
+    nodeName: "Cockpit — Director of Photography / Visual Storyteller",
+    label: "Cockpit",
     heading: "Director of Photography / Visual Storyteller",
     description:
       "Every frame starts with a decision. I direct the eye, shape the emotion, and control the pace — whether behind a camera on location or building the sequence in post. 15 years of broadcast storytelling at Warner Bros. and CBS Paramount.",
   },
   {
     key: "nose",
-    partName: "Nose",
+    nodeName: "Nose — Editorial Judgment",
+    label: "Nose",
     heading: "Editorial Judgment",
     description:
       "Editorial instincts built through thousands of deliverables on deadline. I know when to cut, when to hold, and how to use pacing to strengthen message and emotional impact.",
   },
   {
     key: "wingLeft",
-    partName: "Wing_Left",
+    nodeName: "Wing_Left — Video Editing",
+    label: "Wing Left",
     heading: "Video Editing",
     description:
       "Expert-level video editing across broadcast, social, and marketing. From nightly late-night delivery to major studio theatrical campaigns, I cut content that performs.",
   },
   {
     key: "wingRight",
-    partName: "Wing_Right",
+    nodeName: "Wing_Right — Motion Graphics",
+    label: "Wing Right",
     heading: "Motion Graphics",
     description:
       "15 years of advanced motion graphics for major broadcast networks and entertainment studios. After Effects, Cinema 4D, Redshift, Trapcode — the full pipeline.",
   },
   {
     key: "fuselage",
-    partName: "Fuselage",
+    nodeName: "Fuselage — Production Pipeline",
+    label: "Fuselage",
     heading: "Production Pipeline",
     description:
       "Full production lifecycle experience from pre-production and scripting through camera, post, motion graphics, sound integration, and final delivery.",
   },
   {
     key: "engineLeft",
-    partName: "Engine_Left",
+    nodeName: "Engine_Left — Cinema 4D / 3D Animation",
+    label: "Engine Left",
     heading: "Cinema 4D / 3D Animation",
     description:
       "Advanced Cinema 4D and Redshift for 3D modeling, rendering, and animation across broadcast and marketing productions.",
@@ -195,10 +205,10 @@ function F35Model({
     // Per-part positions for callout anchors
     const out: Partial<Record<CalloutKey, THREE.Vector3>> = {};
     for (const c of CALLOUTS) {
-      const node = scene.getObjectByName(c.partName);
+      const node = scene.getObjectByName(c.nodeName);
       if (!node) {
         console.warn(
-          `[F35Viewer] Named part not found in GLB: "${c.partName}"`,
+          `[F35Viewer] Named part not found in GLB: "${c.nodeName}"`,
         );
         continue;
       }
@@ -232,7 +242,7 @@ function F35Model({
   useEffect(() => {
     const callout = CALLOUTS.find((c) => c.key === focusedKey);
     if (!callout) return;
-    const node = scene.getObjectByName(callout.partName);
+    const node = scene.getObjectByName(callout.nodeName);
     if (!node) return;
 
     const goldColor = new THREE.Color(GOLD);
@@ -274,7 +284,7 @@ function F35Model({
       controls.autoRotate = false;
       const callout = CALLOUTS.find((c) => c.key === focusedKey);
       if (!callout) return;
-      const node = scene.getObjectByName(callout.partName);
+      const node = scene.getObjectByName(callout.nodeName);
       if (!node) return;
       const partWorld = tmpVec.current.set(0, 0, 0);
       node.getWorldPosition(partWorld);
@@ -320,7 +330,7 @@ function F35Model({
             zIndexRange={[10, 0]}
           >
             <CalloutButton
-              label={c.partName.replace(/_/g, " ")}
+              label={c.label}
               active={isActive}
               onClick={(e) => {
                 e.stopPropagation();
@@ -466,7 +476,7 @@ export default function F35Viewer() {
         {focusedCallout && (
           <>
             <div className="f35-panel-eyebrow">
-              {focusedCallout.partName.replace(/_/g, " ")}
+              {focusedCallout.label}
             </div>
             <h3 className="f35-panel-heading">{focusedCallout.heading}</h3>
             <p className="f35-panel-body">{focusedCallout.description}</p>
