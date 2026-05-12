@@ -59,7 +59,11 @@ export default function VideoPlayer({ src, embedUrl, poster, aspectRatio = "16/9
         ) : (
           <div
             className="absolute inset-0 cursor-pointer flex items-center justify-center"
-            style={{ background: "#111" }}
+            style={{
+              background: poster
+                ? `#000 url("${poster}") center / cover no-repeat`
+                : "#111",
+            }}
             onClick={() => setActivated(true)}
           >
             <PlayButton />

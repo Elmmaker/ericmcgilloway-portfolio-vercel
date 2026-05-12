@@ -162,7 +162,7 @@ export default function LMPage() {
             marginBottom: "clamp(40px, 6vw, 64px)",
           }}
         >
-          <VideoPlayer embedUrl={VIDEO_EMBED_URL} />
+          <VideoPlayer embedUrl={VIDEO_EMBED_URL} poster="/lm/poster.jpg" />
         </div>
 
         {/* Gold sheen divider above 3D section */}
