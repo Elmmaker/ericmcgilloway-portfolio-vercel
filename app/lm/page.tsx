@@ -1,13 +1,18 @@
 "use client";
 
 import { useEffect, useState, FormEvent } from "react";
+import dynamic from "next/dynamic";
 import VideoPlayer from "../components/VideoPlayer";
+
+// 3D viewer is client-only and heavy — load lazily
+const F35Viewer = dynamic(() => import("../components/F35Viewer"), {
+  ssr: false,
+});
 
 const PASSWORD = "dreamers";
 const STORAGE_KEY = "lm-auth";
 
 const VIDEO_EMBED_URL = "https://framerate.tv/watch/44c2d0df-e4b4-4862-853f-8dfd02880f3f";
-const MODEL_SRC = "/models/lockheed-martin.glb"; // GLB drop-in later
 
 export default function LMPage() {
   const [authed, setAuthed] = useState(false);
@@ -160,40 +165,78 @@ export default function LMPage() {
           <VideoPlayer embedUrl={VIDEO_EMBED_URL} />
         </div>
 
+        {/* Gold sheen divider above 3D section */}
+        <SheenDivider />
+
         {/* 3D model block */}
-        <SectionLabel>3D Model</SectionLabel>
+        <SectionLabel>F-35 · Interactive 3D Model</SectionLabel>
+        <F35Viewer />
+
+        {/* Hint */}
         <div
+          className="font-mono"
           style={{
-            position: "relative",
-            aspectRatio: "16 / 9",
-            background: "#0A0A08",
-            border: "1px solid #2A251F",
-            borderRadius: "2px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            fontSize: "10px",
+            letterSpacing: "2px",
+            textTransform: "uppercase",
+            color: "#8A8579",
+            textAlign: "center",
+            marginTop: "16px",
           }}
-          data-model-src={MODEL_SRC}
         >
-          <div
-            className="font-mono"
-            style={{
-              fontSize: "11px",
-              letterSpacing: "3px",
-              textTransform: "uppercase",
-              color: "#5A554A",
-              textAlign: "center",
-              lineHeight: 1.8,
-            }}
-          >
-            3D Model Coming Soon
-            <br />
-            <span style={{ fontSize: "9px", color: "#3A352A" }}>
-              Drag to rotate · Scroll to zoom
-            </span>
-          </div>
+          Drag to rotate · Scroll to zoom · Click any callout to explore
         </div>
+
+        {/* Gold sheen divider below 3D section */}
+        <SheenDivider />
       </div>
+
+      <style jsx global>{`
+        .lm-divider {
+          position: relative;
+          height: 1px;
+          margin: clamp(48px, 6vw, 72px) 0;
+          overflow: hidden;
+        }
+        .lm-divider-base {
+          position: absolute;
+          inset: 0;
+          background: #C5A455;
+          opacity: 0.3;
+        }
+        .lm-sheen {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            transparent 30%,
+            rgba(197, 164, 85, 0.8) 50%,
+            transparent 70%,
+            transparent 100%
+          );
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          .lm-sheen {
+            animation: lmSheenSweep 3.5s ease-in-out infinite;
+          }
+        }
+        @keyframes lmSheenSweep {
+          0% { transform: translateX(-100%); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translateX(100%); opacity: 0; }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+function SheenDivider() {
+  return (
+    <div className="lm-divider">
+      <div className="lm-divider-base" />
+      <div className="lm-sheen" />
     </div>
   );
 }
