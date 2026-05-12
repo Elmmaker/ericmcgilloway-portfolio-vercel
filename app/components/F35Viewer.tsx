@@ -13,7 +13,7 @@ import { Html, OrbitControls, useGLTF, useProgress } from "@react-three/drei";
 import * as THREE from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 
-const MODEL_PATH = "/lockheed/f35_v2.glb";
+const MODEL_PATH = "/models/f35_v3.glb";
 
 type CalloutKey =
   | "cockpit"
