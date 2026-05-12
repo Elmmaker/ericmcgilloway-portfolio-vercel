@@ -77,10 +77,6 @@ const CALLOUTS: Callout[] = [
 
 const GOLD = "#C5A455";
 
-// Default camera state
-const DEFAULT_CAM = new THREE.Vector3(0, 1.2, 5.5);
-const DEFAULT_TARGET = new THREE.Vector3(0, 0, 0);
-
 // Idle threshold before auto-rotate resumes (ms)
 const IDLE_MS = 3000;
 
@@ -146,21 +142,73 @@ function F35Model({
   const modelRef = useRef<THREE.Group>(null);
   const { camera } = useThree();
   const matBackup = useRef<MatBackup>(new Map());
+  const returningRef = useRef(false);
+  const focusedKeyRef = useRef<CalloutKey | null>(null);
 
-  // Compute local position of each named part once the scene is loaded
-  const partPositions = useMemo(() => {
+  // Auto-fit: compute bounding sphere, set camera distance + return-to-default
+  // dynamically based on model size. Also log all named nodes so we can debug
+  // missing callouts.
+  const { defaultCamPos, defaultTarget, partPositions } = useMemo(() => {
+    // Log every named node in the GLB so missing callouts are easy to debug
+    const allNames: string[] = [];
+    scene.traverse((node) => {
+      if (node.name) allNames.push(`${node.name}  (${node.type})`);
+    });
+    console.log(
+      `[F35Viewer] Loaded GLB. ${allNames.length} named nodes:\n` +
+        allNames.join("\n"),
+    );
+
+    // Bounding sphere of the whole model — drives camera distance
+    const box = new THREE.Box3().setFromObject(scene);
+    const sphere = new THREE.Sphere();
+    box.getBoundingSphere(sphere);
+
+    // Frame the model with breathing room (1.9× the strict fit distance)
+    const fovRad = (38 * Math.PI) / 180;
+    const fitDistance = sphere.radius / Math.sin(fovRad / 2);
+    const distance = fitDistance * 1.9;
+
+    const defaultTarget = sphere.center.clone();
+    const defaultCamPos = sphere.center
+      .clone()
+      .add(new THREE.Vector3(0, sphere.radius * 0.35, distance));
+
+    // Per-part positions for callout anchors
     const out: Partial<Record<CalloutKey, THREE.Vector3>> = {};
     for (const c of CALLOUTS) {
       const node = scene.getObjectByName(c.partName);
       if (!node) {
-        console.warn(`[F35Viewer] Named part not found in GLB: "${c.partName}"`);
+        console.warn(
+          `[F35Viewer] Named part not found in GLB: "${c.partName}"`,
+        );
         continue;
       }
-      const box = new THREE.Box3().setFromObject(node);
-      out[c.key] = box.getCenter(new THREE.Vector3());
+      const partBox = new THREE.Box3().setFromObject(node);
+      out[c.key] = partBox.getCenter(new THREE.Vector3());
     }
-    return out;
+    return { defaultCamPos, defaultTarget, partPositions: out };
   }, [scene]);
+
+  // Initial camera + target setup once we know the model size
+  useEffect(() => {
+    camera.position.copy(defaultCamPos);
+    const controls = controlsRef.current;
+    if (controls) {
+      controls.target.copy(defaultTarget);
+      controls.minDistance = defaultCamPos.distanceTo(defaultTarget) * 0.35;
+      controls.maxDistance = defaultCamPos.distanceTo(defaultTarget) * 2.5;
+      controls.update();
+    }
+  }, [camera, controlsRef, defaultCamPos, defaultTarget]);
+
+  // Trigger return-to-default lerp when focus is cleared
+  useEffect(() => {
+    if (focusedKeyRef.current && !focusedKey) {
+      returningRef.current = true;
+    }
+    focusedKeyRef.current = focusedKey;
+  }, [focusedKey]);
 
   // Apply / restore emissive gold glow on focus changes
   useEffect(() => {
@@ -195,7 +243,9 @@ function F35Model({
     };
   }, [focusedKey, scene]);
 
-  // Camera + auto-rotation animation each frame
+  // Camera animation. Only writes to camera during focus or return-to-default
+  // transitions — otherwise OrbitControls is the sole owner of the camera so
+  // the user's drag isn't fought.
   const tmpVec = useRef(new THREE.Vector3());
   useFrame(() => {
     const controls = controlsRef.current;
@@ -208,24 +258,32 @@ function F35Model({
       if (!callout) return;
       const node = scene.getObjectByName(callout.partName);
       if (!node) return;
-      // Pull the part's WORLD position (post auto-rotation if any)
       const partWorld = tmpVec.current.set(0, 0, 0);
       node.getWorldPosition(partWorld);
 
-      // Offset back from the part along view direction
-      const offset = new THREE.Vector3(0, 0.6, 2.2);
+      // Offset proportional to model size for consistent framing
+      const sizeRef = defaultCamPos.distanceTo(defaultTarget);
+      const offset = new THREE.Vector3(0, sizeRef * 0.1, sizeRef * 0.35);
       const targetCamPos = partWorld.clone().add(offset);
 
       camera.position.lerp(targetCamPos, 0.08);
       controls.target.lerp(partWorld, 0.12);
+      controls.update();
+    } else if (returningRef.current) {
+      // Returning home after closing the panel
+      controls.autoRotate = false;
+      camera.position.lerp(defaultCamPos, 0.07);
+      controls.target.lerp(defaultTarget, 0.1);
+      controls.update();
+      // Stop once we're effectively back
+      if (camera.position.distanceToSquared(defaultCamPos) < 0.001) {
+        returningRef.current = false;
+      }
     } else {
-      // Idle mode: resume auto-rotate if no recent interaction
+      // Free orbit. Let OrbitControls drive everything; just toggle auto-rotate.
       controls.autoRotate = !isInteracting;
-      // Lerp back to default view
-      camera.position.lerp(DEFAULT_CAM, 0.06);
-      controls.target.lerp(DEFAULT_TARGET, 0.1);
+      controls.update();
     }
-    controls.update();
   });
 
   return (
@@ -331,7 +389,7 @@ export default function F35Viewer() {
       }}
     >
       <Canvas
-        camera={{ position: DEFAULT_CAM.toArray(), fov: 38 }}
+        camera={{ position: [0, 1, 12], fov: 38, near: 0.05, far: 5000 }}
         gl={{ antialias: true, alpha: true }}
         onPointerDown={handleUserInteract}
         onWheel={handleUserInteract}
@@ -358,13 +416,12 @@ export default function F35Viewer() {
 
         <OrbitControls
           ref={controlsRef}
-          target={DEFAULT_TARGET.toArray()}
           enablePan={false}
           enableZoom={true}
-          minDistance={2.5}
-          maxDistance={10}
           autoRotate={true}
           autoRotateSpeed={0.6}
+          enableDamping
+          dampingFactor={0.08}
           makeDefault
         />
       </Canvas>
