@@ -44,40 +44,108 @@ export default function VideoPlayer({ src, embedUrl, poster, aspectRatio = "16/9
 
   // For iframe embeds — show placeholder until clicked, then load iframe
   if (embedUrl) {
-    const iframeSrc = embedUrl.includes("/embed/") ? embedUrl : embedUrl.replace("/watch/", "/embed/");
-    // muted=1 lets iOS Safari honor autoplay (it blocks autoplay with sound).
-    // Visitors can unmute via the player's own controls after it starts.
-    const autoplaySrc = iframeSrc.includes("?")
-      ? `${iframeSrc}&autoplay=1&muted=1`
-      : `${iframeSrc}?autoplay=1&muted=1`;
-    return (
-      <div className="relative w-full" style={{ aspectRatio }}>
-        {activated ? (
-          <iframe
-            src={autoplaySrc}
-            className="absolute inset-0 w-full h-full"
-            style={{ border: "none" }}
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-          />
-        ) : (
-          <div
-            className="absolute inset-0 cursor-pointer flex items-center justify-center"
-            style={{
-              background: poster
-                ? `#000 url("${poster}") center / cover no-repeat`
-                : "#111",
-            }}
-            onClick={() => setActivated(true)}
-          >
-            <PlayButton />
-          </div>
-        )}
-      </div>
-    );
+    return <IframePlayer embedUrl={embedUrl} poster={poster} aspectRatio={aspectRatio} />;
   }
 
   return null;
+}
+
+function IframePlayer({
+  embedUrl,
+  poster,
+  aspectRatio,
+}: {
+  embedUrl: string;
+  poster?: string;
+  aspectRatio: string;
+}) {
+  const [activated, setActivated] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  const iframeSrc = embedUrl.includes("/embed/")
+    ? embedUrl
+    : embedUrl.replace("/watch/", "/embed/");
+  // muted=1 lets iOS Safari honor autoplay (it blocks autoplay with sound).
+  // Visitors can unmute via the player's own controls after it starts.
+  const autoplaySrc = iframeSrc.includes("?")
+    ? `${iframeSrc}&autoplay=1&muted=1`
+    : `${iframeSrc}?autoplay=1&muted=1`;
+
+  function goFullscreen(e: React.MouseEvent) {
+    e.stopPropagation();
+    const el = wrapRef.current as
+      | (HTMLElement & { webkitRequestFullscreen?: () => Promise<void> })
+      | null;
+    if (!el) return;
+    if (el.requestFullscreen) {
+      el.requestFullscreen().catch(() => {});
+    } else if (el.webkitRequestFullscreen) {
+      el.webkitRequestFullscreen();
+    }
+  }
+
+  return (
+    <div ref={wrapRef} className="relative w-full" style={{ aspectRatio, background: "#000" }}>
+      {activated ? (
+        <iframe
+          src={autoplaySrc}
+          className="absolute inset-0 w-full h-full"
+          style={{ border: "none" }}
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+        />
+      ) : (
+        <div
+          className="absolute inset-0 cursor-pointer flex items-center justify-center"
+          style={{
+            background: poster
+              ? `#000 url("${poster}") center / cover no-repeat`
+              : "#111",
+          }}
+          onClick={() => setActivated(true)}
+        >
+          <PlayButton />
+        </div>
+      )}
+
+      {/* Fullscreen icon — bottom-right, always visible */}
+      <button
+        type="button"
+        onClick={goFullscreen}
+        aria-label="View video fullscreen"
+        style={{
+          position: "absolute",
+          bottom: "10px",
+          right: "10px",
+          width: "36px",
+          height: "36px",
+          padding: 0,
+          background: "rgba(13, 12, 10, 0.7)",
+          border: "1px solid #C5A455",
+          borderRadius: "2px",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backdropFilter: "blur(4px)",
+          zIndex: 5,
+        }}
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#C5A455"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M3 8V3h5M21 8V3h-5M3 16v5h5M21 16v5h-5" />
+        </svg>
+      </button>
+    </div>
+  );
 }
 
 function PlayButton() {
