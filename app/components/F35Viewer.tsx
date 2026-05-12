@@ -196,6 +196,9 @@ function F35Model({
   const matBackup = useRef<MatBackup>(new Map());
   const returningRef = useRef(false);
   const focusedKeyRef = useRef<CalloutKey | null>(null);
+  // After the fly-in animation completes we stop touching the camera so the
+  // user can drag freely around the focused part without snap-back.
+  const focusSettledRef = useRef(false);
 
   // Auto-fit: compute bounding sphere, set camera distance + return-to-default
   // dynamically based on model size. Also log all named nodes so we can debug
@@ -286,12 +289,14 @@ function F35Model({
     }
   }, [camera, controlsRef, defaultCamPos, defaultTarget]);
 
-  // Trigger return-to-default lerp when focus is cleared
+  // Reset "settled" whenever focus changes, and trigger return-to-default
+  // lerp when focus is cleared.
   useEffect(() => {
     if (focusedKeyRef.current && !focusedKey) {
       returningRef.current = true;
     }
     focusedKeyRef.current = focusedKey;
+    focusSettledRef.current = false;
   }, [focusedKey]);
 
   // Apply / restore emissive gold glow on focus changes
@@ -336,8 +341,17 @@ function F35Model({
     if (!controls) return;
 
     if (focusedKey) {
-      // Focus mode: pause auto-rotate, animate camera to frame the part
+      // Focus mode: pause auto-rotate.
       controls.autoRotate = false;
+
+      // Once the camera has settled near the target, stop lerping and hand
+      // control back to OrbitControls. Otherwise dragging fights the lerp
+      // and the camera "snaps back" to the framing position every frame.
+      if (focusSettledRef.current) {
+        controls.update();
+        return;
+      }
+
       const callout = CALLOUTS.find((c) => c.key === focusedKey);
       if (!callout) return;
       const node = findNodeByPrefix(scene, callout.nodePrefix);
@@ -353,6 +367,11 @@ function F35Model({
       camera.position.lerp(targetCamPos, 0.08);
       controls.target.lerp(partWorld, 0.12);
       controls.update();
+
+      // Mark as settled once we're close enough
+      if (camera.position.distanceToSquared(targetCamPos) < 0.005) {
+        focusSettledRef.current = true;
+      }
     } else if (returningRef.current) {
       // Returning home after closing the panel
       controls.autoRotate = false;
@@ -373,7 +392,9 @@ function F35Model({
   return (
     <group ref={modelRef} onPointerDown={onUserInteract}>
       <primitive object={scene} />
-      {CALLOUTS.map((c) => {
+      {/* Hide all callouts while a panel is open — keeps them from overlapping
+          the info text and from cluttering the focused-on view. */}
+      {!focusedKey && CALLOUTS.map((c) => {
         const pos = partPositions[c.key];
         if (!pos) return null;
         const isActive = focusedKey === c.key;
