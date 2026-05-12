@@ -115,6 +115,157 @@ const GOLD = "#C5A455";
 // Idle threshold before auto-rotate resumes (ms)
 const IDLE_MS = 3000;
 
+// ---------- F-35 Afterburner ----------
+// Custom shader: white-yellow core fading to orange to deep blue at the tail,
+// with bright shock diamonds along the length and a high-frequency flicker.
+const AFTERBURNER_VERT = /* glsl */ `
+  varying float vY;
+  varying float vRadialT;
+  uniform float uLength;
+  uniform float uRadius;
+  void main() {
+    vY = position.y;
+    vRadialT = length(position.xz) / uRadius;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const AFTERBURNER_FRAG = /* glsl */ `
+  varying float vY;
+  varying float vRadialT;
+  uniform float uLength;
+  uniform float uTime;
+
+  vec3 plumeGradient(float t) {
+    // White → yellow → orange → blue from base to tip
+    if (t < 0.12)  return mix(vec3(1.0, 1.0, 0.96), vec3(1.0, 0.95, 0.45), t / 0.12);
+    if (t < 0.40)  return mix(vec3(1.0, 0.95, 0.45), vec3(1.0, 0.55, 0.10), (t - 0.12) / 0.28);
+    if (t < 0.72)  return mix(vec3(1.0, 0.55, 0.10), vec3(0.45, 0.30, 0.95), (t - 0.40) / 0.32);
+    return            mix(vec3(0.45, 0.30, 0.95), vec3(0.05, 0.10, 0.55), (t - 0.72) / 0.28);
+  }
+
+  void main() {
+    // Normalize along the cone's length: 0 at base (engine), 1 at tip (rear)
+    float t = clamp((vY + uLength * 0.5) / uLength, 0.0, 1.0);
+
+    vec3 color = plumeGradient(t);
+
+    // Shock diamonds — repeated bright bands. Higher freq near the base.
+    float bands = pow(0.5 + 0.5 * sin(t * 28.0 + uTime * 0.6), 4.0);
+    float diamondMix = bands * (1.0 - smoothstep(0.0, 0.55, t)) * 0.7;
+    color = mix(color, vec3(1.0, 1.0, 0.85), diamondMix);
+
+    // Radial alpha — soft edge so cones blend rather than show hard borders
+    float radial = 1.0 - vRadialT;
+    radial = smoothstep(0.0, 0.7, radial);
+
+    // Longitudinal alpha — full brightness near the engine, fading off the tail
+    float longitudinal = 1.0 - pow(t, 1.8);
+
+    // Flicker — high-frequency turbulence
+    float flicker = 0.82 + 0.18 * sin(uTime * 38.0 + vY * 9.0 + vRadialT * 12.0);
+
+    float alpha = radial * longitudinal * flicker;
+
+    gl_FragColor = vec4(color * (0.9 + 0.4 * (1.0 - t)), alpha);
+  }
+`;
+
+function Afterburner({
+  position,
+  exhaustDir,
+  sphereRadius,
+}: {
+  position: THREE.Vector3;
+  exhaustDir: THREE.Vector3;
+  sphereRadius: number;
+}) {
+  const groupRef = useRef<THREE.Group>(null);
+  const matRef = useRef<THREE.ShaderMaterial>(null);
+
+  // Scale the flame to the model size — looks consistent regardless of GLB scale
+  const length = sphereRadius * 0.55;
+  const radius = sphereRadius * 0.075;
+
+  // Orient the cone so +Y aligns with the exhaust direction. ConeGeometry has
+  // its apex at +Y, so the tip naturally points "out the back."
+  const quaternion = useMemo(() => {
+    const q = new THREE.Quaternion();
+    q.setFromUnitVectors(new THREE.Vector3(0, 1, 0), exhaustDir.clone().normalize());
+    return q;
+  }, [exhaustDir]);
+
+  // Place the cone's base at the engine position, tip extending out the back
+  const localOffset = useMemo(
+    () => new THREE.Vector3(0, length * 0.5, 0),
+    [length],
+  );
+
+  // Animate the shader uniforms + a subtle scale pulse
+  useFrame((state) => {
+    if (matRef.current) {
+      matRef.current.uniforms.uTime.value = state.clock.elapsedTime;
+    }
+    if (groupRef.current) {
+      const pulse =
+        1 +
+        Math.sin(state.clock.elapsedTime * 14) * 0.025 +
+        Math.sin(state.clock.elapsedTime * 23) * 0.015;
+      groupRef.current.scale.setScalar(pulse);
+    }
+  });
+
+  return (
+    <group position={position.toArray()} quaternion={quaternion}>
+      <group ref={groupRef}>
+        <mesh
+          position={localOffset.toArray()}
+          frustumCulled={false}
+          renderOrder={2}
+          raycast={() => null}
+        >
+          <coneGeometry args={[radius, length, 32, 24, true]} />
+          <shaderMaterial
+            ref={matRef}
+            args={[
+              {
+                vertexShader: AFTERBURNER_VERT,
+                fragmentShader: AFTERBURNER_FRAG,
+                uniforms: {
+                  uTime: { value: 0 },
+                  uLength: { value: length },
+                  uRadius: { value: radius },
+                },
+                transparent: true,
+                depthWrite: false,
+                blending: THREE.AdditiveBlending,
+                side: THREE.DoubleSide,
+              },
+            ]}
+          />
+        </mesh>
+        {/* Small bright core puck right at the nozzle — reads as the hot
+            burn point and helps anchor the effect visually */}
+        <mesh
+          position={[0, radius * 0.4, 0]}
+          frustumCulled={false}
+          renderOrder={2}
+          raycast={() => null}
+        >
+          <sphereGeometry args={[radius * 0.7, 24, 24]} />
+          <meshBasicMaterial
+            color="#FFF4D6"
+            transparent
+            opacity={0.85}
+            blending={THREE.AdditiveBlending}
+            depthWrite={false}
+          />
+        </mesh>
+      </group>
+    </group>
+  );
+}
+
 // Generates an offline HDR environment from a procedural room and applies
 // it to scene.environment so PBR metals/glass actually catch reflections.
 function EnvironmentSetup() {
@@ -198,7 +349,7 @@ function F35Model({
   // Auto-fit: compute bounding sphere, set camera distance + return-to-default
   // dynamically based on model size. Also log all named nodes so we can debug
   // missing callouts.
-  const { defaultCamPos, defaultTarget, partPositions } = useMemo(() => {
+  const { defaultCamPos, defaultTarget, partPositions, sphereRadius, modelCenter, engineAnchor } = useMemo(() => {
     // Log every named node in the GLB so missing callouts are easy to debug
     const allNames: string[] = [];
     scene.traverse((node) => {
@@ -217,10 +368,12 @@ function F35Model({
     const sphere = new THREE.Sphere();
     box.getBoundingSphere(sphere);
 
-    // Frame the model with breathing room (1.9× the strict fit distance)
+    // Default load = roughly "100% view" (strict fit, model fills the frame
+    // with just a touch of room). Zoom-in is allowed down to ~57% of that
+    // distance (≈175% perceived size). Zoom-out gives a comfortable overview.
     const fovRad = (38 * Math.PI) / 180;
     const fitDistance = sphere.radius / Math.sin(fovRad / 2);
-    const distance = fitDistance * 1.9;
+    const distance = fitDistance * 1.05;
 
     const defaultTarget = sphere.center.clone();
     const defaultCamPos = sphere.center
@@ -269,7 +422,14 @@ function F35Model({
         hasGeometry ? "(from geometry)" : "(from node origin, empty group)",
       );
     }
-    return { defaultCamPos, defaultTarget, partPositions: out };
+    return {
+      defaultCamPos,
+      defaultTarget,
+      partPositions: out,
+      sphereRadius: sphere.radius,
+      modelCenter: sphere.center.clone(),
+      engineAnchor: out.engineLeft ?? null,
+    };
   }, [scene]);
 
   // Initial camera + target setup once we know the model size
@@ -278,8 +438,11 @@ function F35Model({
     const controls = controlsRef.current;
     if (controls) {
       controls.target.copy(defaultTarget);
-      controls.minDistance = defaultCamPos.distanceTo(defaultTarget) * 0.35;
-      controls.maxDistance = defaultCamPos.distanceTo(defaultTarget) * 2.5;
+      // Zoom-in to ~57% of default distance (≈175% size); zoom-out 2× for an
+      // unrushed overview.
+      const dist = defaultCamPos.distanceTo(defaultTarget);
+      controls.minDistance = dist * 0.57;
+      controls.maxDistance = dist * 2.0;
       controls.update();
     }
   }, [camera, controlsRef, defaultCamPos, defaultTarget]);
@@ -330,6 +493,16 @@ function F35Model({
   return (
     <group ref={modelRef} onPointerDown={onUserInteract}>
       <primitive object={scene} />
+
+      {/* Afterburner plume — emitted from the engine, blasted out the back */}
+      {engineAnchor && (
+        <Afterburner
+          position={engineAnchor}
+          exhaustDir={engineAnchor.clone().sub(modelCenter)}
+          sphereRadius={sphereRadius}
+        />
+      )}
+
       {/* Hide all callouts while a panel is open — keeps them from overlapping
           the info text and from cluttering the focused-on view. */}
       {!focusedKey && CALLOUTS.map((c) => {
