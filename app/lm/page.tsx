@@ -152,24 +152,35 @@ export default function LMPage() {
 
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         {/* Video block */}
-        <SectionLabel>Video</SectionLabel>
+        <SectionLabel>Aerospace Trailer</SectionLabel>
         <div
           style={{
             background: "#000",
             border: "1px solid #2A251F",
             borderRadius: "2px",
             overflow: "hidden",
-            marginBottom: "clamp(40px, 6vw, 64px)",
           }}
         >
           <VideoPlayer embedUrl={VIDEO_EMBED_URL} poster="/lm/poster.jpg" />
+        </div>
+        <div
+          className="font-mono"
+          style={{
+            fontSize: "11px",
+            letterSpacing: "1.5px",
+            color: "#8A8579",
+            marginTop: "12px",
+            marginBottom: "clamp(40px, 6vw, 64px)",
+          }}
+        >
+          Duration: 1:48
         </div>
 
         {/* Gold sheen divider above 3D section */}
         <SheenDivider />
 
         {/* 3D model block */}
-        <SectionLabel>F-35 · Interactive 3D Model</SectionLabel>
+        <SectionLabel>F-35 · Interactive 3D Model Call-outs</SectionLabel>
         <F35Viewer />
 
         {/* Hint */}
