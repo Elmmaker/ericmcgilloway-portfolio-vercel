@@ -45,7 +45,11 @@ export default function VideoPlayer({ src, embedUrl, poster, aspectRatio = "16/9
   // For iframe embeds — show placeholder until clicked, then load iframe
   if (embedUrl) {
     const iframeSrc = embedUrl.includes("/embed/") ? embedUrl : embedUrl.replace("/watch/", "/embed/");
-    const autoplaySrc = iframeSrc.includes("?") ? `${iframeSrc}&autoplay=1` : `${iframeSrc}?autoplay=1`;
+    // muted=1 lets iOS Safari honor autoplay (it blocks autoplay with sound).
+    // Visitors can unmute via the player's own controls after it starts.
+    const autoplaySrc = iframeSrc.includes("?")
+      ? `${iframeSrc}&autoplay=1&muted=1`
+      : `${iframeSrc}?autoplay=1&muted=1`;
     return (
       <div className="relative w-full" style={{ aspectRatio }}>
         {activated ? (
