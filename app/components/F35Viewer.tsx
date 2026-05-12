@@ -187,6 +187,9 @@ function F35Model({
         allNames.join("\n"),
     );
 
+    // Force matrices up-to-date before any bounding box math
+    scene.updateMatrixWorld(true);
+
     // Bounding sphere of the whole model — drives camera distance
     const box = new THREE.Box3().setFromObject(scene);
     const sphere = new THREE.Sphere();
@@ -202,7 +205,9 @@ function F35Model({
       .clone()
       .add(new THREE.Vector3(0, sphere.radius * 0.35, distance));
 
-    // Per-part positions for callout anchors
+    // Robust per-part anchor: bounding-box center of all meshes under
+    // the named node. Falls back to node's own world position for empty
+    // groups so we never get NaN positions.
     const out: Partial<Record<CalloutKey, THREE.Vector3>> = {};
     for (const c of CALLOUTS) {
       const node = scene.getObjectByName(c.nodeName);
@@ -212,8 +217,35 @@ function F35Model({
         );
         continue;
       }
-      const partBox = new THREE.Box3().setFromObject(node);
-      out[c.key] = partBox.getCenter(new THREE.Vector3());
+
+      const partBox = new THREE.Box3();
+      let hasGeometry = false;
+      node.traverse((child) => {
+        const mesh = child as THREE.Mesh;
+        if (mesh.isMesh && mesh.geometry) {
+          mesh.geometry.computeBoundingBox();
+          if (mesh.geometry.boundingBox) {
+            const childBox = mesh.geometry.boundingBox
+              .clone()
+              .applyMatrix4(mesh.matrixWorld);
+            partBox.union(childBox);
+            hasGeometry = true;
+          }
+        }
+      });
+
+      const anchor = new THREE.Vector3();
+      if (hasGeometry && !partBox.isEmpty()) {
+        partBox.getCenter(anchor);
+      } else {
+        node.getWorldPosition(anchor);
+      }
+      out[c.key] = anchor;
+      console.log(
+        `[F35Viewer] Anchor for "${c.label}":`,
+        anchor.toArray().map((n) => n.toFixed(2)).join(", "),
+        hasGeometry ? "(from geometry)" : "(from node origin, empty group)",
+      );
     }
     return { defaultCamPos, defaultTarget, partPositions: out };
   }, [scene]);
@@ -327,7 +359,7 @@ function F35Model({
             position={pos.toArray()}
             center
             style={{ pointerEvents: "auto" }}
-            zIndexRange={[10, 0]}
+            zIndexRange={[1000, 100]}
           >
             <CalloutButton
               label={c.label}
