@@ -136,13 +136,13 @@ export default function LMPage() {
       {/* Heading */}
       <div style={{ textAlign: "center", marginBottom: "clamp(40px, 6vw, 64px)" }}>
         <h1
-          className="font-serif"
+          className="font-sans"
           style={{
             fontSize: "clamp(28px, 5.5vw, 64px)",
             fontWeight: 700,
             color: "#F0EDE6",
             lineHeight: 1.1,
-            letterSpacing: "0.01em",
+            letterSpacing: "-0.01em",
             margin: 0,
           }}
         >
