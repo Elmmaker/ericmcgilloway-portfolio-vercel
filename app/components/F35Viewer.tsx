@@ -621,7 +621,8 @@ export default function F35Viewer() {
         position: "relative",
         width: "100%",
         aspectRatio: "16 / 9",
-        background: "#0D0C0A",
+        background:
+          "radial-gradient(ellipse at 50% 42%, #1A2D52 0%, #0C1A33 45%, #050810 100%)",
         border: "1px solid #2A251F",
         borderRadius: 2,
         overflow: "hidden",
