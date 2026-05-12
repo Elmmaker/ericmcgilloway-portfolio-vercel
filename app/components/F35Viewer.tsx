@@ -11,6 +11,7 @@ import {
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html, OrbitControls, useGLTF, useProgress } from "@react-three/drei";
 import * as THREE from "three";
+import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 
 const MODEL_PATH = "/models/f35_v3.glb";
@@ -79,6 +80,23 @@ const GOLD = "#C5A455";
 
 // Idle threshold before auto-rotate resumes (ms)
 const IDLE_MS = 3000;
+
+// Generates an offline HDR environment from a procedural room and applies
+// it to scene.environment so PBR metals/glass actually catch reflections.
+function EnvironmentSetup() {
+  const { scene, gl } = useThree();
+  useEffect(() => {
+    const pmrem = new THREE.PMREMGenerator(gl);
+    const envMap = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environment = envMap;
+    return () => {
+      envMap.dispose();
+      pmrem.dispose();
+      scene.environment = null;
+    };
+  }, [scene, gl]);
+  return null;
+}
 
 function Loader() {
   const { progress } = useProgress();
@@ -395,14 +413,18 @@ export default function F35Viewer() {
         onWheel={handleUserInteract}
         onCreated={({ gl }) => {
           gl.toneMapping = THREE.ACESFilmicToneMapping;
-          gl.toneMappingExposure = 1.15;
+          gl.toneMappingExposure = 1.4;
         }}
       >
-        {/* Lighting — ambient fill + warm key + cool rim */}
-        <ambientLight intensity={0.45} />
-        <directionalLight position={[6, 6, 4]} intensity={1.4} color="#FFE9CC" />
-        <directionalLight position={[-5, 3, -4]} intensity={0.8} color="#9DB6D8" />
-        <pointLight position={[0, -4, 2]} intensity={0.25} color={GOLD} />
+        {/* Procedural HDR environment — gives PBR materials real reflections */}
+        <EnvironmentSetup />
+
+        {/* Lighting — ambient fill + warm key + cool rim + gold underglow */}
+        <ambientLight intensity={0.7} />
+        <directionalLight position={[6, 6, 4]} intensity={2.4} color="#FFE9CC" />
+        <directionalLight position={[-5, 3, -4]} intensity={1.4} color="#9DB6D8" />
+        <directionalLight position={[0, 6, -6]} intensity={1.0} color="#FFFFFF" />
+        <pointLight position={[0, -4, 2]} intensity={0.4} color={GOLD} />
 
         <Suspense fallback={<Loader />}>
           <F35Model
