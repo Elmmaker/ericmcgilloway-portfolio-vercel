@@ -26,8 +26,9 @@ type CalloutKey =
 
 type Callout = {
   key: CalloutKey;
-  // Exact name of the named node in the GLB (used for lookup)
-  nodeName: string;
+  // Prefix that the named GLB node starts with — resilient to em-dash /
+  // suffix variations in C4D-exported names.
+  nodePrefix: string;
   // Short label shown on the model
   label: string;
   // Panel heading shown after clicking
@@ -38,7 +39,7 @@ type Callout = {
 const CALLOUTS: Callout[] = [
   {
     key: "cockpit",
-    nodeName: "Cockpit — Director of Photography / Visual Storyteller",
+    nodePrefix: "Cockpit",
     label: "Cockpit",
     heading: "Director of Photography / Visual Storyteller",
     description:
@@ -46,7 +47,7 @@ const CALLOUTS: Callout[] = [
   },
   {
     key: "nose",
-    nodeName: "Nose — Editorial Judgment",
+    nodePrefix: "Nose",
     label: "Nose",
     heading: "Editorial Judgment",
     description:
@@ -54,7 +55,7 @@ const CALLOUTS: Callout[] = [
   },
   {
     key: "wingLeft",
-    nodeName: "Wing_Left — Video Editing",
+    nodePrefix: "Wing_Left",
     label: "Wing Left",
     heading: "Video Editing",
     description:
@@ -62,7 +63,7 @@ const CALLOUTS: Callout[] = [
   },
   {
     key: "wingRight",
-    nodeName: "Wing_Right — Motion Graphics",
+    nodePrefix: "Wing_Right",
     label: "Wing Right",
     heading: "Motion Graphics",
     description:
@@ -70,7 +71,7 @@ const CALLOUTS: Callout[] = [
   },
   {
     key: "fuselage",
-    nodeName: "Fuselage — Production Pipeline",
+    nodePrefix: "Fuselage",
     label: "Fuselage",
     heading: "Production Pipeline",
     description:
@@ -78,13 +79,29 @@ const CALLOUTS: Callout[] = [
   },
   {
     key: "engineLeft",
-    nodeName: "Engine_Left — Cinema 4D / 3D Animation",
+    nodePrefix: "Engine_Left",
     label: "Engine Left",
     heading: "Cinema 4D / 3D Animation",
     description:
       "Advanced Cinema 4D and Redshift for 3D modeling, rendering, and animation across broadcast and marketing productions.",
   },
 ];
+
+// Find a node whose name starts with the given prefix. Accepts either an
+// exact match or "<prefix><space>..." — covers em-dash/suffix variants like
+// "Cockpit — Director of Photography / Visual Storyteller" without being
+// fooled by sibling parts that share a stem (e.g. "Wing_Left_Cap").
+function findNodeByPrefix(scene: THREE.Object3D, prefix: string): THREE.Object3D | null {
+  let found: THREE.Object3D | null = null;
+  scene.traverse((node) => {
+    if (found) return;
+    const name = node.name ?? "";
+    if (name === prefix || name.startsWith(prefix + " ")) {
+      found = node;
+    }
+  });
+  return found;
+}
 
 const GOLD = "#C5A455";
 
@@ -210,10 +227,10 @@ function F35Model({
     // groups so we never get NaN positions.
     const out: Partial<Record<CalloutKey, THREE.Vector3>> = {};
     for (const c of CALLOUTS) {
-      const node = scene.getObjectByName(c.nodeName);
+      const node = findNodeByPrefix(scene, c.nodePrefix);
       if (!node) {
         console.warn(
-          `[F35Viewer] Named part not found in GLB: "${c.nodeName}"`,
+          `[F35Viewer] Named part not found in GLB: prefix "${c.nodePrefix}"`,
         );
         continue;
       }
@@ -274,7 +291,7 @@ function F35Model({
   useEffect(() => {
     const callout = CALLOUTS.find((c) => c.key === focusedKey);
     if (!callout) return;
-    const node = scene.getObjectByName(callout.nodeName);
+    const node = findNodeByPrefix(scene, callout.nodePrefix);
     if (!node) return;
 
     const goldColor = new THREE.Color(GOLD);
@@ -316,7 +333,7 @@ function F35Model({
       controls.autoRotate = false;
       const callout = CALLOUTS.find((c) => c.key === focusedKey);
       if (!callout) return;
-      const node = scene.getObjectByName(callout.nodeName);
+      const node = findNodeByPrefix(scene, callout.nodePrefix);
       if (!node) return;
       const partWorld = tmpVec.current.set(0, 0, 0);
       node.getWorldPosition(partWorld);
