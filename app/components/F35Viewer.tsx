@@ -376,11 +376,11 @@ function F35Model({
     const sphere = new THREE.Sphere();
     box.getBoundingSphere(sphere);
 
-    // Load in close — roughly 2× larger on screen than a strict fit.
+    // Load in TIGHT — roughly 4× larger on screen than a strict fit.
     // Zoom-in is allowed for detail; zoom-out gives a full overview.
     const fovRad = (38 * Math.PI) / 180;
     const fitDistance = sphere.radius / Math.sin(fovRad / 2);
-    const distance = fitDistance * 0.5;
+    const distance = fitDistance * 0.25;
 
     const defaultTarget = sphere.center.clone();
     const defaultCamPos = sphere.center
@@ -445,11 +445,11 @@ function F35Model({
     const controls = controlsRef.current;
     if (controls) {
       controls.target.copy(defaultTarget);
-      // Zoom-in for detail; zoom-out 3× for a comfortable overview that
-      // still shows the whole jet.
+      // Zoom-in for detail; zoom-out generously so the whole jet still fits
+      // when the user pulls back.
       const dist = defaultCamPos.distanceTo(defaultTarget);
-      controls.minDistance = dist * 0.55;
-      controls.maxDistance = dist * 3.0;
+      controls.minDistance = dist * 0.6;
+      controls.maxDistance = dist * 7.0;
       controls.update();
     }
   }, [camera, controlsRef, defaultCamPos, defaultTarget]);
