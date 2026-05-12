@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface VideoPlayerProps {
   src?: string;
@@ -60,16 +60,27 @@ function IframePlayer({
   aspectRatio: string;
 }) {
   const [activated, setActivated] = useState(false);
+  // Mute the autoplay only on touch devices (iOS Safari blocks autoplay with
+  // sound — the player just sits paused on a black frame). Desktop browsers
+  // allow autoplay with sound after a user gesture (the placeholder click).
+  // Initialize to true so the SSR/first-paint URL is safe, then loosen on
+  // the client once we detect a hover-capable, fine-pointer device.
+  const [muteAutoplay, setMuteAutoplay] = useState(true);
   const wrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)")
+      .matches;
+    setMuteAutoplay(!isDesktop);
+  }, []);
 
   const iframeSrc = embedUrl.includes("/embed/")
     ? embedUrl
     : embedUrl.replace("/watch/", "/embed/");
-  // muted=1 lets iOS Safari honor autoplay (it blocks autoplay with sound).
-  // Visitors can unmute via the player's own controls after it starts.
+  const params = `autoplay=1${muteAutoplay ? "&muted=1" : ""}`;
   const autoplaySrc = iframeSrc.includes("?")
-    ? `${iframeSrc}&autoplay=1&muted=1`
-    : `${iframeSrc}?autoplay=1&muted=1`;
+    ? `${iframeSrc}&${params}`
+    : `${iframeSrc}?${params}`;
 
   async function goFullscreen(e: React.MouseEvent) {
     e.stopPropagation();
