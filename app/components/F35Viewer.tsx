@@ -154,8 +154,9 @@ const AFTERBURNER_FRAG = /* glsl */ `
     vec3 color = plumeGradient(t);
 
     // Shock diamonds — bright white-cyan bands, only in the hot inner stretch
-    // where the gas is still supersonic. Outside that range, they vanish.
-    float bands = pow(0.5 + 0.5 * sin(t * 24.0 + uTime * 0.6), 6.0);
+    // where the gas is still supersonic. They stream OUTWARD (toward the
+    // tail), so the phase advances with -uTime.
+    float bands = pow(0.5 + 0.5 * sin(t * 24.0 - uTime * 4.0), 6.0);
     float diamondMix = bands * (1.0 - smoothstep(0.0, 0.42, t)) * 0.55;
     color = mix(color, vec3(0.85, 0.95, 1.0), diamondMix);
 
@@ -167,8 +168,9 @@ const AFTERBURNER_FRAG = /* glsl */ `
     // before the tail so there's no hard end.
     float longitudinal = pow(1.0 - t, 1.6);
 
-    // Subtle flicker — softened so it reads as "alive," not strobing
-    float flicker = 0.88 + 0.12 * sin(uTime * 32.0 + vY * 8.0 + vRadialT * 10.0);
+    // Subtle flicker — softened so it reads as "alive," not strobing. The
+    // turbulence pattern travels outward (the -vY term advances with time).
+    float flicker = 0.88 + 0.12 * sin(uTime * 32.0 - vY * 12.0 + vRadialT * 10.0);
 
     float alpha = radial * longitudinal * flicker;
 
