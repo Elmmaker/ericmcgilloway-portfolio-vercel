@@ -136,38 +136,46 @@ const AFTERBURNER_FRAG = /* glsl */ `
   uniform float uLength;
   uniform float uTime;
 
+  // Realistic jet exhaust: hottest at the nozzle (white-blue core),
+  // cooling outward through yellow, orange, and dissipating into a deep
+  // red glow before fading to nothing. No "cold blue" at the tail — that's
+  // what made it look like a rainbow.
   vec3 plumeGradient(float t) {
-    // White → yellow → orange → blue from base to tip
-    if (t < 0.12)  return mix(vec3(1.0, 1.0, 0.96), vec3(1.0, 0.95, 0.45), t / 0.12);
-    if (t < 0.40)  return mix(vec3(1.0, 0.95, 0.45), vec3(1.0, 0.55, 0.10), (t - 0.12) / 0.28);
-    if (t < 0.72)  return mix(vec3(1.0, 0.55, 0.10), vec3(0.45, 0.30, 0.95), (t - 0.40) / 0.32);
-    return            mix(vec3(0.45, 0.30, 0.95), vec3(0.05, 0.10, 0.55), (t - 0.72) / 0.28);
+    if (t < 0.08)  return mix(vec3(0.85, 0.95, 1.0), vec3(1.0, 1.0, 0.95), t / 0.08);   // hot blue-white → white
+    if (t < 0.28)  return mix(vec3(1.0, 1.0, 0.95), vec3(1.0, 0.85, 0.30), (t - 0.08) / 0.20); // white → yellow
+    if (t < 0.60)  return mix(vec3(1.0, 0.85, 0.30), vec3(1.0, 0.45, 0.08), (t - 0.28) / 0.32); // yellow → orange
+    return            mix(vec3(1.0, 0.45, 0.08), vec3(0.55, 0.10, 0.02), (t - 0.60) / 0.40);   // orange → deep red
   }
 
   void main() {
-    // Normalize along the cone's length: 0 at base (engine), 1 at tip (rear)
+    // Normalize along the cone: 0 at the nozzle, 1 at the tail.
     float t = clamp((vY + uLength * 0.5) / uLength, 0.0, 1.0);
 
     vec3 color = plumeGradient(t);
 
-    // Shock diamonds — repeated bright bands. Higher freq near the base.
-    float bands = pow(0.5 + 0.5 * sin(t * 28.0 + uTime * 0.6), 4.0);
-    float diamondMix = bands * (1.0 - smoothstep(0.0, 0.55, t)) * 0.7;
-    color = mix(color, vec3(1.0, 1.0, 0.85), diamondMix);
+    // Shock diamonds — bright white-cyan bands, only in the hot inner stretch
+    // where the gas is still supersonic. Outside that range, they vanish.
+    float bands = pow(0.5 + 0.5 * sin(t * 24.0 + uTime * 0.6), 6.0);
+    float diamondMix = bands * (1.0 - smoothstep(0.0, 0.42, t)) * 0.55;
+    color = mix(color, vec3(0.85, 0.95, 1.0), diamondMix);
 
-    // Radial alpha — soft edge so cones blend rather than show hard borders
+    // Radial alpha — strong center, very soft edge
     float radial = 1.0 - vRadialT;
-    radial = smoothstep(0.0, 0.7, radial);
+    radial = smoothstep(0.0, 0.85, radial);
 
-    // Longitudinal alpha — full brightness near the engine, fading off the tail
-    float longitudinal = 1.0 - pow(t, 1.8);
+    // Longitudinal alpha — bright near the nozzle, fading off completely
+    // before the tail so there's no hard end.
+    float longitudinal = pow(1.0 - t, 1.6);
 
-    // Flicker — high-frequency turbulence
-    float flicker = 0.82 + 0.18 * sin(uTime * 38.0 + vY * 9.0 + vRadialT * 12.0);
+    // Subtle flicker — softened so it reads as "alive," not strobing
+    float flicker = 0.88 + 0.12 * sin(uTime * 32.0 + vY * 8.0 + vRadialT * 10.0);
 
     float alpha = radial * longitudinal * flicker;
 
-    gl_FragColor = vec4(color * (0.9 + 0.4 * (1.0 - t)), alpha);
+    // Slight extra brightness boost at the nozzle for a hot-core look
+    color *= 0.95 + 0.5 * pow(1.0 - t, 3.0);
+
+    gl_FragColor = vec4(color, alpha);
   }
 `;
 
