@@ -177,7 +177,7 @@ export default function LMPage() {
         </div>
 
         {/* Gold sheen divider above 3D section */}
-        <SheenDivider />
+        <SheenDivider delay={0} />
 
         {/* 3D model block */}
         <SectionLabel>F-35 · Interactive 3D Model Call-outs</SectionLabel>
@@ -198,8 +198,8 @@ export default function LMPage() {
           Drag to rotate · Scroll to zoom · Click any callout to explore
         </div>
 
-        {/* Gold sheen divider below 3D section */}
-        <SheenDivider />
+        {/* Gold sheen divider below 3D section — offset so the two never sweep together */}
+        <SheenDivider delay={3.5} />
       </div>
 
       <style jsx global>{`
@@ -229,7 +229,7 @@ export default function LMPage() {
         }
         @media (prefers-reduced-motion: no-preference) {
           .lm-sheen {
-            animation: lmSheenSweep 3.5s ease-in-out infinite;
+            animation: lmSheenSweep 7s ease-in-out infinite;
           }
         }
         @keyframes lmSheenSweep {
@@ -243,11 +243,11 @@ export default function LMPage() {
   );
 }
 
-function SheenDivider() {
+function SheenDivider({ delay = 0 }: { delay?: number }) {
   return (
     <div className="lm-divider">
       <div className="lm-divider-base" />
-      <div className="lm-sheen" />
+      <div className="lm-sheen" style={{ animationDelay: `${delay}s` }} />
     </div>
   );
 }
