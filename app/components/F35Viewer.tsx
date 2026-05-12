@@ -332,11 +332,10 @@ function Loader() {
   );
 }
 
-// Stores original material props so we can restore on un-focus
-type MatBackup = Map<
-  THREE.MeshStandardMaterial,
-  { emissive: THREE.Color; emissiveIntensity: number }
->;
+// Stores original material reference per mesh so we can restore on un-focus.
+// We clone the material before modifying it so other meshes sharing the
+// original material don't pick up the glow.
+type MatBackup = Map<THREE.Mesh, THREE.Material | THREE.Material[]>;
 
 function F35Model({
   focusedKey,
@@ -457,7 +456,10 @@ function F35Model({
   }, [camera, controlsRef, defaultCamPos, defaultTarget]);
 
 
-  // Apply / restore emissive gold glow on focus changes
+  // Apply / restore emissive gold glow on focus changes.
+  // Clone each mesh's material so the glow is scoped to JUST this part's
+  // meshes — GLB models commonly share one material across many meshes,
+  // and modifying the shared material lights up the whole jet.
   useEffect(() => {
     const callout = CALLOUTS.find((c) => c.key === focusedKey);
     if (!callout) return;
@@ -469,23 +471,35 @@ function F35Model({
 
     node.traverse((child) => {
       const mesh = child as THREE.Mesh;
-      if (!mesh.isMesh) return;
-      const mat = mesh.material as THREE.MeshStandardMaterial;
-      if (!mat || !("emissive" in mat)) return;
-      localBackup.set(mat, {
-        emissive: mat.emissive.clone(),
-        emissiveIntensity: mat.emissiveIntensity ?? 1,
-      });
-      mat.emissive.copy(goldColor);
-      mat.emissiveIntensity = 0.55;
+      if (!mesh.isMesh || !mesh.material) return;
+
+      const cloneOne = (m: THREE.Material): THREE.Material => {
+        if (!("emissive" in m)) return m;
+        const cloned = m.clone() as THREE.MeshStandardMaterial;
+        cloned.emissive.copy(goldColor);
+        cloned.emissiveIntensity = 0.55;
+        return cloned;
+      };
+
+      // Stash the original reference, swap in cloned-and-glowing copy
+      localBackup.set(mesh, mesh.material);
+      mesh.material = Array.isArray(mesh.material)
+        ? mesh.material.map(cloneOne)
+        : cloneOne(mesh.material as THREE.Material);
     });
 
     matBackup.current = localBackup;
 
     return () => {
-      localBackup.forEach((orig, mat) => {
-        mat.emissive.copy(orig.emissive);
-        mat.emissiveIntensity = orig.emissiveIntensity;
+      localBackup.forEach((originalMat, mesh) => {
+        // Dispose of the throwaway clone(s), then restore the original
+        const current = mesh.material;
+        if (Array.isArray(current)) {
+          current.forEach((m) => m.dispose());
+        } else if (current) {
+          (current as THREE.Material).dispose();
+        }
+        mesh.material = originalMat;
       });
     };
   }, [focusedKey, scene]);
