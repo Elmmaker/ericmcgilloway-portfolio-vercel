@@ -194,11 +194,6 @@ function F35Model({
   const modelRef = useRef<THREE.Group>(null);
   const { camera } = useThree();
   const matBackup = useRef<MatBackup>(new Map());
-  const returningRef = useRef(false);
-  const focusedKeyRef = useRef<CalloutKey | null>(null);
-  // After the fly-in animation completes we stop touching the camera so the
-  // user can drag freely around the focused part without snap-back.
-  const focusSettledRef = useRef(false);
 
   // Auto-fit: compute bounding sphere, set camera distance + return-to-default
   // dynamically based on model size. Also log all named nodes so we can debug
@@ -289,15 +284,6 @@ function F35Model({
     }
   }, [camera, controlsRef, defaultCamPos, defaultTarget]);
 
-  // Reset "settled" whenever focus changes, and trigger return-to-default
-  // lerp when focus is cleared.
-  useEffect(() => {
-    if (focusedKeyRef.current && !focusedKey) {
-      returningRef.current = true;
-    }
-    focusedKeyRef.current = focusedKey;
-    focusSettledRef.current = false;
-  }, [focusedKey]);
 
   // Apply / restore emissive gold glow on focus changes
   useEffect(() => {
@@ -332,61 +318,13 @@ function F35Model({
     };
   }, [focusedKey, scene]);
 
-  // Camera animation. Only writes to camera during focus or return-to-default
-  // transitions — otherwise OrbitControls is the sole owner of the camera so
-  // the user's drag isn't fought.
-  const tmpVec = useRef(new THREE.Vector3());
+  // Camera is fully owned by OrbitControls. We only toggle auto-rotate
+  // (off while a panel is open or while the user is interacting).
   useFrame(() => {
     const controls = controlsRef.current;
     if (!controls) return;
-
-    if (focusedKey) {
-      // Focus mode: pause auto-rotate.
-      controls.autoRotate = false;
-
-      // Once the camera has settled near the target, stop lerping and hand
-      // control back to OrbitControls. Otherwise dragging fights the lerp
-      // and the camera "snaps back" to the framing position every frame.
-      if (focusSettledRef.current) {
-        controls.update();
-        return;
-      }
-
-      const callout = CALLOUTS.find((c) => c.key === focusedKey);
-      if (!callout) return;
-      const node = findNodeByPrefix(scene, callout.nodePrefix);
-      if (!node) return;
-      const partWorld = tmpVec.current.set(0, 0, 0);
-      node.getWorldPosition(partWorld);
-
-      // Offset proportional to model size for consistent framing
-      const sizeRef = defaultCamPos.distanceTo(defaultTarget);
-      const offset = new THREE.Vector3(0, sizeRef * 0.1, sizeRef * 0.35);
-      const targetCamPos = partWorld.clone().add(offset);
-
-      camera.position.lerp(targetCamPos, 0.08);
-      controls.target.lerp(partWorld, 0.12);
-      controls.update();
-
-      // Mark as settled once we're close enough
-      if (camera.position.distanceToSquared(targetCamPos) < 0.005) {
-        focusSettledRef.current = true;
-      }
-    } else if (returningRef.current) {
-      // Returning home after closing the panel
-      controls.autoRotate = false;
-      camera.position.lerp(defaultCamPos, 0.07);
-      controls.target.lerp(defaultTarget, 0.1);
-      controls.update();
-      // Stop once we're effectively back
-      if (camera.position.distanceToSquared(defaultCamPos) < 0.001) {
-        returningRef.current = false;
-      }
-    } else {
-      // Free orbit. Let OrbitControls drive everything; just toggle auto-rotate.
-      controls.autoRotate = !isInteracting;
-      controls.update();
-    }
+    controls.autoRotate = !focusedKey && !isInteracting;
+    controls.update();
   });
 
   return (
