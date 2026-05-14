@@ -304,8 +304,8 @@ function ReviewBoard() {
             Show Open 25sec v1 WIP w/temp music
           </div>
           <a
-            href="/great-american-story/show-open-v1.mp4"
-            download="USA250_ShowOpen_25sec_v1_WIP.mp4"
+            href="/great-american-story/USA250_ShowOpen_WIP_v1_em.mp4"
+            download="USA250_ShowOpen_WIP_v1_em.mp4"
             className="font-mono"
             style={{
               display: "inline-flex",
