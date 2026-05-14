@@ -65,6 +65,14 @@ export default function GreatAmericanStoryPage() {
           onSubmit={handleSubmit}
           style={{ width: "100%", maxWidth: "320px", textAlign: "center" }}
         >
+          {/* Three small stars (red, white, blue) above the tricolor stripe —
+              keeps the mark unambiguously American instead of reading as
+              French. */}
+          <div style={{ display: "flex", justifyContent: "center", gap: "6px", marginBottom: "8px" }}>
+            <Star color="#B23A48" />
+            <Star color="#F0EDE6" />
+            <Star color="#3A6BA5" />
+          </div>
           <div style={{ display: "flex", justifyContent: "center", marginBottom: "18px" }}>
             <div style={{ width: "14px", height: "3px", background: "#B23A48" }} />
             <div style={{ width: "14px", height: "3px", background: "#F0EDE6" }} />
@@ -576,5 +584,16 @@ function StarRating({
         );
       })}
     </div>
+  );
+}
+
+function Star({ color }: { color: string }) {
+  return (
+    <svg width="10" height="10" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M12 2 L14.6 9 L22 9.5 L16.3 14.2 L18.1 21.5 L12 17.7 L5.9 21.5 L7.7 14.2 L2 9.5 L9.4 9 Z"
+        fill={color}
+      />
+    </svg>
   );
 }
