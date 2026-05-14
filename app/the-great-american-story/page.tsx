@@ -222,6 +222,13 @@ function ReviewBoard() {
     >
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "clamp(48px, 8vw, 80px)" }}>
+        {/* Three red/white/blue stars above the tricolor stripe — locks the
+            patriotic read so it doesn't drift toward French-flag */}
+        <div style={{ display: "flex", justifyContent: "center", gap: "7px", marginBottom: "10px" }}>
+          <Star color="#B23A48" />
+          <Star color="#F0EDE6" />
+          <Star color="#3A6BA5" />
+        </div>
         <div style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}>
           <div style={{ width: "16px", height: "3px", background: "#B23A48" }} />
           <div style={{ width: "16px", height: "3px", background: "#F0EDE6" }} />
