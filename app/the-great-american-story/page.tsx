@@ -2,6 +2,10 @@
 
 import { useEffect, useState, FormEvent } from "react";
 import Image from "next/image";
+import VideoPlayer from "../components/VideoPlayer";
+
+const SHOW_OPEN_EMBED_URL =
+  "https://framerate.tv/watch/cdc49c65-3b5c-448d-bd0f-3e3453edce2a";
 
 const PASSWORD = "usa250";
 const STORAGE_KEY = "great-american-story-auth";
@@ -246,8 +250,50 @@ function ReviewBoard() {
             whiteSpace: "nowrap",
           }}
         >
-          THE GREAT AMERICAN STORY
+          USA 250
         </h1>
+      </div>
+
+      {/* Show opening video — centered, single large box */}
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto clamp(48px, 8vw, 80px)",
+        }}
+      >
+        <div
+          className="font-mono"
+          style={{
+            fontSize: "11px",
+            letterSpacing: "3px",
+            textTransform: "uppercase",
+            color: "#C5A455",
+            marginBottom: "16px",
+          }}
+        >
+          Show Open
+        </div>
+        <div
+          style={{
+            background: "#000",
+            border: "1px solid #C5A455",
+            borderRadius: "2px",
+            overflow: "hidden",
+          }}
+        >
+          <VideoPlayer embedUrl={SHOW_OPEN_EMBED_URL} />
+        </div>
+        <div
+          className="font-mono"
+          style={{
+            fontSize: "11px",
+            letterSpacing: "1.5px",
+            color: "#8A8579",
+            marginTop: "12px",
+          }}
+        >
+          Show Open 25sec v1 WIP w/temp music
+        </div>
       </div>
 
       {/* 2 columns × 4 rows of slots, each with stars + notes + save */}
