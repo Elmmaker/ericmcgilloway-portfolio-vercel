@@ -284,15 +284,59 @@ function ReviewBoard() {
           <VideoPlayer embedUrl={SHOW_OPEN_EMBED_URL} />
         </div>
         <div
-          className="font-mono"
           style={{
-            fontSize: "11px",
-            letterSpacing: "1.5px",
-            color: "#8A8579",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "16px",
             marginTop: "12px",
+            flexWrap: "wrap",
           }}
         >
-          Show Open 25sec v1 WIP w/temp music
+          <div
+            className="font-mono"
+            style={{
+              fontSize: "11px",
+              letterSpacing: "1.5px",
+              color: "#8A8579",
+            }}
+          >
+            Show Open 25sec v1 WIP w/temp music
+          </div>
+          <a
+            href="/great-american-story/show-open-v1.mp4"
+            download="USA250_ShowOpen_25sec_v1_WIP.mp4"
+            className="font-mono"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "10px 16px",
+              background: "transparent",
+              color: "#C5A455",
+              border: "1px solid #C5A455",
+              borderRadius: "2px",
+              fontSize: "11px",
+              letterSpacing: "2px",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              cursor: "pointer",
+            }}
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#C5A455"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+            </svg>
+            Download
+          </a>
         </div>
       </div>
 
