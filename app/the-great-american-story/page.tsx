@@ -3,7 +3,7 @@
 import { useEffect, useState, FormEvent } from "react";
 import Image from "next/image";
 
-const PASSWORD = "patriotic";
+const PASSWORD = "usa250";
 const STORAGE_KEY = "great-american-story-auth";
 
 type SlotKey =
