@@ -292,7 +292,10 @@ function ReviewBoard() {
             overflow: "hidden",
           }}
         >
-          <VideoPlayer embedUrl={SHOW_OPEN_EMBED_URL} />
+          <VideoPlayer
+            embedUrl={SHOW_OPEN_EMBED_URL}
+            poster="/great-american-story/show-open-poster.jpg"
+          />
         </div>
         <div
           style={{
