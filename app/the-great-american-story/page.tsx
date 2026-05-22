@@ -294,7 +294,7 @@ function ReviewBoard() {
         >
           <VideoPlayer
             embedUrl={SHOW_OPEN_EMBED_URL}
-            poster="/great-american-story/show-open-poster.jpg"
+            poster="/great-american-story/show-open-poster.png"
           />
         </div>
         <div
