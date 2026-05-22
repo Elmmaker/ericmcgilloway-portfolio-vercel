@@ -556,7 +556,7 @@ function SlotCard({
         {slot.label}
       </div>
 
-      {/* Logo image — relative wrapper for absolute-positioned icon buttons */}
+      {/* Logo image */}
       <div
         style={{
           position: "relative",
@@ -565,7 +565,6 @@ function SlotCard({
           border: "1px solid #2A251F",
           borderRadius: "2px",
           overflow: "hidden",
-          marginBottom: "20px",
         }}
       >
         <Image
@@ -575,66 +574,64 @@ function SlotCard({
           sizes="(max-width: 700px) 100vw, 50vw"
           style={{ objectFit: "contain" }}
         />
+      </div>
 
-        {/* Bottom-right action buttons */}
-        <div
+      {/* Action buttons (download + fullscreen) BELOW the image, not over it */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          gap: "8px",
+          marginTop: "10px",
+          marginBottom: "20px",
+        }}
+      >
+        <a
+          href={slot.image}
+          download={slot.downloadName}
+          onClick={(e) => e.stopPropagation()}
+          aria-label={`Download ${slot.label}`}
           style={{
-            position: "absolute",
-            bottom: "10px",
-            right: "10px",
+            width: "32px",
+            height: "32px",
+            background: "transparent",
+            border: "1px solid #C5A455",
+            borderRadius: "2px",
+            cursor: "pointer",
             display: "flex",
-            gap: "8px",
+            alignItems: "center",
+            justifyContent: "center",
+            textDecoration: "none",
           }}
         >
-          <a
-            href={slot.image}
-            download={slot.downloadName}
-            onClick={(e) => e.stopPropagation()}
-            aria-label={`Download ${slot.label}`}
-            style={{
-              width: "36px",
-              height: "36px",
-              background: "rgba(13, 12, 10, 0.7)",
-              border: "1px solid #C5A455",
-              borderRadius: "2px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backdropFilter: "blur(4px)",
-              textDecoration: "none",
-            }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C5A455" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
-            </svg>
-          </a>
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              onZoom();
-            }}
-            aria-label={`View ${slot.label} fullscreen`}
-            style={{
-              width: "36px",
-              height: "36px",
-              padding: 0,
-              background: "rgba(13, 12, 10, 0.7)",
-              border: "1px solid #C5A455",
-              borderRadius: "2px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backdropFilter: "blur(4px)",
-            }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C5A455" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 8V3h5M21 8V3h-5M3 16v5h5M21 16v5h-5" />
-            </svg>
-          </button>
-        </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C5A455" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+          </svg>
+        </a>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onZoom();
+          }}
+          aria-label={`View ${slot.label} fullscreen`}
+          style={{
+            width: "32px",
+            height: "32px",
+            padding: 0,
+            background: "transparent",
+            border: "1px solid #C5A455",
+            borderRadius: "2px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C5A455" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 8V3h5M21 8V3h-5M3 16v5h5M21 16v5h-5" />
+          </svg>
+        </button>
       </div>
 
       {/* Stars */}
