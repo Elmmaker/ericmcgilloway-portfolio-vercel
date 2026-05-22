@@ -12,11 +12,20 @@ const STORAGE_KEY = "great-american-story-auth";
 
 type SlotKey =
   | "slot1" | "slot2" | "slot3" | "slot4"
-  | "slot5" | "slot6" | "slot7" | "slot8";
+  | "slot5" | "slot6" | "slot7" | "slot8"
+  | "slot9" | "slot10";
 type SlotData = { rating: number; notes: string };
 type Reviews = Record<SlotKey, SlotData>;
+type Slot = { id: SlotKey; label: string; image: string; downloadName: string };
 
-const SLOTS: { id: SlotKey; label: string; image: string; downloadName: string }[] = [
+// Latest pass — shown at top, above the divider
+const PASS_02_SLOTS: Slot[] = [
+  { id: "slot9",  label: "Logo 02a v2", image: "/great-american-story/TGAS_Logo_02a_v2.png", downloadName: "TGAS_Logo_02a_v2.png" },
+  { id: "slot10", label: "Logo 02b v2", image: "/great-american-story/TGAS_Logo_0v2b_v2.png", downloadName: "TGAS_Logo_0v2b_v2.png" },
+];
+
+// Original pass — shown under the "01 LOGO PASS" heading
+const PASS_01_SLOTS: Slot[] = [
   { id: "slot1", label: "Logo 01a",      image: "/great-american-story/TGAS_Logo_01a.png", downloadName: "TGAS_Logo_01a.png" },
   { id: "slot2", label: "Logo 01b",      image: "/great-american-story/TGAS_Logo_01b.png", downloadName: "TGAS_Logo_01b.png" },
   { id: "slot3", label: "Logo 01c",      image: "/great-american-story/TGAS_Logo_01c.png", downloadName: "TGAS_Logo_01c.png" },
@@ -27,7 +36,9 @@ const SLOTS: { id: SlotKey; label: string; image: string; downloadName: string }
   { id: "slot8", label: "TGAS 250 - 01", image: "/great-american-story/TGAS_250_01.png",   downloadName: "TGAS_250_01.png"   },
 ];
 
-const EMPTY_REVIEWS: Reviews = SLOTS.reduce((acc, s) => {
+const ALL_SLOTS: Slot[] = [...PASS_02_SLOTS, ...PASS_01_SLOTS];
+
+const EMPTY_REVIEWS: Reviews = ALL_SLOTS.reduce((acc, s) => {
   acc[s.id] = { rating: 0, notes: "" };
   return acc;
 }, {} as Reviews);
@@ -184,7 +195,7 @@ function ReviewBoard() {
     return () => window.removeEventListener("keydown", handler);
   }, [zoomedSlot]);
 
-  const zoomedSlotData = zoomedSlot ? SLOTS.find((s) => s.id === zoomedSlot) : null;
+  const zoomedSlotData = zoomedSlot ? ALL_SLOTS.find((s) => s.id === zoomedSlot) : null;
 
   function updateSlot(slot: SlotKey, patch: Partial<SlotData>) {
     setReviews((prev) => ({ ...prev, [slot]: { ...prev[slot], ...patch } }));
@@ -340,9 +351,67 @@ function ReviewBoard() {
         </div>
       </div>
 
-      {/* 2 columns × 4 rows of slots, each with stars + notes + save */}
+      {/* Latest pass (02) — sits above the divider */}
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        <div
+          className="font-mono"
+          style={{
+            fontSize: "13px",
+            letterSpacing: "4px",
+            textTransform: "uppercase",
+            color: "#C5A455",
+            textAlign: "center",
+            marginBottom: "24px",
+          }}
+        >
+          02 Logo Pass
+        </div>
+        <div className="gas-grid">
+          {PASS_02_SLOTS.map((slot) => (
+            <SlotCard
+              key={slot.id}
+              slot={slot}
+              data={reviews[slot.id]}
+              onChange={(patch) => updateSlot(slot.id, patch)}
+              onSave={() => save(slot.id)}
+              onZoom={() => setZoomedSlot(slot.id)}
+              saving={savingSlot === slot.id}
+              saved={savedSlot === slot.id}
+              loaded={loaded}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Semi-thick gold divider between passes */}
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "clamp(48px, 8vw, 80px) auto clamp(28px, 5vw, 48px)",
+          height: "3px",
+          background: "#C5A455",
+          opacity: 0.85,
+        }}
+      />
+
+      {/* 01 LOGO PASS heading */}
+      <div
+        className="font-mono"
+        style={{
+          fontSize: "13px",
+          letterSpacing: "4px",
+          textTransform: "uppercase",
+          color: "#C5A455",
+          textAlign: "center",
+          marginBottom: "32px",
+        }}
+      >
+        01 Logo Pass
+      </div>
+
+      {/* Original 8 slots */}
       <div className="gas-grid" style={{ maxWidth: "1100px", margin: "0 auto" }}>
-        {SLOTS.map((slot) => (
+        {PASS_01_SLOTS.map((slot) => (
           <SlotCard
             key={slot.id}
             slot={slot}

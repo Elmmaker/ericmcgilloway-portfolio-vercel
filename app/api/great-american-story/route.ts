@@ -5,13 +5,15 @@ const KV_KEY = "great-american-story-reviews";
 
 type SlotKey =
   | "slot1" | "slot2" | "slot3" | "slot4"
-  | "slot5" | "slot6" | "slot7" | "slot8";
+  | "slot5" | "slot6" | "slot7" | "slot8"
+  | "slot9" | "slot10";
 type SlotData = { rating: number; notes: string };
 type Reviews = Record<SlotKey, SlotData>;
 
 const VALID_SLOTS: SlotKey[] = [
   "slot1", "slot2", "slot3", "slot4",
   "slot5", "slot6", "slot7", "slot8",
+  "slot9", "slot10",
 ];
 
 const EMPTY_REVIEWS: Reviews = VALID_SLOTS.reduce((acc, k) => {
