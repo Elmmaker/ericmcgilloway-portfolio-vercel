@@ -20,8 +20,8 @@ type Slot = { id: SlotKey; label: string; image: string; downloadName: string };
 
 // Latest pass — shown at top, above the divider
 const PASS_02_SLOTS: Slot[] = [
-  { id: "slot9",  label: "Logo 02a v2", image: "/great-american-story/TGAS_Logo_02a_v2.png", downloadName: "TGAS_Logo_02a_v2.png" },
-  { id: "slot10", label: "Logo 02b v2", image: "/great-american-story/TGAS_Logo_02b_v2.png", downloadName: "TGAS_Logo_02b_v2.png" },
+  { id: "slot9",  label: "Logo 02a v2", image: "/great-american-story/TGAS_Logo_v2a_v2.png", downloadName: "TGAS_Logo_v2a_v2.png" },
+  { id: "slot10", label: "Logo 02b v2", image: "/great-american-story/TGAS_Logo_v2b_v2.png", downloadName: "TGAS_Logo_v2b_v2.png" },
 ];
 
 // Original pass — shown under the "01 LOGO PASS" heading
