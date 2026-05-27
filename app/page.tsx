@@ -65,7 +65,7 @@ const PROJECTS = [
     color: "#3A7BE0",
     projects: ["Five Nights At Freddy's", "Jurassic World", "How To Train Your Dragon"],
     image: "/images/work/superman-wide.jpg",
-    video: "/clips/superman.mp4",
+    video: null,
   },
   {
     id: 4,
