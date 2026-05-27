@@ -10,6 +10,17 @@ import PageTransition from "./components/PageTransition";
 
 const PROJECTS = [
   {
+    id: 7,
+    title: "Spaceman's Wonder List: Clouds",
+    subtitle: "Nat Geo Kids",
+    role: "Sr. 3D and Senior Animation Designer",
+    type: "Documentary",
+    year: "2026",
+    color: "#7BB6E0",
+    image: "/images/work/spacemans-wonder-list-clouds.jpg",
+    video: null,
+  },
+  {
     id: 1,
     title: "Modern Marvels",
     subtitle: "History Channel/Hearst Media",
