@@ -17,9 +17,9 @@ const PROJECTS = [
     role: "Sr. 3D and Animation Designer",
     type: "Documentary",
     year: "2026",
-    color: "#7BB6E0",
+    color: "#F4D03F",
     image: "/images/work/spacemans-wonder-list-clouds.jpg",
-    video: "/clips/spacemans-wonder-list-clouds.mp4",
+    video: null,
   },
   {
     id: 1,
