@@ -11,9 +11,10 @@ import PageTransition from "./components/PageTransition";
 const PROJECTS = [
   {
     id: 7,
-    title: "Spaceman's Wonder List: Clouds",
-    subtitle: "Nat Geo Kids",
-    role: "Sr. 3D and Senior Animation Designer",
+    title: "Nat Geo Kids: Clouds",
+    titleExtra: "Spaceman/Wonder List",
+    subtitle: "",
+    role: "Sr. 3D and Animation Designer",
     type: "Documentary",
     year: "2026",
     color: "#7BB6E0",
@@ -419,9 +420,11 @@ export default function Home() {
                     {(p.projects as string[]).join(", ")}
                   </div>
                 )}
-                <span className="font-sans text-sm sm:text-base text-gold block" style={{ marginTop: "6px" }}>
-                  {p.subtitle}
-                </span>
+                {p.subtitle && (
+                  <span className="font-sans text-sm sm:text-base text-gold block" style={{ marginTop: "6px" }}>
+                    {p.subtitle}
+                  </span>
+                )}
               </div>
 
               {/* RIGHT — Subheadings / metadata */}
