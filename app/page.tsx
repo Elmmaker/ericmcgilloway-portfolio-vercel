@@ -19,7 +19,7 @@ const PROJECTS = [
     year: "2026",
     color: "#7BB6E0",
     image: "/images/work/spacemans-wonder-list-clouds.jpg",
-    video: null,
+    video: "/clips/spacemans-wonder-list-clouds.mp4",
   },
   {
     id: 1,
