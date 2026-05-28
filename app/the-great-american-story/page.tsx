@@ -25,7 +25,7 @@ const PASS_03_SLOTS: Slot[] = [
   { id: "slot12", label: "Logo 07",       image: "/great-american-story/TGAS_Logo_07.png",        downloadName: "TGAS_Logo_07.png" },
   { id: "slot13", label: "Logo 08",       image: "/great-american-story/TGAS_Logo_08.png",        downloadName: "TGAS_Logo_08.png" },
   { id: "slot14", label: "Logo 09",       image: "/great-american-story/TGAS_Logo_09.png",        downloadName: "TGAS_Logo_09.png" },
-  { id: "slot15", label: "2-Line Logos 01", image: "/great-american-story/TGAS_2Line_Logos_01.png", downloadName: "TGAS_2Line_Logos_01.png" },
+  { id: "slot15", label: "3-Line Logos 01", image: "/great-american-story/TGAS_2Line_Logos_01.png", downloadName: "TGAS_2Line_Logos_01.png" },
 ];
 
 // 02 pass
