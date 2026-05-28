@@ -266,7 +266,7 @@ function ReviewBoard() {
         background: "#0a1526",
         color: "#F0EDE6",
         padding:
-          "clamp(60px, 8vw, 100px) clamp(24px, 6vw, 80px) clamp(60px, 8vw, 100px)",
+          "clamp(120px, 15vw, 160px) clamp(24px, 6vw, 80px) clamp(60px, 8vw, 100px)",
       }}
     >
       {/* Header */}
