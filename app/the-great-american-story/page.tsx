@@ -55,7 +55,16 @@ type GraphicsVideo = { embedUrl: string; label?: string; poster?: string };
 type GraphicsSection = { label: string; videos: GraphicsVideo[] };
 
 const GRAPHICS_SECTIONS: GraphicsSection[] = [
-  { label: "Transitions", videos: [] },
+  {
+    label: "Transitions",
+    videos: [
+      { embedUrl: "https://framerate.tv/watch/28b4a625-38bd-4f48-952d-cdbe84250587", label: "Tranz Stars 01", poster: "/great-american-story/poster-tranz-stars-01.jpg" },
+      { embedUrl: "https://framerate.tv/watch/eb469bfb-ed9f-4186-81d5-88af6f596245", label: "Tranz Stars 02", poster: "/great-american-story/poster-tranz-stars-02.jpg" },
+      { embedUrl: "https://framerate.tv/watch/646bb3fb-22f3-4178-bcca-b0b2a9ac312b", label: "Tranz Stars 03", poster: "/great-american-story/poster-tranz-stars-03.jpg" },
+      { embedUrl: "https://framerate.tv/watch/e41f6d67-2e09-4b09-af7c-0df25155c7a3", label: "Tranz Bokeh 01", poster: "/great-american-story/poster-tranz-bokeh-01.jpg" },
+      { embedUrl: "https://framerate.tv/watch/5cf4bf26-78e2-4d48-b355-8f81eb4f983d", label: "Tranz Bokeh 02", poster: "/great-american-story/poster-tranz-bokeh-02.jpg" },
+    ],
+  },
   { label: "Lowers", videos: [] },
   { label: "Mortise", videos: [] },
   { label: "Credit Bed", videos: [] },
