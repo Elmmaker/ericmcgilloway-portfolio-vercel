@@ -13,12 +13,22 @@ const STORAGE_KEY = "great-american-story-auth";
 type SlotKey =
   | "slot1" | "slot2" | "slot3" | "slot4"
   | "slot5" | "slot6" | "slot7" | "slot8"
-  | "slot9" | "slot10";
+  | "slot9" | "slot10"
+  | "slot11" | "slot12" | "slot13" | "slot14" | "slot15";
 type SlotData = { rating: number; notes: string };
 type Reviews = Record<SlotKey, SlotData>;
 type Slot = { id: SlotKey; label: string; image: string; downloadName: string };
 
-// Latest pass — shown at top, above the divider
+// Newest pass (03) — shown at the very top
+const PASS_03_SLOTS: Slot[] = [
+  { id: "slot11", label: "Logo 06",       image: "/great-american-story/TGAS_Logo_06.png",        downloadName: "TGAS_Logo_06.png" },
+  { id: "slot12", label: "Logo 07",       image: "/great-american-story/TGAS_Logo_07.png",        downloadName: "TGAS_Logo_07.png" },
+  { id: "slot13", label: "Logo 08",       image: "/great-american-story/TGAS_Logo_08.png",        downloadName: "TGAS_Logo_08.png" },
+  { id: "slot14", label: "Logo 09",       image: "/great-american-story/TGAS_Logo_09.png",        downloadName: "TGAS_Logo_09.png" },
+  { id: "slot15", label: "2-Line Logos 01", image: "/great-american-story/TGAS_2Line_Logos_01.png", downloadName: "TGAS_2Line_Logos_01.png" },
+];
+
+// 02 pass
 const PASS_02_SLOTS: Slot[] = [
   { id: "slot9",  label: "Logo 02a v2", image: "/great-american-story/TGAS_Logo_02a_v2.png", downloadName: "TGAS_Logo_02a_v2.png" },
   { id: "slot10", label: "Logo 02b v2", image: "/great-american-story/TGAS_Logo_02b_v2.png", downloadName: "TGAS_Logo_02b_v2.png" },
@@ -36,7 +46,7 @@ const PASS_01_SLOTS: Slot[] = [
   { id: "slot8", label: "TGAS 250 - 01", image: "/great-american-story/TGAS_250_01.png",   downloadName: "TGAS_250_01.png"   },
 ];
 
-const ALL_SLOTS: Slot[] = [...PASS_02_SLOTS, ...PASS_01_SLOTS];
+const ALL_SLOTS: Slot[] = [...PASS_03_SLOTS, ...PASS_02_SLOTS, ...PASS_01_SLOTS];
 
 const EMPTY_REVIEWS: Reviews = ALL_SLOTS.reduce((acc, s) => {
   acc[s.id] = { rating: 0, notes: "" };
@@ -354,7 +364,50 @@ function ReviewBoard() {
         </div>
       </div>
 
-      {/* Latest pass (02) — sits above the divider */}
+      {/* Newest pass (03) — sits at the very top */}
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        <div
+          className="font-mono"
+          style={{
+            fontSize: "13px",
+            letterSpacing: "4px",
+            textTransform: "uppercase",
+            color: "#C5A455",
+            textAlign: "center",
+            marginBottom: "24px",
+          }}
+        >
+          03 Logo Pass
+        </div>
+        <div className="gas-grid">
+          {PASS_03_SLOTS.map((slot) => (
+            <SlotCard
+              key={slot.id}
+              slot={slot}
+              data={reviews[slot.id]}
+              onChange={(patch) => updateSlot(slot.id, patch)}
+              onSave={() => save(slot.id)}
+              onZoom={() => setZoomedSlot(slot.id)}
+              saving={savingSlot === slot.id}
+              saved={savedSlot === slot.id}
+              loaded={loaded}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Semi-thick gold divider between 03 and 02 */}
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "clamp(48px, 8vw, 80px) auto clamp(28px, 5vw, 48px)",
+          height: "3px",
+          background: "#C5A455",
+          opacity: 0.85,
+        }}
+      />
+
+      {/* Pass (02) */}
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <div
           className="font-mono"
