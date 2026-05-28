@@ -284,18 +284,21 @@ function ReviewBoard() {
           <div style={{ width: "16px", height: "3px", background: "#3A6BA5" }} />
         </div>
         <h1
-          className="font-serif"
           style={{
-            fontSize: "clamp(18px, 5.5vw, 64px)",
-            fontWeight: 700,
-            color: "#F0EDE6",
-            lineHeight: 1.05,
-            letterSpacing: "0.02em",
-            margin: 0,
-            whiteSpace: "nowrap",
+            margin: "0 auto",
+            width: "clamp(180px, 32vw, 320px)",
+            lineHeight: 0,
           }}
         >
-          USA 250
+          <Image
+            src="/great-american-story/America250_logo.png"
+            alt="America 250"
+            width={943}
+            height={650}
+            priority
+            sizes="(max-width: 600px) 32vw, 320px"
+            style={{ width: "100%", height: "auto", display: "block" }}
+          />
         </h1>
       </div>
 
