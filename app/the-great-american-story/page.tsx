@@ -48,6 +48,19 @@ const PASS_01_SLOTS: Slot[] = [
 
 const ALL_SLOTS: Slot[] = [...PASS_03_SLOTS, ...PASS_02_SLOTS, ...PASS_01_SLOTS];
 
+// Graphics tab — broadcast deliverables, mostly Framerate video embeds.
+// Drop embedUrls (and optional posters) into each section's `videos` array
+// as they come in; empty arrays render a "Coming Soon" placeholder.
+type GraphicsVideo = { embedUrl: string; label?: string; poster?: string };
+type GraphicsSection = { label: string; videos: GraphicsVideo[] };
+
+const GRAPHICS_SECTIONS: GraphicsSection[] = [
+  { label: "Transitions", videos: [] },
+  { label: "Lowers", videos: [] },
+  { label: "Mortise", videos: [] },
+  { label: "Credit Bed", videos: [] },
+];
+
 const EMPTY_REVIEWS: Reviews = ALL_SLOTS.reduce((acc, s) => {
   acc[s.id] = { rating: 0, notes: "" };
   return acc;
@@ -184,6 +197,7 @@ function ReviewBoard() {
   const [savingSlot, setSavingSlot] = useState<SlotKey | null>(null);
   const [savedSlot, setSavedSlot] = useState<SlotKey | null>(null);
   const [zoomedSlot, setZoomedSlot] = useState<SlotKey | null>(null);
+  const [activeTab, setActiveTab] = useState<"logos" | "graphics">("logos");
 
   useEffect(() => {
     fetch("/api/great-american-story")
@@ -275,6 +289,41 @@ function ReviewBoard() {
         </h1>
       </div>
 
+      {/* Tab toggle: Logos / Graphics */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "8px",
+          marginBottom: "clamp(40px, 6vw, 64px)",
+        }}
+      >
+        {(["logos", "graphics"] as const).map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            onClick={() => setActiveTab(tab)}
+            className="font-mono"
+            style={{
+              padding: "12px 28px",
+              background: activeTab === tab ? "#C5A455" : "transparent",
+              color: activeTab === tab ? "#0D0C0A" : "#C5A455",
+              border: "1px solid #C5A455",
+              borderRadius: "2px",
+              fontSize: "11px",
+              letterSpacing: "2px",
+              textTransform: "uppercase",
+              cursor: "pointer",
+              transition: "background 0.2s ease, color 0.2s ease",
+            }}
+          >
+            {tab === "logos" ? "Logos" : "Graphics"}
+          </button>
+        ))}
+      </div>
+
+      {activeTab === "logos" && (
+      <>
       {/* Show opening video — centered, single large box */}
       <div
         style={{
@@ -481,6 +530,77 @@ function ReviewBoard() {
           />
         ))}
       </div>
+      </>
+      )}
+
+      {activeTab === "graphics" && (
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          {GRAPHICS_SECTIONS.map((section, i) => (
+            <div key={section.label} style={{ marginBottom: i < GRAPHICS_SECTIONS.length - 1 ? "clamp(48px, 8vw, 80px)" : 0 }}>
+              <div
+                className="font-mono"
+                style={{
+                  fontSize: "13px",
+                  letterSpacing: "4px",
+                  textTransform: "uppercase",
+                  color: "#C5A455",
+                  marginBottom: "24px",
+                }}
+              >
+                {section.label}
+              </div>
+              {section.videos.length === 0 ? (
+                <div
+                  style={{
+                    aspectRatio: "16 / 9",
+                    background: "#15130F",
+                    border: "1px solid #2A251F",
+                    borderRadius: "2px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  className="font-mono"
+                >
+                  <span style={{ fontSize: "11px", letterSpacing: "3px", color: "#5A554A" }}>
+                    Coming Soon
+                  </span>
+                </div>
+              ) : (
+                <div className="gas-grid">
+                  {section.videos.map((v) => (
+                    <div key={v.embedUrl}>
+                      <div
+                        style={{
+                          background: "#000",
+                          border: "1px solid #2A251F",
+                          borderRadius: "2px",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <VideoPlayer embedUrl={v.embedUrl} poster={v.poster} />
+                      </div>
+                      {v.label && (
+                        <div
+                          className="font-mono"
+                          style={{
+                            fontSize: "11px",
+                            letterSpacing: "1.5px",
+                            color: "#8A8579",
+                            marginTop: "12px",
+                          }}
+                        >
+                          {v.label}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Lightbox: black background, centered image, rotates on portrait phones */}
       {zoomedSlotData && (
