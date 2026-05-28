@@ -101,7 +101,7 @@ export default function GreatAmericanStoryPage() {
       <div
         style={{
           minHeight: "100vh",
-          background: "#0D0C0A",
+          background: "#0a1526",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -262,7 +262,7 @@ function ReviewBoard() {
     <div
       style={{
         minHeight: "100vh",
-        background: "#0D0C0A",
+        background: "#0a1526",
         color: "#F0EDE6",
         padding:
           "clamp(60px, 8vw, 100px) clamp(24px, 6vw, 80px) clamp(60px, 8vw, 100px)",
