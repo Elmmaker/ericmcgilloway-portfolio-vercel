@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState, FormEvent } from "react";
 import dynamic from "next/dynamic";
 import VideoPlayer from "../components/VideoPlayer";
 
@@ -9,120 +8,9 @@ const F35Viewer = dynamic(() => import("../components/F35Viewer"), {
   ssr: false,
 });
 
-const PASSWORD = "dreamers";
-const STORAGE_KEY = "lm-auth";
-
 const VIDEO_EMBED_URL = "https://framerate.tv/watch/44c2d0df-e4b4-4862-853f-8dfd02880f3f";
 
 export default function LMPage() {
-  const [authed, setAuthed] = useState(false);
-  const [pwInput, setPwInput] = useState("");
-  const [pwError, setPwError] = useState(false);
-
-  useEffect(() => {
-    if (sessionStorage.getItem(STORAGE_KEY) === "1") setAuthed(true);
-  }, []);
-
-  function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    if (pwInput.trim().toLowerCase() === PASSWORD) {
-      sessionStorage.setItem(STORAGE_KEY, "1");
-      setAuthed(true);
-      setPwError(false);
-    } else {
-      setPwError(true);
-      setPwInput("");
-    }
-  }
-
-  if (!authed) {
-    return (
-      <div
-        style={{
-          minHeight: "100vh",
-          background: "#0D0C0A",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "40px 20px",
-        }}
-      >
-        <form
-          onSubmit={handleSubmit}
-          style={{ width: "100%", maxWidth: "320px", textAlign: "center" }}
-        >
-          <div
-            className="font-mono"
-            style={{
-              fontSize: "10px",
-              letterSpacing: "3px",
-              textTransform: "uppercase",
-              color: "#C5A455",
-              marginBottom: "20px",
-            }}
-          >
-            Enter Password
-          </div>
-          <input
-            type="password"
-            value={pwInput}
-            onChange={(e) => {
-              setPwInput(e.target.value);
-              setPwError(false);
-            }}
-            autoFocus
-            placeholder="Password"
-            className="font-mono"
-            style={{
-              width: "100%",
-              padding: "14px 16px",
-              background: "#0D0C0A",
-              border: `1px solid ${pwError ? "#E03A3A" : "#C5A455"}`,
-              color: "#F0EDE6",
-              fontSize: "14px",
-              letterSpacing: "1px",
-              outline: "none",
-              borderRadius: "2px",
-            }}
-          />
-          {pwError && (
-            <div
-              className="font-mono"
-              style={{
-                fontSize: "10px",
-                letterSpacing: "2px",
-                textTransform: "uppercase",
-                color: "#E03A3A",
-                marginTop: "12px",
-              }}
-            >
-              Incorrect
-            </div>
-          )}
-          <button
-            type="submit"
-            className="font-mono"
-            style={{
-              marginTop: "20px",
-              width: "100%",
-              padding: "14px",
-              background: "#C5A455",
-              color: "#0D0C0A",
-              border: "none",
-              fontSize: "11px",
-              letterSpacing: "2px",
-              textTransform: "uppercase",
-              cursor: "pointer",
-              borderRadius: "2px",
-            }}
-          >
-            Enter
-          </button>
-        </form>
-      </div>
-    );
-  }
-
   return (
     <div
       style={{
@@ -154,6 +42,17 @@ export default function LMPage() {
         {/* Video block */}
         <SectionLabel>Aerospace Trailer</SectionLabel>
         <div
+          className="font-mono"
+          style={{
+            fontSize: "11px",
+            letterSpacing: "1.5px",
+            color: "#8A8579",
+            marginBottom: "16px",
+          }}
+        >
+          CONCEPT, EDIT &amp; ORIGINAL SCORE BY ERIC MCGILLOWAY
+        </div>
+        <div
           style={{
             background: "#000",
             border: "1px solid #2A251F",
@@ -183,19 +82,19 @@ export default function LMPage() {
         <SectionLabel>F-35 · Interactive 3D Model Call-outs</SectionLabel>
         <F35Viewer />
 
-        {/* Hint */}
+        {/* Description */}
         <div
-          className="font-mono"
+          className="font-sans"
           style={{
-            fontSize: "10px",
-            letterSpacing: "2px",
-            textTransform: "uppercase",
+            fontSize: "16px",
             color: "#8A8579",
             textAlign: "center",
             marginTop: "16px",
+            lineHeight: 1.6,
           }}
         >
-          Drag to rotate · Scroll to zoom · Click any callout to explore
+          Interactive 3D model built in Spline. Drag to rotate, scroll to zoom,
+          click any callout to explore.
         </div>
 
         {/* Gold sheen divider below 3D section — offset so the two never sweep together */}

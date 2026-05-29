@@ -34,6 +34,18 @@ const PROJECTS = [
     badge: "AIRS JULY 2026",
   },
   {
+    id: 8,
+    title: "The Pursuit of Dreamers",
+    subtitle: "Lockheed Martin / Aerospace Concept",
+    role: "Concept, Edit, Score & Interactive 3D",
+    type: "Brand Film",
+    year: "2025",
+    color: "#C5A455",
+    image: "/lm/poster.jpg",
+    video: null,
+    link: "/lm",
+  },
+  {
     id: 6,
     title: "Hearts of Heroes",
     subtitle: "ABC/Hearst Media",
@@ -141,21 +153,6 @@ export default function Home() {
           paddingRight: "clamp(20px, 6vw, 80px)",
         }}
       >
-        {/* Eyebrow */}
-        <motion.div
-          className="font-mono text-[11px] tracking-[4px] uppercase text-gold"
-          style={{ marginBottom: "24px" }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1],
-            delay: 0.3,
-          }}
-        >
-          Senior Motion Graphic Designer
-        </motion.div>
-
         {/* Name */}
         <h1
           className="font-serif font-bold leading-[0.92]"
@@ -289,7 +286,8 @@ export default function Home() {
         </div>
 
         <div>
-          {filteredProjects.map((p, i) => (
+          {filteredProjects.map((p, i) => {
+            const card = (
             <motion.div
               key={p.id}
               className="grid grid-cols-1 md:grid-cols-[auto_1fr_auto] items-center relative group"
@@ -439,7 +437,20 @@ export default function Home() {
               </div>
 
             </motion.div>
-          ))}
+            );
+            return "link" in p && p.link ? (
+              <a
+                key={p.id}
+                href={p.link as string}
+                className="block"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                {card}
+              </a>
+            ) : (
+              card
+            );
+          })}
         </div>
         <div className="relative h-px bg-rule overflow-hidden">
           <div
