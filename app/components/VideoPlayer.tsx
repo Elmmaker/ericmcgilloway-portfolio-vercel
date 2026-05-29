@@ -60,13 +60,11 @@ function IframePlayer({
   aspectRatio: string;
 }) {
   const [activated, setActivated] = useState(false);
-  // Two playback strategies, picked at mount per device:
-  //   • Desktop: keep my placeholder. Click → autoplay iframe with sound.
-  //   • Touch (mobile/tablet): skip my placeholder entirely. Render the
-  //     iframe immediately with NO autoplay so visitors tap Framerate's own
-  //     play button. This is the only thing that reliably starts video on
-  //     iOS Safari, regardless of muted/playsinline flags Framerate may or
-  //     may not honor.
+  // The poster placeholder shows on ALL devices until the visitor taps it —
+  // that's what makes the custom thumbnail visible on mobile too. On tap we
+  // mount the iframe with autoplay. iOS Safari blocks autoplay-with-sound, so
+  // on touch devices we autoplay MUTED (which iOS allows); desktop autoplays
+  // with sound. Visitors can unmute via the player's own controls.
   const [isTouch, setIsTouch] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
@@ -80,16 +78,13 @@ function IframePlayer({
     ? embedUrl
     : embedUrl.replace("/watch/", "/embed/");
 
-  // Desktop iframe URL: autoplay with sound after the placeholder click
-  const autoplaySrc = iframeSrc.includes("?")
-    ? `${iframeSrc}&autoplay=1`
-    : `${iframeSrc}?autoplay=1`;
+  const params = isTouch ? "autoplay=1&muted=1" : "autoplay=1";
+  const liveSrc = iframeSrc.includes("?")
+    ? `${iframeSrc}&${params}`
+    : `${iframeSrc}?${params}`;
 
-  // The src that's actually loaded: on touch devices we mount the iframe
-  // immediately at the plain embed URL (no autoplay); on desktop we mount it
-  // with autoplay=1 once the placeholder is clicked.
-  const liveSrc = isTouch ? iframeSrc : autoplaySrc;
-  const showIframe = isTouch || activated;
+  // Always require a tap so the poster placeholder shows first (every device).
+  const showIframe = activated;
 
   async function goFullscreen(e: React.MouseEvent) {
     e.stopPropagation();
