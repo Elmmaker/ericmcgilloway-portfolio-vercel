@@ -105,7 +105,7 @@ export default function ReelsPage() {
             <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
               <VideoPlayer
                 embedUrl="https://framerate.tv/embed/3b2743c4-f70d-4499-bb45-6d1122cb6693?primary_color=%2523ffffff&track_color=%2523ffffff&theme=minimal"
-                poster="https://image.mux.com/hqUn19l6wn5A8Uaum7kLdFnsw01dr9huPJuIcyX67kiA/thumbnail.jpg?width=1200&height=630&fit_mode=smartcrop"
+                poster="/images/work/hearts-of-heroes.jpg"
               />
             </div>
 
