@@ -437,7 +437,7 @@ export default function Home() {
                       textDecoration: "underline",
                     }}
                   >
-                    See it on Youtube
+                    800,000+ views on YouTube
                   </a>
                 )}
               </div>

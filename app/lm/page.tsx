@@ -50,7 +50,7 @@ export default function LMPage() {
             marginBottom: "16px",
           }}
         >
-          CONCEPT, EDIT &amp; ORIGINAL SCORE BY ERIC MCGILLOWAY
+          CONCEPT, EDIT &amp; SOUND DESIGN BY ERIC MCGILLOWAY
         </div>
         <div
           style={{
