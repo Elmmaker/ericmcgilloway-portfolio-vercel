@@ -468,14 +468,15 @@ function F35Model({
       const normalized = mesh.name.toLowerCase().replace(/с/g, "c");
       if (!normalized.startsWith("canopy")) return;
       const glass = new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color(0xc5a455),
+        color: new THREE.Color(0xb89456),
         metalness: 0,
-        roughness: 0.1,
-        transmission: 0.9,
+        roughness: 0.22,
+        transmission: 0.55,
         ior: 1.5,
-        thickness: 0.3,
-        attenuationColor: new THREE.Color(0x8c7235),
-        attenuationDistance: 0.4,
+        thickness: 0.6,
+        attenuationColor: new THREE.Color(0x3a2810),
+        attenuationDistance: 0.22,
+        envMapIntensity: 1.6,
         side: THREE.DoubleSide,
         transparent: true,
       });
