@@ -455,6 +455,38 @@ function F35Model({
     }
   }, [camera, controlsRef, defaultCamPos, defaultTarget]);
 
+  // Upgrade canopy meshes to a proper tinted-glass material so the cockpit
+  // interior is muted by refraction instead of being exposed bare. The GLB
+  // ships the canopy with a flat material. Real F-35 canopies are gold-tinted
+  // for radar deflection — also fits the page's gold accent. The lowercase
+  // Cyrillic "с" replace normalizes the GLB's "Сanopy_Glass" mesh-name typo.
+  useEffect(() => {
+    const upgraded: THREE.MeshPhysicalMaterial[] = [];
+    scene.traverse((child) => {
+      const mesh = child as THREE.Mesh;
+      if (!mesh.isMesh) return;
+      const normalized = mesh.name.toLowerCase().replace(/с/g, "c");
+      if (!normalized.startsWith("canopy")) return;
+      const glass = new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color(0xc5a455),
+        metalness: 0,
+        roughness: 0.1,
+        transmission: 0.9,
+        ior: 1.5,
+        thickness: 0.3,
+        attenuationColor: new THREE.Color(0x8c7235),
+        attenuationDistance: 0.4,
+        side: THREE.DoubleSide,
+        transparent: true,
+      });
+      mesh.material = glass;
+      upgraded.push(glass);
+    });
+    return () => {
+      upgraded.forEach((m) => m.dispose());
+    };
+  }, [scene]);
+
 
   // Apply / restore emissive gold glow on focus changes.
   // Clone each mesh's material so the glow is scoped to JUST this part's
