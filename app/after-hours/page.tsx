@@ -56,7 +56,7 @@ export default function AfterHoursPage() {
         </FadeUp>
         <FadeUp delay={0.15}>
           <p className="text-sm sm:text-base max-w-[560px]" style={{ color: "#8A8579", lineHeight: 1.7, marginBottom: "clamp(48px, 8vw, 80px)" }}>
-            The stuff I make when nobody&apos;s watching. Personal projects, experiments, and the work that keeps the creative engine running after the day job wraps.
+            The stuff I make when nobody&apos;s watching. Personal projects, experiments, and the work that keeps the creative engine running after the day job&nbsp;wraps.
           </p>
         </FadeUp>
 
