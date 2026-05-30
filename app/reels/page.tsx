@@ -11,6 +11,7 @@ const REELS = [
     title: "Motion Design Reel 2026",
     desc: "Broadcast graphics, title sequences, documentary maps, entertainment marketing campaigns, and everything in between.",
     embedUrl: "https://framerate.tv/watch/e6afa38e-3145-439f-ae2f-dde6fe8c27a1",
+    poster: "https://image.mux.com/XSIXMjTYxk4QKctHS1QxlcPYomGio83CcaljOUTlVIo/thumbnail.jpg?width=1200&height=630&fit_mode=smartcrop",
     duration: "1:48",
     updated: "2026",
   },
@@ -20,6 +21,7 @@ const AFTER_MIDNIGHT_VIDEOS = [
   {
     sublabel: "Opening Title Sequence",
     embedUrl: "https://framerate.tv/watch/659a3cdd-bee0-4230-a232-1c26b1a81a2e",
+    poster: "https://image.mux.com/JWYW01WWQzCBYLhIWBLEcQwE7GaO3NRFfeCCvEHelpD4/thumbnail.jpg?time=5.519576&width=1280",
     duration: "0:31",
   },
   {
@@ -73,7 +75,7 @@ export default function ReelsPage() {
               </div>
 
               <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
-                <VideoPlayer embedUrl={reel.embedUrl} />
+                <VideoPlayer embedUrl={reel.embedUrl} poster={reel.poster} />
               </div>
 
               <div className="flex gap-8 mt-5 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
@@ -101,7 +103,10 @@ export default function ReelsPage() {
             </div>
 
             <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
-              <VideoPlayer embedUrl="https://framerate.tv/embed/3b2743c4-f70d-4499-bb45-6d1122cb6693?primary_color=%2523ffffff&track_color=%2523ffffff&theme=minimal" />
+              <VideoPlayer
+                embedUrl="https://framerate.tv/embed/3b2743c4-f70d-4499-bb45-6d1122cb6693?primary_color=%2523ffffff&track_color=%2523ffffff&theme=minimal"
+                poster="https://image.mux.com/hqUn19l6wn5A8Uaum7kLdFnsw01dr9huPJuIcyX67kiA/thumbnail.jpg?width=1200&height=630&fit_mode=smartcrop"
+              />
             </div>
 
             <div className="mt-5 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
