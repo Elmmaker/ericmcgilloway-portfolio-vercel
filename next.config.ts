@@ -35,7 +35,7 @@ const securityHeaders = [
       "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self'",
-      "img-src 'self' data: blob:",
+      "img-src 'self' data: blob: https://image.mux.com",
       "media-src 'self'",
       "frame-src https://framerate.tv https://my.spline.design",
       "connect-src 'self' blob: https://formspree.io",
