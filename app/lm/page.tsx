@@ -21,23 +21,6 @@ export default function LMPage() {
           "clamp(120px, 15vw, 160px) clamp(24px, 6vw, 80px) clamp(60px, 8vw, 100px)",
       }}
     >
-      {/* Heading */}
-      <div style={{ textAlign: "center", marginBottom: "clamp(40px, 6vw, 64px)" }}>
-        <h1
-          className="font-sans"
-          style={{
-            fontSize: "clamp(28px, 5.5vw, 64px)",
-            fontWeight: 700,
-            color: "#F0EDE6",
-            lineHeight: 1.1,
-            letterSpacing: "-0.01em",
-            margin: 0,
-          }}
-        >
-          The Pursuit of Dreamers
-        </h1>
-      </div>
-
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         {/* Video block */}
         <SectionLabel>Aerospace Trailer</SectionLabel>
