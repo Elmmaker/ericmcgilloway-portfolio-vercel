@@ -11,7 +11,7 @@ const REELS = [
     title: "Motion Design Reel 2026",
     desc: "Broadcast graphics, title sequences, documentary maps, entertainment marketing campaigns, and everything in between.",
     embedUrl: "https://framerate.tv/watch/e6afa38e-3145-439f-ae2f-dde6fe8c27a1",
-    poster: "https://image.mux.com/XSIXMjTYxk4QKctHS1QxlcPYomGio83CcaljOUTlVIo/thumbnail.jpg?width=1200&height=630&fit_mode=smartcrop",
+    poster: "/thumbnails/em_reel_2026_thumbnail.png",
     duration: "1:48",
     updated: "2026",
   },
