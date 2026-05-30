@@ -20,6 +20,7 @@ const PROJECTS = [
     color: "#F4D03F",
     image: "/images/work/spacemans-wonder-list-clouds.jpg",
     video: "/clips/spacemans-wonder-list-clouds.mp4",
+    youtubeUrl: "https://www.youtube.com/watch?v=o9ZEktQHHas",
   },
   {
     id: 1,
@@ -422,6 +423,22 @@ export default function Home() {
                   <span className="font-sans text-sm sm:text-base text-gold block" style={{ marginTop: "6px" }}>
                     {p.subtitle}
                   </span>
+                )}
+                {"youtubeUrl" in p && p.youtubeUrl && (
+                  <a
+                    href={p.youtubeUrl as string}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-sans block"
+                    style={{
+                      marginTop: "10px",
+                      color: "#3B82F6",
+                      fontSize: "clamp(13px, 1.4vw, 15px)",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    See it on Youtube
+                  </a>
                 )}
               </div>
 
