@@ -200,7 +200,7 @@ export default function Home() {
             delay: 1.1,
           }}
         >
-          Seasoned visual designer across comedy, documentary filmmaking, and social media advertising &mdash; to name a few. I&apos;ve been lucky to work on some great shows with some great people.
+          Seasoned visual designer across documentary filmmaking, news, social media advertising, and comedy, to name a few. I&apos;ve been lucky to work on some great shows with some great people.
         </motion.p>
 
         {/* CTA */}
