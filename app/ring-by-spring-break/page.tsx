@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, FormEvent } from "react";
+import Image from "next/image";
 
 const PASSWORD = "springbreak";
 const STORAGE_KEY = "rbsb-auth";
@@ -164,19 +165,25 @@ export default function RingBySpringBreakPage() {
           Ring By Spring Break
         </h1>
         <div
-          className="font-sans"
-          aria-label="Hulu"
           style={{
             marginTop: "clamp(8px, 1.5vw, 14px)",
-            fontSize: "clamp(28px, 5vw, 48px)",
-            fontWeight: 800,
-            color: "#1CE783",
-            lineHeight: 1,
-            letterSpacing: "-0.04em",
-            textShadow: "0 2px 10px rgba(0, 60, 120, 0.25)",
+            display: "flex",
+            justifyContent: "center",
           }}
         >
-          hulu
+          <Image
+            src="/ring-by-spring-break/Hulu-Logo.png"
+            alt="Hulu"
+            width={3840}
+            height={2160}
+            priority
+            sizes="(max-width: 600px) 35vw, 240px"
+            style={{
+              width: "clamp(160px, 22vw, 240px)",
+              height: "auto",
+              display: "block",
+            }}
+          />
         </div>
       </div>
 
