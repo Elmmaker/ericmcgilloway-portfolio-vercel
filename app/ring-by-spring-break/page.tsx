@@ -5,18 +5,13 @@ import { useEffect, useState, FormEvent } from "react";
 const PASSWORD = "springbreak";
 const STORAGE_KEY = "rbsb-auth";
 
-// Tropical beach gradient — sun glow + sky-blue → turquoise → sand
+// Subtle dusk-over-water motif — deep moody base with a barely-there
+// warm sun-haze at the top and a cool low band suggesting horizon/water.
+// Hints at a spring-break sunset without ever showing one.
 const PAGE_BG = `
-  radial-gradient(ellipse 80% 45% at 50% 8%, rgba(255, 240, 200, 0.55) 0%, transparent 55%),
-  linear-gradient(180deg,
-    #7EC8E3 0%,
-    #4FC3F7 18%,
-    #29B6F6 38%,
-    #4DD0E1 58%,
-    #B2EBF2 75%,
-    #FFF8E1 90%,
-    #F5E6C8 100%
-  )
+  radial-gradient(ellipse 70% 35% at 50% 0%, rgba(230, 140, 110, 0.09) 0%, transparent 65%),
+  radial-gradient(ellipse 100% 40% at 50% 75%, rgba(70, 120, 160, 0.10) 0%, transparent 60%),
+  linear-gradient(180deg, #0E1F2C 0%, #132736 45%, #0C1A26 100%)
 `;
 
 export default function RingBySpringBreakPage() {
