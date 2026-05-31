@@ -15,7 +15,7 @@ type AfterHoursItem = {
 
 const HERO: AfterHoursItem = {
   title: "Stream of Consciousness", duration: "0:58", embedUrl: "https://framerate.tv/watch/ea9ed290-f3b0-459d-8042-72fdbe3bc03f",
-  poster: "https://image.mux.com/Melg00JMcTpLc01tROawG4C6feBtEEufyczReX7dS8wFw/thumbnail.jpg?time=2.763429&width=1280",
+  poster: "/images/AfterHours.jpg",
 };
 
 const VIDEOS: AfterHoursItem[] = [
