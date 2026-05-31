@@ -11,7 +11,7 @@ const STORAGE_KEY = "rbsb-auth";
 // bleed through.
 const PAGE_BG = `
   linear-gradient(rgba(14, 31, 44, 0.85), rgba(14, 31, 44, 0.85)),
-  url("/ring-by-spring-break/BKG_day_02.png") center / cover no-repeat
+  url("/ring-by-spring-break/BKG_day_02.jpg") center / cover no-repeat
 `;
 
 export default function RingBySpringBreakPage() {
