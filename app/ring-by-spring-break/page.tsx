@@ -6,13 +6,12 @@ import Image from "next/image";
 const PASSWORD = "springbreak";
 const STORAGE_KEY = "rbsb-auth";
 
-// Subtle dusk-over-water motif — deep moody base with a barely-there
-// warm sun-haze at the top and a cool low band suggesting horizon/water.
-// Hints at a spring-break sunset without ever showing one.
+// Eric's day background at ~15% opacity, sitting behind a deep dark
+// veil. The 85%-alpha gradient on top lets just a hint of the image
+// bleed through.
 const PAGE_BG = `
-  radial-gradient(ellipse 70% 35% at 50% 0%, rgba(230, 140, 110, 0.09) 0%, transparent 65%),
-  radial-gradient(ellipse 100% 40% at 50% 75%, rgba(70, 120, 160, 0.10) 0%, transparent 60%),
-  linear-gradient(180deg, #0E1F2C 0%, #132736 45%, #0C1A26 100%)
+  linear-gradient(rgba(14, 31, 44, 0.85), rgba(14, 31, 44, 0.85)),
+  url("/ring-by-spring-break/BKG_day_02.png") center / cover no-repeat
 `;
 
 export default function RingBySpringBreakPage() {
