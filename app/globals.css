@@ -70,3 +70,13 @@ body {
   padding-left: clamp(24px, 6vw, 80px);
   padding-right: clamp(24px, 6vw, 80px);
 }
+
+/* Ring By Spring Break: on mobile, anchor the BKG_day_02 background to
+   the LEFT so the palm trees show instead of cropping to the couple. Also
+   drop fixed-attachment, which iOS Safari renders inconsistently. */
+@media (max-width: 768px) {
+  .rbsb-bg-mobile-left {
+    background-position: left center !important;
+    background-attachment: scroll !important;
+  }
+}

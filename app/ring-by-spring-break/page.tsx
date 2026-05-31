@@ -38,6 +38,7 @@ export default function RingBySpringBreakPage() {
   if (!authed) {
     return (
       <div
+        className="rbsb-bg-mobile-left"
         style={{
           minHeight: "100vh",
           background: PAGE_BG,
