@@ -177,9 +177,9 @@ export default function RingBySpringBreakPage() {
             width={3840}
             height={2160}
             priority
-            sizes="(max-width: 600px) 18vw, 120px"
+            sizes="(max-width: 600px) 15vw, 102px"
             style={{
-              width: "clamp(80px, 11vw, 120px)",
+              width: "clamp(68px, 9.4vw, 102px)",
               height: "auto",
               display: "block",
             }}
@@ -192,7 +192,7 @@ export default function RingBySpringBreakPage() {
         <h2
           className="font-sans"
           style={{
-            fontSize: "clamp(28px, 4.5vw, 44px)",
+            fontSize: "clamp(24px, 3.8vw, 37px)",
             fontWeight: 700,
             color: "#FFFFFF",
             margin: "0 0 8px",
