@@ -1,10 +1,12 @@
 import type { NextConfig } from "next";
 
 const securityHeaders = [
-  // Prevent the site from being embedded in iframes (clickjacking)
+  // Prevent EXTERNAL sites from embedding us in iframes (clickjacking),
+  // but allow same-origin embeds so pages like Ring By Spring Break
+  // can iframe a static HTML treatment from /public.
   {
     key: "X-Frame-Options",
-    value: "DENY",
+    value: "SAMEORIGIN",
   },
   // Stop browsers from guessing content types
   {
