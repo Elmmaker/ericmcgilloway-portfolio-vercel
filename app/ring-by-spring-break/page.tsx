@@ -92,7 +92,7 @@ export default function RingBySpringBreakPage() {
               background: "rgba(255, 255, 255, 0.85)",
               border: `1px solid ${pwError ? "#E03A3A" : "rgba(255,255,255,0.6)"}`,
               color: "#0D0C0A",
-              fontSize: "14px",
+              fontSize: "16px",
               letterSpacing: "1px",
               outline: "none",
               borderRadius: "4px",
