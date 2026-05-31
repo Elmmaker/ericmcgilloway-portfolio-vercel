@@ -188,7 +188,7 @@ export default function RingBySpringBreakPage() {
       </div>
 
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-        {/* Section: Logos */}
+        {/* Section: Treatments */}
         <h2
           className="font-sans"
           style={{
@@ -200,10 +200,10 @@ export default function RingBySpringBreakPage() {
             textShadow: "0 2px 8px rgba(0, 60, 120, 0.3)",
           }}
         >
-          Logos
+          Treatments
         </h2>
 
-        {/* Sub: PASS 01 */}
+        {/* Sub: 01 Crown of Roses */}
         <div
           className="font-mono"
           style={{
@@ -216,27 +216,26 @@ export default function RingBySpringBreakPage() {
             textShadow: "0 1px 4px rgba(0, 60, 120, 0.35)",
           }}
         >
-          PASS 01
+          01 Crown of Roses
         </div>
 
-        {/* Placeholder slot area — slots will go here once logos are submitted */}
-        <div
-          className="font-mono"
+        {/* Embedded brand-architecture treatment. Same-origin iframe so
+            it loads cleanly without CSP friction. Big and prominent on
+            the page; clients scroll within to read the full document. */}
+        <iframe
+          src="/ring-by-spring-break/crown-of-roses-brand-architecture.html"
+          title="Crown of Roses — Franchise Brand Architecture"
           style={{
-            padding: "clamp(40px, 8vw, 80px) 24px",
-            background: "rgba(255, 255, 255, 0.22)",
-            border: "1px dashed rgba(255, 255, 255, 0.55)",
-            borderRadius: "6px",
-            textAlign: "center",
-            color: "rgba(255, 255, 255, 0.9)",
-            fontSize: "11px",
-            letterSpacing: "2px",
-            textTransform: "uppercase",
-            textShadow: "0 1px 4px rgba(0, 60, 120, 0.3)",
+            width: "100%",
+            height: "min(90vh, 1100px)",
+            border: "1px solid rgba(255, 255, 255, 0.18)",
+            borderRadius: "8px",
+            background: "#fbf7ef",
+            boxShadow:
+              "0 24px 70px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.25)",
+            display: "block",
           }}
-        >
-          Awaiting logo submissions
-        </div>
+        />
       </div>
     </div>
   );
