@@ -7,7 +7,8 @@ type SlotKey =
   | "slot1" | "slot2" | "slot3" | "slot4"
   | "slot5" | "slot6" | "slot7" | "slot8"
   | "slot9" | "slot10"
-  | "slot11" | "slot12" | "slot13" | "slot14" | "slot15";
+  | "slot11" | "slot12" | "slot13" | "slot14" | "slot15"
+  | "slot16" | "slot17";
 type SlotData = { rating: number; notes: string };
 type Reviews = Record<SlotKey, SlotData>;
 
@@ -16,6 +17,7 @@ const VALID_SLOTS: SlotKey[] = [
   "slot5", "slot6", "slot7", "slot8",
   "slot9", "slot10",
   "slot11", "slot12", "slot13", "slot14", "slot15",
+  "slot16", "slot17",
 ];
 
 const EMPTY_REVIEWS: Reviews = VALID_SLOTS.reduce((acc, k) => {

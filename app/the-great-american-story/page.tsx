@@ -14,12 +14,18 @@ type SlotKey =
   | "slot1" | "slot2" | "slot3" | "slot4"
   | "slot5" | "slot6" | "slot7" | "slot8"
   | "slot9" | "slot10"
-  | "slot11" | "slot12" | "slot13" | "slot14" | "slot15";
+  | "slot11" | "slot12" | "slot13" | "slot14" | "slot15"
+  | "slot16" | "slot17";
 type SlotData = { rating: number; notes: string };
 type Reviews = Record<SlotKey, SlotData>;
 type Slot = { id: SlotKey; label: string; image: string; downloadName: string };
 
 // Newest pass (03) — shown at the very top
+const PASS_04_SLOTS: Slot[] = [
+  { id: "slot16", label: "Logo 10",         image: "/great-american-story/TGAS_Logo_010.png",        downloadName: "TGAS_Logo_010.png" },
+  { id: "slot17", label: "3-Line Logos 02", image: "/great-american-story/TGAS_3Line_Logos_02.png",  downloadName: "TGAS_3Line_Logos_02.png" },
+];
+
 const PASS_03_SLOTS: Slot[] = [
   { id: "slot11", label: "Logo 06",       image: "/great-american-story/TGAS_Logo_06.png",        downloadName: "TGAS_Logo_06.png" },
   { id: "slot12", label: "Logo 07",       image: "/great-american-story/TGAS_Logo_07.png",        downloadName: "TGAS_Logo_07.png" },
@@ -46,7 +52,7 @@ const PASS_01_SLOTS: Slot[] = [
   { id: "slot8", label: "TGAS 250 - 01", image: "/great-american-story/TGAS_250_01.png",   downloadName: "TGAS_250_01.png"   },
 ];
 
-const ALL_SLOTS: Slot[] = [...PASS_03_SLOTS, ...PASS_02_SLOTS, ...PASS_01_SLOTS];
+const ALL_SLOTS: Slot[] = [...PASS_04_SLOTS, ...PASS_03_SLOTS, ...PASS_02_SLOTS, ...PASS_01_SLOTS];
 
 // Graphics tab — broadcast deliverables, mostly Framerate video embeds.
 // Drop embedUrls (and optional posters) into each section's `videos` array
@@ -414,7 +420,50 @@ function ReviewBoard() {
         </div>
       </div>
 
-      {/* Newest pass (03) — sits at the very top */}
+      {/* Newest pass (04) — sits at the very top */}
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        <div
+          className="font-mono"
+          style={{
+            fontSize: "13px",
+            letterSpacing: "4px",
+            textTransform: "uppercase",
+            color: "#C5A455",
+            textAlign: "center",
+            marginBottom: "24px",
+          }}
+        >
+          04 Logo Pass
+        </div>
+        <div className="gas-grid">
+          {PASS_04_SLOTS.map((slot) => (
+            <SlotCard
+              key={slot.id}
+              slot={slot}
+              data={reviews[slot.id]}
+              onChange={(patch) => updateSlot(slot.id, patch)}
+              onSave={() => save(slot.id)}
+              onZoom={() => setZoomedSlot(slot.id)}
+              saving={savingSlot === slot.id}
+              saved={savedSlot === slot.id}
+              loaded={loaded}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Semi-thick gold divider between 04 and 03 */}
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "clamp(48px, 8vw, 80px) auto clamp(28px, 5vw, 48px)",
+          height: "3px",
+          background: "#C5A455",
+          opacity: 0.85,
+        }}
+      />
+
+      {/* Pass (03) */}
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <div
           className="font-mono"
