@@ -360,7 +360,7 @@ function ReviewBoard() {
         >
           <VideoPlayer
             embedUrl={SHOW_OPEN_EMBED_URL}
-            poster="/great-american-story/show-open-poster.png"
+            poster="/great-american-story/TGAS_Logo_010.png"
           />
         </div>
         <div
