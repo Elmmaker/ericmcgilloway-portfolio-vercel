@@ -201,7 +201,7 @@ export default function Home() {
             delay: 1.1,
           }}
         >
-          Seasoned visual designer across documentary filmmaking, news, social media advertising, and comedy, to name a few. I&apos;ve been lucky to work on some great shows with some great people.
+          Lead motion designer and graphics producer building brand systems and campaign creative for major networks, studios, and entertainment brands. 15+ years across late-night, documentary, news, and franchise marketing, with a track record of leading teams and shipping high-craft work at scale.
         </motion.p>
 
         {/* CTA */}
