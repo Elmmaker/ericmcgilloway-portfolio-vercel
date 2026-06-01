@@ -521,20 +521,20 @@ export default function Home() {
               className="font-serif text-cream text-center signature-tagline"
               style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1.4, marginBottom: "28px" }}
             >
-              I make graphics move for a living.
+              I build motion systems that scale.
             </p>
           </FadeUp>
 
           {/* Body */}
           <FadeUp delay={0.15}>
             <p className="font-sans text-left mx-auto" style={{ fontSize: "clamp(15px, 1.8vw, 18px)", color: "#8A8579", lineHeight: 1.8, marginBottom: "56px", maxWidth: "680px" }}>
-              15+ years designing for broadcast, social, and every screen in
-              between. From 11 seasons on Conan to documentary work on Modern
-              Marvels to entertainment marketing campaigns for major studio
-              releases. I love the
-              work and I&apos;m lucky to do it. I&apos;m easy to work with,
-              organized, and self-motivated. Let&apos;s build something
-              together.
+              15+ years designing and producing brand motion for major
+              networks, studios, and entertainment brands. From 11 seasons
+              leading motion at Conan to managing a creative team at After
+              Midnight to building custom AE tooling for Modern Marvels. I work
+              fluidly across concept development, hands-on craft, and team
+              leadership. Easy to collaborate with, organized, and motivated by
+              interesting problems. Let&apos;s build something together.
             </p>
           </FadeUp>
 
