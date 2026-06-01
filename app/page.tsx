@@ -39,7 +39,7 @@ const PROJECTS = [
     title: "The Pursuit of Dreamers",
     subtitle: "Lockheed Martin / Aerospace Concept",
     role: "Concept, Edit, Score & Interactive 3D",
-    type: "Brand Film",
+    type: "Documentary",
     year: "2025",
     color: "#C5A455",
     image: "/lm/poster.jpg",
