@@ -509,7 +509,7 @@ export default function Home() {
                   Eric McGilloway
                 </div>
                 <div className="font-mono uppercase" style={{ fontSize: "clamp(11px, 1.5vw, 14px)", letterSpacing: "2.4px", color: "#C5A455", marginTop: "8px" }}>
-                  Senior Motion Graphic Designer
+                  Lead Motion Designer &amp; Graphic Producer
                 </div>
               </div>
             </div>
