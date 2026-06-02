@@ -282,10 +282,20 @@ function ReviewBoard() {
             lineHeight: 1.15,
             letterSpacing: "-0.01em",
             margin: "0 auto",
-            maxWidth: "20ch",
           }}
         >
-          The Great American Journey With Kelsey Grammer
+          <span style={{ display: "block", textTransform: "uppercase" }}>
+            The Great American Journey
+          </span>
+          <span
+            style={{
+              display: "block",
+              fontSize: "clamp(19.6px, 3.85vw, 44.8px)",
+              marginTop: "0.15em",
+            }}
+          >
+            With Kelsey Grammer
+          </span>
         </h1>
         <div
           style={{
