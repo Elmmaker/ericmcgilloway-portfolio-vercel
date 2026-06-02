@@ -276,7 +276,7 @@ function ReviewBoard() {
         <h1
           className="font-sans"
           style={{
-            fontSize: "clamp(28px, 5.5vw, 64px)",
+            fontSize: "clamp(18px, 5.5vw, 64px)",
             fontWeight: 700,
             color: "#F0EDE6",
             lineHeight: 1.15,
@@ -285,12 +285,12 @@ function ReviewBoard() {
           }}
         >
           <span style={{ display: "block", textTransform: "uppercase" }}>
-            The Great American&nbsp;Journey
+            The Great American Journey
           </span>
           <span
             style={{
               display: "block",
-              fontSize: "clamp(19.6px, 3.85vw, 44.8px)",
+              fontSize: "clamp(12.6px, 3.85vw, 44.8px)",
               marginTop: "0.15em",
             }}
           >
