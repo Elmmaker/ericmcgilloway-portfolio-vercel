@@ -7,9 +7,6 @@ import VideoPlayer from "../components/VideoPlayer";
 const PASSWORD = "usa250";
 const STORAGE_KEY = "great-american-story-auth";
 
-const SHOW_OPEN_EMBED_URL =
-  "https://framerate.tv/watch/cdc49c65-3b5c-448d-bd0f-3e3453edce2a";
-
 type SlotKey =
   | "slot1" | "slot2" | "slot3" | "slot4"
   | "slot5" | "slot6" | "slot7" | "slot8"
@@ -274,12 +271,26 @@ function ReviewBoard() {
           "clamp(120px, 15vw, 160px) clamp(24px, 6vw, 80px) clamp(60px, 8vw, 100px)",
       }}
     >
-      {/* Header */}
+      {/* Header — show title + small America 250 mark beneath */}
       <div style={{ textAlign: "center", marginBottom: "clamp(48px, 8vw, 80px)" }}>
         <h1
+          className="font-sans"
           style={{
+            fontSize: "clamp(28px, 5.5vw, 64px)",
+            fontWeight: 700,
+            color: "#F0EDE6",
+            lineHeight: 1.15,
+            letterSpacing: "-0.01em",
             margin: "0 auto",
-            width: "clamp(144px, 25.6vw, 256px)",
+            maxWidth: "20ch",
+          }}
+        >
+          The Great American Journey With Kelsey Grammer
+        </h1>
+        <div
+          style={{
+            margin: "clamp(16px, 2.4vw, 24px) auto 0",
+            width: "clamp(43px, 7.68vw, 77px)",
             lineHeight: 0,
           }}
         >
@@ -289,10 +300,10 @@ function ReviewBoard() {
             width={943}
             height={650}
             priority
-            sizes="(max-width: 600px) 25.6vw, 256px"
+            sizes="(max-width: 600px) 7.68vw, 77px"
             style={{ width: "100%", height: "auto", display: "block" }}
           />
-        </h1>
+        </div>
       </div>
 
       {/* Tab toggle: Logos / Graphics */}
@@ -330,95 +341,6 @@ function ReviewBoard() {
 
       {activeTab === "logos" && (
       <>
-      {/* Show opening video — centered, single large box */}
-      <div
-        style={{
-          maxWidth: "1100px",
-          margin: "0 auto clamp(48px, 8vw, 80px)",
-        }}
-      >
-        <div
-          className="font-mono"
-          style={{
-            fontSize: "11px",
-            letterSpacing: "3px",
-            textTransform: "uppercase",
-            color: "#C5A455",
-            marginBottom: "16px",
-          }}
-        >
-          Show Open
-        </div>
-        <div
-          style={{
-            background: "#000",
-            border: "1px solid #C5A455",
-            borderRadius: "2px",
-            overflow: "hidden",
-          }}
-        >
-          <VideoPlayer
-            embedUrl={SHOW_OPEN_EMBED_URL}
-            poster="/great-american-story/TGAS_Logo_08.png"
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "16px",
-            marginTop: "12px",
-            flexWrap: "wrap",
-          }}
-        >
-          <div
-            className="font-mono"
-            style={{
-              fontSize: "11px",
-              letterSpacing: "1.5px",
-              color: "#8A8579",
-            }}
-          >
-            Show Open 25sec v1 WIP w/temp music
-          </div>
-          <a
-            href="/great-american-story/USA250_ShowOpen_WIP_v1_em.mp4"
-            download="USA250_ShowOpen_WIP_v1_em.mp4"
-            className="font-mono"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              padding: "10px 16px",
-              background: "transparent",
-              color: "#C5A455",
-              border: "1px solid #C5A455",
-              borderRadius: "2px",
-              fontSize: "11px",
-              letterSpacing: "2px",
-              textTransform: "uppercase",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#C5A455"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
-            </svg>
-            Download
-          </a>
-        </div>
-      </div>
-
       {/* Newest pass (04) — sits at the very top */}
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <div
