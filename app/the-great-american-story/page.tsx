@@ -7,6 +7,9 @@ import VideoPlayer from "../components/VideoPlayer";
 const PASSWORD = "usa250";
 const STORAGE_KEY = "great-american-story-auth";
 
+const SHOW_OPEN_EMBED_URL =
+  "https://framerate.tv/watch/cdc49c65-3b5c-448d-bd0f-3e3453edce2a";
+
 type SlotKey =
   | "slot1" | "slot2" | "slot3" | "slot4"
   | "slot5" | "slot6" | "slot7" | "slot8"
@@ -46,7 +49,6 @@ const PASS_01_SLOTS: Slot[] = [
   { id: "slot5", label: "Logo 02b",      image: "/great-american-story/TGAS_Logo_02b.png", downloadName: "TGAS_Logo_02b.png" },
   { id: "slot6", label: "Logo 03",       image: "/great-american-story/TGAS_Logo_03.png",  downloadName: "TGAS_Logo_03.png"  },
   { id: "slot7", label: "Logo 05",       image: "/great-american-story/TGAS_Logo_05.png",  downloadName: "TGAS_Logo_05.png"  },
-  { id: "slot8", label: "TGAS 250 - 01", image: "/great-american-story/TGAS_250_01.png",   downloadName: "TGAS_250_01.png"   },
 ];
 
 const ALL_SLOTS: Slot[] = [...PASS_04_SLOTS, ...PASS_03_SLOTS, ...PASS_02_SLOTS, ...PASS_01_SLOTS];
@@ -328,6 +330,95 @@ function ReviewBoard() {
 
       {activeTab === "logos" && (
       <>
+      {/* Show opening video — centered, single large box */}
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto clamp(48px, 8vw, 80px)",
+        }}
+      >
+        <div
+          className="font-mono"
+          style={{
+            fontSize: "11px",
+            letterSpacing: "3px",
+            textTransform: "uppercase",
+            color: "#C5A455",
+            marginBottom: "16px",
+          }}
+        >
+          Show Open
+        </div>
+        <div
+          style={{
+            background: "#000",
+            border: "1px solid #C5A455",
+            borderRadius: "2px",
+            overflow: "hidden",
+          }}
+        >
+          <VideoPlayer
+            embedUrl={SHOW_OPEN_EMBED_URL}
+            poster="/great-american-story/TGAS_Logo_08.png"
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "16px",
+            marginTop: "12px",
+            flexWrap: "wrap",
+          }}
+        >
+          <div
+            className="font-mono"
+            style={{
+              fontSize: "11px",
+              letterSpacing: "1.5px",
+              color: "#8A8579",
+            }}
+          >
+            Show Open 25sec v1 WIP w/temp music
+          </div>
+          <a
+            href="/great-american-story/USA250_ShowOpen_WIP_v1_em.mp4"
+            download="USA250_ShowOpen_WIP_v1_em.mp4"
+            className="font-mono"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "10px 16px",
+              background: "transparent",
+              color: "#C5A455",
+              border: "1px solid #C5A455",
+              borderRadius: "2px",
+              fontSize: "11px",
+              letterSpacing: "2px",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              cursor: "pointer",
+            }}
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#C5A455"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+            </svg>
+            Download
+          </a>
+        </div>
+      </div>
+
       {/* Newest pass (04) — sits at the very top */}
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <div
