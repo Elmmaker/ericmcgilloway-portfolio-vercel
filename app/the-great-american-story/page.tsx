@@ -285,7 +285,7 @@ function ReviewBoard() {
           }}
         >
           <span style={{ display: "block", textTransform: "uppercase" }}>
-            The Great American Journey
+            The Great American&nbsp;Journey
           </span>
           <span
             style={{
