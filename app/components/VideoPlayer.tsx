@@ -69,21 +69,27 @@ function IframePlayer({
     );
   }, []);
 
-  // Poster placeholder shows on every device until tapped. On tap, the iframe
-  // mounts and starts playing immediately. iOS Safari blocks autoplay-with-
-  // sound, so on touch devices we autoplay muted (iOS-safe) — viewers can
-  // unmute via Framerate's own controls. Desktop autoplays with sound.
+  // iOS Safari refuses to autoplay an iframe video even when the parent page
+  // had a user gesture — iOS demands the gesture happen INSIDE the iframe.
+  // Strategy:
+  //   • Touch devices: render the iframe from page load (no autoplay), with
+  //     the poster overlay sitting on top. Visitor taps the poster → overlay
+  //     disappears → visitor taps Framerate's own play button (which IS a
+  //     real in-iframe gesture) → plays with sound.
+  //   • Desktop: keep the lazier flow — iframe mounts on first click with
+  //     autoplay=1, so one click starts the clip with sound.
   const iframeSrc = embedUrl.includes("/embed/")
     ? embedUrl
     : embedUrl.replace("/watch/", "/embed/");
 
-  const params = isTouch ? "autoplay=1&muted=1" : "autoplay=1";
-  const liveSrc = iframeSrc.includes("?")
-    ? `${iframeSrc}&${params}`
-    : `${iframeSrc}?${params}`;
+  const desktopLiveSrc = iframeSrc.includes("?")
+    ? `${iframeSrc}&autoplay=1`
+    : `${iframeSrc}?autoplay=1`;
 
-  // Always require a tap so the poster placeholder shows first (every device).
-  const showIframe = activated;
+  // On touch: iframe always rendered (so it's ready behind the poster).
+  // On desktop: iframe mounts after the visitor clicks the poster.
+  const showIframe = isTouch || activated;
+  const liveSrc = isTouch ? iframeSrc : desktopLiveSrc;
 
   async function goFullscreen(e: React.MouseEvent) {
     e.stopPropagation();
@@ -135,7 +141,7 @@ function IframePlayer({
 
   return (
     <div ref={wrapRef} className="relative w-full" style={{ aspectRatio, background: "#000" }}>
-      {showIframe ? (
+      {showIframe && (
         <iframe
           src={liveSrc}
           className="absolute inset-0 w-full h-full"
@@ -143,13 +149,15 @@ function IframePlayer({
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
         />
-      ) : (
+      )}
+      {!activated && (
         <div
           className="absolute inset-0 cursor-pointer flex items-center justify-center"
           style={{
             background: poster
               ? `#000 url("${poster}") center / cover no-repeat`
               : "#111",
+            zIndex: 4,
           }}
           onClick={() => setActivated(true)}
         >
