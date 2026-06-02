@@ -6,6 +6,7 @@ import Image from "next/image";
 import CursorTrail from "./components/CursorTrail";
 import FadeUp from "./components/FadeUp";
 import Footer from "./components/Footer";
+import GridOverlay from "./components/GridOverlay";
 import PageTransition from "./components/PageTransition";
 
 const PROJECTS = [
@@ -138,6 +139,7 @@ export default function Home() {
 
   return (
     <PageTransition>
+      <GridOverlay />
       <CursorTrail />
 
       {/* ── HERO ── */}

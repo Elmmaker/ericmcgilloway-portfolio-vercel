@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import FadeUp from "../components/FadeUp";
 import Footer from "../components/Footer";
+import GridOverlay from "../components/GridOverlay";
 import PageTransition from "../components/PageTransition";
 
 type KeyArtItem = {
@@ -176,6 +177,7 @@ export default function KeyArtPage() {
 
   return (
     <PageTransition>
+      <GridOverlay />
       <section
         style={{
           paddingTop: "clamp(120px, 15vw, 140px)",
