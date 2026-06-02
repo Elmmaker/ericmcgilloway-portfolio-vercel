@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 interface VideoPlayerProps {
   src?: string;
@@ -12,7 +12,6 @@ interface VideoPlayerProps {
 export default function VideoPlayer({ src, embedUrl, poster, aspectRatio = "16/9" }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
-  const [activated, setActivated] = useState(false);
 
   // For local mp4 videos
   if (src) {
@@ -42,9 +41,9 @@ export default function VideoPlayer({ src, embedUrl, poster, aspectRatio = "16/9
     );
   }
 
-  // For iframe embeds — show placeholder until clicked, then load iframe
+  // For iframe embeds — Framerate's own player handles thumbnail + play button
   if (embedUrl) {
-    return <IframePlayer embedUrl={embedUrl} poster={poster} aspectRatio={aspectRatio} />;
+    return <IframePlayer embedUrl={embedUrl} aspectRatio={aspectRatio} />;
   }
 
   return null;
@@ -52,44 +51,20 @@ export default function VideoPlayer({ src, embedUrl, poster, aspectRatio = "16/9
 
 function IframePlayer({
   embedUrl,
-  poster,
   aspectRatio,
 }: {
   embedUrl: string;
-  poster?: string;
   aspectRatio: string;
 }) {
-  const [activated, setActivated] = useState(false);
-  const [isTouch, setIsTouch] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setIsTouch(
-      !window.matchMedia("(hover: hover) and (pointer: fine)").matches,
-    );
-  }, []);
-
-  // iOS Safari refuses to autoplay an iframe video even when the parent page
-  // had a user gesture — iOS demands the gesture happen INSIDE the iframe.
-  // Strategy:
-  //   • Touch devices: render the iframe from page load (no autoplay), with
-  //     the poster overlay sitting on top. Visitor taps the poster → overlay
-  //     disappears → visitor taps Framerate's own play button (which IS a
-  //     real in-iframe gesture) → plays with sound.
-  //   • Desktop: keep the lazier flow — iframe mounts on first click with
-  //     autoplay=1, so one click starts the clip with sound.
+  // Framerate's own player renders directly — its native play button is the
+  // only play affordance. One tap (mobile or desktop) starts the clip with
+  // sound, since the tap happens inside the iframe (which is what iOS
+  // demands). No parent-side poster overlay means no fake-out double-button.
   const iframeSrc = embedUrl.includes("/embed/")
     ? embedUrl
     : embedUrl.replace("/watch/", "/embed/");
-
-  const desktopLiveSrc = iframeSrc.includes("?")
-    ? `${iframeSrc}&autoplay=1`
-    : `${iframeSrc}?autoplay=1`;
-
-  // On touch: iframe always rendered (so it's ready behind the poster).
-  // On desktop: iframe mounts after the visitor clicks the poster.
-  const showIframe = isTouch || activated;
-  const liveSrc = isTouch ? iframeSrc : desktopLiveSrc;
 
   async function goFullscreen(e: React.MouseEvent) {
     e.stopPropagation();
@@ -104,9 +79,6 @@ function IframePlayer({
         }).webkitExitFullscreen?.();
       return;
     }
-
-    // Activate the player if it isn't already so the iframe exists
-    if (!activated) setActivated(true);
 
     type FSEl = HTMLElement & {
       webkitRequestFullscreen?: () => Promise<void>;
@@ -141,29 +113,13 @@ function IframePlayer({
 
   return (
     <div ref={wrapRef} className="relative w-full" style={{ aspectRatio, background: "#000" }}>
-      {showIframe && (
-        <iframe
-          src={liveSrc}
-          className="absolute inset-0 w-full h-full"
-          style={{ border: "none" }}
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowFullScreen
-        />
-      )}
-      {!activated && (
-        <div
-          className="absolute inset-0 cursor-pointer flex items-center justify-center"
-          style={{
-            background: poster
-              ? `#000 url("${poster}") center / cover no-repeat`
-              : "#111",
-            zIndex: 4,
-          }}
-          onClick={() => setActivated(true)}
-        >
-          <PlayButton />
-        </div>
-      )}
+      <iframe
+        src={iframeSrc}
+        className="absolute inset-0 w-full h-full"
+        style={{ border: "none" }}
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowFullScreen
+      />
 
       {/* Fullscreen icon — hidden on mobile (iOS blocks iframe fullscreen
           anyway, and the icon would cover Framerate's audio/fullscreen
