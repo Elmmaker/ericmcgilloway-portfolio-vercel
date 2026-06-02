@@ -60,11 +60,6 @@ function IframePlayer({
   aspectRatio: string;
 }) {
   const [activated, setActivated] = useState(false);
-  // The poster placeholder shows on ALL devices until the visitor taps it —
-  // that's what makes the custom thumbnail visible on mobile too. On tap we
-  // mount the iframe with autoplay. iOS Safari blocks autoplay-with-sound, so
-  // on touch devices we autoplay MUTED (which iOS allows); desktop autoplays
-  // with sound. Visitors can unmute via the player's own controls.
   const [isTouch, setIsTouch] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
@@ -74,6 +69,10 @@ function IframePlayer({
     );
   }, []);
 
+  // Poster placeholder shows on every device until tapped. On tap, the iframe
+  // mounts and starts playing immediately. iOS Safari blocks autoplay-with-
+  // sound, so on touch devices we autoplay muted (iOS-safe) — viewers can
+  // unmute via Framerate's own controls. Desktop autoplays with sound.
   const iframeSrc = embedUrl.includes("/embed/")
     ? embedUrl
     : embedUrl.replace("/watch/", "/embed/");
