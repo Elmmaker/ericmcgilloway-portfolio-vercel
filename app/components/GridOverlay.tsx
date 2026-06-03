@@ -15,7 +15,7 @@ export default function GridOverlay() {
         pointerEvents: "none",
         zIndex: 0,
         backgroundImage:
-          "linear-gradient(to right, rgba(240, 237, 230, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(240, 237, 230, 0.05) 1px, transparent 1px)",
+          "linear-gradient(to right, rgba(240, 237, 230, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(240, 237, 230, 0.03) 1px, transparent 1px)",
         backgroundSize: "24px 24px",
       }}
     />
