@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
-import CursorTrail from "./components/CursorTrail";
 import FadeUp from "./components/FadeUp";
 import Footer from "./components/Footer";
 import GridOverlay from "./components/GridOverlay";
@@ -140,7 +139,6 @@ export default function Home() {
   return (
     <PageTransition>
       <GridOverlay />
-      <CursorTrail />
 
       {/* ── HERO ── */}
       <section
