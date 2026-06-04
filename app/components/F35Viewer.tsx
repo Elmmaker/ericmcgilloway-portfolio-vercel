@@ -527,9 +527,11 @@ function F35Model({
         />
       )}
 
-      {/* Hide all callouts while a panel is open — keeps them from overlapping
-          the info text and from cluttering the focused-on view. */}
-      {!focusedKey && CALLOUTS.map((c) => {
+      {/* All callouts stay visible — including when one is focused — so the
+          visitor can switch between parts with a single click instead of
+          having to dismiss the open panel first. The active callout styles
+          itself differently via the `active` prop. */}
+      {CALLOUTS.map((c) => {
         const pos = partPositions[c.key];
         if (!pos) return null;
         const isActive = focusedKey === c.key;
