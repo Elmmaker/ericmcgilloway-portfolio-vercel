@@ -9,8 +9,8 @@ import VideoPlayer from "../components/VideoPlayer";
 
 const REELS = [
   {
-    label: "Primary Reel",
-    title: "Motion Design Reel 2026",
+    label: "Primary",
+    title: "Motion Design 2026",
     desc: "Broadcast graphics, title sequences, documentary maps, entertainment marketing campaigns, and everything in between.",
     embedUrl: "https://framerate.tv/watch/e6afa38e-3145-439f-ae2f-dde6fe8c27a1",
     poster: "/thumbnails/em_reel_2026_thumbnail.png",
