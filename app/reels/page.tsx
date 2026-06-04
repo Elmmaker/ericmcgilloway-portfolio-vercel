@@ -4,6 +4,7 @@ import FadeUp from "../components/FadeUp";
 import Footer from "../components/Footer";
 import GridOverlay from "../components/GridOverlay";
 import PageTransition from "../components/PageTransition";
+import SheenDivider from "../components/SheenDivider";
 import VideoPlayer from "../components/VideoPlayer";
 
 const REELS = [
@@ -87,6 +88,29 @@ export default function ReelsPage() {
             </div>
           </FadeUp>
         ))}
+
+        <SheenDivider delay={0} />
+
+        {/* Nat Geo Kids — The Wonderlist: Clouds */}
+        <FadeUp delay={0.15}>
+          <div>
+            <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
+              Nat Geo Kids
+            </div>
+            <div
+              className="font-serif font-bold text-cream mb-3"
+              style={{ fontSize: "clamp(22px, 4vw, 48px)" }}
+            >
+              The Wonderlist: Clouds
+            </div>
+
+            <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
+              <VideoPlayer embedUrl="https://framerate.tv/watch/5191eb19-7d5b-4815-b698-f500e74af8a4" />
+            </div>
+          </div>
+        </FadeUp>
+
+        <SheenDivider delay={3.5} />
 
         {/* Hearts of Heroes */}
         <FadeUp delay={0.15}>
