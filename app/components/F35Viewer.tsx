@@ -14,7 +14,7 @@ import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 
-const MODEL_PATH = "/models/f35_v5.glb";
+const MODEL_PATH = "/models/f35_v8.glb";
 
 type CalloutKey =
   | "cockpit"
