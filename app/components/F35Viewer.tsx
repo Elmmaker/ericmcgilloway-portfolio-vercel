@@ -59,7 +59,7 @@ const CALLOUTS: Callout[] = [
     label: "Wing Left",
     heading: "Video Editing",
     description:
-      "Expert-level video editing across broadcast, social, and marketing. From nightly late-night delivery to major studio theatrical campaigns, I cut content that performs.",
+      "Video editing experience across broadcast, syndication, and social media advertising. From nightly late-night delivery to major studio theatrical campaigns, I cut content that performs.",
   },
   {
     key: "wingRight",
