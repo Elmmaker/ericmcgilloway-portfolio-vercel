@@ -8,9 +8,9 @@ import { useContact } from "./ContactContext";
 
 const links = [
   { href: "/reels", label: "Reels" },
+  { href: "/lm", label: "Lockheed Martin Study" },
   { href: "/key-art", label: "Key Art" },
   { href: "/after-hours", label: "After Hours" },
-  { href: "/lm", label: "Lockheed Martin Study" },
   { href: "/#about", label: "About" },
 ];
 
