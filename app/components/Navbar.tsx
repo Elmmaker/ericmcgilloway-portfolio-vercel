@@ -10,6 +10,7 @@ const links = [
   { href: "/reels", label: "Reels" },
   { href: "/key-art", label: "Key Art" },
   { href: "/after-hours", label: "After Hours" },
+  { href: "/lm", label: "Lockheed Martin Study" },
   { href: "/#about", label: "About" },
 ];
 

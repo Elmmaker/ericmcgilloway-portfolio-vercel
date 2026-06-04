@@ -22,6 +22,28 @@ export default function LMPage() {
       }}
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        {/* 3D model block */}
+        <SectionLabel>F-35 · Interactive 3D Model Call-outs</SectionLabel>
+        <F35Viewer />
+
+        {/* Description */}
+        <div
+          className="font-sans"
+          style={{
+            fontSize: "16px",
+            color: "#8A8579",
+            textAlign: "center",
+            marginTop: "16px",
+            lineHeight: 1.6,
+          }}
+        >
+          Interactive 3D model built in Spline. Drag to rotate, scroll to zoom,
+          click any callout to explore.
+        </div>
+
+        {/* Gold sheen divider between 3D and trailer */}
+        <SheenDivider delay={0} />
+
         {/* Video block */}
         <SectionLabel>Aerospace Trailer</SectionLabel>
         <div
@@ -58,29 +80,7 @@ export default function LMPage() {
           Duration: 1:48
         </div>
 
-        {/* Gold sheen divider above 3D section */}
-        <SheenDivider delay={0} />
-
-        {/* 3D model block */}
-        <SectionLabel>F-35 · Interactive 3D Model Call-outs</SectionLabel>
-        <F35Viewer />
-
-        {/* Description */}
-        <div
-          className="font-sans"
-          style={{
-            fontSize: "16px",
-            color: "#8A8579",
-            textAlign: "center",
-            marginTop: "16px",
-            lineHeight: 1.6,
-          }}
-        >
-          Interactive 3D model built in Spline. Drag to rotate, scroll to zoom,
-          click any callout to explore.
-        </div>
-
-        {/* Gold sheen divider below 3D section — offset so the two never sweep together */}
+        {/* Gold sheen divider below trailer — offset so the two never sweep together */}
         <SheenDivider delay={3.5} />
       </div>
 
