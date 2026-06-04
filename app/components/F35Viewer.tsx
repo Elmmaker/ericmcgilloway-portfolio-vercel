@@ -322,6 +322,7 @@ function Loader() {
             letterSpacing: 2,
             textTransform: "uppercase",
             color: GOLD,
+            textAlign: "center",
           }}
         >
           Loading {progress.toFixed(0)}%
