@@ -13,7 +13,8 @@ type SlotKey =
   | "slot9" | "slot10"
   | "slot11" | "slot12" | "slot13" | "slot14" | "slot15"
   | "slot16" | "slot17"
-  | "slot18" | "slot19" | "slot20" | "slot21" | "slot22";
+  | "slot18" | "slot19" | "slot20" | "slot21" | "slot22"
+  | "slot23";
 type SlotData = { rating: number; notes: string };
 type Reviews = Record<SlotKey, SlotData>;
 type Slot = {
@@ -75,6 +76,14 @@ const WILDCARDS_SLOTS: Slot[] = [
     downloadName: "TGAJ_Pass05_Colin.jpg",
     description:
       "Direction 02 · Silver / gold dimensional type · contained RWB accents · tri-color flourish beneath. Silver / gold type holds readability. RWB contained to small color accents.",
+  },
+  {
+    id: "slot23",
+    label: "Western · 3-Line · 3D",
+    image: "/great-american-story/TGAJ_Wildcard_Western_3D.jpg",
+    downloadName: "TGAJ_Wildcard_Western_3D.jpg",
+    description:
+      "Western feel · bold serif type with gold outline treatment · saloon-era flair.",
   },
 ];
 
@@ -495,63 +504,6 @@ function ReviewBoard() {
               loaded={loaded}
             />
           ))}
-          {/* Placeholder for the upcoming wildcard render */}
-          <div>
-            <div
-              className="font-mono"
-              style={{
-                fontSize: "11px",
-                letterSpacing: "3px",
-                textTransform: "uppercase",
-                color: "#C5A455",
-                marginBottom: "16px",
-                opacity: 0.5,
-              }}
-            >
-              Awaiting next render
-            </div>
-            <div
-              className="font-sans"
-              style={{
-                fontSize: "13px",
-                lineHeight: 1.55,
-                color: "#8A8579",
-                fontStyle: "italic",
-                marginTop: "-8px",
-                marginBottom: "16px",
-                maxWidth: "560px",
-                minHeight: "5em",
-                opacity: 0.6,
-              }}
-            >
-              Coming soon — another wildcard treatment in progress.
-            </div>
-            <div
-              style={{
-                position: "relative",
-                aspectRatio: "16 / 9",
-                background: "#0D0C0A",
-                border: "1px dashed #C5A455",
-                borderRadius: "2px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                opacity: 0.55,
-              }}
-            >
-              <div
-                className="font-mono"
-                style={{
-                  fontSize: "10px",
-                  letterSpacing: "3px",
-                  textTransform: "uppercase",
-                  color: "#C5A455",
-                }}
-              >
-                Placeholder
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       </>
