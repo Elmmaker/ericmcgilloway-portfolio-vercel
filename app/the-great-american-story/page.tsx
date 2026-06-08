@@ -62,6 +62,12 @@ const PASS_05_SLOTS: Slot[] = [
     downloadName: "TGAJ_Pass05_JoelDavid_alt.jpg",
     description: "Direction 01 · 4-line lockup, alternate treatment.",
   },
+];
+
+// WILDCARDS — outside the main pass numbering, for one-off concepts.
+// Lives in its own section at the bottom of the Logos tab. The second
+// slot is a placeholder until Eric drops the next render.
+const WILDCARDS_SLOTS: Slot[] = [
   {
     id: "slot21",
     label: "3-Line Hero · 3D",
@@ -104,6 +110,7 @@ const PASS_01_SLOTS: Slot[] = [
 
 const ALL_SLOTS: Slot[] = [
   ...PASS_05_SLOTS,
+  ...WILDCARDS_SLOTS,
   ...PASS_04_SLOTS,
   ...PASS_03_SLOTS,
   ...PASS_02_SLOTS,
@@ -449,6 +456,102 @@ function ReviewBoard() {
               loaded={loaded}
             />
           ))}
+        </div>
+      </div>
+
+      {/* WILDCARDS — separate section at the bottom of the Logos tab,
+          outside the main pass numbering. Second slot is a placeholder
+          card until Eric drops the next render. */}
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "clamp(64px, 10vw, 120px) auto 0",
+        }}
+      >
+        <div
+          className="font-mono"
+          style={{
+            fontSize: "13px",
+            letterSpacing: "4px",
+            textTransform: "uppercase",
+            color: "#C5A455",
+            textAlign: "center",
+            marginBottom: "clamp(28px, 4vw, 40px)",
+          }}
+        >
+          Wildcards
+        </div>
+        <div className="gas-grid">
+          {WILDCARDS_SLOTS.map((slot) => (
+            <SlotCard
+              key={slot.id}
+              slot={slot}
+              data={reviews[slot.id]}
+              onChange={(patch) => updateSlot(slot.id, patch)}
+              onSave={() => save(slot.id)}
+              onZoom={() => setZoomedSlot(slot.id)}
+              saving={savingSlot === slot.id}
+              saved={savedSlot === slot.id}
+              loaded={loaded}
+            />
+          ))}
+          {/* Placeholder for the upcoming wildcard render */}
+          <div>
+            <div
+              className="font-mono"
+              style={{
+                fontSize: "11px",
+                letterSpacing: "3px",
+                textTransform: "uppercase",
+                color: "#C5A455",
+                marginBottom: "16px",
+                opacity: 0.5,
+              }}
+            >
+              Awaiting next render
+            </div>
+            <div
+              className="font-sans"
+              style={{
+                fontSize: "13px",
+                lineHeight: 1.55,
+                color: "#8A8579",
+                fontStyle: "italic",
+                marginTop: "-8px",
+                marginBottom: "16px",
+                maxWidth: "560px",
+                minHeight: "5em",
+                opacity: 0.6,
+              }}
+            >
+              Coming soon — another wildcard treatment in progress.
+            </div>
+            <div
+              style={{
+                position: "relative",
+                aspectRatio: "16 / 9",
+                background: "#0D0C0A",
+                border: "1px dashed #C5A455",
+                borderRadius: "2px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                opacity: 0.55,
+              }}
+            >
+              <div
+                className="font-mono"
+                style={{
+                  fontSize: "10px",
+                  letterSpacing: "3px",
+                  textTransform: "uppercase",
+                  color: "#C5A455",
+                }}
+              >
+                Placeholder
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       </>
