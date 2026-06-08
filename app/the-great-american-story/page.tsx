@@ -32,6 +32,14 @@ type Slot = {
 // specific notes from the prior round.
 const PASS_05_SLOTS: Slot[] = [
   {
+    id: "slot22",
+    label: "Bryan · 4-Line Diamond Badge · 3D",
+    image: "/great-american-story/TGAJ_Pass05_Bryan_3D.jpg",
+    downloadName: "TGAJ_Pass05_Bryan_3D.jpg",
+    description:
+      "Direction 03 · Diamond badge preserved · pen-and-ink script 'The' · 3D dimensional type · fleuron beneath talent line. 4-line badge structure retained. 3D dimensionality and pen-and-ink flair added.",
+  },
+  {
     id: "slot18",
     label: "Joel + David · 4-Line · 3D",
     image: "/great-american-story/TGAJ_Pass05_JoelDavid.jpg",
@@ -56,19 +64,11 @@ const PASS_05_SLOTS: Slot[] = [
   },
   {
     id: "slot21",
-    label: "Colin · 3-Line Hero · 3D",
+    label: "3-Line Hero · 3D",
     image: "/great-american-story/TGAJ_Pass05_Colin.jpg",
     downloadName: "TGAJ_Pass05_Colin.jpg",
     description:
       "Direction 02 · Silver / gold dimensional type · contained RWB accents · tri-color flourish beneath. Silver / gold type holds readability. RWB contained to small color accents.",
-  },
-  {
-    id: "slot22",
-    label: "Bryan · 4-Line Diamond Badge · 3D",
-    image: "/great-american-story/TGAJ_Pass05_Bryan_3D.jpg",
-    downloadName: "TGAJ_Pass05_Bryan_3D.jpg",
-    description:
-      "Direction 03 · Diamond badge preserved · pen-and-ink script 'The' · 3D dimensional type · fleuron beneath talent line. 4-line badge structure retained. 3D dimensionality and pen-and-ink flair added.",
   },
 ];
 
