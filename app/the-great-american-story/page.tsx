@@ -12,12 +12,66 @@ type SlotKey =
   | "slot5" | "slot6" | "slot7" | "slot8"
   | "slot9" | "slot10"
   | "slot11" | "slot12" | "slot13" | "slot14" | "slot15"
-  | "slot16" | "slot17";
+  | "slot16" | "slot17"
+  | "slot18" | "slot19" | "slot20" | "slot21" | "slot22";
 type SlotData = { rating: number; notes: string };
 type Reviews = Record<SlotKey, SlotData>;
-type Slot = { id: SlotKey; label: string; image: string; downloadName: string };
+type Slot = {
+  id: SlotKey;
+  label: string;
+  image: string;
+  downloadName: string;
+  // Optional flavor copy from the design deck — surfaced under the label
+  // as a small italic note (used for Pass 05 direction descriptions).
+  description?: string;
+};
 
 // Newest pass (03) — shown at the very top
+// PASS 05 — Stakeholder Refinements (Pass 04 in the design deck's numbering,
+// Pass 05 on the site after Pass 04 already shipped). Each direction maps to
+// specific notes from the prior round.
+const PASS_05_SLOTS: Slot[] = [
+  {
+    id: "slot18",
+    label: "Joel + David · 4-Line",
+    image: "/great-american-story/TGAJ_Pass05_JoelDavid.jpg",
+    downloadName: "TGAJ_Pass05_JoelDavid.jpg",
+    description:
+      "Direction 01 · 4-line lockup with script 'The'. Pen-and-ink script 'The' repositioned above 'Great'. Flair injected throughout. Zero stars.",
+  },
+  {
+    id: "slot19",
+    label: "Joel + David · 4-Line · 3D",
+    image: "/great-american-story/TGAJ_Pass05_JoelDavid_3D.jpg",
+    downloadName: "TGAJ_Pass05_JoelDavid_3D.jpg",
+    description:
+      "Direction 01 · Pen-and-ink script 'The' · 3D dimensional type · RWB rules · fleuron beneath 'with Kelsey Grammer'.",
+  },
+  {
+    id: "slot20",
+    label: "Joel · David · 4-Line variant",
+    image: "/great-american-story/TGAJ_Pass05_JoelDavid_alt.jpg",
+    downloadName: "TGAJ_Pass05_JoelDavid_alt.jpg",
+    description: "Direction 01 · 4-line lockup, alternate treatment.",
+  },
+  {
+    id: "slot21",
+    label: "Colin · 3-Line Hero",
+    image: "/great-american-story/TGAJ_Pass05_Colin.jpg",
+    downloadName: "TGAJ_Pass05_Colin.jpg",
+    description:
+      "Direction 02 · Silver / gold dimensional type · contained RWB accents · tri-color flourish beneath. Silver / gold type holds readability. RWB contained to small color accents.",
+  },
+  {
+    id: "slot22",
+    label: "Bryan · Diamond Badge · 3D",
+    image: "/great-american-story/TGAJ_Pass05_Bryan_3D.jpg",
+    downloadName: "TGAJ_Pass05_Bryan_3D.jpg",
+    description:
+      "Direction 03 · Diamond badge preserved · pen-and-ink script 'The' · 3D dimensional type · fleuron beneath talent line. 4-line badge structure retained. 3D dimensionality and pen-and-ink flair added.",
+  },
+];
+
 const PASS_04_SLOTS: Slot[] = [
   { id: "slot16", label: "Logo 10",         image: "/great-american-story/TGAS_Logo_010.png",        downloadName: "TGAS_Logo_010.png" },
   { id: "slot17", label: "3-Line Logos 02", image: "/great-american-story/TGAS_3Line_Logos_02.png",  downloadName: "TGAS_3Line_Logos_02.png" },
@@ -48,7 +102,13 @@ const PASS_01_SLOTS: Slot[] = [
   { id: "slot7", label: "Logo 05",       image: "/great-american-story/TGAS_Logo_05.png",  downloadName: "TGAS_Logo_05.png"  },
 ];
 
-const ALL_SLOTS: Slot[] = [...PASS_04_SLOTS, ...PASS_03_SLOTS, ...PASS_02_SLOTS, ...PASS_01_SLOTS];
+const ALL_SLOTS: Slot[] = [
+  ...PASS_05_SLOTS,
+  ...PASS_04_SLOTS,
+  ...PASS_03_SLOTS,
+  ...PASS_02_SLOTS,
+  ...PASS_01_SLOTS,
+];
 
 // Graphics tab — broadcast deliverables, mostly Framerate video embeds.
 // Drop embedUrls (and optional posters) into each section's `videos` array
@@ -209,7 +269,9 @@ function ReviewBoard() {
   const [savingSlot, setSavingSlot] = useState<SlotKey | null>(null);
   const [savedSlot, setSavedSlot] = useState<SlotKey | null>(null);
   const [zoomedSlot, setZoomedSlot] = useState<SlotKey | null>(null);
-  const [activeTab, setActiveTab] = useState<"logos" | "graphics">("logos");
+  const [activeTab, setActiveTab] = useState<
+    "logos" | "archive" | "graphics"
+  >("logos");
 
   useEffect(() => {
     fetch("/api/great-american-story")
@@ -316,16 +378,17 @@ function ReviewBoard() {
         </div>
       </div>
 
-      {/* Tab toggle: Logos / Graphics */}
+      {/* Tab toggle: Logos / Logo Archive / Graphics */}
       <div
         style={{
           display: "flex",
           justifyContent: "center",
           gap: "8px",
           marginBottom: "clamp(40px, 6vw, 64px)",
+          flexWrap: "wrap",
         }}
       >
-        {(["logos", "graphics"] as const).map((tab) => (
+        {(["logos", "archive", "graphics"] as const).map((tab) => (
           <button
             key={tab}
             type="button"
@@ -344,13 +407,107 @@ function ReviewBoard() {
               transition: "background 0.2s ease, color 0.2s ease",
             }}
           >
-            {tab === "logos" ? "Logos" : "Graphics"}
+            {tab === "logos"
+              ? "Logos"
+              : tab === "archive"
+                ? "Logo Archive"
+                : "Graphics"}
           </button>
         ))}
       </div>
 
       {activeTab === "logos" && (
       <>
+      {/* PASS 05 — Stakeholder Refinements (the only pass shown on the
+          main Logos tab; earlier passes 04-01 live on the Logo Archive
+          tab so reviewers focus on the current round.) */}
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        <div
+          className="font-mono"
+          style={{
+            fontSize: "13px",
+            letterSpacing: "4px",
+            textTransform: "uppercase",
+            color: "#C5A455",
+            textAlign: "center",
+            marginBottom: "12px",
+          }}
+        >
+          05 Logo Pass · Stakeholder Refinements
+        </div>
+        <div
+          className="font-sans"
+          style={{
+            fontSize: "14px",
+            lineHeight: 1.6,
+            color: "#8A8579",
+            fontStyle: "italic",
+            textAlign: "center",
+            marginBottom: "clamp(28px, 4vw, 40px)",
+            maxWidth: "640px",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          Convergence over expansion · each direction maps to specific
+          notes from Pass 03.
+        </div>
+        <div className="gas-grid">
+          {PASS_05_SLOTS.map((slot) => (
+            <SlotCard
+              key={slot.id}
+              slot={slot}
+              data={reviews[slot.id]}
+              onChange={(patch) => updateSlot(slot.id, patch)}
+              onSave={() => save(slot.id)}
+              onZoom={() => setZoomedSlot(slot.id)}
+              saving={savingSlot === slot.id}
+              saved={savedSlot === slot.id}
+              loaded={loaded}
+            />
+          ))}
+        </div>
+      </div>
+      </>
+      )}
+
+      {activeTab === "archive" && (
+      <>
+      {/* Logo Pass Archive — earlier rounds preserved for reference */}
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto clamp(40px, 6vw, 64px)",
+          textAlign: "center",
+        }}
+      >
+        <div
+          className="font-mono"
+          style={{
+            fontSize: "13px",
+            letterSpacing: "4px",
+            textTransform: "uppercase",
+            color: "#C5A455",
+            marginBottom: "12px",
+          }}
+        >
+          Logo Pass Archive
+        </div>
+        <div
+          className="font-sans"
+          style={{
+            fontSize: "14px",
+            lineHeight: 1.6,
+            color: "#8A8579",
+            fontStyle: "italic",
+            maxWidth: "560px",
+            margin: "0 auto",
+          }}
+        >
+          Earlier rounds for reference, newest first.
+        </div>
+      </div>
+
       {/* Newest pass (04) — sits at the very top */}
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <div
@@ -687,7 +844,13 @@ function SlotCard({
   saved,
   loaded,
 }: {
-  slot: { id: SlotKey; label: string; image: string; downloadName: string };
+  slot: {
+    id: SlotKey;
+    label: string;
+    image: string;
+    downloadName: string;
+    description?: string;
+  };
   data: SlotData;
   onChange: (patch: Partial<SlotData>) => void;
   onSave: () => void;
@@ -712,6 +875,24 @@ function SlotCard({
       >
         {slot.label}
       </div>
+
+      {/* Optional description (Pass 05 direction notes from the deck) */}
+      {slot.description && (
+        <div
+          className="font-sans"
+          style={{
+            fontSize: "13px",
+            lineHeight: 1.55,
+            color: "#8A8579",
+            fontStyle: "italic",
+            marginTop: "-8px",
+            marginBottom: "16px",
+            maxWidth: "560px",
+          }}
+        >
+          {slot.description}
+        </div>
+      )}
 
       {/* Logo image */}
       <div
