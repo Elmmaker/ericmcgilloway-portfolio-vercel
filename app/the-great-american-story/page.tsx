@@ -33,7 +33,7 @@ type Slot = {
 const PASS_05_SLOTS: Slot[] = [
   {
     id: "slot18",
-    label: "Joel + David · 4-Line",
+    label: "Joel + David · 4-Line · 3D",
     image: "/great-american-story/TGAJ_Pass05_JoelDavid.jpg",
     downloadName: "TGAJ_Pass05_JoelDavid.jpg",
     description:
@@ -56,7 +56,7 @@ const PASS_05_SLOTS: Slot[] = [
   },
   {
     id: "slot21",
-    label: "Colin · 3-Line Hero",
+    label: "Colin · 3-Line Hero · 3D",
     image: "/great-american-story/TGAJ_Pass05_Colin.jpg",
     downloadName: "TGAJ_Pass05_Colin.jpg",
     description:
@@ -64,7 +64,7 @@ const PASS_05_SLOTS: Slot[] = [
   },
   {
     id: "slot22",
-    label: "Bryan · Diamond Badge · 3D",
+    label: "Bryan · 4-Line Diamond Badge · 3D",
     image: "/great-american-story/TGAJ_Pass05_Bryan_3D.jpg",
     downloadName: "TGAJ_Pass05_Bryan_3D.jpg",
     description:
@@ -430,27 +430,10 @@ function ReviewBoard() {
             textTransform: "uppercase",
             color: "#C5A455",
             textAlign: "center",
-            marginBottom: "12px",
-          }}
-        >
-          05 Logo Pass · Stakeholder Refinements
-        </div>
-        <div
-          className="font-sans"
-          style={{
-            fontSize: "14px",
-            lineHeight: 1.6,
-            color: "#8A8579",
-            fontStyle: "italic",
-            textAlign: "center",
             marginBottom: "clamp(28px, 4vw, 40px)",
-            maxWidth: "640px",
-            marginLeft: "auto",
-            marginRight: "auto",
           }}
         >
-          Convergence over expansion · each direction maps to specific
-          notes from Pass 03.
+          05 Logo Pass
         </div>
         <div className="gas-grid">
           {PASS_05_SLOTS.map((slot) => (
@@ -876,7 +859,9 @@ function SlotCard({
         {slot.label}
       </div>
 
-      {/* Optional description (Pass 05 direction notes from the deck) */}
+      {/* Optional description (Pass 05 direction notes from the deck) —
+          reserves a min-height so cards in the same row visually align
+          even when the descriptions are different lengths. */}
       {slot.description && (
         <div
           className="font-sans"
@@ -888,6 +873,7 @@ function SlotCard({
             marginTop: "-8px",
             marginBottom: "16px",
             maxWidth: "560px",
+            minHeight: "5em",
           }}
         >
           {slot.description}
@@ -971,12 +957,6 @@ function SlotCard({
           </svg>
         </button>
       </div>
-
-      {/* Stars */}
-      <StarRating
-        value={data.rating}
-        onChange={(rating) => onChange({ rating })}
-      />
 
       {/* Notes */}
       <textarea
