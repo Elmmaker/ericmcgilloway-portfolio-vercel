@@ -604,9 +604,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FROM THE ROOM — Selected testimonials from collaborators ── */}
+      {/* ── KUDOS — Selected testimonials from collaborators ── */}
       <section
-        id="from-the-room"
+        id="kudos"
         style={{
           position: "relative",
           zIndex: 3,
@@ -625,7 +625,7 @@ export default function Home() {
               className="font-mono text-[11px] tracking-[4px] uppercase text-gold"
               style={{ marginBottom: "12px", textAlign: "center" }}
             >
-              03 / Voices
+              03 / Kudos
             </div>
           </FadeUp>
           <FadeUp delay={0.05}>
@@ -637,7 +637,7 @@ export default function Home() {
                 marginBottom: "16px",
               }}
             >
-              From the Room
+              Kudos
             </h2>
           </FadeUp>
           <FadeUp delay={0.1}>
@@ -651,6 +651,7 @@ export default function Home() {
                 maxWidth: "640px",
                 margin: "0 auto clamp(40px, 6vw, 64px)",
                 fontStyle: "italic",
+                textWrap: "pretty",
               }}
             >
               Selected comments from collaborators across late night,
@@ -725,6 +726,7 @@ export default function Home() {
                       fontStyle: "italic",
                       flexGrow: 1,
                       margin: "0 0 24px",
+                      textWrap: "pretty",
                     }}
                   >
                     &ldquo;{t.quote}&rdquo;
@@ -735,6 +737,7 @@ export default function Home() {
                       style={{
                         fontSize: "17px",
                         marginBottom: "4px",
+                        textWrap: "pretty",
                       }}
                     >
                       {t.name}
@@ -746,9 +749,10 @@ export default function Home() {
                         letterSpacing: "1.6px",
                         color: "#C5A455",
                         lineHeight: 1.5,
+                        textWrap: "balance",
                       }}
                     >
-                      {t.role}
+                      {t.role.replace(/ · /g, " · ")}
                     </div>
                   </figcaption>
                 </figure>

@@ -12,6 +12,7 @@ const links = [
   { href: "/key-art", label: "Key Art" },
   { href: "/after-hours", label: "After Hours" },
   { href: "/#about", label: "About" },
+  { href: "/#kudos", label: "Kudos" },
 ];
 
 export default function Navbar() {
