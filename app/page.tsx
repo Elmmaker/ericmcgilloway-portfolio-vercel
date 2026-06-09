@@ -604,6 +604,160 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── FROM THE ROOM — Selected testimonials from collaborators ── */}
+      <section
+        id="from-the-room"
+        style={{
+          position: "relative",
+          zIndex: 3,
+          background: "rgba(13, 12, 10, 0.90)",
+          backdropFilter: "blur(6px)",
+          paddingTop: "clamp(60px, 12vw, 120px)",
+          paddingBottom: "clamp(60px, 12vw, 120px)",
+          paddingLeft: "clamp(20px, 6vw, 80px)",
+          paddingRight: "clamp(20px, 6vw, 80px)",
+          borderTop: "1px solid #1E1D1A",
+        }}
+      >
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <FadeUp>
+            <div
+              className="font-mono text-[11px] tracking-[4px] uppercase text-gold"
+              style={{ marginBottom: "12px", textAlign: "center" }}
+            >
+              03 / Voices
+            </div>
+          </FadeUp>
+          <FadeUp delay={0.05}>
+            <h2
+              className="font-serif font-bold text-cream"
+              style={{
+                fontSize: "clamp(28px, 5vw, 56px)",
+                textAlign: "center",
+                marginBottom: "16px",
+              }}
+            >
+              From the Room
+            </h2>
+          </FadeUp>
+          <FadeUp delay={0.1}>
+            <p
+              className="font-sans"
+              style={{
+                fontSize: "clamp(14px, 1.5vw, 17px)",
+                color: "#8A8579",
+                lineHeight: 1.6,
+                textAlign: "center",
+                maxWidth: "640px",
+                margin: "0 auto clamp(40px, 6vw, 64px)",
+                fontStyle: "italic",
+              }}
+            >
+              Selected comments from collaborators across late night,
+              streaming, design, and broadcast.
+            </p>
+          </FadeUp>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "clamp(24px, 3vw, 36px)",
+            }}
+          >
+            {[
+              {
+                name: "Rob Gage",
+                role: "Director, Post-Production Engineering · Netflix",
+                quote:
+                  "I recommend Eric without hesitation. He brings the same passion to his motion graphics that he brings to Eagles Sundays — and thankfully, none of the energy he brings to golf, where par is a rumor he's heard about but never met.",
+              },
+              {
+                name: "Robert Smigel",
+                role: "Comedian, Writer, Director, Producer · Night Of Too Many Stars",
+                quote:
+                  "Eric is not only extremely talented, intuitive, and fast, but he often comes up with something funnier than I'd even imagined. And on the rare occasion that I have a note, he's only interested in getting it right and keeping at it until we're all happy.",
+              },
+              {
+                name: "Alison Childs",
+                role: "Director: Creative and Product Design · Conan",
+                quote:
+                  "Eric is awesome! He's always a positive force in the workplace and the speed at which he creates motion/graphics is out of this world. It was a dream to work with him.",
+              },
+              {
+                name: "Rob Ashe",
+                role: "Editor & Producer · Conan, Beavis and Butthead Do The Universe, Kevin",
+                quote:
+                  "I worked alongside Eric for ten years on Conan. In that world things move fast and break often, and he was always the guy who made it look easy. Travel shows, pilots, awards shows, late night, he handled all of it without missing a beat. Endlessly talented, ridiculously quick under pressure, and one of the kindest people I've ever shared a post trailer with. Just hire him.",
+              },
+              {
+                name: "Dave Neglia",
+                role: "Co-Producer · After Midnight, The Muppet Show",
+                quote:
+                  "Eric is the person you want on a high-volume schedule. He is quite simply the best at what he does. No one else comes close. Calm under pressure, methodical with deliverables, and ahead of the curve on schedule tracking.",
+              },
+              {
+                name: "Angus Lyne",
+                role: "Motion Graphics & VFX Designer · Conan, Masters Of The Universe",
+                quote:
+                  "Eric is a very talented and fast designer capable of finding creative solutions to the many problems presented by working under extremely short deadlines and limited resources. The two of us were often called upon to visualize ambitious and complex concepts under strict time constraints. He was always able to find a solution and keep a positive attitude under pressure. Very good at communicating with writers and producers to find solutions.",
+              },
+            ].map((t, i) => (
+              <FadeUp key={t.name} delay={0.05 + i * 0.05}>
+                <figure
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
+                    padding: "clamp(24px, 3vw, 32px)",
+                    background: "rgba(255, 255, 255, 0.02)",
+                    border: "1px solid #1E1D1A",
+                    borderRadius: "4px",
+                    margin: 0,
+                  }}
+                >
+                  <blockquote
+                    className="font-sans"
+                    style={{
+                      fontSize: "clamp(14px, 1.3vw, 16px)",
+                      lineHeight: 1.65,
+                      color: "#D9D4C6",
+                      fontStyle: "italic",
+                      flexGrow: 1,
+                      margin: "0 0 24px",
+                    }}
+                  >
+                    &ldquo;{t.quote}&rdquo;
+                  </blockquote>
+                  <figcaption>
+                    <div
+                      className="font-serif font-bold text-cream"
+                      style={{
+                        fontSize: "17px",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      {t.name}
+                    </div>
+                    <div
+                      className="font-mono uppercase"
+                      style={{
+                        fontSize: "10px",
+                        letterSpacing: "1.6px",
+                        color: "#C5A455",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {t.role}
+                    </div>
+                  </figcaption>
+                </figure>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <div style={{ position: "relative", zIndex: 3, background: "rgba(13, 12, 10, 0.90)", backdropFilter: "blur(6px)" }}>
         <Footer />
       </div>
