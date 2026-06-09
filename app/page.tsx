@@ -7,6 +7,7 @@ import FadeUp from "./components/FadeUp";
 import Footer from "./components/Footer";
 import GridOverlay from "./components/GridOverlay";
 import PageTransition from "./components/PageTransition";
+import VideoPlayer from "./components/VideoPlayer";
 
 const PROJECTS = [
   {
@@ -140,6 +141,35 @@ export default function Home() {
     <PageTransition>
       <GridOverlay />
 
+      {/* ── PRIMARY REEL HERO — sits above the name/resume section so
+            it's the first thing visitors see. Container max-width is
+            ~75% of the Reels page primary slot (1280px → 960px) so
+            the video reads as a hero without dominating the page. */}
+      <section
+        style={{
+          position: "relative",
+          zIndex: 2,
+          background: "rgba(13, 12, 10, 0.90)",
+          paddingTop: "clamp(120px, 15vw, 160px)",
+          paddingBottom: "clamp(32px, 5vw, 56px)",
+          paddingLeft: "clamp(20px, 6vw, 80px)",
+          paddingRight: "clamp(20px, 6vw, 80px)",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "960px",
+            margin: "0 auto",
+            background: "#111",
+            border: "1px solid rgba(197, 164, 85, 0.18)",
+            borderRadius: "4px",
+            overflow: "hidden",
+          }}
+        >
+          <VideoPlayer embedUrl="https://framerate.tv/watch/e6afa38e-3145-439f-ae2f-dde6fe8c27a1" />
+        </div>
+      </section>
+
       {/* ── HERO ── */}
       <section
         className="flex flex-col justify-center"
@@ -148,7 +178,7 @@ export default function Home() {
           zIndex: 2,
           background: "rgba(13, 12, 10, 0.90)",
           backdropFilter: "blur(4px)",
-          paddingTop: "clamp(100px, 15vw, 140px)",
+          paddingTop: "clamp(40px, 6vw, 80px)",
           paddingBottom: "clamp(60px, 10vw, 100px)",
           paddingLeft: "clamp(20px, 6vw, 80px)",
           paddingRight: "clamp(20px, 6vw, 80px)",
