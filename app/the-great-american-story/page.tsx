@@ -129,13 +129,20 @@ const ALL_SLOTS: Slot[] = [
 // Graphics tab — broadcast deliverables, mostly Framerate video embeds.
 // Drop embedUrls (and optional posters) into each section's `videos` array
 // as they come in; empty arrays render a "Coming Soon" placeholder.
-type GraphicsVideo = { embedUrl: string; label?: string; poster?: string };
+// Either `embedUrl` (Framerate iframe) or `src` (local mp4 in /public/clips/).
+type GraphicsVideo = {
+  embedUrl?: string;
+  src?: string;
+  label?: string;
+  poster?: string;
+};
 type GraphicsSection = { label: string; videos: GraphicsVideo[] };
 
 const GRAPHICS_SECTIONS: GraphicsSection[] = [
   {
     label: "Transitions",
     videos: [
+      { src: "/clips/tgaj-tranz-ribbon-01.mp4", label: "Tranz Ribbon 01" },
       { embedUrl: "https://framerate.tv/watch/28b4a625-38bd-4f48-952d-cdbe84250587", label: "Tranz Stars 01", poster: "/great-american-story/poster-tranz-stars-01.jpg" },
       { embedUrl: "https://framerate.tv/watch/eb469bfb-ed9f-4186-81d5-88af6f596245", label: "Tranz Stars 02", poster: "/great-american-story/poster-tranz-stars-02.jpg" },
       { embedUrl: "https://framerate.tv/watch/646bb3fb-22f3-4178-bcca-b0b2a9ac312b", label: "Tranz Stars 03", poster: "/great-american-story/poster-tranz-stars-03.jpg" },
@@ -745,7 +752,7 @@ function ReviewBoard() {
               ) : (
                 <div className="gas-grid">
                   {section.videos.map((v) => (
-                    <div key={v.embedUrl}>
+                    <div key={v.embedUrl ?? v.src}>
                       <div
                         style={{
                           background: "#000",
@@ -754,7 +761,7 @@ function ReviewBoard() {
                           overflow: "hidden",
                         }}
                       >
-                        <VideoPlayer embedUrl={v.embedUrl} poster={v.poster} />
+                        <VideoPlayer src={v.src} embedUrl={v.embedUrl} poster={v.poster} />
                       </div>
                       {v.label && (
                         <div
