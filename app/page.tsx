@@ -141,35 +141,6 @@ export default function Home() {
     <PageTransition>
       <GridOverlay />
 
-      {/* ── PRIMARY REEL HERO — sits above the name/resume section so
-            it's the first thing visitors see. Container max-width is
-            ~75% of the Reels page primary slot (1280px → 960px) so
-            the video reads as a hero without dominating the page. */}
-      <section
-        style={{
-          position: "relative",
-          zIndex: 2,
-          background: "rgba(13, 12, 10, 0.90)",
-          paddingTop: "clamp(120px, 15vw, 160px)",
-          paddingBottom: "clamp(32px, 5vw, 56px)",
-          paddingLeft: "clamp(20px, 6vw, 80px)",
-          paddingRight: "clamp(20px, 6vw, 80px)",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: "960px",
-            margin: "0 auto",
-            background: "#111",
-            border: "1px solid rgba(197, 164, 85, 0.18)",
-            borderRadius: "4px",
-            overflow: "hidden",
-          }}
-        >
-          <VideoPlayer embedUrl="https://framerate.tv/watch/e6afa38e-3145-439f-ae2f-dde6fe8c27a1" />
-        </div>
-      </section>
-
       {/* ── HERO ── */}
       <section
         className="flex flex-col justify-center"
@@ -178,7 +149,7 @@ export default function Home() {
           zIndex: 2,
           background: "rgba(13, 12, 10, 0.90)",
           backdropFilter: "blur(4px)",
-          paddingTop: "clamp(40px, 6vw, 80px)",
+          paddingTop: "clamp(100px, 15vw, 140px)",
           paddingBottom: "clamp(60px, 10vw, 100px)",
           paddingLeft: "clamp(20px, 6vw, 80px)",
           paddingRight: "clamp(20px, 6vw, 80px)",
@@ -265,6 +236,46 @@ export default function Home() {
             Selected Work &darr;
           </button>
         </motion.div>
+      </section>
+
+      {/* ── PRIMARY REEL — sits between the hero CTAs and the Resume /
+            Recent Work section. Container is capped at ~75% of the
+            Reels page primary slot so the reel reads as a focal
+            highlight without competing with the project rows below. */}
+      <section
+        style={{
+          position: "relative",
+          zIndex: 3,
+          background: "rgba(13, 12, 10, 0.90)",
+          backdropFilter: "blur(4px)",
+          paddingTop: "clamp(40px, 8vw, 80px)",
+          paddingBottom: "clamp(40px, 8vw, 80px)",
+          paddingLeft: "clamp(20px, 6vw, 80px)",
+          paddingRight: "clamp(20px, 6vw, 80px)",
+        }}
+      >
+        <div style={{ maxWidth: "960px", margin: "0 auto" }}>
+          <FadeUp>
+            <div
+              className="font-mono text-[11px] tracking-[4px] uppercase text-gold"
+              style={{ marginBottom: "20px" }}
+            >
+              Primary Reel
+            </div>
+          </FadeUp>
+          <FadeUp delay={0.1}>
+            <div
+              style={{
+                background: "#111",
+                border: "1px solid rgba(197, 164, 85, 0.18)",
+                borderRadius: "4px",
+                overflow: "hidden",
+              }}
+            >
+              <VideoPlayer embedUrl="https://framerate.tv/watch/e6afa38e-3145-439f-ae2f-dde6fe8c27a1" />
+            </div>
+          </FadeUp>
+        </div>
       </section>
 
       {/* ── SELECTED WORK ── */}
