@@ -142,7 +142,7 @@ const GRAPHICS_SECTIONS: GraphicsSection[] = [
   {
     label: "Transitions",
     videos: [
-      { src: "/clips/tgaj-tranz-ribbon-01.mp4", label: "Tranz Ribbon 01" },
+      { embedUrl: "https://framerate.tv/watch/64c248ad-47ee-4dcb-b64c-5a780bd61b9a", label: "Tranz Ribbon 01", poster: "/great-american-story/poster-tranz-ribbon-01.jpg" },
       { embedUrl: "https://framerate.tv/watch/28b4a625-38bd-4f48-952d-cdbe84250587", label: "Tranz Stars 01", poster: "/great-american-story/poster-tranz-stars-01.jpg" },
       { embedUrl: "https://framerate.tv/watch/eb469bfb-ed9f-4186-81d5-88af6f596245", label: "Tranz Stars 02", poster: "/great-american-story/poster-tranz-stars-02.jpg" },
       { embedUrl: "https://framerate.tv/watch/646bb3fb-22f3-4178-bcca-b0b2a9ac312b", label: "Tranz Stars 03", poster: "/great-american-story/poster-tranz-stars-03.jpg" },
