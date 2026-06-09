@@ -41,9 +41,13 @@ export default function VideoPlayer({ src, embedUrl, poster, aspectRatio = "16/9
     );
   }
 
-  // For iframe embeds — Framerate's own player handles thumbnail + play button
+  // For iframe embeds — Framerate's own player handles thumbnail + play button.
+  // If a custom poster is passed, it sits on top of the iframe until tapped,
+  // so visitors see the designed thumbnail before Framerate's player takes over.
   if (embedUrl) {
-    return <IframePlayer embedUrl={embedUrl} aspectRatio={aspectRatio} />;
+    return (
+      <IframePlayer embedUrl={embedUrl} poster={poster} aspectRatio={aspectRatio} />
+    );
   }
 
   return null;
@@ -51,17 +55,21 @@ export default function VideoPlayer({ src, embedUrl, poster, aspectRatio = "16/9
 
 function IframePlayer({
   embedUrl,
+  poster,
   aspectRatio,
 }: {
   embedUrl: string;
+  poster?: string;
   aspectRatio: string;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
+  // When a custom poster is provided, render it as an overlay on top of
+  // the (already pre-loaded) iframe. Tapping the overlay dismisses it,
+  // revealing Framerate's native player + play button underneath. The
+  // iframe still mounts immediately so the in-iframe tap on Framerate's
+  // play button is a real user gesture (which iOS requires).
+  const [posterDismissed, setPosterDismissed] = useState(false);
 
-  // Framerate's own player renders directly — its native play button is the
-  // only play affordance. One tap (mobile or desktop) starts the clip with
-  // sound, since the tap happens inside the iframe (which is what iOS
-  // demands). No parent-side poster overlay means no fake-out double-button.
   const iframeSrc = embedUrl.includes("/embed/")
     ? embedUrl
     : embedUrl.replace("/watch/", "/embed/");
@@ -120,6 +128,24 @@ function IframePlayer({
         allow="autoplay; fullscreen; picture-in-picture"
         allowFullScreen
       />
+
+      {/* Custom poster overlay — shown until the visitor taps it. Sits on
+          top of the (already-loaded) iframe so dismissing it reveals
+          Framerate's native player + play button without a reload. */}
+      {poster && !posterDismissed && (
+        <button
+          type="button"
+          onClick={() => setPosterDismissed(true)}
+          aria-label="Show video player"
+          className="absolute inset-0 w-full h-full cursor-pointer"
+          style={{
+            background: `#000 url("${poster}") center / cover no-repeat`,
+            border: "none",
+            padding: 0,
+            zIndex: 4,
+          }}
+        />
+      )}
 
       {/* Fullscreen icon — hidden on mobile (iOS blocks iframe fullscreen
           anyway, and the icon would cover Framerate's audio/fullscreen
