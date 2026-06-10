@@ -93,6 +93,12 @@ export default function PasswordGate({
           border: 1px solid #211826;
           border-radius: 4px;
         }
+        @media (max-width: 640px) {
+          /* Match the vertical viewer frame on phones so unlocking doesn't jump. */
+          .sm-gate {
+            aspect-ratio: 3 / 4;
+          }
+        }
         .sm-gate-card {
           display: flex;
           flex-direction: column;

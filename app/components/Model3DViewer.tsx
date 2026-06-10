@@ -420,6 +420,12 @@ function DecorModel({
   gap: number;
 }) {
   const { scene } = useGLTF(path);
+  const { size: viewport } = useThree();
+  // On a tall/portrait phone frame the full-width wordmark would overflow the
+  // sides, so cap it to roughly the astronaut's width. Wide frames keep the
+  // configured size.
+  const portrait = viewport.height > viewport.width;
+  const effScale = portrait ? Math.min(scale, 0.95) : scale;
   const obj = useMemo(() => {
     const root = scene.clone(true);
     root.traverse((o) => {
@@ -440,11 +446,11 @@ function DecorModel({
     root.position.sub(center); // center the wordmark at the group origin
     const group = new THREE.Group();
     group.add(root);
-    const s = size.x > 0 ? (width * scale) / size.x : 1;
+    const s = size.x > 0 ? (width * effScale) / size.x : 1;
     group.scale.setScalar(s);
     group.position.set(0, feetY - gap - (size.y * s) / 2, 0);
     return group;
-  }, [scene, feetY, width, scale, gap]);
+  }, [scene, feetY, width, effScale, gap]);
   return <primitive object={obj} />;
 }
 
@@ -474,7 +480,7 @@ function ModelScene({
   cardRef: React.RefObject<HTMLDivElement | null>;
 }) {
   const { scene } = useGLTF(config.modelPath);
-  const { camera } = useThree();
+  const { camera, size } = useThree();
   const { parts, meshToKey, partByKey } = useParts(scene, config);
   const style = config.calloutStyle ?? "mediaCard";
   // Recentered bounds of the main model — used to seat the decor model under it.
@@ -486,19 +492,26 @@ function ModelScene({
   const [hoverPoint, setHoverPoint] = useState<THREE.Vector3 | null>(null);
   const hoverKeyRef = useRef<string | null>(null);
 
+  // Frame the model to whichever axis is tighter. A wide (desktop 16:9) frame is
+  // limited by the vertical FOV → identical framing to before. A tall/portrait
+  // phone frame becomes limited by the (narrower) horizontal FOV → the model fills
+  // the width and stands tall instead of being shrunk to fit a wide layout.
+  const fitAspect = Math.round((size.width / Math.max(1, size.height)) * 100) / 100;
   const { defaultCamPos, defaultTarget } = useMemo(() => {
     const box = new THREE.Box3().setFromObject(scene);
     const sphere = new THREE.Sphere();
     box.getBoundingSphere(sphere);
-    const fovRad = (38 * Math.PI) / 180;
-    const fitDistance = sphere.radius / Math.sin(fovRad / 2);
+    const vFov = (38 * Math.PI) / 180;
+    const hFov = 2 * Math.atan(Math.tan(vFov / 2) * Math.max(0.0001, fitAspect));
+    const fitFov = Math.min(vFov, hFov);
+    const fitDistance = sphere.radius / Math.sin(fitFov / 2);
     const distance = fitDistance * (config.fitFactor ?? 0.66);
     const target = sphere.center
       .clone()
       .add(new THREE.Vector3(0, sphere.radius * (config.targetYFactor ?? 0.32), 0));
     const pos = target.clone().add(new THREE.Vector3(0, 0, distance));
     return { defaultCamPos: pos, defaultTarget: target };
-  }, [scene, config.fitFactor, config.targetYFactor]);
+  }, [scene, config.fitFactor, config.targetYFactor, fitAspect]);
 
   useEffect(() => {
     camera.position.copy(defaultCamPos);
@@ -506,7 +519,7 @@ function ModelScene({
     if (c) {
       c.target.copy(defaultTarget);
       const d = defaultCamPos.distanceTo(defaultTarget);
-      c.minDistance = d * 0.5;
+      c.minDistance = d * 0.25; // allow zooming in much closer (esp. on phones)
       c.maxDistance = d * 2.6;
       c.update();
     }
@@ -933,6 +946,11 @@ function ViewerStyles(): ReactNode {
         min-width: 0;
       }
       @media (max-width: 640px) {
+        /* Vertical frame on phones so the astronaut reads large (overrides the
+           inline 16/9 default). */
+        .sm-wrap {
+          aspect-ratio: 3 / 4 !important;
+        }
         .sm-panel {
           flex-direction: column;
           align-items: stretch;
