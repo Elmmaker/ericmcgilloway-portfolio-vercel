@@ -506,9 +506,14 @@ function ModelScene({
     const fitFov = Math.min(vFov, hFov);
     const fitDistance = sphere.radius / Math.sin(fitFov / 2);
     const distance = fitDistance * (config.fitFactor ?? 0.66);
+    // On a portrait (phone) frame the lockup sits high with empty space below it,
+    // so nudge the whole lockup (astronaut + wordmark) down ~6% to balance it.
+    // Desktop (landscape) keeps the original framing untouched.
+    const portrait = fitAspect < 1;
+    const targetYFactor = (config.targetYFactor ?? 0.32) + (portrait ? 0.17 : 0);
     const target = sphere.center
       .clone()
-      .add(new THREE.Vector3(0, sphere.radius * (config.targetYFactor ?? 0.32), 0));
+      .add(new THREE.Vector3(0, sphere.radius * targetYFactor, 0));
     const pos = target.clone().add(new THREE.Vector3(0, 0, distance));
     return { defaultCamPos: pos, defaultTarget: target };
   }, [scene, config.fitFactor, config.targetYFactor, fitAspect]);
