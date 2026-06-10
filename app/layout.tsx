@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, DM_Sans, JetBrains_Mono } from "next/font/google";
+import {
+  Playfair_Display,
+  DM_Sans,
+  JetBrains_Mono,
+  Archivo,
+} from "next/font/google";
 import "./globals.css";
 import ClientShell from "./components/ClientShell";
 
@@ -7,6 +12,13 @@ const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
   weight: ["400", "700"],
+});
+
+// Bold display sans — used for the SPACEMAN piece's headings (replaces Playfair there).
+const archivo = Archivo({
+  variable: "--font-archivo",
+  subsets: ["latin"],
+  weight: ["700", "800"],
 });
 
 const dmSans = DM_Sans({
@@ -54,7 +66,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
+      className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${archivo.variable}`}
     >
       <body className="min-h-screen antialiased">
         <div className="grain" />
