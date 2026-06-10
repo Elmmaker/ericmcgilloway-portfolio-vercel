@@ -54,6 +54,7 @@ export type ModelConfig = {
   fitFactor?: number;
   fitFactorMobile?: number; // portrait/phone: smaller = closer = model reads larger
   targetYFactor?: number;
+  targetYFactorMobile?: number; // portrait/phone: higher (less negative) = lockup lower
   swayAmp?: number;
   cardSide?: "top" | "right"; // mediaCard only
   aspect?: string;
@@ -514,10 +515,13 @@ function ModelScene({
     const fitFactor = portrait
       ? config.fitFactorMobile ?? config.fitFactor ?? 0.66
       : config.fitFactor ?? 0.66;
+    const targetYFactor = portrait
+      ? config.targetYFactorMobile ?? config.targetYFactor ?? 0.32
+      : config.targetYFactor ?? 0.32;
     const distance = fitDistance * fitFactor;
     const target = sphere.center
       .clone()
-      .add(new THREE.Vector3(0, sphere.radius * (config.targetYFactor ?? 0.32), 0));
+      .add(new THREE.Vector3(0, sphere.radius * targetYFactor, 0));
     const pos = target.clone().add(new THREE.Vector3(0, 0, distance));
     return { defaultCamPos: pos, defaultTarget: target };
   }, [scene, config.fitFactor, config.targetYFactor, fitAspect]);

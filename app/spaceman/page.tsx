@@ -25,6 +25,8 @@ const ASTRONAUT_CONFIG: ModelConfig = {
   // frame (it defaults too small otherwise). Lower = bigger. Tune to taste.
   fitFactorMobile: 0.72,
   targetYFactor: -0.18,
+  // Phone: seat the lockup ~6% lower than desktop (less negative = lower in frame).
+  targetYFactorMobile: -0.07,
   swayAmp: 0.5,
   // SPACEMAN wordmark, locked under his feet, rotating with him (visual only).
   decorModelPath: "/models/spaceman.glb",
