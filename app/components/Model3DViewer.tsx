@@ -52,6 +52,7 @@ export type ModelConfig = {
   calloutStyle?: "mediaCard" | "panel"; // default "mediaCard"
   callouts: CalloutDef[];
   fitFactor?: number;
+  fitFactorMobile?: number; // portrait/phone: smaller = closer = model reads larger
   targetYFactor?: number;
   swayAmp?: number;
   cardSide?: "top" | "right"; // mediaCard only
@@ -505,15 +506,18 @@ function ModelScene({
     const hFov = 2 * Math.atan(Math.tan(vFov / 2) * Math.max(0.0001, fitAspect));
     const fitFov = Math.min(vFov, hFov);
     const fitDistance = sphere.radius / Math.sin(fitFov / 2);
-    const distance = fitDistance * (config.fitFactor ?? 0.66);
-    // On a portrait (phone) frame the lockup sits high with empty space below it,
-    // so nudge the whole lockup (astronaut + wordmark) down ~6% to balance it.
-    // Desktop (landscape) keeps the original framing untouched.
+    // On a portrait (phone) frame the bounding sphere is height-dominated, so the
+    // normal fit leaves the astronaut small and skinny on the narrow frame. Zoom
+    // in closer (fitFactorMobile) so it fills the frame and reads large. Vertical
+    // position is the same as desktop (centered). Desktop framing is untouched.
     const portrait = fitAspect < 1;
-    const targetYFactor = (config.targetYFactor ?? 0.32) + (portrait ? 0.17 : 0);
+    const fitFactor = portrait
+      ? config.fitFactorMobile ?? config.fitFactor ?? 0.66
+      : config.fitFactor ?? 0.66;
+    const distance = fitDistance * fitFactor;
     const target = sphere.center
       .clone()
-      .add(new THREE.Vector3(0, sphere.radius * targetYFactor, 0));
+      .add(new THREE.Vector3(0, sphere.radius * (config.targetYFactor ?? 0.32), 0));
     const pos = target.clone().add(new THREE.Vector3(0, 0, distance));
     return { defaultCamPos: pos, defaultTarget: target };
   }, [scene, config.fitFactor, config.targetYFactor, fitAspect]);

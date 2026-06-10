@@ -21,6 +21,9 @@ const ASTRONAUT_CONFIG: ModelConfig = {
   // Default framing of the astronaut + wordmark lockup: zoomed in so the astronaut
   // reads big (Eric's preferred size), centered so the SPACEMAN wordmark stays in view.
   fitFactor: 1.12,
+  // On phones, zoom in ~1.5x closer than desktop so the astronaut fills the tall
+  // frame (it defaults too small otherwise). Lower = bigger. Tune to taste.
+  fitFactorMobile: 0.72,
   targetYFactor: -0.18,
   swayAmp: 0.5,
   // SPACEMAN wordmark, locked under his feet, rotating with him (visual only).
