@@ -972,6 +972,20 @@ function ViewerStyles(): ReactNode {
           width: 100%;
         }
       }
+      @media (min-width: 641px) {
+        /* Desktop: let the astronaut float free — no frame, and the purple bloom
+           fades right into the page background so there's no visible box edge. */
+        .sm-wrap {
+          border: none !important;
+          border-radius: 0 !important;
+          background: radial-gradient(
+            ellipse at 50% 42%,
+            #1f0c29 0%,
+            #0c0610 35%,
+            #060509 68%
+          ) !important;
+        }
+      }
       .sm-panel-close {
         position: absolute;
         top: 14px;
