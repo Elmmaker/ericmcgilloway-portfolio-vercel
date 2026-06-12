@@ -593,7 +593,7 @@ export default function Home() {
                 color: "#8A8579",
                 lineHeight: 1.6,
                 textAlign: "center",
-                maxWidth: "640px",
+                maxWidth: "880px",
                 margin: "0 auto clamp(40px, 6vw, 64px)",
                 fontStyle: "italic",
                 textWrap: "pretty",
