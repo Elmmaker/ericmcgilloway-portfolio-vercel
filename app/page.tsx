@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
 import Image from "next/image";
 import FadeUp from "./components/FadeUp";
 import Footer from "./components/Footer";
@@ -106,14 +105,6 @@ const PROJECTS = [
   },
 ];
 
-const FILTERS = [
-  "All",
-  "Documentary",
-  "Late Night",
-  "Broadcast",
-  "Entertainment Marketing",
-];
-
 const letterVariants = {
   hidden: { opacity: 0, y: 60, rotateX: -40 },
   visible: (i: number) => ({
@@ -129,13 +120,7 @@ const letterVariants = {
 };
 
 export default function Home() {
-  const [activeFilter, setActiveFilter] = useState("All");
   const name = "Eric McGilloway";
-
-  const filteredProjects =
-    activeFilter === "All"
-      ? PROJECTS
-      : PROJECTS.filter((p) => p.type === activeFilter);
 
   return (
     <PageTransition>
@@ -150,15 +135,20 @@ export default function Home() {
           background: "rgba(13, 12, 10, 0.90)",
           backdropFilter: "blur(4px)",
           paddingTop: "clamp(100px, 15vw, 140px)",
-          paddingBottom: "clamp(60px, 10vw, 100px)",
+          paddingBottom: "clamp(20px, 3.5vw, 36px)",
           paddingLeft: "clamp(20px, 6vw, 80px)",
           paddingRight: "clamp(20px, 6vw, 80px)",
         }}
       >
         {/* Name */}
         <h1
-          className="font-sans font-bold leading-[0.92] tracking-tight"
-          style={{ fontSize: "clamp(36px, 9vw, 120px)", marginBottom: "20px" }}
+          className="leading-[0.92] tracking-tight"
+          style={{
+            fontFamily: "var(--font-ubuntu)",
+            fontWeight: 500,
+            fontSize: "clamp(18px, 4.5vw, 60px)",
+            marginBottom: "20px",
+          }}
         >
           {name.split("").map((char, i) => (
             <motion.span
@@ -205,37 +195,6 @@ export default function Home() {
           Lead motion designer across broadcast and streaming. I spent 11 seasons on Conan, designed graphics for After Midnight with Taylor Tomlinson on CBS, and have built packages for Entertainment Tonight, Modern Marvels, and Nat Geo Kids. My work covers title sequences, graphics packages, social campaigns, and VFX. Comfortable leading teams and contributing as a team member. For quick recommendations please see Kudos.
         </motion.p>
 
-        {/* CTA */}
-        <motion.div
-          className="flex flex-col sm:flex-row flex-wrap"
-          style={{ gap: "16px", marginTop: "clamp(32px, 5vw, 48px)" }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1],
-            delay: 1.3,
-          }}
-        >
-          <a
-            href="/reels"
-            className="font-mono text-xs tracking-[2px] uppercase bg-gold text-dark border-none cursor-pointer hover:bg-gold-hover hover:-translate-y-0.5 transition-all duration-300 text-center"
-            style={{ padding: "16px 32px", minHeight: "48px" }}
-          >
-            Watch Reel
-          </a>
-          <button
-            onClick={() =>
-              document
-                .getElementById("work")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
-            className="font-mono text-xs tracking-[2px] uppercase bg-transparent text-muted border border-surface cursor-pointer hover:border-gold hover:text-gold transition-all duration-300 text-center"
-            style={{ padding: "16px 32px", minHeight: "48px" }}
-          >
-            Selected Work &darr;
-          </button>
-        </motion.div>
       </section>
 
       {/* ── PRIMARY REEL — sits between the hero CTAs and the Resume /
@@ -248,7 +207,7 @@ export default function Home() {
           zIndex: 3,
           background: "rgba(13, 12, 10, 0.90)",
           backdropFilter: "blur(4px)",
-          paddingTop: "clamp(40px, 8vw, 80px)",
+          paddingTop: "clamp(8px, 1.5vw, 16px)",
           paddingBottom: "clamp(40px, 8vw, 80px)",
           paddingLeft: "clamp(20px, 6vw, 80px)",
           paddingRight: "clamp(20px, 6vw, 80px)",
@@ -260,7 +219,7 @@ export default function Home() {
               className="font-mono text-[11px] tracking-[4px] uppercase text-gold"
               style={{ marginBottom: "20px" }}
             >
-              Primary Reel
+              Motion Graphics Reel
             </div>
           </FadeUp>
           <FadeUp delay={0.1}>
@@ -272,7 +231,10 @@ export default function Home() {
                 overflow: "hidden",
               }}
             >
-              <VideoPlayer embedUrl="https://framerate.tv/watch/e6afa38e-3145-439f-ae2f-dde6fe8c27a1" />
+              <VideoPlayer
+                embedUrl="https://framerate.tv/watch/e6afa38e-3145-439f-ae2f-dde6fe8c27a1"
+                poster="/thumbnails/em_reel_2026_thumbnail.png"
+              />
             </div>
           </FadeUp>
         </div>
@@ -308,27 +270,10 @@ export default function Home() {
               </h2>
             </FadeUp>
           </div>
-          <div className="flex gap-1 flex-wrap">
-            {FILTERS.map((f) => (
-              <button
-                key={f}
-                onClick={() => setActiveFilter(f)}
-                aria-pressed={f === activeFilter}
-                className={`font-mono text-[10px] tracking-[1.5px] uppercase border cursor-pointer transition-all duration-300 ${
-                  f === activeFilter
-                    ? "border-gold bg-gold/10 text-gold"
-                    : "border-rule bg-transparent text-dim hover:border-gold hover:bg-gold/10 hover:text-gold"
-                }`}
-                style={{ padding: "8px 16px", minHeight: "44px" }}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
         </div>
 
         <div>
-          {filteredProjects.map((p, i) => {
+          {PROJECTS.map((p, i) => {
             const card = (
             <motion.div
               key={p.id}
@@ -513,7 +458,7 @@ export default function Home() {
         <div className="relative h-px bg-rule overflow-hidden">
           <div
             className="work-sheen"
-            style={{ animationDelay: `${filteredProjects.length * 0.7}s` }}
+            style={{ animationDelay: `${PROJECTS.length * 0.7}s` }}
           />
         </div>
       </section>

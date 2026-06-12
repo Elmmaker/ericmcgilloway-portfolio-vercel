@@ -4,6 +4,7 @@ import {
   DM_Sans,
   JetBrains_Mono,
   Archivo,
+  Ubuntu,
 } from "next/font/google";
 import "./globals.css";
 import ClientShell from "./components/ClientShell";
@@ -31,6 +32,12 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
   weight: ["300", "400"],
+});
+
+const ubuntu = Ubuntu({
+  variable: "--font-ubuntu",
+  subsets: ["latin"],
+  weight: ["300", "500"],
 });
 
 export const metadata: Metadata = {
@@ -66,7 +73,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${archivo.variable}`}
+      className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${archivo.variable} ${ubuntu.variable}`}
     >
       <body className="min-h-screen antialiased">
         <div className="grain" />

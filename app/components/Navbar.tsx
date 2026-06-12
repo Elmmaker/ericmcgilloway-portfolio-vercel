@@ -94,7 +94,8 @@ export default function Navbar() {
       >
         <Link
           href="/"
-          className="font-serif text-lg font-bold text-cream hover:text-gold transition-colors duration-300 relative z-[202]"
+          className="text-lg text-cream hover:text-gold transition-colors duration-300 relative z-[202]"
+          style={{ fontFamily: "var(--font-ubuntu)", fontWeight: 300 }}
         >
           Eric McGilloway
         </Link>
