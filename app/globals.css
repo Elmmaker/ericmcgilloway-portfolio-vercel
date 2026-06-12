@@ -28,7 +28,18 @@ html {
 }
 
 body {
-  background: var(--color-dark);
+  /* Three-stop gradient: midnight blue (top) → dark wine (middle) → deep
+     purple (bottom). Stretches over the full body height (default scroll
+     attachment) so scrolling reveals the colour story. Section overlays
+     control how much of the gradient bleeds through on each page. */
+  background:
+    linear-gradient(
+      to bottom,
+      #010A70 0%,
+      #49092D 50%,
+      #360B51 100%
+    );
+  background-color: var(--color-dark);
   color: var(--color-cream);
   font-family: var(--font-sans);
   overflow-x: hidden;

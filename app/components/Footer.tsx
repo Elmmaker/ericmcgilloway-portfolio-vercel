@@ -23,6 +23,7 @@ export default function Footer() {
         </button>
         {[
           { label: "LinkedIn", href: "https://www.linkedin.com/in/ericmcg" },
+          { label: "IMDB", href: "https://imdb.me/ericmcg" },
           { label: "ADG", href: "https://adg.org/directory/4183-eric-mcgilloway/" },
         ].map((link) => (
           <a

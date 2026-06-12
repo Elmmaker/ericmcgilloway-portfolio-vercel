@@ -132,7 +132,7 @@ export default function Home() {
         style={{
           position: "relative",
           zIndex: 2,
-          background: "rgba(13, 12, 10, 0.90)",
+          background: "rgba(13, 12, 10, 0.78)",
           backdropFilter: "blur(4px)",
           paddingTop: "clamp(100px, 15vw, 140px)",
           paddingBottom: "clamp(20px, 3.5vw, 36px)",
@@ -180,21 +180,6 @@ export default function Home() {
           Envision. Design. Deliver.
         </motion.div>
 
-        {/* Tagline */}
-        <motion.p
-          className="text-muted max-w-[600px] leading-relaxed"
-          style={{ fontSize: "clamp(14px, 1.8vw, 18px)" }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1],
-            delay: 1.1,
-          }}
-        >
-          Lead motion designer across broadcast and streaming. I spent 11 seasons on Conan, designed graphics for After Midnight with Taylor Tomlinson on CBS, and have built packages for Entertainment Tonight, Modern Marvels, and Nat Geo Kids. My work covers title sequences, graphics packages, social campaigns, and VFX. Comfortable leading teams and contributing as a team member. For quick recommendations please see Kudos.
-        </motion.p>
-
       </section>
 
       {/* ── PRIMARY REEL — sits between the hero CTAs and the Resume /
@@ -205,7 +190,7 @@ export default function Home() {
         style={{
           position: "relative",
           zIndex: 3,
-          background: "rgba(13, 12, 10, 0.90)",
+          background: "rgba(13, 12, 10, 0.78)",
           backdropFilter: "blur(4px)",
           paddingTop: "clamp(8px, 1.5vw, 16px)",
           paddingBottom: "clamp(40px, 8vw, 80px)",
@@ -246,7 +231,7 @@ export default function Home() {
         style={{
           position: "relative",
           zIndex: 3,
-          background: "rgba(13, 12, 10, 0.90)",
+          background: "rgba(13, 12, 10, 0.78)",
           backdropFilter: "blur(4px)",
           paddingTop: "clamp(60px, 12vw, 120px)",
           paddingBottom: "clamp(40px, 8vw, 80px)",
@@ -469,7 +454,7 @@ export default function Home() {
         style={{
           position: "relative",
           zIndex: 3,
-          background: "rgba(13, 12, 10, 0.90)",
+          background: "rgba(13, 12, 10, 0.78)",
           backdropFilter: "blur(6px)",
           paddingTop: "clamp(60px, 12vw, 120px)",
           paddingBottom: "clamp(60px, 12vw, 120px)",
@@ -514,13 +499,13 @@ export default function Home() {
           {/* Body */}
           <FadeUp delay={0.15}>
             <p className="font-sans text-left mx-auto" style={{ fontSize: "clamp(15px, 1.8vw, 18px)", color: "#8A8579", lineHeight: 1.8, marginBottom: "56px", maxWidth: "680px" }}>
-              15+ years designing and producing brand motion for major
-              networks, studios, and entertainment brands. From 11 seasons
-              leading motion at Conan to managing a creative team at After
-              Midnight to building custom AE tooling for Modern Marvels. I work
-              fluidly across concept development, hands-on craft, and team
-              leadership. Easy to collaborate with, organized, and motivated by
-              interesting problems. Let&apos;s build something together.
+              Lead motion designer across broadcast and streaming. I spent 11
+              seasons on Conan, designed graphics for After Midnight with
+              Taylor Tomlinson on CBS, and have built packages for
+              Entertainment Tonight, Modern Marvels, and Nat Geo Kids. My
+              work covers title sequences, graphics packages, social
+              campaigns, and VFX. Comfortable leading teams and contributing
+              as a team member. Let&apos;s build something cool!
             </p>
           </FadeUp>
 
@@ -555,7 +540,7 @@ export default function Home() {
         style={{
           position: "relative",
           zIndex: 3,
-          background: "rgba(13, 12, 10, 0.90)",
+          background: "rgba(13, 12, 10, 0.78)",
           backdropFilter: "blur(6px)",
           paddingTop: "clamp(60px, 12vw, 120px)",
           paddingBottom: "clamp(60px, 12vw, 120px)",
@@ -707,7 +692,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div style={{ position: "relative", zIndex: 3, background: "rgba(13, 12, 10, 0.90)", backdropFilter: "blur(6px)" }}>
+      <div style={{ position: "relative", zIndex: 3, background: "rgba(13, 12, 10, 0.78)", backdropFilter: "blur(6px)" }}>
         <Footer />
       </div>
 
