@@ -978,11 +978,13 @@ function ViewerStyles(): ReactNode {
         .sm-wrap {
           border: none !important;
           border-radius: 0 !important;
+          /* Contained ellipse: the glow fades fully to the page color ~20% before
+             the top/left/right edges, so it never touches them (no box feel). */
           background: radial-gradient(
-            ellipse at 50% 43%,
+            ellipse 42% 40% at 50% 47%,
             #4a1340 0%,
-            #1a0a1a 40%,
-            #060509 80%
+            #2a0e24 52%,
+            #060509 100%
           ) !important;
         }
       }
