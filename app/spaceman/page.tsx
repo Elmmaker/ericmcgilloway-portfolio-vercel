@@ -48,7 +48,7 @@ const ASTRONAUT_CONFIG: ModelConfig = {
       label: "Direction",
       media: IMG("/spaceman/direction.jpg"),
       description:
-        "From first concept to final frame, Spaceman's directors shape the story, tone, and visual language of every project.",
+        "Creative direction from concept through delivery.",
     },
     {
       key: "control",
@@ -64,7 +64,7 @@ const ASTRONAUT_CONFIG: ModelConfig = {
       label: "Post-Production",
       media: IMG("/spaceman/post-production.jpg"),
       description:
-        "Editorial, color, and finishing in-house — turning raw footage into a polished, on-brand final cut.",
+        "Editorial, color, and finishing, handled in-house.",
     },
     {
       key: "gloves",
@@ -73,7 +73,7 @@ const ASTRONAUT_CONFIG: ModelConfig = {
       media: IMG("/spaceman/camera.jpg"),
       split: true,
       description:
-        "On-set camera and cinematography — the right lens, lighting, and movement to capture the story.",
+        "On-set camera and lighting.",
     },
     {
       key: "boots",
@@ -81,7 +81,7 @@ const ASTRONAUT_CONFIG: ModelConfig = {
       label: "Production",
       media: IMG("/spaceman/production.jpg"),
       description:
-        "End-to-end production — planning, crewing, and running shoots that keep ambitious ideas on schedule and on budget.",
+        "Full production: planning, scouting, crewing, and running the shoot.",
     },
   ],
 };
