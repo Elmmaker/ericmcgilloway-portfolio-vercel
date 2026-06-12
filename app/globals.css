@@ -10,7 +10,7 @@
   --color-rule: #1E1D1A;
   --color-surface: #2A2824;
   --color-ghost: #807D74;
-  --font-serif: "Playfair Display", Georgia, serif;
+  --font-serif: var(--font-ubuntu), Georgia, serif;
   --font-sans: "DM Sans", "Helvetica Neue", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 }
@@ -33,6 +33,14 @@ body {
   font-family: var(--font-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Force Ubuntu Medium 500 across all heading-style text that previously
+   used Playfair (font-serif). Declared after Tailwind utilities so it wins
+   the cascade over font-bold/font-normal when both classes appear. Inline
+   styles (e.g. the Navbar wordmark at weight 300) still take precedence. */
+.font-serif {
+  font-weight: 500;
 }
 
 /* Grain overlay */
