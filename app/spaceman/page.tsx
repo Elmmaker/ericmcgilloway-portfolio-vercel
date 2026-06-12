@@ -56,7 +56,7 @@ const ASTRONAUT_CONFIG: ModelConfig = {
       label: "Graphics",
       media: IMG("/spaceman/graphics.jpg"),
       description:
-        "Design-driven graphics and on-screen systems — titles, lower-thirds, and motion-ready art that sharpen every frame.",
+        "Graphics and on-screen systems.",
     },
     {
       key: "power",
