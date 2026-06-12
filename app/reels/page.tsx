@@ -3,20 +3,7 @@
 import FadeUp from "../components/FadeUp";
 import Footer from "../components/Footer";
 import PageTransition from "../components/PageTransition";
-import SheenDivider from "../components/SheenDivider";
 import VideoPlayer from "../components/VideoPlayer";
-
-const REELS = [
-  {
-    label: "Primary",
-    title: "Motion Design 2026",
-    desc: "Broadcast graphics, title sequences, documentary maps, entertainment marketing campaigns, and everything in between.",
-    embedUrl: "https://framerate.tv/watch/e6afa38e-3145-439f-ae2f-dde6fe8c27a1",
-    poster: "/thumbnails/2026%20Thumbnail%2001.jpg",
-    duration: "1:48",
-    updated: "2026",
-  },
-];
 
 const AFTER_MIDNIGHT_VIDEOS = [
   {
@@ -44,54 +31,9 @@ export default function ReelsPage() {
           paddingRight: "clamp(20px, 6vw, 80px)",
         }}
       >
-        <FadeUp>
-          <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold" style={{ marginBottom: "12px" }}>
-            02 / Motion Graphics
-          </div>
-        </FadeUp>
-        <FadeUp delay={0.1}>
-          <h1
-            className="font-serif font-bold text-cream"
-            style={{ fontSize: "clamp(28px, 5vw, 56px)", marginBottom: "clamp(32px, 6vw, 60px)" }}
-          >
-            The Reels
-          </h1>
-        </FadeUp>
-
-        {/* Primary Reel */}
-        {REELS.map((reel, i) => (
-          <FadeUp key={reel.title} delay={i * 0.15}>
-            <div style={{ marginBottom: "40px" }}>
-              <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
-                {reel.label}
-              </div>
-              <div
-                className="font-serif font-bold text-cream mb-3"
-                style={{ fontSize: "clamp(22px, 4vw, 48px)" }}
-              >
-                {reel.title}
-              </div>
-              <div className="text-sm sm:text-base max-w-[600px]" style={{ color: "#8A8579", lineHeight: 1.7, marginBottom: "clamp(24px, 4vw, 40px)" }}>
-                {reel.desc}
-              </div>
-
-              <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
-                <VideoPlayer embedUrl={reel.embedUrl} poster={reel.poster} />
-              </div>
-
-              <div className="flex gap-8 mt-5 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
-                <span>Duration: {reel.duration}</span>
-                <span>Updated: {reel.updated}</span>
-              </div>
-            </div>
-          </FadeUp>
-        ))}
-
-        <SheenDivider delay={0} />
-
         {/* Hearts of Heroes */}
         <FadeUp delay={0.15}>
-          <div style={{ marginTop: "clamp(60px, 10vw, 100px)" }}>
+          <div>
             <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
               Hearts of Heroes
             </div>

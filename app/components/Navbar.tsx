@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useContact } from "./ContactContext";
 
 const links = [
-  { href: "/reels", label: "Reels" },
+  { href: "/reels", label: "Work" },
   { href: "/key-art", label: "Key Art" },
   { href: "/after-hours", label: "After Hours" },
   { href: "/#about", label: "About" },

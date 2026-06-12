@@ -28,11 +28,16 @@ html {
 }
 
 body {
-  /* Three-stop gradient: midnight blue (top) → dark wine (middle) → deep
-     purple (bottom). Stretches over the full body height (default scroll
-     attachment) so scrolling reveals the colour story. Section overlays
-     control how much of the gradient bleeds through on each page. */
+  /* Layered backgrounds (top → bottom in the stack):
+     1) A flat rgba(13,12,10,0.78) dim that mutes the gradient to ~22%.
+        Applied at the body level so EVERY page gets the same darkened
+        backdrop without each page having to set its own section overlay.
+     2) The three-stop colour gradient — midnight blue → dark wine →
+        deep purple. Stretches over the full body height (default scroll
+        attachment) so scrolling reveals the colour story.
+     Per-section rgba overlays are no longer needed once this is global. */
   background:
+    linear-gradient(rgba(13, 12, 10, 0.78), rgba(13, 12, 10, 0.78)),
     linear-gradient(
       to bottom,
       #010A70 0%,

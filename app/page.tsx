@@ -129,7 +129,7 @@ export default function Home() {
         style={{
           position: "relative",
           zIndex: 2,
-          background: "rgba(13, 12, 10, 0.78)",
+          background: "transparent",
           backdropFilter: "blur(4px)",
           paddingTop: "clamp(100px, 15vw, 140px)",
           paddingBottom: "clamp(20px, 3.5vw, 36px)",
@@ -187,7 +187,7 @@ export default function Home() {
         style={{
           position: "relative",
           zIndex: 3,
-          background: "rgba(13, 12, 10, 0.78)",
+          background: "transparent",
           backdropFilter: "blur(4px)",
           paddingTop: "clamp(8px, 1.5vw, 16px)",
           paddingBottom: "clamp(40px, 8vw, 80px)",
@@ -228,7 +228,7 @@ export default function Home() {
         style={{
           position: "relative",
           zIndex: 3,
-          background: "rgba(13, 12, 10, 0.78)",
+          background: "transparent",
           backdropFilter: "blur(4px)",
           paddingTop: "clamp(60px, 12vw, 120px)",
           paddingBottom: "clamp(40px, 8vw, 80px)",
@@ -451,7 +451,7 @@ export default function Home() {
         style={{
           position: "relative",
           zIndex: 3,
-          background: "rgba(13, 12, 10, 0.78)",
+          background: "transparent",
           backdropFilter: "blur(6px)",
           paddingTop: "clamp(60px, 12vw, 120px)",
           paddingBottom: "clamp(60px, 12vw, 120px)",
@@ -477,20 +477,10 @@ export default function Home() {
                   Eric McGilloway
                 </div>
                 <div className="font-mono uppercase" style={{ fontSize: "clamp(11px, 1.5vw, 14px)", letterSpacing: "2.4px", color: "#C5A455", marginTop: "8px" }}>
-                  Lead Motion Designer &amp; Graphic Producer
+                  Lead Motion Designer
                 </div>
               </div>
             </div>
-          </FadeUp>
-
-          {/* Heading */}
-          <FadeUp delay={0.1}>
-            <p
-              className="font-serif text-cream text-center signature-tagline"
-              style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1.4, marginBottom: "28px" }}
-            >
-              I build motion systems that scale.
-            </p>
           </FadeUp>
 
           {/* Body */}
@@ -537,7 +527,7 @@ export default function Home() {
         style={{
           position: "relative",
           zIndex: 3,
-          background: "rgba(13, 12, 10, 0.78)",
+          background: "transparent",
           backdropFilter: "blur(6px)",
           paddingTop: "clamp(60px, 12vw, 120px)",
           paddingBottom: "clamp(60px, 12vw, 120px)",
@@ -689,7 +679,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div style={{ position: "relative", zIndex: 3, background: "rgba(13, 12, 10, 0.78)", backdropFilter: "blur(6px)" }}>
+      <div style={{ position: "relative", zIndex: 3, background: "transparent", backdropFilter: "blur(6px)" }}>
         <Footer />
       </div>
 
