@@ -132,10 +132,9 @@ export default function SpacemanPage() {
         minHeight: "100vh",
         background: "#060509",
         color: "#F0EDE6",
-        // Top padding trimmed (was 110–150px to clear the now-hidden nav) so the
-        // content sits cleanly near the top instead of behind an empty gap.
+        // Top padding clears the fixed name-only header on this page.
         padding:
-          "clamp(56px, 8vw, 88px) clamp(20px, 5vw, 64px) clamp(60px, 8vw, 100px)",
+          "clamp(90px, 11vw, 110px) clamp(20px, 5vw, 64px) clamp(60px, 8vw, 100px)",
       }}
     >
       <div style={{ maxWidth: "1080px", margin: "0 auto" }}>

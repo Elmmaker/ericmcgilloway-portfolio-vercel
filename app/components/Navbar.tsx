@@ -57,9 +57,29 @@ export default function Navbar() {
     }
   }
 
-  // Standalone client pitch — hide the whole site nav (portfolio links + the
-  // "Eric McGilloway" header) on this page for a clean, Spaceman-focused look.
-  if (pathname === "/spaceman") return null;
+  // Standalone client-pitch page: show ONLY the name (linked to the homepage) —
+  // no portfolio links, Contact, or mobile menu — for a clean, focused header.
+  if (pathname === "/spaceman") {
+    return (
+      <nav
+        className="fixed top-0 left-0 right-0 z-100 flex items-center"
+        style={{
+          padding: "24px clamp(24px, 6vw, 80px)",
+          background:
+            "linear-gradient(to bottom, rgba(6,5,9,0.95) 0%, rgba(6,5,9,0.6) 65%, transparent 100%)",
+          backdropFilter: "blur(6px)",
+          WebkitBackdropFilter: "blur(6px)",
+        }}
+      >
+        <Link
+          href="/"
+          className="font-serif text-lg font-bold text-cream hover:text-gold transition-colors duration-300"
+        >
+          Eric McGilloway
+        </Link>
+      </nav>
+    );
+  }
 
   return (
     <>
