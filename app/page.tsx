@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import FadeUp from "./components/FadeUp";
 import Footer from "./components/Footer";
-import GridOverlay from "./components/GridOverlay";
 import PageTransition from "./components/PageTransition";
 import VideoPlayer from "./components/VideoPlayer";
 
@@ -124,8 +123,6 @@ export default function Home() {
 
   return (
     <PageTransition>
-      <GridOverlay />
-
       {/* ── HERO ── */}
       <section
         className="flex flex-col justify-center"

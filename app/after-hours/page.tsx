@@ -2,7 +2,6 @@
 
 import FadeUp from "../components/FadeUp";
 import Footer from "../components/Footer";
-import GridOverlay from "../components/GridOverlay";
 import PageTransition from "../components/PageTransition";
 import VideoPlayer from "../components/VideoPlayer";
 
@@ -34,7 +33,6 @@ const VIDEOS: AfterHoursItem[] = [
 export default function AfterHoursPage() {
   return (
     <PageTransition>
-      <GridOverlay />
       <section
         style={{
           paddingTop: "clamp(120px, 15vw, 160px)",

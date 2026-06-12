@@ -2,7 +2,6 @@
 
 import FadeUp from "../components/FadeUp";
 import Footer from "../components/Footer";
-import GridOverlay from "../components/GridOverlay";
 import PageTransition from "../components/PageTransition";
 import SheenDivider from "../components/SheenDivider";
 import VideoPlayer from "../components/VideoPlayer";
@@ -37,7 +36,6 @@ const AFTER_MIDNIGHT_VIDEOS = [
 export default function ReelsPage() {
   return (
     <PageTransition>
-      <GridOverlay />
       <section
         style={{
           paddingTop: "clamp(120px, 15vw, 160px)",
