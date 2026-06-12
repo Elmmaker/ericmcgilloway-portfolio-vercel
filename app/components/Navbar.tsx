@@ -57,6 +57,10 @@ export default function Navbar() {
     }
   }
 
+  // Standalone client pitch — hide the whole site nav (portfolio links + the
+  // "Eric McGilloway" header) on this page for a clean, Spaceman-focused look.
+  if (pathname === "/spaceman") return null;
+
   return (
     <>
       <nav
