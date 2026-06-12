@@ -36,18 +36,6 @@ const PROJECTS = [
     badge: "AIRS JULY 2026",
   },
   {
-    id: 8,
-    title: "The Pursuit of Dreamers",
-    subtitle: "Lockheed Martin / Aerospace Concept",
-    role: "Concept, Edit & Interactive 3D",
-    type: "Documentary",
-    year: "2026",
-    color: "#C5A455",
-    image: "/lm/poster.jpg",
-    video: null,
-    link: "/lm",
-  },
-  {
     id: 6,
     title: "Hearts of Heroes",
     subtitle: "ABC/Hearst Media",
@@ -70,16 +58,15 @@ const PROJECTS = [
     video: "/clips/conan.mp4",
   },
   {
-    id: 3,
-    title: "Social Media Admats: Superman",
-    subtitle: "Fracture Creative",
+    id: 5,
+    title: "Entertainment Tonight",
+    subtitle: "CBS",
     role: "Sr. Motion Designer",
-    type: "Entertainment Marketing",
-    year: "2025",
-    color: "#3A7BE0",
-    projects: ["Five Nights At Freddy's", "Jurassic World", "How To Train Your Dragon"],
-    image: "/images/work/superman-wide.jpg",
-    video: null,
+    type: "Broadcast",
+    year: "2023–2024",
+    color: "#EC4899",
+    image: "/images/work/et.jpg",
+    video: "/clips/entertainment-tonight.mp4",
   },
   {
     id: 4,
@@ -94,15 +81,28 @@ const PROJECTS = [
     video: "/clips/after-midnight.mp4",
   },
   {
-    id: 5,
-    title: "Entertainment Tonight",
-    subtitle: "CBS",
+    id: 3,
+    title: "Social Media Admats: Superman",
+    subtitle: "Fracture Creative",
     role: "Sr. Motion Designer",
-    type: "Broadcast",
-    year: "2023–2024",
-    color: "#EC4899",
-    image: "/images/work/et.jpg",
-    video: "/clips/entertainment-tonight.mp4",
+    type: "Entertainment Marketing",
+    year: "2025",
+    color: "#3A7BE0",
+    projects: ["Five Nights At Freddy's", "Jurassic World", "How To Train Your Dragon"],
+    image: "/images/work/superman-wide.jpg",
+    video: null,
+  },
+  {
+    id: 8,
+    title: "The Pursuit of Dreamers",
+    subtitle: "Lockheed Martin / Aerospace Concept",
+    role: "Concept, Edit & Interactive 3D",
+    type: "Documentary",
+    year: "2026",
+    color: "#C5A455",
+    image: "/lm/poster.jpg",
+    video: null,
+    link: "/lm",
   },
 ];
 
@@ -157,7 +157,7 @@ export default function Home() {
       >
         {/* Name */}
         <h1
-          className="font-serif font-bold leading-[0.92]"
+          className="font-sans font-bold leading-[0.92] tracking-tight"
           style={{ fontSize: "clamp(36px, 9vw, 120px)", marginBottom: "20px" }}
         >
           {name.split("").map((char, i) => (
@@ -202,7 +202,7 @@ export default function Home() {
             delay: 1.1,
           }}
         >
-          Lead motion designer and graphics producer building brand systems and campaign creative for major networks, studios, and entertainment brands. 15+ years across late-night, documentary, news, and franchise marketing, with a track record of leading teams and shipping high-craft work at scale.
+          Lead motion designer across broadcast and streaming. I spent 11 seasons on Conan, designed graphics for After Midnight with Taylor Tomlinson on CBS, and have built packages for Entertainment Tonight, Modern Marvels, and Nat Geo Kids. My work covers title sequences, graphics packages, social campaigns, and VFX. Comfortable leading teams and contributing as a team member. For quick recommendations please see Kudos.
         </motion.p>
 
         {/* CTA */}
@@ -296,7 +296,7 @@ export default function Home() {
           <div>
             <FadeUp>
               <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold" style={{ marginBottom: "12px" }}>
-                01 / Resume
+                01 / Recent Work
               </div>
             </FadeUp>
             <FadeUp delay={0.1}>
@@ -546,7 +546,7 @@ export default function Home() {
                 />
               </div>
               <div className="text-center">
-                <div className="font-serif font-bold text-cream" style={{ fontSize: "clamp(28px, 5vw, 44px)" }}>
+                <div className="font-sans font-bold text-cream tracking-tight" style={{ fontSize: "clamp(28px, 5vw, 44px)" }}>
                   Eric McGilloway
                 </div>
                 <div className="font-mono uppercase" style={{ fontSize: "clamp(11px, 1.5vw, 14px)", letterSpacing: "2.4px", color: "#C5A455", marginTop: "8px" }}>
