@@ -616,7 +616,7 @@ export default function Home() {
                 name: "Rob Gage",
                 role: "Director, Post-Production Engineering · Netflix",
                 quote:
-                  "I recommend Eric without hesitation. He brings the same passion to his motion graphics that he brings to Eagles Sundays — and thankfully, none of the energy he brings to golf, where par is a rumor he's heard about but never met.",
+                  "Eric is the rare motion designer who keeps the craft high without ever slowing things down — a combination that's harder to find than it sounds. We worked together at Conan, and he made everything around him run smoother. He thinks in systems, so what he builds isn't just good once; it holds up wherever it ends up living, and it's made so other people can pick it up and run with it. He knows the technical side cold, which means his work simply works and frees everyone else to focus on the creative. He takes real ownership, lifts the people around him, and is genuinely great to work with. He's exactly the kind of person you fight to keep.",
               },
               {
                 name: "Robert Smigel",
