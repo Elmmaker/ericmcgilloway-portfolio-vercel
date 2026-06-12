@@ -86,8 +86,8 @@ export default function PasswordGate({
           justify-content: center;
           background: radial-gradient(
             ellipse at 50% 42%,
-            #1a0a22 0%,
-            #0c0610 48%,
+            #4a1340 0%,
+            #1a0a1a 60%,
             #050308 100%
           );
           border: 1px solid #211826;

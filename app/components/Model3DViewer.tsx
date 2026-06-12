@@ -754,7 +754,7 @@ export default function Model3DViewer({ config }: { config: ModelConfig }) {
           width: "100%",
           aspectRatio: config.aspect ?? "16 / 9",
           background:
-            "radial-gradient(ellipse at 50% 42%, #1f0c29 0%, #0c0610 48%, #050308 100%)",
+            "radial-gradient(ellipse at 50% 42%, #4a1340 0%, #1a0a1a 60%, #050308 100%)",
           border: "1px solid #211826",
           borderRadius: 4,
           overflow: "hidden",
@@ -979,10 +979,10 @@ function ViewerStyles(): ReactNode {
           border: none !important;
           border-radius: 0 !important;
           background: radial-gradient(
-            ellipse at 50% 42%,
-            #1f0c29 0%,
-            #0c0610 35%,
-            #060509 68%
+            ellipse at 50% 43%,
+            #4a1340 0%,
+            #1a0a1a 40%,
+            #060509 80%
           ) !important;
         }
       }
