@@ -53,10 +53,10 @@ const ASTRONAUT_CONFIG: ModelConfig = {
     {
       key: "control",
       match: "CONTROL PANEL",
-      label: "Production",
-      media: IMG("/spaceman/production.jpg"),
+      label: "Graphics",
+      media: IMG("/spaceman/graphics.jpg"),
       description:
-        "End-to-end production — planning, crewing, and running shoots that keep ambitious ideas on schedule and on budget.",
+        "Design-driven graphics and on-screen systems — titles, lower-thirds, and motion-ready art that sharpen every frame.",
     },
     {
       key: "power",
@@ -69,19 +69,19 @@ const ASTRONAUT_CONFIG: ModelConfig = {
     {
       key: "gloves",
       match: "GLOVES",
-      label: "Graphics",
-      media: IMG("/spaceman/graphics.jpg"),
+      label: "Camera",
+      media: IMG("/spaceman/camera.jpg"),
       split: true,
       description:
-        "Design-driven graphics and on-screen systems — titles, lower-thirds, and motion-ready art that sharpen every frame.",
+        "On-set camera and cinematography — the right lens, lighting, and movement to capture the story.",
     },
     {
       key: "boots",
       match: "MOON BOOTS",
-      label: "Camera",
-      media: IMG("/spaceman/camera.jpg"),
+      label: "Production",
+      media: IMG("/spaceman/production.jpg"),
       description:
-        "On-set camera and cinematography — the right lens, lighting, and movement to capture the story.",
+        "End-to-end production — planning, crewing, and running shoots that keep ambitious ideas on schedule and on budget.",
     },
   ],
 };
