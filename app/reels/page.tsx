@@ -31,9 +31,35 @@ export default function ReelsPage() {
           paddingRight: "clamp(20px, 6vw, 80px)",
         }}
       >
-        {/* Hearts of Heroes */}
+        {/* Nat Geo Kids — The Wonderlist: Clouds */}
         <FadeUp delay={0.15}>
           <div>
+            <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
+              Nat Geo Kids
+            </div>
+            <div
+              className="font-serif font-bold text-cream mb-3"
+              style={{ fontSize: "clamp(22px, 4vw, 48px)" }}
+            >
+              The Wonderlist: Clouds
+            </div>
+            <div className="text-sm sm:text-base max-w-[600px]" style={{ color: "#8A8579", lineHeight: 1.7, marginBottom: "clamp(24px, 4vw, 40px)" }}>
+              Sr. 3D and animation design for Nat Geo Kids&apos;
+              Spaceman/Wonder List documentary series.
+            </div>
+
+            <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
+              <VideoPlayer
+                embedUrl="https://framerate.tv/watch/5191eb19-7d5b-4815-b698-f500e74af8a4"
+                poster="/images/work/spacemans-wonder-list-clouds.jpg"
+              />
+            </div>
+          </div>
+        </FadeUp>
+
+        {/* Hearts of Heroes */}
+        <FadeUp delay={0.15}>
+          <div style={{ marginTop: "clamp(60px, 10vw, 100px)" }}>
             <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
               Hearts of Heroes
             </div>
