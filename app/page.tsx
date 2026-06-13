@@ -585,10 +585,10 @@ export default function Home() {
           >
             {[
               {
-                name: "Rob Gage",
-                role: "Director, Post-Production Engineering · Netflix",
+                name: "Rob Ashe",
+                role: "Editor & Producer · Conan, Beavis and Butthead Do The Universe, Kevin",
                 quote:
-                  "Eric is the rare motion designer who keeps the craft high without ever slowing things down — a combination that's harder to find than it sounds. We worked together at Conan, and he made everything around him run smoother. He thinks in systems, so what he builds isn't just good once; it holds up wherever it ends up living, and it's made so other people can pick it up and run with it. He knows the technical side cold, which means his work simply works and frees everyone else to focus on the creative. He takes real ownership, lifts the people around him, and is genuinely great to work with. He's exactly the kind of person you fight to keep.",
+                  "I worked alongside Eric for ten years on Conan. In that world things move fast and break often, and he was always the guy who made it look easy. Travel shows, pilots, awards shows, late night, he handled all of it without missing a beat. Endlessly talented, ridiculously quick under pressure, and one of the kindest people I've ever shared a post trailer with. Just hire him.",
               },
               {
                 name: "Robert Smigel",
@@ -597,28 +597,28 @@ export default function Home() {
                   "Eric is not only extremely talented, intuitive, and fast, but he often comes up with something funnier than I'd even imagined. And on the rare occasion that I have a note, he's only interested in getting it right and keeping at it until we're all happy.",
               },
               {
+                name: "Angus Lyne",
+                role: "Motion Graphics & VFX Designer · Conan, Masters Of The Universe",
+                quote:
+                  "Eric is a very talented and fast designer capable of finding creative solutions to the many problems presented by working under extremely short deadlines and limited resources. The two of us were often called upon to visualize ambitious and complex concepts under strict time constraints. He was always able to find a solution and keep a positive attitude under pressure. Very good at communicating with writers and producers to find solutions.",
+              },
+              {
+                name: "Rob Gage",
+                role: "Director, Post-Production Engineering · Netflix",
+                quote:
+                  "Eric is the rare motion designer who keeps the craft high without ever slowing things down — a combination that's harder to find than it sounds. We worked together at Conan, and he made everything around him run smoother. He thinks in systems, so what he builds isn't just good once; it holds up wherever it ends up living, and it's made so other people can pick it up and run with it. He knows the technical side cold, which means his work simply works and frees everyone else to focus on the creative. He takes real ownership, lifts the people around him, and is genuinely great to work with. He's exactly the kind of person you fight to keep.",
+              },
+              {
                 name: "Alison Childs",
                 role: "Director: Creative and Product Design · Conan",
                 quote:
                   "Eric is awesome! He's always a positive force in the workplace and the speed at which he creates motion/graphics is out of this world. It was a dream to work with him.",
               },
               {
-                name: "Rob Ashe",
-                role: "Editor & Producer · Conan, Beavis and Butthead Do The Universe, Kevin",
-                quote:
-                  "I worked alongside Eric for ten years on Conan. In that world things move fast and break often, and he was always the guy who made it look easy. Travel shows, pilots, awards shows, late night, he handled all of it without missing a beat. Endlessly talented, ridiculously quick under pressure, and one of the kindest people I've ever shared a post trailer with. Just hire him.",
-              },
-              {
                 name: "Dave Neglia",
                 role: "Co-Producer · After Midnight, The Muppet Show",
                 quote:
                   "Eric is the person you want on a high-volume schedule. He is quite simply the best at what he does. No one else comes close. Calm under pressure, methodical with deliverables, and ahead of the curve on schedule tracking.",
-              },
-              {
-                name: "Angus Lyne",
-                role: "Motion Graphics & VFX Designer · Conan, Masters Of The Universe",
-                quote:
-                  "Eric is a very talented and fast designer capable of finding creative solutions to the many problems presented by working under extremely short deadlines and limited resources. The two of us were often called upon to visualize ambitious and complex concepts under strict time constraints. He was always able to find a solution and keep a positive attitude under pressure. Very good at communicating with writers and producers to find solutions.",
               },
             ].map((t, i) => (
               <FadeUp key={t.name} delay={0.05 + i * 0.05}>
