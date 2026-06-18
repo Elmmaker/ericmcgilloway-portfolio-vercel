@@ -1,0 +1,341 @@
+/* ============================================================
+   Ring By Spring Break — Click-through Deck
+   Layered on top of the existing treatment styles. Locks the
+   document to one viewport-sized page at a time, transitions
+   between them, and lays in beach micro-animations (lens flare
+   sweep + ambient caustics).
+   ============================================================ */
+
+html, body {
+  height: 100%;
+  overflow: hidden !important;
+  margin: 0;
+  padding: 0;
+  /* preserve existing radial body bg from the treatment */
+}
+
+/* Ambient caustic shimmer behind everything — a slow-drifting
+   light pattern. Sits BEHIND the existing body::before noise. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 40% at 28% 22%, rgba(34, 227, 236, .08) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 35% at 72% 60%, rgba(255, 138, 60, .06) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 50% 85%, rgba(232, 194, 90, .05) 0%, transparent 55%);
+  mix-blend-mode: screen;
+  animation: causticsDrift 18s ease-in-out infinite;
+  filter: blur(20px);
+}
+@keyframes causticsDrift {
+  0%, 100% { transform: translate(0, 0); }
+  33%      { transform: translate(-3%, 4%); }
+  66%      { transform: translate(3%, -2%); }
+}
+
+/* The deck container — fixed viewport, holds all pages */
+.deck {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+}
+
+/* Each page is an absolutely-positioned viewport-sized layer.
+   Hidden by default off-screen to the right. */
+.deck-page {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  opacity: 0;
+  transform: translateX(100%);
+  transition:
+    transform 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 0.45s ease;
+  padding: clamp(60px, 8vh, 100px) clamp(20px, 6vw, 80px)
+           calc(120px + env(safe-area-inset-bottom));
+  /* keep the existing radial body bg visible behind every page */
+  background: transparent;
+  will-change: transform, opacity;
+}
+
+.deck-page.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.deck-page.exit-left  { opacity: 0; transform: translateX(-100%); pointer-events: none; }
+.deck-page.exit-right { opacity: 0; transform: translateX(100%);  pointer-events: none; }
+
+/* The cover page is a special case — it should fill edge-to-edge */
+.deck-page.cover-page {
+  padding: 0;
+}
+.deck-page.cover-page .cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+.deck-page.cover-page .cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Show-element sub-pages get a max-width so frames sit centered */
+.deck-page.show-element-page {
+  max-width: 100%;
+}
+.deck-page.show-element-page > * {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* When a section is hoisted into a deck-page, kill its existing
+   vertical padding so it doesn't double up with the page padding */
+.deck-page > section {
+  padding: 0 !important;
+}
+
+/* Stagger reveal on the active page — heading first, then body,
+   then images. Triggered by adding .stagger-in class. */
+.deck-page.active .stagger-in > * {
+  animation: itemRise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.deck-page.active .stagger-in > *:nth-child(1)  { animation-delay: 0.10s; }
+.deck-page.active .stagger-in > *:nth-child(2)  { animation-delay: 0.18s; }
+.deck-page.active .stagger-in > *:nth-child(3)  { animation-delay: 0.26s; }
+.deck-page.active .stagger-in > *:nth-child(4)  { animation-delay: 0.34s; }
+.deck-page.active .stagger-in > *:nth-child(5)  { animation-delay: 0.42s; }
+.deck-page.active .stagger-in > *:nth-child(6)  { animation-delay: 0.50s; }
+.deck-page.active .stagger-in > *:nth-child(7)  { animation-delay: 0.58s; }
+.deck-page.active .stagger-in > *:nth-child(8)  { animation-delay: 0.66s; }
+.deck-page.active .stagger-in > *:nth-child(9)  { animation-delay: 0.74s; }
+.deck-page.active .stagger-in > *:nth-child(10) { animation-delay: 0.82s; }
+@keyframes itemRise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ NAVIGATION CHROME ============ */
+
+.deck-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(clamp(16px, 2.6vw, 30px) + env(safe-area-inset-bottom));
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(16px, 3.4vw, 36px);
+  pointer-events: none;
+  font-family: "trade-gothic-next", "Trade Gothic Next", "Helvetica Neue", Arial, sans-serif;
+}
+.deck-nav > * { pointer-events: auto; }
+
+.deck-btn {
+  width: 56px;
+  height: 56px;
+  border: 1px solid rgba(232, 194, 90, .55);
+  background: rgba(6, 18, 31, .65);
+  color: #e8c25a;
+  border-radius: 50%;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  padding: 0;
+  line-height: 0;
+}
+.deck-btn:hover:not(:disabled) {
+  background: rgba(232, 194, 90, .18);
+  border-color: rgba(232, 194, 90, .85);
+  transform: scale(1.06);
+  box-shadow: 0 0 22px rgba(232, 194, 90, .35);
+}
+.deck-btn:disabled {
+  opacity: 0.28;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.deck-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 14px;
+  background: rgba(6, 18, 31, .55);
+  border: 1px solid rgba(232, 194, 90, .25);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+/* Hit area is 28px+ via padding + content-box clip, so the visible
+   dot stays small but the tappable region is comfortable on touch. */
+.deck-dot {
+  width: 28px;
+  height: 28px;
+  background: rgba(232, 194, 90, .28);
+  background-clip: content-box;
+  padding: 10px;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  box-sizing: content-box;
+  transition: background 0.3s ease;
+}
+.deck-dot.active {
+  background: #e8c25a;
+  background-clip: content-box;
+  box-shadow: inset 0 0 0 999px transparent, 0 0 14px rgba(232, 194, 90, .55);
+}
+
+.deck-counter {
+  position: fixed;
+  top: clamp(16px, 2.6vw, 28px);
+  right: clamp(16px, 3vw, 32px);
+  z-index: 100;
+  font-family: "trade-gothic-next", "Trade Gothic Next", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #e8c25a;
+  background: rgba(6, 18, 31, .65);
+  padding: 8px 14px;
+  border: 1px solid rgba(232, 194, 90, .25);
+  border-radius: 4px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+
+/* ============ LENS FLARE SWEEP ============ */
+
+.deck-flare {
+  position: fixed;
+  top: 50%;
+  left: -50vw;
+  width: 70vw;
+  height: 70vw;
+  max-width: 900px;
+  max-height: 900px;
+  z-index: 60;
+  pointer-events: none;
+  transform: translateY(-50%);
+  opacity: 0;
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(255, 255, 255, .95) 0%,
+      rgba(255, 243, 207, .55) 14%,
+      rgba(232, 194, 90, .25) 28%,
+      rgba(232, 194, 90, .08) 48%,
+      transparent 62%);
+  mix-blend-mode: screen;
+  filter: blur(2px);
+}
+.deck-flare.active { animation: flareSweep 0.85s cubic-bezier(0.42, 0, 0.58, 1) forwards; }
+.deck-flare.reverse.active { animation: flareSweepReverse 0.85s cubic-bezier(0.42, 0, 0.58, 1) forwards; }
+
+@keyframes flareSweep {
+  0%   { left: -60vw; opacity: 0; }
+  18%  { opacity: 1; }
+  82%  { opacity: 1; }
+  100% { left: 120vw; opacity: 0; }
+}
+@keyframes flareSweepReverse {
+  0%   { left: 120vw; opacity: 0; }
+  18%  { opacity: 1; }
+  82%  { opacity: 1; }
+  100% { left: -60vw; opacity: 0; }
+}
+
+/* ============ MOBILE ============ */
+
+@media (max-width: 768px) {
+  .deck-page {
+    /* room for the 50px button + safe-area home-indicator slack */
+    padding: clamp(64px, 14vw, 90px) 20px
+             calc(140px + env(safe-area-inset-bottom));
+  }
+  /* Tight leading + balanced wrapping for everything text */
+  .deck-page :is(p, .lead-3, .note, .cap .d, .cf-tag, .cf-names, .sign, li, .nm) {
+    line-height: 1.42 !important;
+    text-wrap: pretty;
+    max-width: 38em;
+  }
+  .deck-page :is(h1, h2, h3, .lg-caps, .lg-brk, .lbm-caps, .fsm .big) {
+    line-height: 1.06 !important;
+    text-wrap: balance;
+  }
+  /* Reduce overscaled hero type on phones */
+  .deck-page h2 { font-size: clamp(24px, 6.8vw, 32px) !important; }
+  .deck-page h3 { font-size: 13px !important; }
+  .deck-page p, .deck-page .drop { font-size: 16px !important; }
+  .deck-page .lead-3 { font-size: 14px !important; }
+  /* Cover wordmark + show-element mock titles can blow past viewport
+     width on small phones — clamp them down too. */
+  .deck-page .lg-caps { font-size: clamp(42px, 12vw, 78px) !important; }
+  .deck-page .lg-brk  { font-size: clamp(36px, 10vw, 64px) !important; }
+  .deck-page .fsm .big { font-size: clamp(34px, 10vw, 52px) !important; }
+  .deck-page .lbm-caps { font-size: clamp(26px, 8vw, 38px) !important; }
+  .deck-page .lbm-brk  { font-size: clamp(28px, 8vw, 40px) !important; }
+  /* Counter shouldn't wrap */
+  .deck-counter { white-space: nowrap; }
+
+  /* Tighten the section vertical spacing */
+  .deck-page > section { padding: 0 !important; }
+
+  /* Frames grid collapses to single column on phones */
+  .deck-page .frames { grid-template-columns: 1fr !important; gap: 14px !important; }
+  .deck-page .frame.half,
+  .deck-page .frame.f3 { grid-column: span 12 !important; }
+
+  /* Color/type grid stacks */
+  .deck-page .grid2 { grid-template-columns: 1fr !important; gap: 22px !important; }
+
+  /* Nav chrome — smaller buttons, lower position */
+  .deck-nav { bottom: 12px; padding: 0 12px; }
+  .deck-btn { width: 50px; height: 50px; font-size: 19px; }
+  .deck-dots { padding: 6px 10px; gap: 6px; }
+  .deck-dot { width: 7px; height: 7px; }
+  .deck-dot.active { width: 20px; }
+  .deck-counter { top: 12px; right: 12px; font-size: 10px; padding: 6px 10px; }
+}
+
+/* ============ ACCESSIBILITY ============ */
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-page,
+  .deck-page.active .stagger-in > * {
+    transition: opacity 0.2s ease !important;
+    animation: none !important;
+    transform: none !important;
+  }
+  /* Don't just stop the caustic animation — drop the blurred layer
+     entirely so low-end devices aren't repainting a 20px-blur fill */
+  body::after { display: none !important; }
+  .deck-flare { display: none !important; }
+}
+
+/* Hide focus ring on mouse but keep for keyboard */
+.deck-btn:focus, .deck-dot:focus { outline: none; }
+.deck-btn:focus-visible, .deck-dot:focus-visible {
+  outline: 2px solid #e8c25a;
+  outline-offset: 3px;
+}
