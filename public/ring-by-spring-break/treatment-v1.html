@@ -118,10 +118,10 @@
   .sw .chip{height:74px}
   .sw .lab{padding:8px 9px;font-family:var(--caps);font-weight:700;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ivory-dim);background:#0a1a30}
   .sw .lab b{display:block;color:var(--ivory);letter-spacing:.06em;font-size:10px;margin-bottom:2px}
-  .swlist{display:flex;flex-direction:column;gap:16px;margin-top:18px}
-  .swrow{display:flex;align-items:center;gap:20px}
-  .swrow .box{width:78px;height:78px;border-radius:8px;flex:none;border:1px solid var(--hair);box-shadow:0 8px 22px rgba(0,0,0,.42)}
-  .swrow .txt{display:flex;flex-direction:column;gap:5px}
+  .swlist{display:grid;grid-template-columns:1fr 1fr;gap:22px 22px;margin-top:18px}
+  .swrow{display:flex;flex-direction:column;gap:11px}
+  .swrow .box{width:100%;height:133px;border-radius:8px;border:1px solid var(--hair);box-shadow:0 8px 22px rgba(0,0,0,.42)}
+  .swrow .txt{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
   .swrow .nm{font-family:var(--caps);font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-size:16px;color:var(--ivory)}
   .swrow .hx{font-family:var(--caps);font-size:13px;letter-spacing:.16em;color:var(--gold)}
   .typerow{border:1px solid var(--hair);border-radius:3px;padding:28px 22px;margin-top:19px;background:rgba(8,21,46,.6)}
