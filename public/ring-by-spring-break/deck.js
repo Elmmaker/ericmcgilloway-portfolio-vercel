@@ -122,17 +122,6 @@
     prevBtn.setAttribute("aria-label", "Previous page");
     prevBtn.addEventListener("click", prev);
 
-    var dots = document.createElement("div");
-    dots.className = "deck-dots";
-    pages.forEach(function (p, i) {
-      var d = document.createElement("button");
-      d.type = "button";
-      d.className = "deck-dot" + (i === 0 ? " active" : "");
-      d.setAttribute("aria-label", "Go to page " + (i + 1) + " — " + p.label);
-      d.addEventListener("click", function () { goto(i); });
-      dots.appendChild(d);
-    });
-
     var nextBtn = document.createElement("button");
     nextBtn.type = "button";
     nextBtn.className = "deck-btn deck-next";
@@ -141,7 +130,6 @@
     nextBtn.addEventListener("click", next);
 
     navEl.appendChild(prevBtn);
-    navEl.appendChild(dots);
     navEl.appendChild(nextBtn);
     document.body.appendChild(navEl);
 
@@ -166,19 +154,9 @@
     }
   }
 
-  /* ---------------- LENS FLARE ---------------- */
-
-  function flareSweep(direction) {
-    if (!flareEl) {
-      flareEl = document.createElement("div");
-      flareEl.className = "deck-flare";
-      document.body.appendChild(flareEl);
-    }
-    flareEl.classList.remove("active", "reverse");
-    void flareEl.offsetWidth; // force reflow so animation restarts
-    if (direction === "back") flareEl.classList.add("reverse");
-    flareEl.classList.add("active");
-  }
+  /* Lens-flare removed — keep the function as a no-op so call sites
+     stay tidy and we can flip it back on later if needed. */
+  function flareSweep(/* direction */) { /* intentionally empty */ }
 
   /* ---------------- TRANSITIONS ---------------- */
 
