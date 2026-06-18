@@ -17,6 +17,10 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const { setOpen } = useContact();
+
+  // Pages that take over the full viewport (their own framing /
+  // navigation) shouldn't show the site nav on top.
+  if (pathname.startsWith("/ring-by-spring-break")) return null;
   const [menuOpen, setMenuOpen] = useState(false);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
