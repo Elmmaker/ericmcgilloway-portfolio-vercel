@@ -73,21 +73,27 @@ body::after {
 .deck-page.exit-left  { opacity: 0; transform: translateX(-100%); pointer-events: none; }
 .deck-page.exit-right { opacity: 0; transform: translateX(100%);  pointer-events: none; }
 
-/* The cover page is a special case — it should fill edge-to-edge */
+/* Cover page — show the WHOLE key art with no cropping. The deck's
+   dark background fills any letterboxed space around the image. */
 .deck-page.cover-page {
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .deck-page.cover-page .cover {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  inset: auto;
   width: 100%;
   height: 100%;
   aspect-ratio: auto;
+  background: transparent;
 }
 .deck-page.cover-page .cover-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 /* Show-element sub-pages get a max-width so frames sit centered */
