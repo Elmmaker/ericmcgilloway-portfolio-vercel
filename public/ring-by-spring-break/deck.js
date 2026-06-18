@@ -44,41 +44,64 @@
     });
   }
 
-  function observe() {
-    if (typeof IntersectionObserver === "undefined") {
-      // Old browser — just reveal everything immediately.
-      document.querySelectorAll(".reveal").forEach(function (el) {
-        el.classList.add("reveal-in");
-      });
-      document.querySelectorAll(".stagger-group").forEach(function (el) {
-        el.classList.add("reveal-in");
-      });
-      return;
+  /* Scroll-listener-based reveal. More reliable inside iframes than
+     IntersectionObserver (which can miss programmatic scrolls + some
+     cross-document edge cases). Elements get .reveal-in when their
+     top crosses 88% of the viewport height. */
+  function makeRevealer() {
+    var pending = false;
+    var elements = Array.prototype.slice.call(
+      document.querySelectorAll(".reveal, .stagger-group")
+    );
+
+    function check() {
+      pending = false;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var trigger = vh * 0.88;
+      var remaining = [];
+      for (var i = 0; i < elements.length; i++) {
+        var el = elements[i];
+        if (el.classList.contains("reveal-in")) continue;
+        var r = el.getBoundingClientRect();
+        // Top below 88% of viewport AND bottom above 0 = in view
+        if (r.top < trigger && r.bottom > 0) {
+          el.classList.add("reveal-in");
+        } else if (r.top >= trigger) {
+          remaining.push(el);
+        }
+      }
+      // Trim observed list to elements still below the fold so the
+      // scroll loop stays cheap on long documents.
+      elements = remaining.concat(
+        elements.filter(function (e) { return e.getBoundingClientRect().bottom < 0; })
+      );
     }
 
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("reveal-in");
-          io.unobserve(entry.target);
-        }
-      });
-    }, {
-      root: null,
-      rootMargin: "0px 0px -10% 0px",
-      threshold: 0.08
-    });
+    function onScroll() {
+      if (pending) return;
+      pending = true;
+      // rAF when the tab is foreground for smooth pacing, fall back
+      // to setTimeout when hidden so we still process scrolls.
+      var schedule = (typeof requestAnimationFrame === "function" &&
+                      !document.hidden)
+        ? requestAnimationFrame
+        : function (fn) { setTimeout(fn, 16); };
+      schedule(check);
+    }
 
-    document.querySelectorAll(".reveal, .stagger-group").forEach(function (el) {
-      io.observe(el);
-    });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    // Run once immediately so anything already in view reveals.
+    check();
   }
 
   function init() {
     tagReveals();
     // Slight defer so any layout shifts from the inline IIFE's
     // video-blob conversion settle before we start observing.
-    requestAnimationFrame(observe);
+    // setTimeout (vs requestAnimationFrame) so this fires even on
+    // hidden tabs / embedded previews where rAF can be paused.
+    setTimeout(makeRevealer, 60);
   }
 
   if (document.readyState === "complete") {
