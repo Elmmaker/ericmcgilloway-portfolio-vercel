@@ -5,6 +5,7 @@ import {
   JetBrains_Mono,
   Archivo,
   Ubuntu,
+  Inter,
 } from "next/font/google";
 import "./globals.css";
 import ClientShell from "./components/ClientShell";
@@ -40,6 +41,12 @@ const ubuntu = Ubuntu({
   weight: ["300", "500"],
 });
 
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["300", "400", "700", "800", "900"],
+});
+
 export const metadata: Metadata = {
   title: "Eric McGilloway",
   description:
@@ -73,7 +80,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${archivo.variable} ${ubuntu.variable}`}
+      className={`${playfair.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${archivo.variable} ${ubuntu.variable} ${inter.variable}`}
     >
       <body className="min-h-screen antialiased">
         <div className="grain" />

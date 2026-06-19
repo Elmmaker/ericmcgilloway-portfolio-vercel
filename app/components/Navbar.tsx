@@ -21,6 +21,8 @@ export default function Navbar() {
   // Pages that take over the full viewport (their own framing /
   // navigation) shouldn't show the site nav on top.
   if (pathname.startsWith("/ring-by-spring-break")) return null;
+  // The home page ships its own nav per the bright re-skin spec.
+  if (pathname === "/") return null;
   const [menuOpen, setMenuOpen] = useState(false);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
