@@ -1245,12 +1245,15 @@ function BrightStyles() {
         /* Filling the right half of the contact section per the
            reference mockup — caps around the section's max-width
            half. Image has alpha so no blend mode needed. */
-        width: clamp(300px, 50vw, 820px);
-        height: clamp(300px, 50vw, 820px);
+        width: clamp(360px, 60vw, 984px);
+        height: clamp(360px, 60vw, 984px);
         object-fit: contain;
         flex-shrink: 0;
         pointer-events: none;
         user-select: none;
+        /* Pull the cube left so it nests next to the headline rather
+           than floating at the right edge. */
+        margin-left: clamp(-6rem, -5vw, -2rem);
       }
 
       /* ── FOOTER ── */
