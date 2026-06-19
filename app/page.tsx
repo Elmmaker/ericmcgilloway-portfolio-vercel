@@ -1245,7 +1245,7 @@ function BrightStyles() {
         width: clamp(260px, 36vw, 500px);
         height: clamp(260px, 36vw, 500px);
         object-fit: contain;
-        mix-blend-mode: screen;
+        /* Image already has alpha — no blend mode needed. */
         flex-shrink: 0;
         pointer-events: none;
         user-select: none;
