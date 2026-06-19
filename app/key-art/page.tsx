@@ -169,7 +169,6 @@ export default function KeyArtPage() {
       <BrightBackground />
       <main>
         <BrightPageHeader
-          eyebrow="02 / Still Work"
           title="Key Art & Stills"
           intro="Print, digital, and social campaign artwork from broadcast, comedy touring, live events, and entertainment marketing projects."
         />

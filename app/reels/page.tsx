@@ -28,7 +28,6 @@ export default function ReelsPage() {
       <BrightBackground />
       <main>
         <BrightPageHeader
-          eyebrow="01 / Motion Graphics"
           title="Work"
           intro="Broadcast packages, title sequences, documentary maps, and entertainment marketing across late night, streaming, documentary, and franchise marketing."
         />

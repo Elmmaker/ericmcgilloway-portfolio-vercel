@@ -20,7 +20,6 @@ export default function LMPage() {
       <BrightBackground />
       <main>
         <BrightPageHeader
-          eyebrow="04 / Concept"
           title="The Pursuit of Dreamers"
         />
         <div className="bright-sec-inner">

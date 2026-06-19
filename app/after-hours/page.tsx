@@ -37,7 +37,6 @@ export default function AfterHoursPage() {
       <BrightBackground />
       <main>
         <BrightPageHeader
-          eyebrow="03 / Experiments"
           title="After Hours"
           intro={"The stuff I make when nobody's watching. Personal projects, experiments, and the work that keeps the creative engine running after the day job wraps."}
         />
