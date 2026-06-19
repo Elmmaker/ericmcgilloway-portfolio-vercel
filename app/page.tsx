@@ -153,15 +153,17 @@ function Hero() {
       </p>
       <h1 className="bright-hero-name bright-hero-name-sig reveal">
         <span className="visually-hidden">Eric McGilloway</span>
-        <Image
-          src="/images/eric-mcgilloway-signature_v2.png"
-          alt="Eric McGilloway"
-          width={3217}
-          height={609}
-          priority
-          sizes="(max-width: 540px) 90vw, (max-width: 860px) 80vw, 60vw"
-          className="bright-hero-name-img"
-        />
+        <span className="bright-hero-sig-window">
+          <Image
+            src="/images/eric-mcgilloway-signature_v3.png"
+            alt="Eric McGilloway"
+            width={2949}
+            height={501}
+            priority
+            sizes="(max-width: 540px) 90vw, (max-width: 860px) 80vw, 60vw"
+            className="bright-hero-name-img"
+          />
+        </span>
       </h1>
       <div className="bright-hero-stats reveal">
         <div className="bright-hero-stat">
