@@ -183,8 +183,17 @@ function Hero() {
         <strong>Senior Motion Designer</strong>
         &nbsp;·&nbsp; Motion Design &nbsp;·&nbsp; 3D &nbsp;·&nbsp; VFX
       </p>
-      <h1 className="bright-hero-name reveal">
-        Eric M<span className="mc">c</span>Gilloway
+      <h1 className="bright-hero-name bright-hero-name-sig reveal">
+        <span className="visually-hidden">Eric McGilloway</span>
+        <Image
+          src="/images/eric-mcgilloway-signature.png"
+          alt="Eric McGilloway"
+          width={2148}
+          height={334}
+          priority
+          sizes="(max-width: 540px) 90vw, (max-width: 860px) 80vw, 60vw"
+          className="bright-hero-name-img"
+        />
       </h1>
       <div className="bright-hero-stats reveal">
         <div className="bright-hero-stat">
@@ -775,6 +784,32 @@ function BrightStyles() {
         margin: 0;
       }
       .bright-hero-name .mc { font-size: 0.75em; }
+
+      /* Signature variant — replaces the uppercase wordmark with the
+         handwritten PNG. Sized ~60% of the text width so it reads as a
+         personal touch rather than a poster headline. */
+      .bright-hero-name-sig {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+      .bright-hero-name-img {
+        width: clamp(260px, 60vw, 720px) !important;
+        height: auto !important;
+        display: block;
+      }
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
       .bright-hero-role {
         font-size: clamp(0.85rem, 1.2vw, 1rem);
         font-weight: 300;
