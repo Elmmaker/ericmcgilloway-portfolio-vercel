@@ -798,6 +798,11 @@ function BrightStyles() {
         width: clamp(260px, 60vw, 720px) !important;
         height: auto !important;
         display: block;
+        /* Re-color the dark-brown ink to pure white while keeping the
+           PNG's alpha intact. brightness(0) crushes all colour to
+           black, invert(1) flips it to white; transparent pixels stay
+           transparent. */
+        filter: brightness(0) invert(1);
       }
       .visually-hidden {
         position: absolute;
