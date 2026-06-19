@@ -673,18 +673,20 @@ function BrightStyles() {
         overflow-x: hidden;
       }
 
-      /* Fixed gradient backdrop — sits behind everything */
+      /* Fixed gradient backdrop — sits behind everything. Vertical
+         sky-blue: saturated cyan at the top, fading to pale blue at
+         the bottom. */
       .bright-bg {
         position: fixed;
         inset: 0;
         z-index: -1;
-        background-color: var(--bg-bright);
-        background-image:
-          radial-gradient(ellipse 70% 60% at 10% 10%,  rgba(255,190,220,0.28) 0%, transparent 65%),
-          radial-gradient(ellipse 60% 55% at 90% 8%,   rgba(130,210,255,0.26) 0%, transparent 65%),
-          radial-gradient(ellipse 55% 50% at 55% 50%,  rgba(160,235,255,0.16) 0%, transparent 60%),
-          radial-gradient(ellipse 65% 55% at 15% 90%,  rgba(180,200,255,0.22) 0%, transparent 65%),
-          radial-gradient(ellipse 60% 50% at 88% 92%,  rgba(255,180,210,0.21) 0%, transparent 65%);
+        background:
+          linear-gradient(to bottom,
+            #21B8EE 0%,
+            #6FCDF1 22%,
+            #A1DDF3 55%,
+            #C7EBF8 80%,
+            #DBF2FB 100%);
         pointer-events: none;
       }
 
