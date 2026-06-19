@@ -233,31 +233,11 @@ body:has(.bright-bg) {
   justify-content: center;
   line-height: 1;
 }
-/* Window crops just the signature portion of the v3 PNG so the
-   "9 year old son's wordmark" annotation in the upper right gets
-   masked off. The image inside is sized wider than the window so the
-   right portion overflows behind overflow:hidden. */
-.bright-hero-sig-window {
-  display: block;
-  width: clamp(325px, 75vw, 900px);
-  overflow: hidden;
-  /* Height matches the signature's visible aspect ratio (the ink lives
-     roughly in the lower-left portion of the canvas). */
-  aspect-ratio: 2065 / 460;
-  line-height: 0;
-}
 .bright-hero-name-img {
-  /* Stretch the image so its left ~70% (where the signature sits) fills
-     the window. Right ~30% (where the annotation sits) overflows out
-     the right side of the window and gets clipped. Image keeps its
-     native ink colour — no filter. */
-  width: 142.857% !important; /* 100 / 0.70 */
+  /* Show the whole v3 signature edge-to-edge, native ink colour. */
+  width: clamp(325px, 75vw, 900px) !important;
   height: auto !important;
   display: block;
-  max-width: none !important;
-  /* Pull the image up a touch so the signature centers vertically in
-     the window instead of sitting low. */
-  transform: translateY(-12%);
 }
 .visually-hidden {
   position: absolute;
