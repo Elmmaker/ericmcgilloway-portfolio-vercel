@@ -761,17 +761,19 @@ function BrightStyles() {
 
       /* ── HERO ── */
       .bright-hero {
-        padding: calc(var(--py-bright) + 3.5rem) var(--pad-bright) var(--py-bright);
+        /* Tightened head + foot padding so the hero feels compact
+           instead of sprawling — top clearance is just enough for the
+           fixed nav, no extra empty space below. min-height drops to
+           auto so the section sizes to its content. */
+        padding: clamp(5rem, 9vw, 7rem) var(--pad-bright) clamp(2rem, 4vw, 3.5rem);
         max-width: var(--max-bright);
         margin: 0 auto;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 1.75rem;
+        gap: 1.5rem;
         border-bottom: 1px solid var(--rule-bright);
-        min-height: 100svh;
-        justify-content: center;
       }
       .bright-hero-name {
         font-family: var(--f-display);
@@ -795,7 +797,9 @@ function BrightStyles() {
         line-height: 1;
       }
       .bright-hero-name-img {
-        width: clamp(260px, 60vw, 720px) !important;
+        /* +25% over the prior (260px, 60vw, 720px) so the signature
+           reads as the dominant hero element. */
+        width: clamp(325px, 75vw, 900px) !important;
         height: auto !important;
         display: block;
         /* Re-color the dark-brown ink to pure white while keeping the
