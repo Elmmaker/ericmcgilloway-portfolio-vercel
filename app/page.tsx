@@ -570,10 +570,10 @@ function ContactSection() {
           </div>
         </div>
         <Image
-          src="/images/Ice_Cube_I04_2k.png"
+          src="/images/Ice_Cube_EM.png"
           alt=""
-          width={1024}
-          height={1024}
+          width={2000}
+          height={2000}
           sizes="(max-width: 860px) 70vw, 36vw"
           className="bright-contact-ice"
           aria-hidden
