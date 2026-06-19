@@ -238,6 +238,14 @@ body:has(.bright-bg) {
   width: clamp(325px, 75vw, 900px) !important;
   height: auto !important;
   display: block;
+  /* The "Eric McGilloway" name sits in the left ~65% of the v3 canvas
+     with the "9 year old son's wordmark" annotation on the right. The
+     image's geometric centre sits at 50%, but the name's centre is
+     closer to 32%, so centring the image puts the name visually left
+     of page centre. Translate the image rightward by ~15% of its own
+     width so the NAME centres on the page. The annotation overflows
+     to the right and gets clipped by body { overflow-x: hidden }. */
+  transform: translateX(15%);
 }
 .visually-hidden {
   position: absolute;
