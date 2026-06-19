@@ -579,11 +579,11 @@ function ContactSection() {
           </div>
         </div>
         <Image
-          src="/images/Ice_Cube_EM.png"
+          src="/images/Ice_Cube_EM_v2.png"
           alt=""
-          width={2000}
-          height={2000}
-          sizes="(max-width: 860px) 70vw, 36vw"
+          width={4096}
+          height={4096}
+          sizes="(max-width: 860px) 80vw, 50vw"
           className="bright-contact-ice"
           aria-hidden
           priority={false}
@@ -1242,10 +1242,12 @@ function BrightStyles() {
       .bright-contact-link:hover { color: var(--text-bright); }
       .bright-contact-link-strong { color: var(--text-bright); }
       .bright-contact-ice {
-        width: clamp(260px, 36vw, 500px);
-        height: clamp(260px, 36vw, 500px);
+        /* Filling the right half of the contact section per the
+           reference mockup — caps around the section's max-width
+           half. Image has alpha so no blend mode needed. */
+        width: clamp(300px, 50vw, 820px);
+        height: clamp(300px, 50vw, 820px);
         object-fit: contain;
-        /* Image already has alpha — no blend mode needed. */
         flex-shrink: 0;
         pointer-events: none;
         user-select: none;
