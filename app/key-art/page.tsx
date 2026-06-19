@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import FadeUp from "../components/FadeUp";
-import Footer from "../components/Footer";
-import PageTransition from "../components/PageTransition";
+import BrightBackground from "../components/bright/BrightBackground";
+import BrightFooter from "../components/bright/BrightFooter";
+import BrightReveal from "../components/bright/BrightReveal";
+import BrightPageHeader from "../components/bright/BrightPageHeader";
 
 type KeyArtItem = {
   id: number;
@@ -74,19 +74,9 @@ const KA_FILTERS = [
   "Advertising / Brand",
 ];
 
-function GlowDivider() {
-  return (
-    <div className="glow-divider" style={{ position: "relative", height: "1px", margin: "60px 0 48px", overflow: "hidden" }}>
-      <div style={{ position: "absolute", inset: 0, background: "#C5A455", opacity: 0.3 }} />
-      <div className="glow-sheen" />
-    </div>
-  );
-}
-
 export default function KeyArtPage() {
   const [kaFilter, setKaFilter] = useState("All");
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const shouldReduceMotion = useReducedMotion();
   const lightboxRef = useRef<HTMLDivElement>(null);
   const lightboxTriggerRef = useRef<HTMLElement | null>(null);
 
@@ -175,85 +165,100 @@ export default function KeyArtPage() {
   const currentItem = lightbox !== null ? flatFiltered[lightbox] : null;
 
   return (
-    <PageTransition>
-      <section
-        style={{
-          paddingTop: "clamp(120px, 15vw, 140px)",
-          paddingBottom: "clamp(40px, 8vw, 80px)",
-          paddingLeft: "clamp(16px, 6vw, 80px)",
-          paddingRight: "clamp(16px, 6vw, 80px)",
-        }}
-      >
-        <FadeUp>
-          <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold" style={{ marginBottom: "12px" }}>
-            03 / Still Work
-          </div>
-        </FadeUp>
-        <FadeUp delay={0.1}>
-          <h1
-            className="font-serif font-bold text-cream"
-            style={{ fontSize: "clamp(32px, 5vw, 56px)" }}
-          >
-            Key Art &amp; Stills
-          </h1>
-        </FadeUp>
-        <FadeUp delay={0.15}>
-          <p className="text-base text-muted max-w-[560px]" style={{ marginTop: "12px", lineHeight: 1.7 }}>
-            Print, digital, and social campaign artwork from broadcast,
-            comedy touring, live events, and entertainment marketing projects.
-          </p>
-        </FadeUp>
+    <>
+      <BrightBackground />
+      <main>
+        <BrightPageHeader
+          eyebrow="02 / Still Work"
+          title="Key Art & Stills"
+          intro="Print, digital, and social campaign artwork from broadcast, comedy touring, live events, and entertainment marketing projects."
+        />
 
         {/* Filters */}
-        <div className="flex gap-1 flex-wrap" style={{ marginTop: "32px" }}>
-          {KA_FILTERS.map((f) => (
-            <button
-              key={f}
-              onClick={() => setKaFilter(f)}
-              aria-pressed={f === kaFilter}
-              className={`font-mono text-[10px] tracking-[1.5px] uppercase border cursor-pointer transition-all duration-300 ${
-                f === kaFilter
-                  ? "border-gold bg-gold/10 text-gold"
-                  : "border-rule bg-transparent text-dim hover:border-gold hover:bg-gold/10 hover:text-gold"
-              }`}
-              style={{ padding: "8px 16px", minHeight: "44px" }}
-            >
-              {f}
-            </button>
-          ))}
+        <div
+          className="reveal"
+          data-d="1"
+          style={{
+            display: "flex",
+            gap: "0.5rem",
+            flexWrap: "wrap",
+            margin: "0 auto clamp(1.5rem,3vw,2rem)",
+            maxWidth: "var(--max-bright)",
+            padding: "0 var(--pad-bright)",
+          }}
+        >
+          {KA_FILTERS.map((f) => {
+            const active = f === kaFilter;
+            return (
+              <button
+                key={f}
+                onClick={() => setKaFilter(f)}
+                aria-pressed={active}
+                style={{
+                  fontFamily: "var(--f-display)",
+                  fontWeight: 500,
+                  fontSize: "0.65rem",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  padding: "0.55rem 1.1rem",
+                  border: `1px solid ${active ? "var(--accent-bright)" : "var(--rule-bright)"}`,
+                  background: "transparent",
+                  color: active ? "var(--accent-bright)" : "var(--mid-bright)",
+                  cursor: "pointer",
+                  minHeight: "44px",
+                  transition: "border-color 200ms ease, color 200ms ease",
+                  borderRadius: 2,
+                }}
+                onMouseEnter={(e) => {
+                  if (!active) {
+                    e.currentTarget.style.borderColor = "var(--accent-bright)";
+                    e.currentTarget.style.color = "var(--text-bright)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!active) {
+                    e.currentTarget.style.borderColor = "var(--rule-bright)";
+                    e.currentTarget.style.color = "var(--mid-bright)";
+                  }
+                }}
+              >
+                {f}
+              </button>
+            );
+          })}
         </div>
 
         {/* Grouped Masonry Grid */}
-        <div style={{ marginTop: "clamp(32px, 5vw, 48px)" }}>
+        <div className="bright-sec-inner">
           {groups.map((group, gi) => (
             <div key={group.name}>
-              {gi > 0 && <GlowDivider />}
-              <FadeUp>
+              {gi > 0 && (
                 <div
-                  className="font-mono uppercase"
                   style={{
-                    fontSize: "11px",
-                    letterSpacing: "2px",
-                    color: "#C5A455",
-                    marginBottom: "24px",
+                    height: 1,
+                    background: "var(--rule-bright)",
+                    maxWidth: "var(--max-bright)",
+                    margin: "clamp(2.5rem,5vw,4rem) auto",
                   }}
-                >
-                  {group.name}
-                </div>
-              </FadeUp>
+                />
+              )}
+              <div
+                className="bright-project-eyebrow reveal"
+                style={{ marginBottom: "1.5rem" }}
+              >
+                {group.name}
+              </div>
               <div className="ka-masonry">
-                {group.items.map((item, i) => (
-                  <motion.div
+                {group.items.map((item) => (
+                  <div
                     key={`${item.id}-${kaFilter}`}
-                    className="relative overflow-visible rounded-[4px] border border-rule group-hover:border-gold/60 cursor-pointer group transition-all duration-300 hover:scale-[1.03]"
-                    style={{ breakInside: "avoid", marginBottom: "16px", transformOrigin: "center center" }}
-                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30, scale: shouldReduceMotion ? 1 : 0.97 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    viewport={{ once: true, amount: 0.1 }}
-                    transition={{
-                      duration: shouldReduceMotion ? 0.15 : 0.6,
-                      ease: [0.22, 1, 0.36, 1],
-                      delay: shouldReduceMotion ? 0 : Math.min(i * 0.04, 0.4),
+                    className="bright-witem-thumb reveal"
+                    style={{
+                      breakInside: "avoid",
+                      marginBottom: "16px",
+                      cursor: "zoom-in",
+                      borderRadius: 2,
+                      aspectRatio: `${item.w} / ${item.h}`,
                     }}
                     onClick={(e) => openLightbox(item, e.currentTarget as HTMLElement)}
                     role="button"
@@ -266,104 +271,93 @@ export default function KeyArtPage() {
                       }
                     }}
                   >
-                    {/* Gold frame on hover */}
-                    <div className="absolute inset-0 rounded-[3px] border-2 border-transparent group-hover:border-gold/70 transition-colors duration-300 z-10 pointer-events-none" />
-                    <div
-                      className="w-full relative bg-[#1A1917]"
-                      style={{ aspectRatio: `${item.w} / ${item.h}` }}
-                    >
-                      <Image
-                        src={`/key-art/${item.filename}`}
-                        alt={`${item.title} — ${item.desc}`}
-                        fill
-                        sizes="(max-width: 768px) 50vw, 280px"
-                        className="object-cover"
-                      />
-                    </div>
-                  </motion.div>
+                    <Image
+                      src={`/key-art/${item.filename}`}
+                      alt={`${item.title} — ${item.desc}`}
+                      fill
+                      sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 280px"
+                      style={{ objectFit: "cover" }}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
           ))}
         </div>
-      </section>
+      </main>
 
-      <Footer />
+      <BrightFooter />
+      <BrightReveal />
 
       {/* Lightbox */}
-      <AnimatePresence>
-        {lightbox !== null && currentItem && (
-          <motion.div
-            ref={lightboxRef}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="lightbox-title"
-            tabIndex={-1}
-            className="fixed inset-0 z-200 flex items-center justify-center px-4 sm:px-10 py-16 sm:p-10 cursor-zoom-out focus:outline-none"
-            style={{
-              background: "rgba(0,0,0,0.92)",
-              backdropFilter: "blur(12px)",
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+      {lightbox !== null && currentItem && (
+        <div
+          ref={lightboxRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="lightbox-title"
+          tabIndex={-1}
+          className="ka-lightbox"
+          onClick={closeLightbox}
+          onKeyDown={handleLightboxKeyDown}
+        >
+          <button
+            className="ka-lightbox-close"
             onClick={closeLightbox}
-            onKeyDown={handleLightboxKeyDown}
+            aria-label="Close lightbox"
           >
-            <button
-              className="absolute top-6 right-8 font-mono text-[13px] text-dim hover:text-gold cursor-pointer bg-transparent border-none tracking-[2px] transition-colors duration-300"
-              onClick={closeLightbox}
-              aria-label="Close lightbox"
-            >
-              CLOSE <span aria-hidden="true">&#10005;</span>
-            </button>
-            <button
-              className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 border border-surface rounded-full bg-dark/80 text-muted text-xl cursor-pointer hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center"
-              aria-label="Previous image"
-              onClick={(e) => {
-                e.stopPropagation();
-                navLightbox(-1);
-              }}
-            >
-              <span aria-hidden="true">&#8249;</span>
-            </button>
-            <button
-              className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 border border-surface rounded-full bg-dark/80 text-muted text-xl cursor-pointer hover:border-gold hover:text-gold transition-all duration-300 flex items-center justify-center"
-              aria-label="Next image"
-              onClick={(e) => {
-                e.stopPropagation();
-                navLightbox(1);
-              }}
-            >
-              <span aria-hidden="true">&#8250;</span>
-            </button>
+            CLOSE <span aria-hidden="true">&#10005;</span>
+          </button>
+          <button
+            className="ka-lightbox-nav ka-lightbox-prev"
+            aria-label="Previous image"
+            onClick={(e) => {
+              e.stopPropagation();
+              navLightbox(-1);
+            }}
+          >
+            <span aria-hidden="true">&#8249;</span>
+          </button>
+          <button
+            className="ka-lightbox-nav ka-lightbox-next"
+            aria-label="Next image"
+            onClick={(e) => {
+              e.stopPropagation();
+              navLightbox(1);
+            }}
+          >
+            <span aria-hidden="true">&#8250;</span>
+          </button>
 
-            <div
-              className="max-w-[90vw] max-h-[85vh] relative flex flex-col items-center gap-5"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative" style={{ maxWidth: "90vw", maxHeight: "70vh" }}>
-                <Image
-                  src={`/key-art/${currentItem.filename}`}
-                  alt={`${currentItem.title} — ${currentItem.desc}`}
-                  width={1200}
-                  height={900}
-                  className="rounded-[4px] border border-surface"
-                  style={{ maxWidth: "90vw", maxHeight: "70vh", width: "auto", height: "auto", objectFit: "contain" }}
-                />
-              </div>
-              <div className="text-center">
-                <div id="lightbox-title" className="font-serif text-2xl font-bold text-cream mb-1">
-                  {currentItem.title}
-                </div>
-                <div className="font-mono text-[11px] text-gold tracking-[2px] uppercase">
-                  {currentItem.desc}
-                </div>
-              </div>
+          <div
+            className="ka-lightbox-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="ka-lightbox-frame">
+              <Image
+                src={`/key-art/${currentItem.filename}`}
+                alt={`${currentItem.title} — ${currentItem.desc}`}
+                width={1200}
+                height={900}
+                style={{
+                  maxWidth: "90vw",
+                  maxHeight: "70vh",
+                  width: "auto",
+                  height: "auto",
+                  objectFit: "contain",
+                  display: "block",
+                }}
+              />
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <div className="ka-lightbox-caption">
+              <div id="lightbox-title" className="ka-lightbox-title">
+                {currentItem.title}
+              </div>
+              <div className="ka-lightbox-sub">{currentItem.desc}</div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style jsx global>{`
         .ka-masonry {
@@ -380,40 +374,110 @@ export default function KeyArtPage() {
             columns: 1;
           }
         }
-        .glow-sheen {
-          position: absolute;
+        .ka-lightbox {
+          position: fixed;
           inset: 0;
-          background: linear-gradient(
-            90deg,
-            transparent 0%,
-            transparent 30%,
-            rgba(197, 164, 85, 0.8) 50%,
-            transparent 70%,
-            transparent 100%
-          );
+          z-index: 200;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 4rem 1rem;
+          cursor: zoom-out;
+          background: rgba(255, 255, 255, 0.92);
+          backdrop-filter: blur(12px);
+          outline: none;
+          animation: kaFadeIn 200ms ease;
         }
-        @media (prefers-reduced-motion: no-preference) {
-          .glow-sheen {
-            animation: sheenSweep 3.5s ease-in-out infinite;
-          }
+        @keyframes kaFadeIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
         }
-        @keyframes sheenSweep {
-          0% {
-            transform: translateX(-100%);
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            transform: translateX(100%);
-            opacity: 0;
-          }
+        @media (min-width: 640px) {
+          .ka-lightbox { padding: 2.5rem; }
+        }
+        .ka-lightbox-close {
+          position: absolute;
+          top: 1.5rem;
+          right: 2rem;
+          font-family: var(--f-display);
+          font-weight: 500;
+          font-size: 0.7rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: var(--mid-bright);
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          padding: 0.5rem;
+          transition: color 200ms ease;
+        }
+        .ka-lightbox-close:hover { color: var(--accent-bright); }
+        .ka-lightbox-nav {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 2.75rem;
+          height: 2.75rem;
+          border: 1px solid var(--rule-bright);
+          border-radius: 999px;
+          background: var(--white-bright);
+          color: var(--mid-bright);
+          font-size: 1.4rem;
+          line-height: 1;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
+        }
+        .ka-lightbox-nav:hover {
+          border-color: var(--accent-bright);
+          color: var(--accent-bright);
+        }
+        @media (min-width: 640px) {
+          .ka-lightbox-nav { width: 3rem; height: 3rem; }
+        }
+        .ka-lightbox-prev { left: 0.75rem; }
+        .ka-lightbox-next { right: 0.75rem; }
+        @media (min-width: 640px) {
+          .ka-lightbox-prev { left: 1.5rem; }
+          .ka-lightbox-next { right: 1.5rem; }
+        }
+        .ka-lightbox-content {
+          max-width: 90vw;
+          max-height: 85vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.25rem;
+        }
+        .ka-lightbox-frame {
+          background: var(--white-bright);
+          border: 1px solid var(--rule-bright);
+          border-radius: 2px;
+          padding: 0.5rem;
+          box-shadow: 0 24px 48px -16px rgba(14, 13, 18, 0.18),
+                      0 4px 12px -4px rgba(14, 13, 18, 0.08);
+        }
+        .ka-lightbox-caption {
+          text-align: center;
+        }
+        .ka-lightbox-title {
+          font-family: var(--f-display);
+          font-weight: 600;
+          font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+          color: var(--text-bright);
+          margin-bottom: 0.35rem;
+        }
+        .ka-lightbox-sub {
+          font-family: var(--f-display);
+          font-weight: 500;
+          font-size: 0.7rem;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: var(--mid-bright);
         }
       `}</style>
-    </PageTransition>
+    </>
   );
 }

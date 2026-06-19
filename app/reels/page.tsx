@@ -1,15 +1,17 @@
 "use client";
 
-import FadeUp from "../components/FadeUp";
-import Footer from "../components/Footer";
-import PageTransition from "../components/PageTransition";
 import VideoPlayer from "../components/VideoPlayer";
+import BrightBackground from "../components/bright/BrightBackground";
+import BrightFooter from "../components/bright/BrightFooter";
+import BrightReveal from "../components/bright/BrightReveal";
+import BrightPageHeader from "../components/bright/BrightPageHeader";
 
 const AFTER_MIDNIGHT_VIDEOS = [
   {
     sublabel: "Opening Title Sequence",
     embedUrl: "https://framerate.tv/watch/659a3cdd-bee0-4230-a232-1c26b1a81a2e",
-    poster: "https://image.mux.com/JWYW01WWQzCBYLhIWBLEcQwE7GaO3NRFfeCCvEHelpD4/thumbnail.jpg?time=5.519576&width=1280",
+    poster:
+      "https://image.mux.com/JWYW01WWQzCBYLhIWBLEcQwE7GaO3NRFfeCCvEHelpD4/thumbnail.jpg?time=5.519576&width=1280",
     duration: "0:31",
   },
   {
@@ -22,142 +24,110 @@ const AFTER_MIDNIGHT_VIDEOS = [
 
 export default function ReelsPage() {
   return (
-    <PageTransition>
-      <section
-        style={{
-          paddingTop: "clamp(120px, 15vw, 160px)",
-          paddingBottom: "clamp(40px, 8vw, 80px)",
-          paddingLeft: "clamp(20px, 6vw, 80px)",
-          paddingRight: "clamp(20px, 6vw, 80px)",
-        }}
-      >
-        {/* Nat Geo Kids — The Wonderlist: Clouds */}
-        <FadeUp delay={0.15}>
-          <div>
-            <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
-              Nat Geo Kids
-            </div>
-            <div
-              className="font-serif font-bold text-cream mb-3"
-              style={{ fontSize: "clamp(22px, 4vw, 48px)" }}
-            >
-              The Wonderlist: Clouds
-            </div>
-            <div className="text-sm sm:text-base max-w-[600px]" style={{ color: "#8A8579", lineHeight: 1.7, marginBottom: "clamp(24px, 4vw, 40px)" }}>
-              Sr. 3D and animation design for Nat Geo Kids&apos;
-              Spaceman/Wonder List documentary series.
-            </div>
-
-            <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
+    <>
+      <BrightBackground />
+      <main>
+        <BrightPageHeader
+          eyebrow="01 / Motion Graphics"
+          title="Work"
+          intro="Broadcast packages, title sequences, documentary maps, and entertainment marketing across late night, streaming, documentary, and franchise marketing."
+        />
+        <div className="bright-sec-inner">
+          {/* Nat Geo Kids — The Wonderlist: Clouds */}
+          <article className="bright-project reveal">
+            <div className="bright-project-eyebrow">Nat Geo Kids</div>
+            <h2 className="bright-project-title">The Wonderlist: Clouds</h2>
+            <p className="bright-project-desc">
+              Sr. 3D and animation design for Nat Geo Kids&apos; Spaceman/Wonder
+              List documentary series.
+            </p>
+            <div className="bright-media-frame">
               <VideoPlayer
                 embedUrl="https://framerate.tv/watch/5191eb19-7d5b-4815-b698-f500e74af8a4"
                 poster="/images/work/spacemans-wonder-list-clouds.jpg"
               />
             </div>
-          </div>
-        </FadeUp>
+          </article>
 
-        {/* Hearts of Heroes */}
-        <FadeUp delay={0.15}>
-          <div style={{ marginTop: "clamp(60px, 10vw, 100px)" }}>
-            <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
-              Hearts of Heroes
-            </div>
-            <div
-              className="font-serif font-bold text-cream mb-3"
-              style={{ fontSize: "clamp(22px, 4vw, 48px)" }}
-            >
+          {/* Hearts of Heroes — ABC / Hearst Media */}
+          <article className="bright-project reveal">
+            <div className="bright-project-eyebrow">Hearts of Heroes</div>
+            <h2 className="bright-project-title">
               Hearts of Heroes — ABC / Hearst Media
-            </div>
-            <div className="text-sm sm:text-base max-w-[600px]" style={{ color: "#8A8579", lineHeight: 1.7, marginBottom: "clamp(24px, 4vw, 40px)" }}>
-              7 seasons of motion graphics and VFX for ABC/Hearst Media&apos;s Hearts of Heroes documentary series.
-            </div>
-
-            <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
+            </h2>
+            <p className="bright-project-desc">
+              7 seasons of motion graphics and VFX for ABC/Hearst Media&apos;s
+              Hearts of Heroes documentary series.
+            </p>
+            <div className="bright-media-frame">
               <VideoPlayer
                 embedUrl="https://framerate.tv/embed/3b2743c4-f70d-4499-bb45-6d1122cb6693?primary_color=%2523ffffff&track_color=%2523ffffff&theme=minimal"
                 poster="/images/work/hearts-of-heroes.jpg"
               />
             </div>
+            <div className="bright-project-meta">Duration: 1:16</div>
+          </article>
 
-            <div className="mt-5 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
-              Duration: 1:16
-            </div>
-          </div>
-        </FadeUp>
-
-        {/* After Midnight — two videos side by side */}
-        <FadeUp delay={0.15}>
-          <div style={{ marginTop: "clamp(60px, 10vw, 100px)" }}>
-            <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
-              After Midnight
-            </div>
-            <div
-              className="font-serif font-bold text-cream mb-3"
-              style={{ fontSize: "clamp(22px, 4vw, 48px)" }}
-            >
+          {/* After Midnight with Taylor Tomlinson — CBS (two sub-clips) */}
+          <article className="bright-project reveal">
+            <div className="bright-project-eyebrow">After Midnight</div>
+            <h2 className="bright-project-title">
               After Midnight with Taylor Tomlinson — CBS
-            </div>
-            <div className="text-sm sm:text-base max-w-[600px]" style={{ color: "#8A8579", lineHeight: 1.7, marginBottom: "clamp(24px, 4vw, 40px)" }}>
-              Opening title sequence and gameplay stage graphics for CBS&apos;s After Midnight with Taylor Tomlinson. Broadcast design, animation, and finishing.
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            </h2>
+            <p className="bright-project-desc">
+              Opening title sequence and gameplay stage graphics for CBS&apos;s
+              After Midnight with Taylor Tomlinson. Broadcast design, animation,
+              and finishing.
+            </p>
+            <div className="bright-project-grid">
               {AFTER_MIDNIGHT_VIDEOS.map((vid) => (
                 <div key={vid.sublabel}>
-                  <div className="font-mono text-[10px] tracking-[3px] uppercase mb-3" style={{ color: "#C5A455" }}>
-                    {vid.sublabel}
-                  </div>
-                  <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
+                  <div className="bright-sublabel">{vid.sublabel}</div>
+                  <div className="bright-media-frame">
                     <VideoPlayer
                       src={vid.src}
                       embedUrl={vid.embedUrl}
                       poster={vid.poster}
                     />
                   </div>
-                  <div className="mt-3 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
+                  <div className="bright-project-meta">
                     Duration: {vid.duration}
                   </div>
                 </div>
               ))}
             </div>
+          </article>
 
-          </div>
-        </FadeUp>
-
-        {/* Entertainment Social Media Advertising */}
-        <FadeUp delay={0.15}>
-          <div style={{ marginTop: "clamp(60px, 10vw, 100px)" }}>
-            <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold mb-4">
+          {/* Entertainment Social Media Advertising — Ammo Creative */}
+          <article className="bright-project reveal">
+            <div className="bright-project-eyebrow">
               Entertainment Social Media Advertising
             </div>
-            <div
-              className="font-serif font-bold text-cream mb-3"
-              style={{ fontSize: "clamp(22px, 4vw, 48px)" }}
-            >
-              Ammo Creative
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <h2 className="bright-project-title">Ammo Creative</h2>
+            <div className="bright-project-grid">
               <div>
-                <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
-                  <VideoPlayer src="/clips/entertainment-ads-reel.mp4" poster="/thumbnails/entertainment-ads-reel.png" />
+                <div className="bright-media-frame">
+                  <VideoPlayer
+                    src="/clips/entertainment-ads-reel.mp4"
+                    poster="/thumbnails/entertainment-ads-reel.png"
+                  />
                 </div>
-                <div className="mt-3 font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579" }}>
-                  Duration: 0:24
-                </div>
+                <div className="bright-project-meta">Duration: 0:24</div>
               </div>
               <div>
-                <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
-                  <VideoPlayer src="/clips/fyse-music-of-netflix-clip.mp4" poster="/thumbnails/fyse-music-of-netflix-clip.png" />
+                <div className="bright-media-frame">
+                  <VideoPlayer
+                    src="/clips/fyse-music-of-netflix-clip.mp4"
+                    poster="/thumbnails/fyse-music-of-netflix-clip.png"
+                  />
                 </div>
               </div>
             </div>
-          </div>
-        </FadeUp>
-      </section>
-
-      <Footer />
-    </PageTransition>
+          </article>
+        </div>
+      </main>
+      <BrightFooter />
+      <BrightReveal />
+    </>
   );
 }

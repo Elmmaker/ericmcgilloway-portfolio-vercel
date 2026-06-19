@@ -2,6 +2,10 @@
 
 import dynamic from "next/dynamic";
 import VideoPlayer from "../components/VideoPlayer";
+import BrightBackground from "../components/bright/BrightBackground";
+import BrightFooter from "../components/bright/BrightFooter";
+import BrightReveal from "../components/bright/BrightReveal";
+import BrightPageHeader from "../components/bright/BrightPageHeader";
 
 // 3D viewer is client-only and heavy — load lazily
 const F35Viewer = dynamic(() => import("../components/F35Viewer"), {
@@ -12,141 +16,46 @@ const VIDEO_EMBED_URL = "https://framerate.tv/watch/44c2d0df-e4b4-4862-853f-8dfd
 
 export default function LMPage() {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#0D0C0A",
-        color: "#F0EDE6",
-        padding:
-          "clamp(120px, 15vw, 160px) clamp(24px, 6vw, 80px) clamp(60px, 8vw, 100px)",
-      }}
-    >
-      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-        {/* 3D model block */}
-        <SectionLabel>F-35 · Interactive 3D Model Call-outs</SectionLabel>
-        <F35Viewer />
+    <>
+      <BrightBackground />
+      <main>
+        <BrightPageHeader
+          eyebrow="04 / Concept"
+          title="The Pursuit of Dreamers"
+        />
+        <div className="bright-sec-inner">
+          {/* 3D model block */}
+          <div className="reveal" style={{ marginBottom: "clamp(2.5rem, 5vw, 4rem)" }}>
+            <div
+              className="bright-media-frame"
+              style={{ aspectRatio: "16/10", background: "#0F1422" }}
+            >
+              <F35Viewer />
+            </div>
+            <div className="bright-project-meta" style={{ marginTop: "0.85rem" }}>
+              F-35 · Interactive 3D Model Call-outs
+            </div>
+            <p className="bright-project-desc" style={{ marginTop: "0.5rem" }}>
+              Interactive 3D model built in Spline. Drag to rotate, scroll to
+              zoom, click any callout to explore.
+            </p>
+          </div>
 
-        {/* Description */}
-        <div
-          className="font-sans"
-          style={{
-            fontSize: "16px",
-            color: "#8A8579",
-            textAlign: "center",
-            marginTop: "16px",
-            lineHeight: 1.6,
-          }}
-        >
-          Interactive 3D model built in Spline. Drag to rotate, scroll to zoom,
-          click any callout to explore.
+          {/* Video block */}
+          <div className="reveal">
+            <h2 className="bright-project-title">Aerospace Trailer</h2>
+            <div className="bright-project-meta" style={{ marginBottom: "1rem", marginTop: 0 }}>
+              Concept, Edit &amp; Sound Design by Eric McGilloway
+            </div>
+            <div className="bright-media-frame">
+              <VideoPlayer embedUrl={VIDEO_EMBED_URL} poster="/lm/poster.jpg" />
+            </div>
+            <div className="bright-project-meta">Duration: 1:48</div>
+          </div>
         </div>
-
-        {/* Gold sheen divider between 3D and trailer */}
-        <SheenDivider delay={0} />
-
-        {/* Video block */}
-        <SectionLabel>Aerospace Trailer</SectionLabel>
-        <div
-          className="font-mono"
-          style={{
-            fontSize: "11px",
-            letterSpacing: "1.5px",
-            color: "#8A8579",
-            marginBottom: "16px",
-          }}
-        >
-          CONCEPT, EDIT &amp; SOUND DESIGN BY ERIC MCGILLOWAY
-        </div>
-        <div
-          style={{
-            background: "#000",
-            border: "1px solid #2A251F",
-            borderRadius: "2px",
-            overflow: "hidden",
-          }}
-        >
-          <VideoPlayer embedUrl={VIDEO_EMBED_URL} poster="/lm/poster.jpg" />
-        </div>
-        <div
-          className="font-mono"
-          style={{
-            fontSize: "11px",
-            letterSpacing: "1.5px",
-            color: "#8A8579",
-            marginTop: "12px",
-            marginBottom: "clamp(40px, 6vw, 64px)",
-          }}
-        >
-          Duration: 1:48
-        </div>
-
-        {/* Gold sheen divider below trailer — offset so the two never sweep together */}
-        <SheenDivider delay={3.5} />
-      </div>
-
-      <style jsx global>{`
-        .lm-divider {
-          position: relative;
-          height: 1px;
-          margin: clamp(48px, 6vw, 72px) 0;
-          overflow: hidden;
-        }
-        .lm-divider-base {
-          position: absolute;
-          inset: 0;
-          background: #C5A455;
-          opacity: 0.3;
-        }
-        .lm-sheen {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(
-            90deg,
-            transparent 0%,
-            transparent 30%,
-            rgba(197, 164, 85, 0.8) 50%,
-            transparent 70%,
-            transparent 100%
-          );
-        }
-        @media (prefers-reduced-motion: no-preference) {
-          .lm-sheen {
-            animation: lmSheenSweep 7s ease-in-out infinite;
-          }
-        }
-        @keyframes lmSheenSweep {
-          0% { transform: translateX(-100%); opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { transform: translateX(100%); opacity: 0; }
-        }
-      `}</style>
-    </div>
-  );
-}
-
-function SheenDivider({ delay = 0 }: { delay?: number }) {
-  return (
-    <div className="lm-divider">
-      <div className="lm-divider-base" />
-      <div className="lm-sheen" style={{ animationDelay: `${delay}s` }} />
-    </div>
-  );
-}
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      className="font-mono"
-      style={{
-        fontSize: "11px",
-        letterSpacing: "3px",
-        textTransform: "uppercase",
-        color: "#C5A455",
-        marginBottom: "16px",
-      }}
-    >
-      {children}
-    </div>
+      </main>
+      <BrightFooter />
+      <BrightReveal />
+    </>
   );
 }

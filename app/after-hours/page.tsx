@@ -1,9 +1,10 @@
 "use client";
 
-import FadeUp from "../components/FadeUp";
-import Footer from "../components/Footer";
-import PageTransition from "../components/PageTransition";
 import VideoPlayer from "../components/VideoPlayer";
+import BrightBackground from "../components/bright/BrightBackground";
+import BrightFooter from "../components/bright/BrightFooter";
+import BrightReveal from "../components/bright/BrightReveal";
+import BrightPageHeader from "../components/bright/BrightPageHeader";
 
 type AfterHoursItem = {
   title: string;
@@ -32,86 +33,58 @@ const VIDEOS: AfterHoursItem[] = [
 
 export default function AfterHoursPage() {
   return (
-    <PageTransition>
-      <section
-        style={{
-          paddingTop: "clamp(120px, 15vw, 160px)",
-          paddingBottom: "clamp(40px, 8vw, 80px)",
-          paddingLeft: "clamp(20px, 6vw, 80px)",
-          paddingRight: "clamp(20px, 6vw, 80px)",
-        }}
-      >
-        <FadeUp>
-          <div className="font-mono text-[11px] tracking-[4px] uppercase text-gold" style={{ marginBottom: "12px" }}>
-            04 / Experiments
-          </div>
-        </FadeUp>
-        <FadeUp delay={0.1}>
-          <h1
-            className="font-serif font-bold text-cream"
-            style={{ fontSize: "clamp(28px, 5vw, 56px)", marginBottom: "clamp(16px, 3vw, 24px)" }}
-          >
-            After Hours
-          </h1>
-        </FadeUp>
-        <FadeUp delay={0.15}>
-          <p className="text-sm sm:text-base max-w-[560px]" style={{ color: "#8A8579", lineHeight: 1.7, marginBottom: "clamp(48px, 8vw, 80px)" }}>
-            The stuff I make when nobody&apos;s watching. Personal projects, experiments, and the work that keeps the creative engine running after the day job&nbsp;wraps.
-          </p>
-        </FadeUp>
-
-        {/* Hero video */}
-        <FadeUp delay={0.2}>
-          <div style={{ marginBottom: "clamp(48px, 8vw, 80px)" }}>
-            <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
+    <>
+      <BrightBackground />
+      <main>
+        <BrightPageHeader
+          eyebrow="03 / Experiments"
+          title="After Hours"
+          intro={"The stuff I make when nobody's watching. Personal projects, experiments, and the work that keeps the creative engine running after the day job wraps."}
+        />
+        <div className="bright-sec-inner">
+          {/* Hero video */}
+          <div className="reveal" style={{ marginBottom: "clamp(2.5rem, 5vw, 4rem)" }}>
+            <div className="bright-media-frame">
               <VideoPlayer embedUrl={HERO.embedUrl} poster={HERO.poster} />
             </div>
-            <div style={{ marginTop: "20px" }}>
-              <div className="font-serif font-bold text-cream" style={{ fontSize: "clamp(22px, 3.5vw, 40px)" }}>
-                {HERO.title}
-              </div>
-              <div className="font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579", marginTop: "8px" }}>
-                Duration: {HERO.duration}
-              </div>
-            </div>
+            <h2 className="bright-project-title" style={{ marginTop: "1rem" }}>{HERO.title}</h2>
+            <div className="bright-project-meta">Duration: {HERO.duration}</div>
           </div>
-        </FadeUp>
 
-        {VIDEOS.length === 0 ? (
-          <FadeUp delay={0.2}>
-            <div className="font-mono text-[12px] tracking-[2px] uppercase text-dim text-center" style={{ padding: "80px 0" }}>
+          {/* Grid */}
+          {VIDEOS.length === 0 ? (
+            <div className="reveal" style={{ padding: "5rem 0", textAlign: "center", color: "var(--mid-bright)", fontSize: "0.75rem", letterSpacing: "0.16em", textTransform: "uppercase" }}>
               Coming soon
             </div>
-          </FadeUp>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "clamp(32px, 5vw, 48px)" }}>
-            {VIDEOS.map((vid, i) => (
-              <FadeUp key={vid.title} delay={i * 0.1}>
-                <div>
-                  <div className="w-full bg-[#111] border border-rule rounded-[4px] overflow-hidden">
+          ) : (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gap: "clamp(1.5rem, 3vw, 2.5rem)",
+              }}
+              className="bright-ah-grid"
+            >
+              {VIDEOS.map((vid, i) => (
+                <div key={vid.title} className="reveal" data-d={String(((i % 3) || "") || undefined)}>
+                  <div className="bright-media-frame">
                     <VideoPlayer embedUrl={vid.embedUrl} poster={vid.poster} />
                   </div>
-                  <div style={{ marginTop: "16px" }}>
-                    <div className="font-serif font-bold text-cream" style={{ fontSize: "clamp(18px, 2.5vw, 28px)" }}>
-                      {vid.title}
-                    </div>
-                    {vid.desc && (
-                      <div className="font-sans text-sm text-muted" style={{ marginTop: "6px", lineHeight: 1.6 }}>
-                        {vid.desc}
-                      </div>
-                    )}
-                    <div className="font-mono text-[11px] tracking-[1px]" style={{ color: "#8A8579", marginTop: "8px" }}>
-                      Duration: {vid.duration}
-                    </div>
-                  </div>
+                  <h3 className="bright-clip-title">{vid.title}</h3>
+                  <div className="bright-project-meta" style={{ marginTop: "0.4rem" }}>Duration: {vid.duration}</div>
                 </div>
-              </FadeUp>
-            ))}
-          </div>
-        )}
-      </section>
-
-      <Footer />
-    </PageTransition>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
+      <BrightFooter />
+      <BrightReveal />
+      <style jsx global>{`
+        @media (max-width: 720px) {
+          .bright-ah-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </>
   );
 }
