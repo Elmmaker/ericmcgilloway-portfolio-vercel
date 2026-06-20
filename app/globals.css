@@ -214,7 +214,8 @@ body:has(.bright-bg) {
   align-items: center;
   text-align: center;
   gap: 1.5rem;
-  border-bottom: 1px solid var(--rule-bright);
+  /* No bottom rule — the "Motion Graphics Reel" section head right
+     below ships its own divider, so a second rule was double-lining. */
 }
 .bright-hero-name {
   font-family: var(--f-display);
