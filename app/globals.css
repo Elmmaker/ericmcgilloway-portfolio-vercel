@@ -822,4 +822,29 @@ body:has(.bright-bg) {
   .bright-work-inner { --gap-bright: 0.75rem; }
   .bright-kudos-grid { grid-template-columns: 1fr; }
   .bright-hero-stats { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+
+  /* Hero signature: drop the desktop 390px min-width and the rightward
+     shift so the whole wordmark — the name plus the kid's curved-arrow
+     annotation — scales down and stays fully on-screen instead of being
+     clipped on the right on phones (375–430px wide). */
+  .bright-hero-name-img {
+    width: 90vw !important;
+    transform: none;
+  }
+
+  /* Contact: float the 3D "EM" ice cube to the RIGHT, beside the contact
+     links (vertically aligned with them), instead of stacking it below
+     everything. flex-end keeps the cube level with the links, which sit at
+     the bottom of the left column under the heading. */
+  .bright-contact-inner {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .bright-contact-ice {
+    width: clamp(92px, 28vw, 150px);
+    height: auto;
+    margin-left: 0;
+  }
 }
