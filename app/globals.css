@@ -832,13 +832,14 @@ body:has(.bright-bg) {
     transform: none;
   }
 
-  /* Contact: float the 3D "EM" ice cube to the RIGHT, beside the contact
-     links (vertically aligned with them), instead of stacking it below
-     everything. flex-end keeps the cube level with the links, which sit at
-     the bottom of the left column under the heading. */
+  /* Contact: float the 3D "EM" ice cube to the RIGHT, vertically centred
+     beside the contact block (heading + links) instead of stacking below
+     everything or pinning it to the very bottom. align-items:center floats
+     it in the empty space to the right of the links, like the desktop
+     layout's centred cube. */
   .bright-contact-inner {
     flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
   }
