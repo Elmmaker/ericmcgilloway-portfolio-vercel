@@ -172,10 +172,6 @@ function Hero() {
           <span className="bright-hero-stat-n">2,000+</span>
           <span className="bright-hero-stat-l">Episodes</span>
         </div>
-        <div className="bright-hero-stat">
-          <span className="bright-hero-stat-n">IATSE</span>
-          <span className="bright-hero-stat-l">Local 800</span>
-        </div>
       </div>
       <Link href="/reels" className="bright-hero-btn reveal">
         View Full Reel
