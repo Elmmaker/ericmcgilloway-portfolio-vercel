@@ -235,10 +235,8 @@ body:has(.bright-bg) {
   line-height: 1;
 }
 .bright-hero-name-img {
-  /* New signature has no annotation — the name fills the canvas, so
-     it centres naturally without a translate shift. -45% over the
-     prior (390px, 90vw, 1080px) clamp. */
-  width: clamp(215px, 50vw, 595px) !important;
+  /* +25% over the prior (215px, 50vw, 595px). */
+  width: clamp(269px, 62.5vw, 744px) !important;
   height: auto !important;
   display: block;
 }
@@ -373,7 +371,11 @@ body:has(.bright-bg) {
 .bright-media-frame {
   position: relative;
   width: 100%;
-  background: var(--white-bright);
+  /* Dark fallback so posters loading from the network don't flash a
+     bright-white frame for a few hundred ms on slow mobile (was the
+     cause of "broken thumbnail" reports — actual posters all resolve
+     200, just paint slowly). */
+  background: #0D0C0A;
   border: 1px solid var(--rule-bright);
   border-radius: 2px;
   overflow: hidden;

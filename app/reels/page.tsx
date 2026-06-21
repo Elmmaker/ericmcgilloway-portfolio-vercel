@@ -60,7 +60,7 @@ export default function ReelsPage() {
             </p>
             <div className="bright-media-frame">
               <VideoPlayer
-                embedUrl="https://framerate.tv/embed/3b2743c4-f70d-4499-bb45-6d1122cb6693?primary_color=%2523ffffff&track_color=%2523ffffff&theme=minimal"
+                embedUrl="https://framerate.tv/embed/3b2743c4-f70d-4499-bb45-6d1122cb6693?primary_color=%23ffffff&track_color=%23ffffff&theme=minimal"
                 poster="/images/work/hearts-of-heroes.jpg"
               />
             </div>
