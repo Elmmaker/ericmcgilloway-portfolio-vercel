@@ -6,6 +6,13 @@ import { useContact } from "./ContactContext";
 
 const EMAIL = "elmmaker@gmail.com";
 
+/* Flip back to true once Eric's own Formspree form is set up and the
+   endpoint below is updated to that form's ID. While false, the modal
+   shows the email + Copy Email + mailto link only — no in-app form so
+   nothing can submit to the wrong account. */
+const FORM_ENABLED = false;
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xqegpypb"; // TODO: replace with Eric's own form ID
+
 export default function ContactModal() {
   const { open, setOpen } = useContact();
   const [copied, setCopied] = useState(false);
@@ -63,7 +70,7 @@ export default function ContactModal() {
     e.preventDefault();
     setStatus("sending");
     try {
-      const res = await fetch("https://formspree.io/f/xqegpypb", {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(formState),
@@ -132,73 +139,88 @@ export default function ContactModal() {
             </div>
 
             <p className="contact-modal-hint">
-              Copy the address and use your own mail app, or send a message
-              right here.
+              {FORM_ENABLED
+                ? "Copy the address and use your own mail app, or send a message right here."
+                : "Copy the address above, or open it in your mail app."}
             </p>
 
-            <div className="contact-modal-divider" />
-
-            <div aria-live="polite" aria-atomic="true" className="visually-hidden">
-              {status === "sent"
-                ? "Message sent successfully."
-                : status === "error"
-                ? "Something went wrong. Please try again."
-                : ""}
-            </div>
-
-            <form onSubmit={handleSubmit} className="contact-modal-form">
-              <div className="contact-modal-field">
-                <label htmlFor="contact-name">Name</label>
-                <input
-                  id="contact-name"
-                  type="text"
-                  required
-                  value={formState.name}
-                  onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                />
-              </div>
-
-              <div className="contact-modal-field">
-                <label htmlFor="contact-email">Email</label>
-                <input
-                  id="contact-email"
-                  type="email"
-                  required
-                  value={formState.email}
-                  onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                />
-              </div>
-
-              <div className="contact-modal-field">
-                <label htmlFor="contact-message">Message</label>
-                <textarea
-                  id="contact-message"
-                  required
-                  rows={4}
-                  value={formState.message}
-                  onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={status === "sending"}
+            {!FORM_ENABLED && (
+              <a
+                href={`mailto:${EMAIL}`}
                 className="contact-modal-submit"
+                style={{ display: "block", textAlign: "center", textDecoration: "none" }}
               >
-                {status === "sending"
-                  ? "Sending…"
-                  : status === "sent"
-                  ? "Message sent!"
-                  : status === "error"
-                  ? "Try again"
-                  : "Send Message"}
-              </button>
-              {status === "error" && (
-                <p className="contact-modal-error">
-                  Something went wrong. Try again or copy the email above.
-                </p>
-              )}
-            </form>
+                Open in mail app
+              </a>
+            )}
+
+            {FORM_ENABLED && (
+              <>
+                <div className="contact-modal-divider" />
+
+                <div aria-live="polite" aria-atomic="true" className="visually-hidden">
+                  {status === "sent"
+                    ? "Message sent successfully."
+                    : status === "error"
+                    ? "Something went wrong. Please try again."
+                    : ""}
+                </div>
+
+                <form onSubmit={handleSubmit} className="contact-modal-form">
+                  <div className="contact-modal-field">
+                    <label htmlFor="contact-name">Name</label>
+                    <input
+                      id="contact-name"
+                      type="text"
+                      required
+                      value={formState.name}
+                      onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                    />
+                  </div>
+
+                  <div className="contact-modal-field">
+                    <label htmlFor="contact-email">Email</label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      required
+                      value={formState.email}
+                      onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                    />
+                  </div>
+
+                  <div className="contact-modal-field">
+                    <label htmlFor="contact-message">Message</label>
+                    <textarea
+                      id="contact-message"
+                      required
+                      rows={4}
+                      value={formState.message}
+                      onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={status === "sending"}
+                    className="contact-modal-submit"
+                  >
+                    {status === "sending"
+                      ? "Sending…"
+                      : status === "sent"
+                      ? "Message sent!"
+                      : status === "error"
+                      ? "Try again"
+                      : "Send Message"}
+                  </button>
+                  {status === "error" && (
+                    <p className="contact-modal-error">
+                      Something went wrong. Try again or copy the email above.
+                    </p>
+                  )}
+                </form>
+              </>
+            )}
           </motion.div>
         </motion.div>
       )}
