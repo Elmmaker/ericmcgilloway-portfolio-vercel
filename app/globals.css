@@ -236,8 +236,9 @@ body:has(.bright-bg) {
 }
 .bright-hero-name-img {
   /* New signature has no annotation — the name fills the canvas, so
-     it centres naturally without a translate shift. */
-  width: clamp(390px, 90vw, 1080px) !important;
+     it centres naturally without a translate shift. -45% over the
+     prior (390px, 90vw, 1080px) clamp. */
+  width: clamp(215px, 50vw, 595px) !important;
   height: auto !important;
   display: block;
 }
