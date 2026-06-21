@@ -31,6 +31,7 @@ type WorkImageItem = {
   kind: "image";
   src: string;
   alt: string;
+  href?: string;
   tag: string;
   title: React.ReactNode;
   badge?: string;
@@ -117,15 +118,12 @@ const WORK: WorkItem[] = [
     delay: 2,
   },
   {
-    kind: "dark",
+    kind: "image",
+    src: "/lm/poster.jpg",
+    alt: "The Pursuit of Dreamers — Lockheed Martin",
     href: "/lm",
     tag: "Aerospace Concept",
     title: "The Pursuit of Dreamers — Edit & Interactive 3D",
-    thumbLabel: {
-      kicker: "Lockheed Martin",
-      line: "The Pursuit of Dreamers",
-      cta: "View Project →",
-    },
     delay: 3,
   },
 ];
@@ -285,23 +283,31 @@ function WorkItemCard({ item }: { item: WorkItem }) {
   }
 
   if (item.kind === "image") {
+    const thumb = (
+      <div className="bright-witem-thumb">
+        {item.badge && (
+          <div className="bright-witem-badge">{item.badge}</div>
+        )}
+        <Image
+          src={item.src}
+          alt={item.alt}
+          fill
+          sizes="(max-width: 540px) 50vw, (max-width: 860px) 50vw, (max-width: 1100px) 33vw, 25vw"
+        />
+      </div>
+    );
     return (
       <div className="bright-witem reveal" {...dataD}>
-        <div className="bright-witem-thumb">
-          {item.badge && (
-            <div className="bright-witem-badge">{item.badge}</div>
-          )}
-          <Image
-            src={item.src}
-            alt={item.alt}
-            fill
-            sizes="(max-width: 540px) 50vw, (max-width: 860px) 50vw, (max-width: 1100px) 33vw, 25vw"
-            style={{ objectFit: "cover" }}
-          />
-        </div>
+        {item.href ? <Link href={item.href}>{thumb}</Link> : thumb}
         <div className="bright-witem-meta">
           <span className="bright-witem-tag">{item.tag}</span>
-          <p className="bright-witem-title">{item.title}</p>
+          <p className="bright-witem-title">
+            {item.href ? (
+              <Link href={item.href}>{item.title}</Link>
+            ) : (
+              item.title
+            )}
+          </p>
         </div>
       </div>
     );
