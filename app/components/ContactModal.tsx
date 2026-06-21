@@ -4,6 +4,8 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useContact } from "./ContactContext";
 
+const EMAIL = "elmmaker@gmail.com";
+
 export default function ContactModal() {
   const { open, setOpen } = useContact();
   const [copied, setCopied] = useState(false);
@@ -17,9 +19,7 @@ export default function ContactModal() {
   useEffect(() => {
     if (open) {
       triggerRef.current = document.activeElement as HTMLElement;
-      requestAnimationFrame(() => {
-        panelRef.current?.focus();
-      });
+      requestAnimationFrame(() => panelRef.current?.focus());
     } else {
       triggerRef.current?.focus();
     }
@@ -53,8 +53,6 @@ export default function ContactModal() {
     [setOpen]
   );
 
-  const EMAIL = "elmmaker@gmail.com";
-
   function copyEmail() {
     navigator.clipboard.writeText(EMAIL);
     setCopied(true);
@@ -86,73 +84,61 @@ export default function ContactModal() {
 
   const panelMotion = shouldReduceMotion
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, transition: { duration: 0.15 } }
-    : { initial: { opacity: 0, y: 30, scale: 0.97 }, animate: { opacity: 1, y: 0, scale: 1 }, exit: { opacity: 0, y: 20, scale: 0.97 }, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } };
+    : {
+        initial: { opacity: 0, y: 30, scale: 0.97 },
+        animate: { opacity: 1, y: 0, scale: 1 },
+        exit: { opacity: 0, y: 20, scale: 0.97 },
+        transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+      };
 
   return (
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-200 flex items-center justify-center p-0 sm:p-6"
-          style={{
-            background: "rgba(0,0,0,0.92)",
-            backdropFilter: "blur(12px)",
-          }}
+          className="contact-modal-backdrop"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setOpen(false)}
         >
-          {/* Close */}
           <button
-            className="absolute top-6 right-6 sm:right-8 font-mono text-[13px] text-dim hover:text-gold cursor-pointer bg-transparent border-none tracking-[2px] transition-colors duration-300 z-10"
+            className="contact-modal-close"
             onClick={() => setOpen(false)}
-            style={{ minHeight: "44px", minWidth: "44px" }}
             aria-label="Close dialog"
           >
-            CLOSE <span aria-hidden="true">&#10005;</span>
+            CLOSE <span aria-hidden>&#10005;</span>
           </button>
 
-          {/* Panel */}
           <motion.div
             ref={panelRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby="contact-modal-title"
             tabIndex={-1}
-            className="w-full h-full sm:h-auto bg-dark border-0 sm:border sm:border-rule overflow-y-auto focus:outline-none"
-            style={{ maxWidth: "clamp(320px, 90vw, 560px)", maxHeight: "100vh", padding: "clamp(24px, 5vw, 48px) clamp(20px, 5vw, 40px)" }}
+            className="contact-modal-panel"
             onClick={(e) => e.stopPropagation()}
             onKeyDown={handleKeyDown}
             {...panelMotion}
           >
-            {/* Heading */}
-            <h2
-              id="contact-modal-title"
-              className="font-serif font-bold text-cream"
-              style={{ fontSize: "clamp(24px, 4vw, 40px)", marginBottom: "32px", marginTop: "40px" }}
-            >
+            <h2 id="contact-modal-title" className="contact-modal-h">
               Get in touch
             </h2>
 
-            {/* Email row */}
-            <div className="flex items-center gap-4 flex-wrap" style={{ marginBottom: "28px" }}>
-              <span className="font-mono text-gold" style={{ fontSize: "clamp(13px, 1.5vw, 15px)", letterSpacing: "0.5px" }}>
-                {EMAIL}
-              </span>
-              <button
-                onClick={copyEmail}
-                className="font-mono text-[10px] tracking-[1.5px] uppercase border border-gold bg-transparent text-gold cursor-pointer hover:bg-gold/10 transition-all duration-300"
-                style={{ padding: "6px 14px", minHeight: "44px" }}
-              >
+            <div className="contact-modal-row">
+              <span className="contact-modal-email">{EMAIL}</span>
+              <button onClick={copyEmail} className="contact-modal-copy">
                 {copied ? "Copied!" : "Copy Email"}
               </button>
             </div>
 
-            {/* Divider */}
-            <div className="w-full h-px bg-gold/30" style={{ marginBottom: "32px" }} />
+            <p className="contact-modal-hint">
+              Copy the address and use your own mail app, or send a message
+              right here.
+            </p>
 
-            {/* Aria-live region for form status */}
-            <div aria-live="polite" aria-atomic="true" className="sr-only">
+            <div className="contact-modal-divider" />
+
+            <div aria-live="polite" aria-atomic="true" className="visually-hidden">
               {status === "sent"
                 ? "Message sent successfully."
                 : status === "error"
@@ -160,73 +146,47 @@ export default function ContactModal() {
                 : ""}
             </div>
 
-            {/* Form */}
-            <form onSubmit={handleSubmit}>
-              <div style={{ marginBottom: "20px" }}>
-                <label
-                  htmlFor="contact-name"
-                  className="font-mono text-[10px] tracking-[2px] uppercase text-dim block"
-                  style={{ marginBottom: "8px" }}
-                >
-                  Name
-                </label>
+            <form onSubmit={handleSubmit} className="contact-modal-form">
+              <div className="contact-modal-field">
+                <label htmlFor="contact-name">Name</label>
                 <input
                   id="contact-name"
                   type="text"
                   required
                   value={formState.name}
                   onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                  className="w-full font-sans text-cream bg-transparent border border-rule focus:border-gold focus-visible:ring-2 focus-visible:ring-gold outline-none transition-colors duration-300"
-                  style={{ padding: "12px 14px", fontSize: "16px", minHeight: "48px" }}
                 />
               </div>
 
-              <div style={{ marginBottom: "20px" }}>
-                <label
-                  htmlFor="contact-email"
-                  className="font-mono text-[10px] tracking-[2px] uppercase text-dim block"
-                  style={{ marginBottom: "8px" }}
-                >
-                  Email
-                </label>
+              <div className="contact-modal-field">
+                <label htmlFor="contact-email">Email</label>
                 <input
                   id="contact-email"
                   type="email"
                   required
                   value={formState.email}
                   onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                  className="w-full font-sans text-cream bg-transparent border border-rule focus:border-gold focus-visible:ring-2 focus-visible:ring-gold outline-none transition-colors duration-300"
-                  style={{ padding: "12px 14px", fontSize: "16px", minHeight: "48px" }}
                 />
               </div>
 
-              <div style={{ marginBottom: "28px" }}>
-                <label
-                  htmlFor="contact-message"
-                  className="font-mono text-[10px] tracking-[2px] uppercase text-dim block"
-                  style={{ marginBottom: "8px" }}
-                >
-                  Message
-                </label>
+              <div className="contact-modal-field">
+                <label htmlFor="contact-message">Message</label>
                 <textarea
                   id="contact-message"
                   required
                   rows={4}
                   value={formState.message}
                   onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                  className="w-full font-sans text-cream bg-transparent border border-rule focus:border-gold focus-visible:ring-2 focus-visible:ring-gold outline-none transition-colors duration-300 resize-y"
-                  style={{ padding: "12px 14px", fontSize: "16px" }}
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="font-mono text-xs tracking-[2px] uppercase bg-gold text-dark border-none cursor-pointer hover:bg-gold-hover hover:-translate-y-0.5 transition-all duration-300 w-full disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-                style={{ padding: "16px 32px", minHeight: "48px" }}
+                className="contact-modal-submit"
               >
                 {status === "sending"
-                  ? "Sending..."
+                  ? "Sending…"
                   : status === "sent"
                   ? "Message sent!"
                   : status === "error"
@@ -234,15 +194,11 @@ export default function ContactModal() {
                   : "Send Message"}
               </button>
               {status === "error" && (
-                <p className="font-mono text-[11px] text-red-400" style={{ marginTop: "8px" }}>
+                <p className="contact-modal-error">
                   Something went wrong. Try again or copy the email above.
                 </p>
               )}
             </form>
-
-            <p className="font-mono text-[11px] text-dim" style={{ marginTop: "16px", lineHeight: 1.5 }}>
-              Or just copy the email above and send from your preferred client.
-            </p>
           </motion.div>
         </motion.div>
       )}

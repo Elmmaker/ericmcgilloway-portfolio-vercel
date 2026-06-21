@@ -8,6 +8,7 @@ import BrightBackground from "./components/bright/BrightBackground";
 import BrightFooter from "./components/bright/BrightFooter";
 import BrightSectionHead from "./components/bright/BrightSectionHead";
 import BrightReveal from "./components/bright/BrightReveal";
+import { useContact } from "./components/ContactContext";
 
 /* ============================================================
    Home page — bright re-skin.
@@ -488,6 +489,7 @@ function KudosSection() {
 /* ─────────────────── CONTACT ─────────────────── */
 
 function ContactSection() {
+  const { setOpen } = useContact();
   return (
     <>
       <BrightSectionHead label="Contact" id="contact" />
@@ -496,15 +498,24 @@ function ContactSection() {
           <h2 className="bright-contact-h">
             Let&apos;s build<br />
             something<br />
-            <a href="#">cool.</a>
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                setOpen(true);
+              }}
+            >
+              cool.
+            </a>
           </h2>
           <div className="bright-contact-links">
-            <a
-              href="mailto:elmmaker@gmail.com"
-              className="bright-contact-link bright-contact-link-strong"
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className="bright-contact-link bright-contact-link-strong bright-contact-link-btn"
             >
               Email
-            </a>
+            </button>
             <a
               href="https://www.linkedin.com/in/ericmcg"
               target="_blank"
