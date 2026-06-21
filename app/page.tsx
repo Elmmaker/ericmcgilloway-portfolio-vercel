@@ -20,6 +20,7 @@ import { useContact } from "./components/ContactContext";
 type WorkVideoItem = {
   kind: "video";
   src: string;
+  poster?: string;
   tag: string;
   title: React.ReactNode;
   badge?: string;
@@ -51,6 +52,7 @@ const WORK: WorkItem[] = [
   {
     kind: "video",
     src: "/clips/conan.mp4",
+    poster: "/images/work/conan.jpg",
     tag: "Late Night · TBS",
     title: "Conan — Lead Motion Designer, 11 Seasons",
   },
@@ -66,6 +68,7 @@ const WORK: WorkItem[] = [
   {
     kind: "video",
     src: "/clips/HeartsOfHeroes_Montage.mp4",
+    poster: "/images/work/hearts-of-heroes.jpg",
     tag: "Documentary · ABC / Hearst",
     title: "Hearts of Heroes — Sr. Motion & VFX, 7 Seasons",
     delay: 2,
@@ -73,6 +76,7 @@ const WORK: WorkItem[] = [
   {
     kind: "video",
     src: "/clips/entertainment-tonight.mp4",
+    poster: "/images/work/et.jpg",
     tag: "Broadcast · CBS",
     title: "Entertainment Tonight — Sr. Motion Designer",
     delay: 3,
@@ -80,6 +84,7 @@ const WORK: WorkItem[] = [
   {
     kind: "video",
     src: "/clips/spacemans-wonder-list-clouds.mp4",
+    poster: "/images/work/spacemans-wonder-list-clouds.jpg",
     tag: "Documentary · Nat Geo Kids",
     title: (
       <>
@@ -98,6 +103,7 @@ const WORK: WorkItem[] = [
   {
     kind: "video",
     src: "/clips/after-midnight.mp4",
+    poster: "/images/work/am1.jpg",
     tag: "Broadcast · CBS / Paramount",
     title: "After Midnight — Lead Motion Designer",
     delay: 1,
@@ -262,6 +268,7 @@ function WorkItemCard({ item }: { item: WorkItem }) {
             playsInline
             preload="metadata"
             src={item.src}
+            poster={item.poster}
           />
           <div className="bright-play-hint" aria-hidden>
             <svg viewBox="0 0 24 24">
