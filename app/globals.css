@@ -416,9 +416,13 @@ body:has(.bright-bg) {
 }
 .bright-witem-thumb {
   position: relative;
-  aspect-ratio: 4/3;
+  /* 16:9 frame matches the native shape of the broadcast / video work,
+     and the contain object-fit below preserves any image/clip that
+     isn't 16:9 (it letterboxes on the dark backdrop instead of
+     cropping). */
+  aspect-ratio: 16/9;
   overflow: hidden;
-  background: var(--faint-bright);
+  background: #0D0C0A;
   border-radius: 2px;
   cursor: pointer;
 }
@@ -428,7 +432,9 @@ body:has(.bright-bg) {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* Show the full thumbnail without cropping. Anything narrower or
+     taller than the 16:9 frame letterboxes on the dark backdrop. */
+  object-fit: contain;
   transition: transform .5s ease;
 }
 .bright-witem-thumb:hover video,
