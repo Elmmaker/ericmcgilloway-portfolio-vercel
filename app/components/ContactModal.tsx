@@ -6,12 +6,10 @@ import { useContact } from "./ContactContext";
 
 const EMAIL = "elmmaker@gmail.com";
 
-/* Flip back to true once Eric's own Formspree form is set up and the
-   endpoint below is updated to that form's ID. While false, the modal
-   shows the email + Copy Email + mailto link only — no in-app form so
-   nothing can submit to the wrong account. */
-const FORM_ENABLED = false;
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/xqegpypb"; // TODO: replace with Eric's own form ID
+/* Form is live and routes to Eric's own Formspree project
+   (ericmcgilloway.com → Contact, delivering to elmmaker@gmail.com). */
+const FORM_ENABLED = true;
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xgojwbbd";
 
 export default function ContactModal() {
   const { open, setOpen } = useContact();
