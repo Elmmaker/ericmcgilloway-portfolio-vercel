@@ -155,10 +155,10 @@ function Hero() {
       <h1 className="bright-hero-name bright-hero-name-sig reveal">
         <span className="visually-hidden">Eric McGilloway</span>
         <Image
-          src="/images/eric-mcgilloway-signature_v5.png"
+          src="/images/eric-mcgilloway-signature.png"
           alt="Eric McGilloway"
-          width={2606}
-          height={473}
+          width={2148}
+          height={334}
           priority
           sizes="(max-width: 540px) 90vw, (max-width: 860px) 80vw, 60vw"
           className="bright-hero-name-img"
