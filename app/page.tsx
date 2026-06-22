@@ -159,7 +159,7 @@ function Hero() {
       <h1 className="bright-hero-name bright-hero-name-sig reveal">
         <span className="visually-hidden">Eric McGilloway</span>
         <Image
-          src="/images/eric-mcgilloway-signature_v9.png"
+          src="/images/eric-mcgilloway-signature_v10.png"
           alt="Eric McGilloway"
           width={1749}
           height={411}
