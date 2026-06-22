@@ -179,7 +179,7 @@ function Hero() {
         </div>
       </div>
       <Link href="/reels" className="bright-hero-btn reveal">
-        View Full Reel
+        View More Work
         <svg
           width="10"
           height="10"
