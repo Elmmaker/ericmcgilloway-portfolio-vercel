@@ -246,6 +246,11 @@ function WorkItemCard({ item }: { item: WorkItem }) {
     if (v) {
       v.pause();
       v.currentTime = 0;
+      // Re-initialise the media element so the poster repaints
+      // instead of the cached first frame (browsers tend to keep the
+      // first decoded frame visible after pause, which on a dark
+      // open like After Midnight read as a blank black card).
+      v.load();
     }
   }
 
@@ -264,7 +269,7 @@ function WorkItemCard({ item }: { item: WorkItem }) {
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
             src={item.src}
             poster={item.poster}
           />
