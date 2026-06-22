@@ -203,11 +203,24 @@ function Hero() {
           fontFamily: "var(--f-body)",
           fontSize: "16px",
           lineHeight: 1.65,
-          color: "#8A8579",
+          color: "#2A2A2A",
           fontWeight: 300,
           width: "100%",
         }}
       >
+        <h2
+          style={{
+            fontFamily: "var(--f-body)",
+            fontSize: "14px",
+            fontWeight: 600,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: "#1A1A1A",
+            margin: "0 0 12px",
+          }}
+        >
+          How I work
+        </h2>
         <p style={{ margin: 0 }}>
           Some jobs I&apos;m designing the logo, building it in 3D, and
           animating the full sequence. Other jobs I&apos;m taking an
