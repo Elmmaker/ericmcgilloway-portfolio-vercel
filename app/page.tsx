@@ -193,6 +193,40 @@ function Hero() {
           <path d="M5 1v8M1 5.5L5 9l4-3.5" />
         </svg>
       </Link>
+
+      <div
+        className="reveal"
+        style={{
+          marginTop: "40px",
+          maxWidth: "680px",
+          textAlign: "left",
+          fontFamily: "var(--f-body)",
+          fontSize: "16px",
+          lineHeight: 1.65,
+          color: "#8A8579",
+          fontWeight: 300,
+          width: "100%",
+        }}
+      >
+        <p style={{ margin: 0 }}>
+          Some jobs I&apos;m designing the logo, building it in 3D, and
+          animating the full sequence. Other jobs I&apos;m taking an
+          existing brand package and bringing it to life. I&apos;ve done
+          both for Conan, Entertainment Tonight, and Nat Geo. As a motion
+          designer today you have to be able to help the project wherever
+          you can.
+        </p>
+        <p style={{ margin: "1em 0 0" }}>
+          I use AI tools where they make sense (prototyping, pipeline
+          acceleration, and asset generation the same way one would use
+          stock footage) and build everything else by hand in After
+          Effects, Cinema 4D, and Photoshop.
+        </p>
+        <p style={{ margin: "1em 0 0" }}>
+          If you have a question about my specific role on any project,
+          just ask. I&apos;m happy to walk through it.
+        </p>
+      </div>
     </header>
   );
 }
