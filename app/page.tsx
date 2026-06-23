@@ -234,7 +234,7 @@ function Hero() {
         <p style={{ margin: "1em 0 0" }}>
           I use AI tools where they make sense (prototyping, pipeline
           acceleration, and asset generation the same way one would use
-          stock footage) and build everything else by hand in After
+          stock footage). But I mostly build everything myself in After
           Effects, Cinema 4D, and Photoshop.
         </p>
         <p style={{ margin: "1em 0 0" }}>
