@@ -8,6 +8,7 @@ import BrightBackground from "./components/bright/BrightBackground";
 import BrightFooter from "./components/bright/BrightFooter";
 import BrightSectionHead from "./components/bright/BrightSectionHead";
 import BrightReveal from "./components/bright/BrightReveal";
+import Clouds from "./components/bright/Clouds";
 import { useContact } from "./components/ContactContext";
 
 /* ============================================================
@@ -132,6 +133,7 @@ export default function Home() {
   return (
     <>
       <BrightBackground />
+      <Clouds />
       <Hero />
       <ReelSection />
       <WorkSection />

@@ -148,6 +148,63 @@ body:has(.bright-bg) {
 }
 .bright-bg ~ .grain { display: none; }
 
+/* ── PARALLAX CLOUDS ── */
+/* Container hosts all three cloud layers. Fixed full-viewport so the
+   clouds sit behind page content as the user scrolls; pointer-events
+   off so they never block clicks. */
+.bright-clouds {
+  position: fixed;
+  inset: 0;
+  /* -1 puts the clouds behind page content (which is static z-auto).
+     DOM order ensures clouds paint on top of .bright-bg (same z-index)
+     so the sky gradient stays underneath. */
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+/* Per-cloud wrapper — positioning, size, opacity, blend. Each cloud
+   inherits SVG inside that's 100% width of the wrapper. */
+.bright-cloud {
+  position: absolute;
+  will-change: transform;
+}
+.bright-cloud svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* Cloud 1 — distant, biggest, softest */
+.bright-cloud--1 {
+  top: 12vh;
+  left: -8vw;
+  width: 70vw;
+  opacity: 0.55;
+}
+/* Cloud 2 — mid, medium puff, sits right-of-center upper */
+.bright-cloud--2 {
+  top: 38vh;
+  right: -12vw;
+  width: 52vw;
+  opacity: 0.68;
+}
+/* Cloud 3 — near, smaller wisp, lower-left */
+.bright-cloud--3 {
+  top: 72vh;
+  left: 4vw;
+  width: 36vw;
+  opacity: 0.82;
+}
+@media (max-width: 860px) {
+  /* Phones: clouds scale up so they don't disappear, but stay sparse
+     so the page reads cleanly. */
+  .bright-cloud--1 { top: 14vh; left: -20vw; width: 130vw; opacity: 0.5; }
+  .bright-cloud--2 { top: 42vh; right: -30vw; width: 110vw; opacity: 0.6; }
+  .bright-cloud--3 { top: 78vh; left: -10vw; width: 90vw; opacity: 0.75; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bright-cloud { transform: none !important; }
+}
+
 /* ── NAV ── */
 .bright-nav {
   position: fixed;
