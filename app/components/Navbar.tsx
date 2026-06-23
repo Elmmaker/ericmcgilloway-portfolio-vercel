@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 /* Bright skin nav — fixed at the top, blurred. Replaces the previous
    dark Ubuntu wordmark nav. Hidden on self-contained pitch pages so
@@ -25,6 +26,7 @@ const LINKS = [
 export default function Navbar() {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -55,6 +57,10 @@ export default function Navbar() {
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, []);
+
+  // The drawer is portaled to <body>, which only exists on the client. Gate
+  // it on mount so the server render and first client render match.
+  useEffect(() => setMounted(true), []);
 
   if (HIDDEN_ROUTES.some((p) => pathname.startsWith(p))) return null;
 
@@ -96,49 +102,57 @@ export default function Navbar() {
         <span />
       </button>
 
-      {/* Dimmed backdrop — click to close */}
-      <div
-        className={`bright-nav-backdrop${open ? " open" : ""}`}
-        onClick={closeMenu}
-        aria-hidden="true"
-      />
+      {/* Backdrop + drawer are portaled to <body> so they escape the nav's
+          backdrop-filter. A filtered ancestor becomes the containing block for
+          position:fixed descendants, which would otherwise trap these inside
+          the ~80px-tall nav box (links spilling out with no panel behind). */}
+      {mounted &&
+        createPortal(
+          <>
+            <div
+              className={`bright-nav-backdrop${open ? " open" : ""}`}
+              onClick={closeMenu}
+              aria-hidden="true"
+            />
 
-      {/* Slide-in drawer */}
-      <div
-        id="bright-nav-drawer"
-        className={`bright-nav-drawer${open ? " open" : ""}`}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Menu"
-        aria-hidden={!open}
-      >
-        <button
-          ref={closeRef}
-          type="button"
-          className="bright-nav-close"
-          aria-label="Close menu"
-          onClick={closeMenu}
-        >
-          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-            <path d="M6 6 18 18M18 6 6 18" />
-          </svg>
-        </button>
+            <div
+              id="bright-nav-drawer"
+              className={`bright-nav-drawer${open ? " open" : ""}`}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu"
+              aria-hidden={!open}
+            >
+              <button
+                ref={closeRef}
+                type="button"
+                className="bright-nav-close"
+                aria-label="Close menu"
+                onClick={closeMenu}
+              >
+                <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                  <path d="M6 6 18 18M18 6 6 18" />
+                </svg>
+              </button>
 
-        <ul className="bright-nav-drawer-links">
-          {LINKS.map((l) => (
-            <li key={l.href}>
-              <Link href={l.href} onClick={closeMenu}>
-                {l.label}
-              </Link>
-            </li>
-          ))}
-          <li className="bright-nav-drawer-contact">
-            <Link href="/#contact" onClick={closeMenu}>
-              Contact
-            </Link>
-          </li>
-        </ul>
-      </div>
+              <ul className="bright-nav-drawer-links">
+                {LINKS.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} onClick={closeMenu}>
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+                <li className="bright-nav-drawer-contact">
+                  <Link href="/#contact" onClick={closeMenu}>
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </>,
+          document.body,
+        )}
     </nav>
   );
 }

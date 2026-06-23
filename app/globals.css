@@ -272,6 +272,10 @@ body:has(.bright-bg) {
   gap: 5px;
   width: 44px;
   height: 44px;
+  /* Keep the full 44px tap target, but collapse its vertical footprint to ~24px
+     so it doesn't make the nav bar taller than the original logo-only height
+     (which had crowded the hero line just below). */
+  margin: -10px 0;
   padding: 0;
   background: none;
   border: 0;
