@@ -56,7 +56,7 @@ export default function Clouds() {
           width={CLOUD_W}
           height={CLOUD_H}
           sizes="(max-width: 860px) 130vw, 70vw"
-          priority={false}
+          priority
           aria-hidden
         />
       </div>
@@ -68,7 +68,7 @@ export default function Clouds() {
           width={CLOUD_W}
           height={CLOUD_H}
           sizes="(max-width: 860px) 110vw, 52vw"
-          priority={false}
+          priority
           aria-hidden
         />
       </div>
@@ -80,7 +80,7 @@ export default function Clouds() {
           width={CLOUD_W}
           height={CLOUD_H}
           sizes="(max-width: 860px) 90vw, 36vw"
-          priority={false}
+          priority
           aria-hidden
         />
       </div>
