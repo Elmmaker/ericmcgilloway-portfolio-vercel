@@ -263,6 +263,10 @@ body:has(.bright-bg) {
 
 /* ── HERO (home) ── */
 .bright-hero {
+  /* Stacking context so the cloud parallax layer (z-index: -1 fixed)
+     stays behind the wordmark and hero copy. */
+  position: relative;
+  z-index: 1;
   padding: clamp(5rem, 9vw, 7rem) var(--pad-bright) clamp(2rem, 4vw, 3.5rem);
   max-width: var(--max-bright);
   margin: 0 auto;
@@ -368,6 +372,8 @@ body:has(.bright-bg) {
 
 /* ── SECTION HEADER (divider + label) ── */
 .bright-sec-head {
+  position: relative;
+  z-index: 1;
   max-width: var(--max-bright);
   margin: 0 auto;
   padding: var(--py-bright) var(--pad-bright) 1.75rem;
@@ -441,6 +447,8 @@ body:has(.bright-bg) {
 
 /* Reel iframe wrapper at fixed 16:9 */
 .bright-reel-inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--max-bright);
   margin: 0 auto;
   padding: 0 var(--pad-bright) var(--py-bright);
@@ -462,6 +470,8 @@ body:has(.bright-bg) {
 
 /* ── WORK GRID (home) ── */
 .bright-work-inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--max-bright);
   margin: 0 auto;
   padding: 0 var(--pad-bright) var(--py-bright);
@@ -669,6 +679,8 @@ body:has(.bright-bg) {
 
 /* ── ABOUT (home) ── */
 .bright-about-inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--max-bright);
   margin: 0 auto;
   padding: 0 var(--pad-bright) var(--py-bright);
@@ -723,6 +735,8 @@ body:has(.bright-bg) {
 
 /* ── KUDOS (home) ── */
 .bright-kudos-inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--max-bright);
   margin: 0 auto;
   padding: 0 var(--pad-bright) var(--py-bright);
@@ -777,6 +791,8 @@ body:has(.bright-bg) {
 
 /* ── CONTACT (home) ── */
 .bright-contact-inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--max-bright);
   margin: 0 auto;
   padding: 0 var(--pad-bright) var(--py-bright);
@@ -841,6 +857,8 @@ body:has(.bright-bg) {
 
 /* ── FOOTER ── */
 .bright-footer {
+  position: relative;
+  z-index: 1;
   border-top: 1px solid var(--rule-bright);
   padding: 1.4rem var(--pad-bright);
   max-width: var(--max-bright);
