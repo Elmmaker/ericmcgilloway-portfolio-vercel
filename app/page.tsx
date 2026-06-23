@@ -227,9 +227,9 @@ function Hero() {
           Some jobs I&apos;m designing the logo, building it in 3D, and
           animating the full sequence. Other jobs I&apos;m taking an
           existing brand package and bringing it to life. I&apos;ve done
-          both for Conan, Entertainment Tonight, and Nat Geo. As a motion
-          designer today you have to be able to help the project wherever
-          you can.
+          both for Conan, Entertainment Tonight, and After Midnight
+          w/Taylor Tomlinson on CBS. As a motion designer today you
+          have to be able to help the project wherever you can.
         </p>
         <p style={{ margin: "1em 0 0" }}>
           I use AI tools where they make sense (prototyping, pipeline
