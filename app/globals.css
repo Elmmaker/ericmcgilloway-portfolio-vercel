@@ -426,7 +426,7 @@ body:has(.bright-bg) {
 }
 .bright-hero-name {
   font-family: var(--f-display);
-  font-weight: 400;
+  font-weight: 700;
   font-size: clamp(3.5rem, 9vw, 9.5rem);
   line-height: 0.9;
   letter-spacing: -0.04em;
@@ -435,18 +435,6 @@ body:has(.bright-bg) {
   margin: 0;
 }
 .bright-hero-name .mc { font-size: 0.75em; }
-.bright-hero-name-sig {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-.bright-hero-name-img {
-  /* +25% over the prior (215px, 50vw, 595px). */
-  width: clamp(269px, 62.5vw, 744px) !important;
-  height: auto !important;
-  display: block;
-}
 .visually-hidden {
   position: absolute;
   width: 1px; height: 1px;
@@ -1230,15 +1218,6 @@ body:has(.bright-bg) {
   .bright-work-inner { --gap-bright: 0.75rem; }
   .bright-kudos-grid { grid-template-columns: 1fr; }
   .bright-hero-stats { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
-
-  /* Hero signature: drop the desktop 390px min-width and the rightward
-     shift so the whole wordmark — the name plus the kid's curved-arrow
-     annotation — scales down and stays fully on-screen instead of being
-     clipped on the right on phones (375–430px wide). */
-  .bright-hero-name-img {
-    width: 90vw !important;
-    transform: none;
-  }
 
   /* Contact: float the 3D "EM" ice cube to the RIGHT, vertically centred
      beside the contact block (heading + links) instead of stacking below
