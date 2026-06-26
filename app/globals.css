@@ -109,13 +109,16 @@ body {
    ════════════════════════════════════════════════════════════════════ */
 
 :root {
-  --bg-bright:       #F4F3F8;
-  --white-bright:    #FDFCFF;
-  --text-bright:     #0E0D12;
-  --mid-bright:      #6B6875;
-  --faint-bright:    rgba(14,13,18,0.06);
-  --rule-bright:     rgba(14,13,18,0.1);
-  --accent-bright:   #0B2272;
+  /* DARK TWILIGHT SKIN. Flipped from the original light-on-cream scheme
+     to light-on-deep-blue so the work reads against a moody dusk gradient
+     (see .bright-bg below). Light text + warm-gold accent on dark surfaces. */
+  --bg-bright:       #0C1130;
+  --white-bright:    #1B1E3C;
+  --text-bright:     #F3F0E9;
+  --mid-bright:      #CBC4D4;
+  --faint-bright:    rgba(255,255,255,0.05);
+  --rule-bright:     rgba(255,255,255,0.14);
+  --accent-bright:   #E6B662;
   --f-display:       var(--font-inter), "Inter", sans-serif;
   --f-body:          var(--font-dm-sans), "DM Sans", sans-serif;
   --max-bright:      1440px;
@@ -137,13 +140,20 @@ body:has(.bright-bg) {
   position: fixed;
   inset: 0;
   z-index: -1;
+  /* Dark twilight-beach sunset: deep midnight-blue at the top, descending
+     through saturated indigo-blues to a soft blue-violet dusk glow at the
+     horizon. Fixed to the viewport, so content scrolls over the whole
+     range — every stop is kept dark enough that light text stays readable. */
   background:
     linear-gradient(to bottom,
-      #21B8EE 0%,
-      #6FCDF1 22%,
-      #A1DDF3 55%,
-      #C7EBF8 80%,
-      #DBF2FB 100%);
+      #0A1130 0%,
+      #0F1740 16%,
+      #16224E 34%,
+      #1E2C5C 50%,
+      #283566 64%,
+      #343E68 76%,
+      #414563 88%,
+      #574E66 100%);
   pointer-events: none;
 }
 .bright-bg ~ .grain { display: none; }
@@ -168,38 +178,43 @@ body:has(.bright-bg) {
   position: absolute;
   will-change: transform;
 }
+.bright-cloud img,
 .bright-cloud svg {
   display: block;
   width: 100%;
   height: auto;
+  /* The cloud art is bright white (built for a blue daytime sky). Dim and
+     lightly desaturate it so it reads as soft, dusky twilight haze over the
+     dark gradient instead of glaring white puffs. */
+  filter: brightness(0.45) saturate(0.75) sepia(0.06);
 }
 /* Cloud 1 — distant, biggest, softest */
 .bright-cloud--1 {
   top: 12vh;
   left: -8vw;
   width: 70vw;
-  opacity: 0.55;
+  opacity: 0.28;
 }
 /* Cloud 2 — mid, medium puff, sits right-of-center upper */
 .bright-cloud--2 {
   top: 38vh;
   right: -12vw;
   width: 52vw;
-  opacity: 0.68;
+  opacity: 0.3;
 }
 /* Cloud 3 — near, smaller wisp, lower-left */
 .bright-cloud--3 {
   top: 72vh;
   left: 4vw;
   width: 36vw;
-  opacity: 0.82;
+  opacity: 0.34;
 }
 @media (max-width: 860px) {
   /* Phones: clouds scale up so they don't disappear, but stay sparse
      so the page reads cleanly. */
-  .bright-cloud--1 { top: 14vh; left: -20vw; width: 130vw; opacity: 0.5; }
-  .bright-cloud--2 { top: 42vh; right: -30vw; width: 110vw; opacity: 0.6; }
-  .bright-cloud--3 { top: 78vh; left: -10vw; width: 90vw; opacity: 0.75; }
+  .bright-cloud--1 { top: 14vh; left: -20vw; width: 130vw; opacity: 0.26; }
+  .bright-cloud--2 { top: 42vh; right: -30vw; width: 110vw; opacity: 0.28; }
+  .bright-cloud--3 { top: 78vh; left: -10vw; width: 90vw; opacity: 0.32; }
 }
 @media (prefers-reduced-motion: reduce) {
   .bright-cloud { transform: none !important; }
@@ -214,7 +229,7 @@ body:has(.bright-bg) {
   align-items: center;
   justify-content: space-between;
   padding: 1.1rem var(--pad-bright);
-  background: rgba(244, 243, 248, 0.88);
+  background: rgba(13, 16, 40, 0.72);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--rule-bright);
@@ -430,7 +445,7 @@ body:has(.bright-bg) {
   font-size: clamp(3.5rem, 9vw, 9.5rem);
   line-height: 0.9;
   letter-spacing: -0.04em;
-  color: #2A2A2E;
+  color: var(--text-bright);
   text-transform: uppercase;
   margin: 0;
 }
@@ -590,7 +605,7 @@ body:has(.bright-bg) {
 .bright-reel-frame {
   position: relative;
   padding-top: 56.25%;
-  background: var(--text-bright);
+  background: #0D0C0A;
   border-radius: 2px;
   overflow: hidden;
 }
@@ -674,7 +689,7 @@ body:has(.bright-bg) {
   left: 0.75rem;
   z-index: 4;
   background: var(--accent-bright);
-  color: #fff;
+  color: #1A1430;
   font-size: 0.55rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -890,12 +905,12 @@ body:has(.bright-bg) {
   gap: 1.25rem;
   transition: border-color .18s;
 }
-.kcard:hover { border-color: rgba(17,16,9,0.22); }
+.kcard:hover { border-color: rgba(255,255,255,0.26); }
 .kcard-mark {
   font-family: var(--f-display);
   font-size: 2.25rem;
   font-weight: 800;
-  color: #0B2272;
+  color: var(--accent-bright);
   line-height: 1;
 }
 .kcard-q {
@@ -946,7 +961,7 @@ body:has(.bright-bg) {
   color: var(--text-bright);
 }
 .bright-contact-h a {
-  background: linear-gradient(to bottom, #0B2272 0%, #4A8FE8 100%);
+  background: linear-gradient(to bottom, #F6D58E 0%, #F0A878 48%, #E88FA0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1103,7 +1118,7 @@ body:has(.bright-bg) {
 }
 .contact-modal-copy:hover {
   background: var(--accent-bright);
-  color: #fff;
+  color: #1A1430;
 }
 .contact-modal-hint {
   font-size: 0.78rem;
@@ -1150,7 +1165,7 @@ body:has(.bright-bg) {
 .contact-modal-field textarea:focus {
   outline: none;
   border-color: var(--accent-bright);
-  box-shadow: 0 0 0 2px rgba(11,34,114,0.15);
+  box-shadow: 0 0 0 2px rgba(230,182,98,0.25);
 }
 .contact-modal-submit {
   width: 100%;
@@ -1160,7 +1175,7 @@ body:has(.bright-bg) {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   background: var(--accent-bright);
-  color: #fff;
+  color: #1A1430;
   border: 0;
   border-radius: 1px;
   padding: 0.95rem 1rem;
@@ -1170,7 +1185,7 @@ body:has(.bright-bg) {
   margin-top: 0.5rem;
 }
 .contact-modal-submit:hover:not(:disabled) {
-  background: #143092;
+  background: #D2A24E;
   transform: translateY(-1px);
 }
 .contact-modal-submit:disabled {

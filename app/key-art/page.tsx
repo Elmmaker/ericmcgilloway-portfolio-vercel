@@ -382,7 +382,7 @@ export default function KeyArtPage() {
           justify-content: center;
           padding: 4rem 1rem;
           cursor: zoom-out;
-          background: rgba(255, 255, 255, 0.92);
+          background: rgba(8, 9, 24, 0.94);
           backdrop-filter: blur(12px);
           outline: none;
           animation: kaFadeIn 200ms ease;

@@ -196,7 +196,7 @@ function Hero() {
           fontFamily: "var(--f-body)",
           fontSize: "16px",
           lineHeight: 1.65,
-          color: "#2A2A2A",
+          color: "var(--mid-bright)",
           fontWeight: 300,
           width: "100%",
         }}
@@ -208,7 +208,7 @@ function Hero() {
             fontWeight: 600,
             letterSpacing: "0.12em",
             textTransform: "uppercase",
-            color: "#1A1A1A",
+            color: "var(--text-bright)",
             margin: "0 0 12px",
           }}
         >
