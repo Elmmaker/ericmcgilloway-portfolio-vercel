@@ -442,7 +442,7 @@ body:has(.bright-bg) {
 .bright-hero-name {
   font-family: var(--f-display);
   font-weight: 700;
-  font-size: clamp(3.5rem, 9vw, 9.5rem);
+  font-size: clamp(2.625rem, 6.75vw, 7.125rem);
   line-height: 0.9;
   letter-spacing: -0.04em;
   color: var(--text-bright);
@@ -995,8 +995,8 @@ body:has(.bright-bg) {
   text-align: left;
 }
 .bright-contact-ice {
-  width: clamp(450px, 75vw, 1230px);
-  height: clamp(450px, 75vw, 1230px);
+  width: clamp(338px, 56.25vw, 923px);
+  height: clamp(338px, 56.25vw, 923px);
   object-fit: contain;
   flex-shrink: 0;
   pointer-events: none;
