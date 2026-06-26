@@ -224,9 +224,9 @@ function Hero() {
         </p>
         <p style={{ margin: "1em 0 0" }}>
           I use AI tools where they make sense (prototyping, pipeline
-          acceleration, and asset generation the same way one would use
-          stock footage). But I mostly build everything myself in After
-          Effects, Cinema 4D, and Photoshop.
+          acceleration, HTML and Javascript, and some asset generation for
+          very specific cases). But I mostly build everything myself in After
+          Effects, Cinema 4D, Spline, Illustrator, and Photoshop.
         </p>
         <p style={{ margin: "1em 0 0" }}>
           If you have a question about my specific role on any project,
