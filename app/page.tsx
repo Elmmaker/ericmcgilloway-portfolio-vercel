@@ -255,7 +255,7 @@ function ReelSection() {
       <div className="bright-reel-inner reveal">
         <div className="bright-reel-frame">
           <iframe
-            src="https://framerate.tv/embed/e6afa38e-3145-439f-ae2f-dde6fe8c27a1"
+            src="https://framerate.tv/embed/ae9a01d6-db89-41ba-8666-e36b48babea0"
             title="Eric McGilloway Motion Graphics Reel"
             allow="autoplay; fullscreen"
             allowFullScreen
