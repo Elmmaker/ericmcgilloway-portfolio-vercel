@@ -400,10 +400,11 @@ function AboutSection() {
         <div className="bright-about-text reveal" data-d="1">
           <h2 className="bright-about-h">Lead Motion Designer</h2>
           <p className="bright-about-bio">
-            I build motion graphics for broadcast and streaming. 11 seasons on
-            Conan. Packages for After Midnight, Entertainment Tonight, Modern
-            Marvels, and Nat Geo Kids. Title sequences, social campaigns, VFX —
-            comfortable leading a team or inside one. Currently available.
+            I build motion graphics for TV, film, and social media. 11 seasons
+            on Conan. Packages for After Midnight, Entertainment Tonight, Modern
+            Marvels, and Nat Geo Kids. Title sequences, social campaigns, VFX.
+            Professionally, there&apos;s no better feeling than when our team
+            succeeds. Currently available.
           </p>
           <div className="bright-about-links">
             <a
