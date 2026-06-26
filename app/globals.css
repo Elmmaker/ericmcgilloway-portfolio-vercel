@@ -961,7 +961,7 @@ body:has(.bright-bg) {
   color: var(--text-bright);
 }
 .bright-contact-h a {
-  background: linear-gradient(to bottom, #F6D58E 0%, #F0A878 48%, #E88FA0 100%);
+  background: linear-gradient(to bottom, #4F95EB 0%, #6FC0F0 50%, #A6F0F6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -995,8 +995,8 @@ body:has(.bright-bg) {
   text-align: left;
 }
 .bright-contact-ice {
-  width: clamp(360px, 60vw, 984px);
-  height: clamp(360px, 60vw, 984px);
+  width: clamp(450px, 75vw, 1230px);
+  height: clamp(450px, 75vw, 1230px);
   object-fit: contain;
   flex-shrink: 0;
   pointer-events: none;
@@ -1246,7 +1246,7 @@ body:has(.bright-bg) {
     gap: 0.75rem;
   }
   .bright-contact-ice {
-    width: clamp(92px, 28vw, 150px);
+    width: clamp(115px, 35vw, 188px);
     height: auto;
     margin-left: 0;
   }
