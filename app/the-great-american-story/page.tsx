@@ -14,7 +14,8 @@ type SlotKey =
   | "slot11" | "slot12" | "slot13" | "slot14" | "slot15"
   | "slot16" | "slot17"
   | "slot18" | "slot19" | "slot20" | "slot21" | "slot22"
-  | "slot23";
+  | "slot23"
+  | "slot24" | "slot25";
 type SlotData = { rating: number; notes: string };
 type Reviews = Record<SlotKey, SlotData>;
 type Slot = {
@@ -26,6 +27,24 @@ type Slot = {
   // as a small italic note (used for Pass 05 direction descriptions).
   description?: string;
 };
+
+// APPROVED — final stakeholder-approved logos. Sole occupants of the
+// main Logos tab; everything earlier (Pass 05, Wildcards, Pass 04 ... )
+// is moved to the Logo Archive tab so reviewers see the live marks first.
+const APPROVED_SLOTS: Slot[] = [
+  {
+    id: "slot24",
+    label: "TGAJ Diamond",
+    image: "/great-american-story/TGAJ_Diamond.png",
+    downloadName: "TGAJ_Diamond.png",
+  },
+  {
+    id: "slot25",
+    label: "TGAJ Solo",
+    image: "/great-american-story/TGAJ_Solo.png",
+    downloadName: "TGAJ_Solo.png",
+  },
+];
 
 // Newest pass (03) — shown at the very top
 // PASS 05 — Stakeholder Refinements (Pass 04 in the design deck's numbering,
@@ -118,6 +137,7 @@ const PASS_01_SLOTS: Slot[] = [
 ];
 
 const ALL_SLOTS: Slot[] = [
+  ...APPROVED_SLOTS,
   ...PASS_05_SLOTS,
   ...WILDCARDS_SLOTS,
   ...PASS_04_SLOTS,
@@ -139,6 +159,13 @@ type GraphicsVideo = {
 type GraphicsSection = { label: string; videos: GraphicsVideo[] };
 
 const GRAPHICS_SECTIONS: GraphicsSection[] = [
+  {
+    label: "Logo Animation",
+    videos: [
+      { embedUrl: "https://framerate.tv/watch/94af7cef-a741-4b21-ae25-b7f3a95a7513", label: "TGAJ Diamond" },
+      { embedUrl: "https://framerate.tv/watch/438a9564-237c-4dd4-9df8-8c779920b921", label: "TGAJ Solo" },
+    ],
+  },
   {
     label: "Transitions",
     videos: [
@@ -441,9 +468,9 @@ function ReviewBoard() {
 
       {activeTab === "logos" && (
       <>
-      {/* PASS 05 — Stakeholder Refinements (the only pass shown on the
-          main Logos tab; earlier passes 04-01 live on the Logo Archive
-          tab so reviewers focus on the current round.) */}
+      {/* APPROVED — final-approved marks. Earlier passes (05, Wildcards,
+          04-01) live on the Logo Archive tab so reviewers see the live
+          logos first without scrolling. */}
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <div
           className="font-mono"
@@ -456,49 +483,10 @@ function ReviewBoard() {
             marginBottom: "clamp(28px, 4vw, 40px)",
           }}
         >
-          05 Logo Pass
+          Approved Logos
         </div>
         <div className="gas-grid">
-          {PASS_05_SLOTS.map((slot) => (
-            <SlotCard
-              key={slot.id}
-              slot={slot}
-              data={reviews[slot.id]}
-              onChange={(patch) => updateSlot(slot.id, patch)}
-              onSave={() => save(slot.id)}
-              onZoom={() => setZoomedSlot(slot.id)}
-              saving={savingSlot === slot.id}
-              saved={savedSlot === slot.id}
-              loaded={loaded}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* WILDCARDS — separate section at the bottom of the Logos tab,
-          outside the main pass numbering. Second slot is a placeholder
-          card until Eric drops the next render. */}
-      <div
-        style={{
-          maxWidth: "1100px",
-          margin: "clamp(64px, 10vw, 120px) auto 0",
-        }}
-      >
-        <div
-          className="font-mono"
-          style={{
-            fontSize: "13px",
-            letterSpacing: "4px",
-            textTransform: "uppercase",
-            color: "#C5A455",
-            textAlign: "center",
-            marginBottom: "clamp(28px, 4vw, 40px)",
-          }}
-        >
-          Wildcards
-        </div>
-        <div className="gas-grid">
-          {WILDCARDS_SLOTS.map((slot) => (
+          {APPROVED_SLOTS.map((slot) => (
             <SlotCard
               key={slot.id}
               slot={slot}
@@ -553,7 +541,94 @@ function ReviewBoard() {
         </div>
       </div>
 
-      {/* Newest pass (04) — sits at the very top */}
+      {/* Pass 05 — Stakeholder Refinements (previously on the main Logos
+          tab; moved here once the Approved set replaced it.) */}
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        <div
+          className="font-mono"
+          style={{
+            fontSize: "13px",
+            letterSpacing: "4px",
+            textTransform: "uppercase",
+            color: "#C5A455",
+            textAlign: "center",
+            marginBottom: "24px",
+          }}
+        >
+          05 Logo Pass
+        </div>
+        <div className="gas-grid">
+          {PASS_05_SLOTS.map((slot) => (
+            <SlotCard
+              key={slot.id}
+              slot={slot}
+              data={reviews[slot.id]}
+              onChange={(patch) => updateSlot(slot.id, patch)}
+              onSave={() => save(slot.id)}
+              onZoom={() => setZoomedSlot(slot.id)}
+              saving={savingSlot === slot.id}
+              saved={savedSlot === slot.id}
+              loaded={loaded}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Semi-thick gold divider between 05 and Wildcards */}
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "clamp(48px, 8vw, 80px) auto clamp(28px, 5vw, 48px)",
+          height: "3px",
+          background: "#C5A455",
+          opacity: 0.85,
+        }}
+      />
+
+      {/* Wildcards — one-off concepts outside the main pass numbering. */}
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        <div
+          className="font-mono"
+          style={{
+            fontSize: "13px",
+            letterSpacing: "4px",
+            textTransform: "uppercase",
+            color: "#C5A455",
+            textAlign: "center",
+            marginBottom: "24px",
+          }}
+        >
+          Wildcards
+        </div>
+        <div className="gas-grid">
+          {WILDCARDS_SLOTS.map((slot) => (
+            <SlotCard
+              key={slot.id}
+              slot={slot}
+              data={reviews[slot.id]}
+              onChange={(patch) => updateSlot(slot.id, patch)}
+              onSave={() => save(slot.id)}
+              onZoom={() => setZoomedSlot(slot.id)}
+              saving={savingSlot === slot.id}
+              saved={savedSlot === slot.id}
+              loaded={loaded}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Semi-thick gold divider between Wildcards and 04 */}
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "clamp(48px, 8vw, 80px) auto clamp(28px, 5vw, 48px)",
+          height: "3px",
+          background: "#C5A455",
+          opacity: 0.85,
+        }}
+      />
+
+      {/* Pass (04) */}
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <div
           className="font-mono"
