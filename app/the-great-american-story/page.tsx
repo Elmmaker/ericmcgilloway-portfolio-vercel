@@ -149,10 +149,12 @@ const ALL_SLOTS: Slot[] = [
 // Graphics tab — broadcast deliverables, mostly Framerate video embeds.
 // Drop embedUrls (and optional posters) into each section's `videos` array
 // as they come in; empty arrays render a "Coming Soon" placeholder.
-// Either `embedUrl` (Framerate iframe) or `src` (local mp4 in /public/clips/).
+// Either `embedUrl` (Framerate iframe), `src` (local mp4 in /public/clips/),
+// or `image` for static stills (no playback). Exactly one should be set.
 type GraphicsVideo = {
   embedUrl?: string;
   src?: string;
+  image?: string;
   label?: string;
   poster?: string;
 };
@@ -178,7 +180,13 @@ const GRAPHICS_SECTIONS: GraphicsSection[] = [
     ],
   },
   { label: "Maps", videos: [] },
-  { label: "Lowers", videos: [] },
+  {
+    label: "Lowers",
+    videos: [
+      { image: "/great-american-story/TGAJ_Lowers01_em.jpg", label: "Lowers 01" },
+      { image: "/great-american-story/TGAJ_Lowers02_em.jpg", label: "Lowers 02" },
+    ],
+  },
   { label: "Mortise", videos: [] },
   { label: "Credit Bed", videos: [] },
 ];
@@ -827,16 +835,28 @@ function ReviewBoard() {
               ) : (
                 <div className="gas-grid">
                   {section.videos.map((v) => (
-                    <div key={v.embedUrl ?? v.src}>
+                    <div key={v.embedUrl ?? v.src ?? v.image}>
                       <div
                         style={{
+                          position: "relative",
+                          aspectRatio: "16 / 9",
                           background: "#000",
                           border: "1px solid #2A251F",
                           borderRadius: "2px",
                           overflow: "hidden",
                         }}
                       >
-                        <VideoPlayer src={v.src} embedUrl={v.embedUrl} poster={v.poster} />
+                        {v.image ? (
+                          <Image
+                            src={v.image}
+                            alt={v.label ?? ""}
+                            fill
+                            sizes="(max-width: 700px) 100vw, 50vw"
+                            style={{ objectFit: "contain" }}
+                          />
+                        ) : (
+                          <VideoPlayer src={v.src} embedUrl={v.embedUrl} poster={v.poster} />
+                        )}
                       </div>
                       {v.label && (
                         <div
