@@ -928,10 +928,16 @@ function ReviewBoard() {
                               ? { download: downloadName }
                               : { target: "_blank", rel: "noopener noreferrer" })}
                             aria-label={`Download ${v.label ?? "asset"}`}
+                            className={isStill ? undefined : "tgas-video-dl"}
                             style={{
                               position: "absolute",
                               bottom: "10px",
-                              right: "56px",
+                              // Stills always show the fullscreen icon at right:10px, so the
+                              // download stays to its left at 56px. For videos the right
+                              // offset is controlled by .tgas-video-dl: flush to the right
+                              // edge on mobile (where Framerate's fullscreen icon is hidden),
+                              // and left of that icon on desktop.
+                              ...(isStill ? { right: "56px" } : null),
                               width: "36px",
                               height: "36px",
                               padding: 0,

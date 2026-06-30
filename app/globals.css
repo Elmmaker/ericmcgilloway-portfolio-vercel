@@ -1251,3 +1251,13 @@ body:has(.bright-bg) {
     margin-left: 0;
   }
 }
+
+/* ── THE GREAT AMERICAN STORY: video-frame download button ──
+   The video frames are Framerate embeds whose fullscreen icon sits at
+   right:10px on desktop but is hidden on mobile (≤768px). So the download
+   button hugs the right edge on mobile (nothing else is there) and tucks to
+   the LEFT of the fullscreen icon on desktop. */
+.tgas-video-dl { right: 10px; }
+@media (min-width: 769px) {
+  .tgas-video-dl { right: 56px; }
+}
