@@ -849,7 +849,12 @@ function ReviewBoard() {
                 </div>
               ) : (
                 <div className="gas-grid">
-                  {section.videos.map((v) => (
+                  {section.videos.map((v) => {
+                    const isStill = !!v.image;
+                    const downloadName = isStill
+                      ? v.image!.split("/").pop() ?? "download"
+                      : undefined;
+                    return (
                     <div key={v.embedUrl ?? v.src ?? v.image}>
                       <div
                         style={{
@@ -861,10 +866,10 @@ function ReviewBoard() {
                           overflow: "hidden",
                         }}
                       >
-                        {v.image ? (
+                        {isStill ? (
                           <>
                             <Image
-                              src={v.image}
+                              src={v.image!}
                               alt={v.label ?? ""}
                               fill
                               sizes="(max-width: 700px) 100vw, 50vw"
@@ -911,6 +916,51 @@ function ReviewBoard() {
                         ) : (
                           <VideoPlayer src={v.src} embedUrl={v.embedUrl} poster={v.poster} />
                         )}
+                        {/* Download icon — for stills, direct-downloads the image;
+                            for videos, opens the Framerate watch URL in a new tab
+                            (Framerate's player has the canonical download button).
+                            Sits at right: 56px so it doesn't collide with the
+                            fullscreen icon at right: 10px. */}
+                        {(isStill || v.embedUrl || v.src) && (
+                          <a
+                            href={isStill ? v.image! : (v.embedUrl ?? v.src)!}
+                            {...(isStill
+                              ? { download: downloadName }
+                              : { target: "_blank", rel: "noopener noreferrer" })}
+                            aria-label={`Download ${v.label ?? "asset"}`}
+                            style={{
+                              position: "absolute",
+                              bottom: "10px",
+                              right: "56px",
+                              width: "36px",
+                              height: "36px",
+                              padding: 0,
+                              background: "rgba(13, 12, 10, 0.7)",
+                              border: "1px solid #C5A455",
+                              borderRadius: "2px",
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              backdropFilter: "blur(4px)",
+                              textDecoration: "none",
+                              zIndex: 5,
+                            }}
+                          >
+                            <svg
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="#C5A455"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                            </svg>
+                          </a>
+                        )}
                       </div>
                       {v.label && (
                         <div
@@ -926,7 +976,8 @@ function ReviewBoard() {
                         </div>
                       )}
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
