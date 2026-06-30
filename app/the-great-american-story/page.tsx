@@ -327,6 +327,9 @@ function ReviewBoard() {
   const [savingSlot, setSavingSlot] = useState<SlotKey | null>(null);
   const [savedSlot, setSavedSlot] = useState<SlotKey | null>(null);
   const [zoomedSlot, setZoomedSlot] = useState<SlotKey | null>(null);
+  // Lightbox source for Graphics-tab stills (Lowers, Maps, etc.) — these
+  // aren't review slots, so they get their own zoom state.
+  const [zoomedStill, setZoomedStill] = useState<{ image: string; label: string } | null>(null);
   const [activeTab, setActiveTab] = useState<
     "logos" | "archive" | "graphics"
   >("logos");
@@ -341,17 +344,29 @@ function ReviewBoard() {
       .catch(() => setLoaded(true));
   }, []);
 
-  // Close lightbox on Escape
+  // Close lightbox on Escape (covers both slot zooms and still zooms)
   useEffect(() => {
-    if (!zoomedSlot) return;
+    if (!zoomedSlot && !zoomedStill) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setZoomedSlot(null);
+      if (e.key === "Escape") {
+        setZoomedSlot(null);
+        setZoomedStill(null);
+      }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [zoomedSlot]);
+  }, [zoomedSlot, zoomedStill]);
 
-  const zoomedSlotData = zoomedSlot ? ALL_SLOTS.find((s) => s.id === zoomedSlot) : null;
+  // Unified lightbox source: a SlotCard zoom resolves to its slot's image +
+  // label; a Graphics-tab still zoom uses zoomedStill directly. The two are
+  // mutually exclusive in practice — close handlers clear both.
+  const lightboxImage = zoomedSlot
+    ? ALL_SLOTS.find((s) => s.id === zoomedSlot) ?? null
+    : zoomedStill;
+  const closeLightbox = () => {
+    setZoomedSlot(null);
+    setZoomedStill(null);
+  };
 
   function updateSlot(slot: SlotKey, patch: Partial<SlotData>) {
     setReviews((prev) => ({ ...prev, [slot]: { ...prev[slot], ...patch } }));
@@ -847,13 +862,52 @@ function ReviewBoard() {
                         }}
                       >
                         {v.image ? (
-                          <Image
-                            src={v.image}
-                            alt={v.label ?? ""}
-                            fill
-                            sizes="(max-width: 700px) 100vw, 50vw"
-                            style={{ objectFit: "contain" }}
-                          />
+                          <>
+                            <Image
+                              src={v.image}
+                              alt={v.label ?? ""}
+                              fill
+                              sizes="(max-width: 700px) 100vw, 50vw"
+                              style={{ objectFit: "contain" }}
+                            />
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setZoomedStill({ image: v.image!, label: v.label ?? "" })
+                              }
+                              aria-label={`View ${v.label ?? "still"} fullscreen`}
+                              style={{
+                                position: "absolute",
+                                bottom: "10px",
+                                right: "10px",
+                                width: "36px",
+                                height: "36px",
+                                padding: 0,
+                                background: "rgba(13, 12, 10, 0.7)",
+                                border: "1px solid #C5A455",
+                                borderRadius: "2px",
+                                cursor: "pointer",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                backdropFilter: "blur(4px)",
+                                zIndex: 5,
+                              }}
+                            >
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#C5A455"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                <path d="M3 8V3h5M21 8V3h-5M3 16v5h5M21 16v5h-5" />
+                              </svg>
+                            </button>
+                          </>
                         ) : (
                           <VideoPlayer src={v.src} embedUrl={v.embedUrl} poster={v.poster} />
                         )}
@@ -881,19 +935,19 @@ function ReviewBoard() {
       )}
 
       {/* Lightbox: black background, centered image, rotates on portrait phones */}
-      {zoomedSlotData && (
+      {lightboxImage && (
         <div
-          onClick={() => setZoomedSlot(null)}
+          onClick={closeLightbox}
           role="dialog"
           aria-modal="true"
-          aria-label={`${zoomedSlotData.label} enlarged`}
+          aria-label={`${lightboxImage.label} enlarged`}
           className="gas-lightbox"
         >
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              setZoomedSlot(null);
+              closeLightbox();
             }}
             aria-label="Close"
             className="font-mono"
@@ -917,8 +971,8 @@ function ReviewBoard() {
           </button>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={zoomedSlotData.image}
-            alt={zoomedSlotData.label}
+            src={lightboxImage.image}
+            alt={lightboxImage.label}
             className="gas-lightbox-img"
             onClick={(e) => e.stopPropagation()}
           />
