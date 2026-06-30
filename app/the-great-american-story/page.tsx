@@ -179,7 +179,6 @@ const GRAPHICS_SECTIONS: GraphicsSection[] = [
       { embedUrl: "https://framerate.tv/watch/5cf4bf26-78e2-4d48-b355-8f81eb4f983d", label: "Tranz Bokeh 02", poster: "/great-american-story/poster-tranz-bokeh-02.jpg" },
     ],
   },
-  { label: "Maps", videos: [] },
   {
     label: "Lowers",
     videos: [
@@ -187,6 +186,7 @@ const GRAPHICS_SECTIONS: GraphicsSection[] = [
       { image: "/great-american-story/TGAJ_Lowers02_em.jpg", label: "Lowers 02" },
     ],
   },
+  { label: "Maps", videos: [] },
   { label: "Mortise", videos: [] },
   { label: "Credit Bed", videos: [] },
 ];
