@@ -182,8 +182,8 @@ const GRAPHICS_SECTIONS: GraphicsSection[] = [
   {
     label: "Lowers",
     videos: [
-      { image: "/great-american-story/TGAJ_Lowers01_em.jpg", label: "Lowers 01" },
-      { image: "/great-american-story/TGAJ_Lowers02_em.jpg", label: "Lowers 02" },
+      { embedUrl: "https://framerate.tv/watch/849ae631-eaf3-4e06-bad2-4af90d10fe56", label: "Lowers 01" },
+      { embedUrl: "https://framerate.tv/watch/e77ba326-597b-40f8-825b-e42ebf495a37", label: "Lowers 02" },
     ],
   },
   { label: "Maps", videos: [] },
