@@ -57,6 +57,20 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Serve THE FUZZYS storyboard (its own Vercel project) at /thefuzzys
+  // while keeping ericmcgilloway.com/thefuzzys in the browser address bar.
+  async rewrites() {
+    return [
+      {
+        source: "/thefuzzys",
+        destination: "https://thefuzzys.ericmcgilloway.com",
+      },
+      {
+        source: "/thefuzzys/:path*",
+        destination: "https://thefuzzys.ericmcgilloway.com/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
