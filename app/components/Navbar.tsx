@@ -9,7 +9,6 @@ import { createPortal } from "react-dom";
    dark Ubuntu wordmark nav. Hidden on self-contained pitch pages so
    they keep their own framing. */
 const HIDDEN_ROUTES = [
-  "/ring-by-spring-break",
   "/the-great-american-story",
   "/spaceman",
   "/the-last-persian-uncle",
