@@ -135,7 +135,16 @@ export default function Home() {
       <BrightBackground />
       <Clouds />
       <Hero />
-      <ReelSection />
+      <ReelSection
+        label="Motion Graphics Reel"
+        src="https://framerate.tv/embed/ae9a01d6-db89-41ba-8666-e36b48babea0"
+        title="Eric McGilloway Motion Graphics Reel"
+      />
+      <ReelSection
+        label="VFX Reel"
+        src="https://framerate.tv/embed/ZN1uuAYq"
+        title="Eric McGilloway VFX Reel"
+      />
       <WorkSection />
       <AboutSection />
       <KudosSection />
@@ -239,15 +248,23 @@ function Hero() {
 
 /* ─────────────────── REEL ─────────────────── */
 
-function ReelSection() {
+function ReelSection({
+  label,
+  src,
+  title,
+}: {
+  label: string;
+  src: string;
+  title: string;
+}) {
   return (
     <>
-      <BrightSectionHead label="Motion Graphics Reel" />
+      <BrightSectionHead label={label} />
       <div className="bright-reel-inner reveal">
         <div className="bright-reel-frame">
           <iframe
-            src="https://framerate.tv/embed/ae9a01d6-db89-41ba-8666-e36b48babea0"
-            title="Eric McGilloway Motion Graphics Reel"
+            src={src}
+            title={title}
             allow="autoplay; fullscreen"
             allowFullScreen
           />
