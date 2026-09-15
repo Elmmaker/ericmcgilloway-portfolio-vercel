@@ -617,6 +617,28 @@ body:has(.bright-bg) {
   border: 0;
 }
 
+/* Three reels shown side-by-side under the "Reels" section head.
+   Stacks single-column below 900px so each iframe stays viewable. */
+.bright-reels-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-bright);
+  margin: 0 auto;
+  padding: 0 var(--pad-bright) var(--py-bright);
+}
+.bright-reels-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-bright);
+}
+.bright-reel-card {
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 900px) {
+  .bright-reels-row { grid-template-columns: 1fr; }
+}
+
 /* ── WORK GRID (home) ── */
 .bright-work-inner {
   position: relative;

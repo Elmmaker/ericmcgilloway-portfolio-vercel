@@ -135,21 +135,7 @@ export default function Home() {
       <BrightBackground />
       <Clouds />
       <Hero />
-      <ReelSection
-        label="Motion Graphics Reel"
-        src="https://framerate.tv/embed/ae9a01d6-db89-41ba-8666-e36b48babea0"
-        title="Eric McGilloway Motion Graphics Reel"
-      />
-      <ReelSection
-        label="The Pursuit of Dreamers"
-        src="https://framerate.tv/embed/44c2d0df-e4b4-4862-853f-8dfd02880f3f"
-        title="The Pursuit of Dreamers — Lockheed Martin"
-      />
-      <ReelSection
-        label="VFX Reel"
-        src="https://framerate.tv/embed/ZN1uuAYq"
-        title="Eric McGilloway VFX Reel"
-      />
+      <ReelsRow />
       <WorkSection />
       <AboutSection />
       <KudosSection />
@@ -253,29 +239,63 @@ function Hero() {
 
 /* ─────────────────── REEL ─────────────────── */
 
-function ReelSection({
-  label,
-  src,
-  title,
-}: {
-  label: string;
-  src: string;
-  title: string;
-}) {
+/* Three reels shown side-by-side. The Pursuit card carries its own
+   tag + full title below the iframe; the other two show a short
+   caption. Stacks single-column below 900px. */
+function ReelsRow() {
   return (
     <>
-      <BrightSectionHead label={label} />
-      <div className="bright-reel-inner reveal">
-        <div className="bright-reel-frame">
-          <iframe
-            src={src}
-            title={title}
-            allow="autoplay; fullscreen"
-            allowFullScreen
+      <BrightSectionHead label="Reels" />
+      <div className="bright-reels-wrap reveal">
+        <div className="bright-reels-row">
+          <ReelCard
+            src="https://framerate.tv/embed/ae9a01d6-db89-41ba-8666-e36b48babea0"
+            title="Eric McGilloway Motion Graphics Reel"
+            caption="Motion Graphics Reel"
+          />
+          <ReelCard
+            src="https://framerate.tv/embed/44c2d0df-e4b4-4862-853f-8dfd02880f3f"
+            title="The Pursuit of Dreamers — Lockheed Martin"
+            tag="Aerospace Concept"
+            caption="The Pursuit of Dreamers — Edit & Interactive 3D for Lockheed Martin, Palmdale"
+          />
+          <ReelCard
+            src="https://framerate.tv/embed/ZN1uuAYq"
+            title="Eric McGilloway VFX Reel"
+            caption="VFX Reel"
           />
         </div>
       </div>
     </>
+  );
+}
+
+function ReelCard({
+  src,
+  title,
+  tag,
+  caption,
+}: {
+  src: string;
+  title: string;
+  tag?: string;
+  caption: string;
+}) {
+  return (
+    <div className="bright-reel-card">
+      <div className="bright-reel-frame">
+        <iframe
+          src={src}
+          title={title}
+          allow="autoplay; fullscreen"
+          allowFullScreen
+        />
+      </div>
+      <div className="bright-witem-meta">
+        {tag && <span className="bright-witem-tag">{tag}</span>}
+        <h3 className="bright-witem-title">{caption}</h3>
+      </div>
+    </div>
   );
 }
 
