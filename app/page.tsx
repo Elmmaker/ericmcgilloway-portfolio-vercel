@@ -254,7 +254,8 @@ function ReelsRow() {
             caption="Motion Graphics Reel"
           />
           <ReelCard
-            src="https://framerate.tv/embed/44c2d0df-e4b4-4862-853f-8dfd02880f3f"
+            href="/lm"
+            poster="/lm/poster.jpg"
             title="The Pursuit of Dreamers — Lockheed Martin"
             tag="Aerospace Concept"
             caption="The Pursuit of Dreamers — Edit & Interactive 3D for Lockheed Martin, Palmdale"
@@ -275,22 +276,43 @@ function ReelCard({
   title,
   tag,
   caption,
+  href,
+  poster,
 }: {
-  src: string;
+  src?: string;
   title: string;
   tag?: string;
   caption: string;
+  href?: string;
+  poster?: string;
 }) {
+  const frame = href ? (
+    <Link
+      href={href}
+      className="bright-reel-frame bright-reel-link"
+      aria-label={title}
+    >
+      <Image
+        src={poster!}
+        alt={title}
+        fill
+        sizes="(max-width: 900px) 100vw, 33vw"
+        style={{ objectFit: "cover" }}
+      />
+    </Link>
+  ) : (
+    <div className="bright-reel-frame">
+      <iframe
+        src={src!}
+        title={title}
+        allow="autoplay; fullscreen"
+        allowFullScreen
+      />
+    </div>
+  );
   return (
     <div className="bright-reel-card">
-      <div className="bright-reel-frame">
-        <iframe
-          src={src}
-          title={title}
-          allow="autoplay; fullscreen"
-          allowFullScreen
-        />
-      </div>
+      {frame}
       <div className="bright-witem-meta">
         {tag && <span className="bright-witem-tag">{tag}</span>}
         <h3 className="bright-witem-title">{caption}</h3>

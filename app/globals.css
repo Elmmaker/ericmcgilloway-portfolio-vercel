@@ -635,6 +635,15 @@ body:has(.bright-bg) {
   display: flex;
   flex-direction: column;
 }
+/* When a reel card is a link (LM), the frame becomes an <a>. Anchors
+   are inline by default; force block so padding-top:56.25% creates the
+   16:9 box. Subtle hover feedback signals it's clickable. */
+.bright-reel-link {
+  display: block;
+  text-decoration: none;
+  transition: opacity .18s, transform .18s;
+}
+.bright-reel-link:hover { opacity: .9; transform: translateY(-2px); }
 @media (max-width: 900px) {
   .bright-reels-row { grid-template-columns: 1fr; }
 }
