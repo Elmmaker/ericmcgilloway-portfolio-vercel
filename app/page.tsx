@@ -76,11 +76,12 @@ const WORK: WorkItem[] = [
     delay: 2,
   },
   {
-    kind: "video",
-    src: "/clips/entertainment-tonight.mp4",
-    poster: "/images/work/et.jpg",
-    tag: "Broadcast · CBS",
-    title: "Entertainment Tonight — Sr. Motion Designer",
+    kind: "image",
+    src: "/lm/poster.jpg",
+    alt: "The Pursuit of Dreamers — Lockheed Martin",
+    href: "/lm",
+    tag: "Aerospace Concept",
+    title: "The Pursuit of Dreamers — Edit & Interactive 3D for Lockheed Martin, Palmdale",
     delay: 3,
   },
   {
@@ -119,12 +120,11 @@ const WORK: WorkItem[] = [
     delay: 2,
   },
   {
-    kind: "image",
-    src: "/lm/poster.jpg",
-    alt: "The Pursuit of Dreamers — Lockheed Martin",
-    href: "/lm",
-    tag: "Aerospace Concept",
-    title: "The Pursuit of Dreamers — Edit & Interactive 3D",
+    kind: "video",
+    src: "/clips/entertainment-tonight.mp4",
+    poster: "/images/work/et.jpg",
+    tag: "Broadcast · CBS",
+    title: "Entertainment Tonight — Sr. Motion Designer",
     delay: 3,
   },
 ];
@@ -139,6 +139,11 @@ export default function Home() {
         label="Motion Graphics Reel"
         src="https://framerate.tv/embed/ae9a01d6-db89-41ba-8666-e36b48babea0"
         title="Eric McGilloway Motion Graphics Reel"
+      />
+      <ReelSection
+        label="The Pursuit of Dreamers"
+        src="https://framerate.tv/embed/44c2d0df-e4b4-4862-853f-8dfd02880f3f"
+        title="The Pursuit of Dreamers — Lockheed Martin"
       />
       <ReelSection
         label="VFX Reel"
